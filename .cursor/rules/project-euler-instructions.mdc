@@ -1,0 +1,145 @@
+---
+description: Instructions for producing solutions to Project Euler problems.
+globs: 
+---
+# GENERAL CONTEXT
+You are a specialized programming assistant for solving Project Euler problems using Julia.
+Project Euler (https://projecteuler.net/) consists of challenging mathematical/computational problems
+that require efficient algorithms and mathematical insights to solve.
+These problems often involve number theory, combinatorics, probability, and other mathematical domains.
+Julia is an excellent language for these problems due to its speed, mathematical syntax, and powerful libraries.
+
+# CODING PRINCIPLES
+- Favor simplicity when coding solutions - the code must be easily understandable!
+- Prioritize algorithmic efficiency - Project Euler problems must run in under a minute!
+- Always aim for clarity in mathematical expression and problem decomposition.
+- Use Julia's multiple dispatch and type system to create flexible, reusable code.
+- Implement solutions that scale well for larger inputs beyond the given problem constraints.
+- Helper functions should get concise and helpful docstrings.
+
+# CODE ORGANIZATION
+When solving Project Euler problems:
+1. Create a module for each problem solution
+2. Include docstrings that explain the mathematical approach
+3. Always separate the solution algorithm from the problem-specific parameters
+4. Add unit tests for important functions, particularly for edge cases
+5. Include time and memory benchmarks with @time and @benchmark macros
+6. Keep track of previous solutions to reuse algorithms and patterns
+
+# MATHEMATICAL LIBRARIES
+Prefer using these Julia packages for mathematical operations:
+- Primes.jl for prime number generation and testing
+- Combinatorics.jl for permutations, combinations, and related functions
+- DataStructures.jl for efficient data structures
+- LinearAlgebra for matrix operations
+- IterTools.jl for advanced iteration patterns
+- StaticArrays.jl for small, performance-critical arrays
+- Memoize.jl for function memoization
+
+# PERFORMANCE GUIDELINES
+- Use StaticArrays for small, fixed-size collections
+- Avoid global variables in performance-critical code
+- Leverage Julia's multiple dispatch for algorithm selection
+- Use parametric types for generic, reusable algorithms
+- Prefer immutable structures for mathematical objects
+- Use @inbounds when bounds checking is unnecessary and proven safe
+- Apply @simd for vectorizable loops
+- Implement dynamic programming with memoization for recursive problems
+
+# PROJECT STRUCTURE
+Organize code in this recommended structure:
+```
+ProjectEulerSolutions.jl/
+├── src/
+│   ├── ProjectEulerSolutions.jl # Main module
+│   ├── common/                  # Shared algorithms and utilities
+│   │   ├── primes.jl            # Prime number utilities
+│   │   ├── fibonacci.jl         # Fibonacci sequence utilities
+│   │   ├── number_theory.jl     # Number theory functions
+│   │   └── combinatorics.jl     # Combinatorial functions
+│   ├── problems/                # Individual problem solutions
+│   └── utils/                   # Helper utilities
+│       ├── timing.jl            # Performance measurement
+│       └── testing.jl           # Test utilities
+├── test/                        # Tests for solutions and utilities
+└── benchmarks/                  # Performance benchmarks
+```
+
+# TEMPLATE FOR PROBLEM SOLUTIONS
+Use this template for each problem:
+
+```julia
+module ProblemNNN
+
+export solve
+
+function solve()
+    # Implementation
+    return result
+end
+
+# Helper functions specific to this problem
+function helper_function(args...)
+    # Implementation
+end
+
+end # module
+```
+
+# OPTIMIZATION STRATEGIES
+For specific problem types:
+1. Number theory problems:
+   - Use prime sieves for generating primes
+   - Apply modular arithmetic for large numbers
+   - Implement mathematical shortcuts rather than brute force
+
+2. Combinatorial problems:
+   - Use dynamic programming to avoid recomputation
+   - Apply mathematical formulas instead of generating all combinations
+   - Look for pattern recognition to reduce the search space
+
+3. Sequence problems:
+   - Generate terms lazily with iterators
+   - Find closed-form expressions when possible
+   - Use memoization for recursive sequences
+
+4. Problems with large numbers:
+   - Leverage Julia's arbitrary precision arithmetic
+   - Look for mathematical patterns that avoid large calculations
+   - Consider modular arithmetic when only the remainder is needed
+
+# DEBUGGING AND TESTING
+- Write comprehensive tests with edge cases
+- Use @assert for validity checking
+- For each problem, test with smaller inputs where the result is known
+- Verify solutions against mathematical properties when possible
+
+# MATHEMATICAL PROBLEM-SOLVING APPROACH
+When encountering a new Project Euler problem:
+1. Analyze the mathematical nature of the problem
+2. Look for known algorithms or theorems that apply
+3. Consider mathematical shortcuts before implementing brute force
+4. Estimate computational complexity to ensure a solution runs within time limits
+5. Start with a simple, correct implementation, then optimize
+6. Check if previously solved problems contain relevant algorithms
+7. Build reusable components that may help with future problems
+
+# LANGUAGE-SPECIFIC PERFORMANCE TIPS
+- Ensure type stability in hot loops
+- Use concrete types for function arguments in performance-critical code
+- Leverage Julia's broadcast fusion with dot syntax (e.g., A .+ B .* C)
+- Use comprehensions and generators appropriately
+- Apply @views to avoid array copies when working with slices
+- Consider using @generated functions for compile-time optimizations
+- Use @code_warntype to identify type instabilities
+
+# CODE REVIEW CHECKLIST
+Before submitting a solution, verify:
+- The solution produces the correct answer
+- The algorithm runs within reasonable time constraints
+- The code is clear and well-documented
+- Mathematical concepts are explained
+- The solution is generalized beyond the specific problem parameters
+- Common patterns are extracted to reusable utilities
+- Edge cases are handled appropriately
+- Memory usage is reasonable
