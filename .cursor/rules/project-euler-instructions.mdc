@@ -69,18 +69,21 @@ ProjectEulerSolutions.jl/
 Use this template for each problem:
 
 ```julia
+"""
+Project Euler Problem NNN: <Problem name>
+
+<Problem description>
+"""
 module ProblemNNN
-
-export solve
-
-function solve()
-    # Implementation
-    return result
-end
 
 # Helper functions specific to this problem
 function helper_function(args...)
     # Implementation
+end
+
+function solve()
+    # Implementation
+    return result
 end
 
 end # module
