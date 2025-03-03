@@ -9,4 +9,5 @@ using SafeTestsets
     @safetestset "Problem 005" include("test_problem005.jl")
     @safetestset "Problem 006" include("test_problem006.jl")
     @safetestset "Problem 007" include("test_problem007.jl")
+    @safetestset "Problem 008" include("test_problem008.jl")
 end
