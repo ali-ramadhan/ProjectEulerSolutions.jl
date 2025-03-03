@@ -18,4 +18,5 @@ using SafeTestsets
     @safetestset "Problem 014" include("test_problem014.jl")
     @safetestset "Problem 015" include("test_problem015.jl")
     @safetestset "Problem 016" include("test_problem016.jl")
+    @safetestset "Problem 017" include("test_problem017.jl")
 end
