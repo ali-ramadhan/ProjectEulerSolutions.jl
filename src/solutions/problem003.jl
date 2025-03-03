@@ -15,7 +15,7 @@ function largest_prime_factor(n)
     largest_factor = 1
     
     factor = 2
-    while factor * factor <= n
+    while factor^2 <= n
         if n % factor == 0
             largest_factor = factor
             n = n ÷ factor
