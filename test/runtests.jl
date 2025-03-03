@@ -6,4 +6,5 @@ using SafeTestsets
     @safetestset "Problem 002" include("test_problem002.jl")
     @safetestset "Problem 003" include("test_problem003.jl")
     @safetestset "Problem 004" include("test_problem004.jl")
+    @safetestset "Problem 005" include("test_problem005.jl")
 end

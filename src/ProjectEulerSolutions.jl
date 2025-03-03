@@ -1,6 +1,6 @@
 module ProjectEulerSolutions
 
-for n in 1:4
+for n in 1:5
     n_padded = lpad(n, 3, '0')
     include("solutions/problem$n_padded.jl")
 end
