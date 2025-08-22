@@ -25,5 +25,29 @@ single_element = [10]
 small_matrix = [1 3; 2 1]
 @test find_minimal_path_sum(small_matrix) == 4
 
-# Test solve function with example matrix
+# Test rectangular matrices (non-square)
+rectangular_matrix = [1 2 3; 4 5 6]
+@test find_minimal_path_sum(rectangular_matrix) == 12  # Path: 1→2→3→6
+
+# Test single row
+single_row = reshape([1, 2, 3, 4], 1, 4)
+@test find_minimal_path_sum(single_row) == 10  # Path: 1→2→3→4
+
+# Test single column  
+single_col = reshape([1, 2, 3, 4], 4, 1)
+@test find_minimal_path_sum(single_col) == 10  # Path: 1→2→3→4
+
+# Test matrix with uniform values
+uniform_matrix = fill(5, 3, 3)
+@test find_minimal_path_sum(uniform_matrix) == 25  # Path: 5×5 (5 steps total)
+
+# Test another small example to verify path logic
+# Matrix: [1 9 9]
+#         [9 1 9] 
+#         [9 9 1]
+# Optimal path: 1→9→1→9→1 = 21 (only right/down moves allowed)
+zigzag_matrix = [1 9 9; 9 1 9; 9 9 1]
+@test find_minimal_path_sum(zigzag_matrix) == 21
+
+# Test solve function with actual data
 @test solve() == 427337
