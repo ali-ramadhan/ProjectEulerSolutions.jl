@@ -71,7 +71,7 @@ empty_matrix = Array{Int}(undef, 0, 0)
 # Test matrix where straight diagonal isn't optimal
 # Matrix: [1   100  100  1]
 #         [100  1    1  100]
-#         [100  1    1  100]  
+#         [100  1    1  100]
 #         [1   100  100   1]
 # Complex path through the matrix
 diagonal_avoid = [1 100 100 1; 100 1 1 100; 100 1 1 100; 1 100 100 1]
@@ -80,3 +80,13 @@ diagonal_avoid = [1 100 100 1; 100 1 1 100; 100 1 1 100; 1 100 100 1]
 
 # Test solve function with actual data
 @test solve() == 425185
+
+# Test maze-like structure (inspired by AgentAnderson's visual path)
+maze_matrix = [1 100 1 1 1;
+               1 100 1 100 1;
+               1 1 1 100 1;
+               100 100 100 100 1;
+               1 1 1 1 1]
+
+# Should find path avoiding the 100s where possible
+@test find_minimal_path_sum(maze_matrix) == 13
