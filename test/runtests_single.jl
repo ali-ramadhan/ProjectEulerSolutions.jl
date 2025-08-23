@@ -48,13 +48,8 @@ end
 
 if abspath(PROGRAM_FILE) == @__FILE__
     if length(ARGS) == 1
-        try
-            problem_num = parse(Int, ARGS[1])
-            test_problem(problem_num)
-        catch e
-            println("Error: Invalid problem number '$(ARGS[1])'. Please enter a valid number.")
-            exit(1)
-        end
+        problem_num = parse(Int, ARGS[1])
+        test_problem(problem_num)
     else
         println("Usage: julia runtests_single.jl [problem_number]")
         println("Examples:")
