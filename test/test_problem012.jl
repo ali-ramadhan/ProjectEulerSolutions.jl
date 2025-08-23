@@ -1,4 +1,7 @@
-using ProjectEulerSolutions.Problem012: count_divisors, find_first_triangle_with_divisors, solve
+using ProjectEulerSolutions.Problem012: find_first_triangle_with_divisors, solve
+using ProjectEulerSolutions.Utils.Divisors: get_divisors
+
+count_divisors(n) = length(get_divisors(n))
 
 @test count_divisors(1) == 1
 @test count_divisors(3) == 2

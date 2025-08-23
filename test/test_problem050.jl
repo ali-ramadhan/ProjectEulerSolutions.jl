@@ -1,4 +1,4 @@
-using ProjectEulerSolutions.Problem050: generate_primes, find_longest_consecutive_prime_sum, solve
+using ProjectEulerSolutions.Problem050: find_longest_consecutive_prime_sum, solve
 
 prime_100, length_100 = find_longest_consecutive_prime_sum(100)
 @test prime_100 == 41

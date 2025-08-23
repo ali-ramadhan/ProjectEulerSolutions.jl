@@ -6,35 +6,16 @@ Find the sum of all the primes below two million.
 """
 module Problem010
 
+using ProjectEulerSolutions.Utils.Primes: sieve_of_eratosthenes
+
 """
     sum_of_primes_below(limit)
 
 Calculate the sum of all prime numbers below limit using the Sieve of Eratosthenes.
-This algorithm efficiently identifies primes by eliminating multiples in O(n log log n) time.
 """
 function sum_of_primes_below(limit)
-    is_prime = fill(true, limit)
-    is_prime[1] = false
-    
-    # Apply the Sieve of Eratosthenes
-    for i in 2:isqrt(limit)
-        if is_prime[i]
-            # Mark all multiples of i as non-prime
-            for j in i^2:i:limit
-                is_prime[j] = false
-            end
-        end
-    end
-    
-    # Sum up all prime numbers
-    sum = 0
-    for i in 1:limit-1
-        if is_prime[i]
-            sum += i
-        end
-    end
-    
-    return sum
+    primes = sieve_of_eratosthenes(limit)
+    return sum(primes)
 end
 
 function solve()

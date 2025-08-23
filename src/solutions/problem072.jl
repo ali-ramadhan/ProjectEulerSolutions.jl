@@ -14,6 +14,8 @@ How many elements would be contained in the set of reduced proper fractions for 
 """
 module Problem072
 
+using ProjectEulerSolutions.Utils.NumberTheory: totient_sieve
+
 """
     count_reduced_proper_fractions(limit)
 
@@ -24,20 +26,7 @@ This is equivalent to the sum of Euler's totient function φ(d) for d from 2 to 
 Uses a sieve-like approach for efficient computation of all φ values.
 """
 function count_reduced_proper_fractions(limit)
-    # Initialize phi[i] = i for i from 1 to limit
-    phi = collect(1:limit)
-    
-    # Sieve-like approach to compute phi values
-    for p in 2:limit
-        # If phi[p] == p, then p is prime
-        if phi[p] == p
-            # Update phi values for p and its multiples
-            for j in p:p:limit
-                # phi[j] = phi[j] * (1 - 1/p) = phi[j] - phi[j]/p
-                phi[j] -= phi[j] ÷ p
-            end
-        end
-    end
+    phi = totient_sieve(limit)
     
     result = BigInt(0)
     for d in 2:limit

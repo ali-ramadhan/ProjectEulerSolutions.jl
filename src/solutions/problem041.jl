@@ -9,44 +9,8 @@ What is the largest n-digit pandigital prime that exists?
 module Problem041
 
 using Combinatorics
-
-"""
-    is_prime(n)
-
-Check if n is prime using trial division with 6k±1 optimization.
-Only checks divisors up to sqrt(n) and filters common cases.
-"""
-function is_prime(n)
-    n <= 1 && return false
-    n <= 3 && return true
-
-    if n % 2 == 0 || n % 3 == 0
-        return false
-    end
-
-    i = 5
-    while i^2 <= n
-        if n % i == 0 || n % (i + 2) == 0
-            return false
-        end
-        i += 6
-    end
-
-    return true
-end
-
-"""
-    digits_to_number(digits)
-
-Convert an array of digits to a number.
-"""
-function digits_to_number(digits)
-    num = 0
-    for d in digits
-        num = num * 10 + d
-    end
-    return num
-end
+using ProjectEulerSolutions.Utils.Primes: is_prime
+using ProjectEulerSolutions.Utils.Digits: digits_to_number
 
 """
     find_largest_pandigital_prime()

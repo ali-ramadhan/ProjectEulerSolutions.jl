@@ -13,37 +13,10 @@ Find the difference between the sum of the squares of the first one hundred natu
 """
 module Problem006
 
-"""
-    sum_of_squares(n)
-
-Calculate the sum of squares of the first n natural numbers.
-"""
-function sum_of_squares(n)
-    return n * (n + 1) * (2 * n + 1) ÷ 6
-end
-
-"""
-    square_of_sum(n)
-
-Calculate the square of the sum of the first n natural numbers.
-"""
-function square_of_sum(n)
-    sum = n * (n + 1) ÷ 2
-    return sum^2
-end
-
-"""
-    sum_square_difference(n)
-
-Find the difference between the square of the sum and the sum of squares
-of the first n natural numbers.
-"""
-function sum_square_difference(n)
-    return square_of_sum(n) - sum_of_squares(n)
-end
+using ProjectEulerSolutions.Utils.Sequences: sum_of_squares, square_of_sum
 
 function solve()
-    return sum_square_difference(100)
+    return square_of_sum(100) - sum_of_squares(100)
 end
 
 end # module

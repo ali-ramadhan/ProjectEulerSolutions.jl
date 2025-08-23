@@ -17,36 +17,7 @@ Find the sum of all the positive integers which cannot be written as the sum of 
 """
 module Problem023
 
-"""
-    sum_of_proper_divisors(n)
-
-Calculate the sum of all proper divisors of a number n.
-A proper divisor is a positive integer that divides n, excluding n itself.
-"""
-function sum_of_proper_divisors(n)
-    # Start with 1 as all numbers have 1 as a divisor
-    sum = 1
-
-    for i in 2:isqrt(n)
-        if n % i == 0
-            sum += i
-            if i != n ÷ i
-                sum += n ÷ i
-            end
-        end
-    end
-
-    return sum
-end
-
-"""
-    is_abundant(n)
-
-Check if a number is abundant, which means the sum of its proper divisors exceeds the number itself.
-"""
-function is_abundant(n)
-    return sum_of_proper_divisors(n) > n
-end
+using ProjectEulerSolutions.Utils.Divisors: is_abundant
 
 """
     find_abundant_numbers(limit)

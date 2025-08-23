@@ -11,54 +11,9 @@ another prime.
 """
 module Problem060
 
-"""
-    is_prime(n)
+using ProjectEulerSolutions.Utils.Primes: is_prime, sieve_of_eratosthenes
 
-Check if a number is prime using trial division with 6k±1 optimization.
-"""
-function is_prime(n)
-    n <= 1 && return false
-    n <= 3 && return true
-    n % 2 == 0 && return false
-    n % 3 == 0 && return false
 
-    i = 5
-    while i * i <= n
-        if n % i == 0 || n % (i + 2) == 0
-            return false
-        end
-        i += 6
-    end
-
-    return true
-end
-
-"""
-    generate_primes(limit)
-
-Generate all prime numbers up to the given limit using a simple sieve.
-"""
-function generate_primes(limit)
-    sieve = fill(true, limit)
-    sieve[1] = false
-
-    for i in 2:isqrt(limit)
-        if sieve[i]
-            for j in i^2:i:limit
-                sieve[j] = false
-            end
-        end
-    end
-
-    primes = Int[]
-    for i in 2:limit
-        if sieve[i]
-            push!(primes, i)
-        end
-    end
-
-    return primes
-end
 
 """
     concat_numbers(a, b)
@@ -114,7 +69,7 @@ Returns:
 function find_prime_pair_set(set_size=5, limit=10000)
     # Generate primes up to the limit (exclude 2 as it can't form a compatible set with odd primes)
     # Any concatenation with 2 at the end would be even and thus not prime
-    primes = filter(p -> p > 2, generate_primes(limit))
+    primes = filter(p -> p > 2, sieve_of_eratosthenes(limit))
 
     prime_cache = Dict{Int, Bool}()
 

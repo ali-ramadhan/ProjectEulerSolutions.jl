@@ -15,39 +15,16 @@ What is the first of these numbers?
 """
 module Problem047
 
+using ProjectEulerSolutions.Utils.Primes: prime_factors
+
 """
     count_distinct_prime_factors(n)
 
 Count the number of distinct prime factors of n.
-Uses trial division to find prime factors, adding each unique prime to a Set.
 """
 function count_distinct_prime_factors(n)
-    if n <= 1
-        return 0
-    end
-
-    factors = Set{Int}()
-
-    while n % 2 == 0
-        push!(factors, 2)
-        n ÷= 2
-    end
-
-    factor = 3
-    while factor^2 <= n
-        while n % factor == 0
-            push!(factors, factor)
-            n ÷= factor
-        end
-        factor += 2
-    end
-
-    # If n > 1, then n is a prime factor itself
-    if n > 1
-        push!(factors, n)
-    end
-
-    return length(factors)
+    n <= 1 && return 0
+    return length(Set(prime_factors(n)))
 end
 
 """

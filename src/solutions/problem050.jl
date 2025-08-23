@@ -12,25 +12,8 @@ Which prime, below one-million, can be written as the sum of the most consecutiv
 """
 module Problem050
 
-"""
-    generate_primes(limit)
+using ProjectEulerSolutions.Utils.Primes: sieve_of_eratosthenes
 
-Generate all prime numbers below the given limit using the Sieve of Eratosthenes.
-"""
-function generate_primes(limit)
-    is_prime = fill(true, limit)
-    is_prime[1] = false
-
-    for i in 2:isqrt(limit)
-        if is_prime[i]
-            for j in i^2:i:limit
-                is_prime[j] = false
-            end
-        end
-    end
-
-    return [i for i in 1:limit if is_prime[i]]
-end
 
 """
     find_longest_consecutive_prime_sum(limit)
@@ -48,7 +31,7 @@ Calculate the sum of those consecutive primes
 If the sum is below our limit and is itself a prime, update our records if this sequence is longer than our current best
 """
 function find_longest_consecutive_prime_sum(limit)
-    primes = generate_primes(limit)
+    primes = sieve_of_eratosthenes(limit)
     prime_set = Set(primes)
 
     max_length = 0

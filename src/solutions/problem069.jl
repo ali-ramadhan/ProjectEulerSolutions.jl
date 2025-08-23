@@ -11,33 +11,7 @@ Find the value of n ≤ 1,000,000 for which n/φ(n) is a maximum.
 """
 module Problem069
 
-"""
-    is_prime(n)
-
-Check if a number is prime using trial division.
-"""
-function is_prime(n)
-    if n <= 1
-        return false
-    end
-    if n <= 3
-        return true
-    end
-    if n % 2 == 0 || n % 3 == 0
-        return false
-    end
-    
-    i = 5
-    while i * i <= n
-        if n % i == 0 || n % (i + 2) == 0
-            return false
-        end
-        i += 6
-    end
-    
-    return true
-end
-
+using ProjectEulerSolutions.Utils.Primes: is_prime
 
 """
     find_max_totient_ratio(limit)

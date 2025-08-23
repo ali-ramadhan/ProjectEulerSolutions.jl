@@ -1,5 +1,8 @@
 module ProjectEulerSolutions
 
+include("utils/Utils.jl")
+using .Utils
+
 # Find all problem files in the solutions directory
 problem_files = filter(
     file -> occursin(r"problem\d{3}\.jl$", file),

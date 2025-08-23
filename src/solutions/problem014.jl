@@ -19,27 +19,27 @@ NOTE: Once the chain starts the terms are allowed to go above one million.
 module Problem014
 
 """
-    collatz_length(n, mem)
+    collatz_length(n, cache)
 
 Calculate the length of the Collatz sequence starting at n.
 Uses memoization to avoid recalculating lengths for previously seen numbers.
 """
-function collatz_length(n, mem)
+function collatz_length(n, cache)
     if n == 1
         return 1
     end
     
-    if haskey(mem, n)
-        return mem[n]
+    if haskey(cache, n)
+        return cache[n]
     end
     
     if n % 2 == 0
-        length = 1 + collatz_length(n ÷ 2, mem)
+        length = 1 + collatz_length(n ÷ 2, cache)
     else
-        length = 1 + collatz_length(3n + 1, mem)
+        length = 1 + collatz_length(3n + 1, cache)
     end
     
-    mem[n] = length
+    cache[n] = length
     return length
 end
 
@@ -50,13 +50,13 @@ Find the starting number under limit that produces the longest Collatz sequence.
 Uses memoization for efficiency when calculating sequence lengths.
 """
 function longest_collatz_under(limit)
-    mem = Dict(1 => 1)
+    cache = Dict(1 => 1)
     
     max_length = 0
     max_start = 0
     
     for start in 1:limit-1
-        length = collatz_length(start, mem)
+        length = collatz_length(start, cache)
         if length > max_length
             max_length = length
             max_start = start

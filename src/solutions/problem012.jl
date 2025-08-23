@@ -19,27 +19,7 @@ What is the value of the first triangle number to have over five hundred divisor
 """
 module Problem012
 
-"""
-    count_divisors(n)
-
-Count the number of divisors of n using an optimized approach by only
-checking up to the square root and counting pairs of divisors.
-This reduces the complexity from O(n) to O(√n).
-"""
-function count_divisors(n)
-    count = 0
-    for i in 1:isqrt(n)
-        if n % i == 0
-            # If i divides n, both i and n/i are divisors
-            if i^2 == n
-                count += 1  # Perfect square case
-            else
-                count += 2  # Count both i and n/i
-            end
-        end
-    end
-    return count
-end
+using ProjectEulerSolutions.Utils.Divisors: get_divisors
 
 """
     find_first_triangle_with_divisors(min_divisors)
@@ -65,7 +45,7 @@ function find_first_triangle_with_divisors(min_divisors)
             b = (n + 1) ÷ 2
         end
         
-        num_divisors = count_divisors(a) * count_divisors(b)
+        num_divisors = length(get_divisors(a)) * length(get_divisors(b))
         
         if num_divisors > min_divisors
             return n * (n + 1) ÷ 2

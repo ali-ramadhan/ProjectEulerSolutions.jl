@@ -7,6 +7,9 @@ How many circular primes are there below one million?
 """
 module Problem035
 
+using ProjectEulerSolutions.Utils.Primes: sieve_of_eratosthenes
+using ProjectEulerSolutions.Utils.Digits: digit_rotations, has_even_digit
+
 """
     generate_primes_below(limit)
 
@@ -29,37 +32,6 @@ function generate_primes_below(limit)
 end
 
 """
-    has_even_digit(n)
-
-Check if a number n has any even digits (0, 2, 4, 6, 8).
-This is used to optimize the circular prime check since any multi-digit number
-containing an even digit can't be a circular prime (except for single-digit 2).
-"""
-function has_even_digit(n)
-    n_str = string(n)
-    return any(c -> c in "02468", n_str)
-end
-
-"""
-    rotations(n)
-
-Generate all rotations of the digits of n.
-For example, if n=197, returns [197, 971, 719].
-"""
-function rotations(n)
-    n_str = string(n)
-    len = length(n_str)
-    rotations = Int[]
-
-    for i in 1:len
-        rotated = n_str[i:end] * n_str[1:i-1]
-        push!(rotations, parse(Int, rotated))
-    end
-
-    return rotations
-end
-
-"""
     is_circular_prime(n, is_prime)
 
 Check if n is a circular prime, i.e., if all rotations of its digits are prime.
@@ -79,7 +51,7 @@ function is_circular_prime(n, is_prime)
         return false
     end
 
-    for rotation in rotations(n)
+    for rotation in digit_rotations(n)
         if rotation >= length(is_prime) || !is_prime[rotation]
             return false
         end

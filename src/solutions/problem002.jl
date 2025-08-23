@@ -11,25 +11,11 @@ find the sum of the even-valued terms.
 """
 module Problem002
 
-"""
-    sum_even_fibonacci(limit)
-
-Calculate the sum of all even-valued Fibonacci numbers that do not exceed `limit`.
-"""
-function sum_even_fibonacci(limit)
-    sum = 0
-    a, b = 1, 2
-    while b <= limit
-        if b % 2 == 0
-            sum += b
-        end
-        a, b = b, a + b
-    end
-    return sum
-end
+using ProjectEulerSolutions.Utils.Sequences: fibonacci_sequence
 
 function solve()
-    return sum_even_fibonacci(4_000_000)
+    fibs = fibonacci_sequence(4_000_000)
+    return sum(f for f in fibs if f % 2 == 0)
 end
 
 end # module

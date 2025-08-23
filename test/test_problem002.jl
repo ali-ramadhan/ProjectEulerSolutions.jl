@@ -1,6 +1,3 @@
-using ProjectEulerSolutions.Problem002: sum_even_fibonacci, solve
-
-@test sum_even_fibonacci(10) == 10
-@test sum_even_fibonacci(100) == 44
+using ProjectEulerSolutions.Problem002: solve
 
 @test solve() == 4613732

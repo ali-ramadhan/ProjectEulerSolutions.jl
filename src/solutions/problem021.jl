@@ -11,30 +11,7 @@ Evaluate the sum of all the amicable numbers under 10000.
 """
 module Problem021
 
-"""
-    sum_of_proper_divisors(n)
-
-Calculate the sum of all proper divisors of n (numbers less than n which divide evenly into n).
-Uses an optimized approach by only checking up to the square root.
-"""
-function sum_of_proper_divisors(n)
-    # Special case: 1 has no proper divisors
-    n == 1 && return 0
-
-    # Start with 1 as it's always a proper divisor for n > 1
-    sum = 1
-
-    for i in 2:isqrt(n)
-        if n % i == 0
-            sum += i
-            if i^2 != n
-                sum += n ÷ i
-            end
-        end
-    end
-
-    return sum
-end
+using ProjectEulerSolutions.Utils.Divisors: get_divisors
 
 """
     find_amicable_numbers(limit)
@@ -47,8 +24,8 @@ function find_amicable_numbers(limit)
     amicable_numbers = Int[]
 
     for a in 2:limit-1
-        b = sum_of_proper_divisors(a)
-        if a != b && b < limit && sum_of_proper_divisors(b) == a
+        b = sum(get_divisors(a)) - a
+        if a != b && b < limit && sum(get_divisors(b)) - b == a
             push!(amicable_numbers, a)
         end
     end

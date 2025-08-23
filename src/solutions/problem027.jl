@@ -17,30 +17,7 @@ number of primes for consecutive values of n, starting with n = 0.
 """
 module Problem027
 
-"""
-    is_prime(n)
-
-Check if n is prime using trial division with 6k±1 optimization.
-Only checks divisors up to sqrt(n) and filters common cases.
-"""
-function is_prime(n)
-    n <= 1 && return false
-    n <= 3 && return true
-
-    if n % 2 == 0 || n % 3 == 0
-        return false
-    end
-
-    i = 5
-    while i^2 <= n
-        if n % i == 0 || n % (i + 2) == 0
-            return false
-        end
-        i += 6
-    end
-
-    return true
-end
+using ProjectEulerSolutions.Utils.Primes: is_prime
 
 """
     count_consecutive_primes(a, b)

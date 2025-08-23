@@ -1,4 +1,7 @@
-using ProjectEulerSolutions.Problem021: sum_of_proper_divisors, find_amicable_numbers, solve
+using ProjectEulerSolutions.Problem021: find_amicable_numbers, solve
+using ProjectEulerSolutions.Utils.Divisors: get_divisors
+
+sum_of_proper_divisors(n) = sum(get_divisors(n)) - n
 
 @test sum_of_proper_divisors(220) == 284
 @test sum_of_proper_divisors(284) == 220

@@ -12,37 +12,8 @@ Find the value of n, 1 < n < 10^7, for which φ(n) is a permutation of n and the
 """
 module Problem070
 
-"""
-    sieve_of_eratosthenes(limit)
-
-Generate all prime numbers up to the given limit using the Sieve of Eratosthenes algorithm.
-
-Returns:
-    Array{Int}: An array containing all primes less than or equal to the limit.
-"""
-function sieve_of_eratosthenes(limit)
-    is_prime = fill(true, limit)
-    is_prime[1] = false
-    
-    for i in 2:isqrt(limit)
-        if is_prime[i]
-            for j in i^2:i:limit
-                is_prime[j] = false
-            end
-        end
-    end
-    
-    return [i for i in 2:limit if is_prime[i]]
-end
-
-"""
-    are_permutations(a, b)
-
-Check if two numbers are permutations of each other (have the same digits).
-"""
-function are_permutations(a, b)
-    return sort(collect(string(a))) == sort(collect(string(b)))
-end
+using ProjectEulerSolutions.Utils.Primes: sieve_of_eratosthenes
+using ProjectEulerSolutions.Utils.Digits: are_permutations
 
 """
     find_totient_permutation(limit)

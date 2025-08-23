@@ -6,30 +6,15 @@ What is the largest prime factor of the number 600851475143?
 """
 module Problem003
 
+using ProjectEulerSolutions.Utils.Primes: prime_factors
+
 """
     largest_prime_factor(n)
 
 Find the largest prime factor of the integer n.
 """
 function largest_prime_factor(n)
-    largest_factor = 1
-    
-    factor = 2
-    while factor^2 <= n
-        if n % factor == 0
-            largest_factor = factor
-            n = n ÷ factor
-        else
-            factor += 1
-        end
-    end
-    
-    # If n > 1, it's a prime factor
-    if n > 1
-        largest_factor = n
-    end
-    
-    return largest_factor
+    return maximum(prime_factors(n))
 end
 
 function solve()

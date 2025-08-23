@@ -8,15 +8,7 @@ Find the largest palindrome made from the product of two 3-digit numbers.
 """
 module Problem004
 
-"""
-    is_palindrome(n)
-
-Check if the number n is a palindrome (reads the same forward and backward).
-"""
-function is_palindrome(n)
-    str = string(n)
-    return str == reverse(str)
-end
+using ProjectEulerSolutions.Utils.Digits: is_palindrome
 
 """
     largest_palindrome_product(n_digits)
