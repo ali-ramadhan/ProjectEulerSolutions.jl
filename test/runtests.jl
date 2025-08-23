@@ -2,6 +2,13 @@ using Test
 using SafeTestsets
 
 @testset "ProjectEulerSolutions.jl" verbose=true begin
+    @safetestset "Digits" include("test_digits.jl")
+    @safetestset "Divisors" include("test_divisors.jl")
+    @safetestset "Primes" include("test_primes.jl")
+    @safetestset "Sequences" include("test_sequences.jl")
+    @safetestset "NumberTheory" include("test_number_theory.jl")
+
+    # Test problem solutions
     test_files = filter(
         file -> occursin(r"^test_problem\d{3}\.jl$", file),
         readdir(@__DIR__)

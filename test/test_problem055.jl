@@ -1,9 +1,4 @@
-using ProjectEulerSolutions.Problem055: is_palindrome, reverse_digits, is_lychrel, count_lychrel_numbers, solve
-
-@test is_palindrome(121)
-@test is_palindrome(7337)
-@test !is_palindrome(349)
-@test !is_palindrome(1292)
+using ProjectEulerSolutions.Problem055: reverse_digits, is_lychrel, count_lychrel_numbers, solve
 
 @test reverse_digits(47) == 74
 @test reverse_digits(349) == 943

@@ -1,15 +1,4 @@
-using ProjectEulerSolutions.Problem007: is_prime, find_nth_prime, solve
-
-@test !is_prime(1)
-@test is_prime(2)
-@test is_prime(3)
-@test !is_prime(4)
-@test is_prime(5)
-@test !is_prime(6)
-@test is_prime(7)
-@test !is_prime(9)
-@test is_prime(11)
-@test is_prime(13)
+using ProjectEulerSolutions.Problem007: find_nth_prime, solve
 
 @test find_nth_prime(1) == 2
 @test find_nth_prime(2) == 3

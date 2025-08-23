@@ -1,16 +1,4 @@
-using ProjectEulerSolutions.Problem037: is_prime, is_truncatable_prime, find_truncatable_primes, solve
-
-@test !is_prime(1)
-@test is_prime(2)
-@test is_prime(3)
-@test !is_prime(4)
-@test is_prime(5)
-@test is_prime(7)
-@test is_prime(11)
-@test !is_prime(15)
-@test is_prime(17)
-@test is_prime(23)
-@test is_prime(3797)
+using ProjectEulerSolutions.Problem037: is_truncatable_prime, find_truncatable_primes, solve
 
 # Single-digit primes are not considered truncatable
 @test !is_truncatable_prime(2)

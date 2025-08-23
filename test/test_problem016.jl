@@ -1,7 +1,4 @@
-using ProjectEulerSolutions.Problem016: sum_of_digits, power_digit_sum, solve
-
-@test sum_of_digits(123) == 6
-@test sum_of_digits(32768) == 26
+using ProjectEulerSolutions.Problem016: power_digit_sum, solve
 
 @test power_digit_sum(2, 15) == 26
 @test power_digit_sum(2, 1) == 2

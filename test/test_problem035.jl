@@ -1,18 +1,4 @@
 using ProjectEulerSolutions.Problem035: is_circular_prime, count_circular_primes_below, generate_primes_below, solve
-using ProjectEulerSolutions.Utils.Digits: has_even_digit, digit_rotations
-
-@test !has_even_digit(1)
-@test has_even_digit(2)
-@test !has_even_digit(3)
-@test has_even_digit(10)
-@test !has_even_digit(13)
-@test has_even_digit(20)
-@test !has_even_digit(197)
-@test has_even_digit(234)
-
-@test digit_rotations(197) == [197, 971, 719]
-@test digit_rotations(12) == [12, 21]
-@test digit_rotations(5) == [5]
 
 primes, is_prime_arr = generate_primes_below(1000)
 
