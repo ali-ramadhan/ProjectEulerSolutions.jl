@@ -1,7 +1,9 @@
+using Test
+
 using ProjectEulerSolutions.Utils.Sequences: fibonacci_sequence, triangle_number, pentagonal_number,
                                               hexagonal_number, sum_of_squares, square_of_sum
 
-@testset "Sequences Utils" begin
+@testset "Sequences" begin
     @testset "fibonacci_sequence" begin
         @test fibonacci_sequence(10) == [1, 1, 2, 3, 5, 8]
         @test fibonacci_sequence(100) == [1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89]

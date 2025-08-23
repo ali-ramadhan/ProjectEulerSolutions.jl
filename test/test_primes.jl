@@ -1,6 +1,8 @@
+using Test
+
 using ProjectEulerSolutions.Utils.Primes: is_prime, sieve_of_eratosthenes, prime_factors
 
-@testset "Primes Utils" begin
+@testset "Primes" begin
     @testset "is_prime" begin
         # Small primes
         @test !is_prime(1)
@@ -18,7 +20,7 @@ using ProjectEulerSolutions.Utils.Primes: is_prime, sieve_of_eratosthenes, prime
         @test is_prime(13)
         @test !is_prime(14)
         @test !is_prime(15)
-        
+
         # Larger primes
         @test is_prime(17)
         @test is_prime(23)
@@ -26,7 +28,7 @@ using ProjectEulerSolutions.Utils.Primes: is_prime, sieve_of_eratosthenes, prime
         @test is_prime(1601)
         @test is_prime(3797)
         @test is_prime(2143)
-        
+
         # Larger composites
         @test !is_prime(91)   # 7 * 13
         @test !is_prime(121)  # 11^2
@@ -39,7 +41,7 @@ using ProjectEulerSolutions.Utils.Primes: is_prime, sieve_of_eratosthenes, prime
         @test sieve_of_eratosthenes(2) == [2]
         @test sieve_of_eratosthenes(1) == Int[]
         @test sieve_of_eratosthenes(30) == [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
-        
+
         # Test that it includes the limit when it's prime
         @test 29 in sieve_of_eratosthenes(29)
         @test 31 in sieve_of_eratosthenes(31)
@@ -56,7 +58,7 @@ using ProjectEulerSolutions.Utils.Primes: is_prime, sieve_of_eratosthenes, prime
         @test prime_factors(15) == [3, 5]
         @test prime_factors(60) == [2, 2, 3, 5]
         @test prime_factors(100) == [2, 2, 5, 5]
-        
+
         # Prime numbers should return themselves
         @test prime_factors(7) == [7]
         @test prime_factors(11) == [11]

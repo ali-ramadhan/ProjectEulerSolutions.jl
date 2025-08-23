@@ -1,6 +1,8 @@
+using Test
+
 using ProjectEulerSolutions.Utils.Divisors: get_divisors, is_abundant, is_perfect
 
-@testset "Divisors Utils" begin
+@testset "Divisors" begin
     @testset "get_divisors" begin
         @test get_divisors(1) == [1]
         @test get_divisors(2) == [1, 2]

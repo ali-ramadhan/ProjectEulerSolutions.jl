@@ -1,7 +1,9 @@
-using ProjectEulerSolutions.Utils.Digits: digit_sum, get_digits, count_digits, is_palindrome, is_pandigital,
-                                            digit_rotations, are_permutations, digits_to_number, has_even_digit
+using Test
+using ProjectEulerSolutions.Utils.Digits:
+    digit_sum, get_digits, count_digits, is_palindrome, is_pandigital,
+    digit_rotations, are_permutations, digits_to_number, has_even_digit
 
-@testset "Digits Utils" begin
+@testset "Digits" begin
     @testset "digit_sum" begin
         @test digit_sum(0) == 0
         @test digit_sum(9) == 9
