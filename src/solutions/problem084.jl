@@ -259,7 +259,7 @@ function get_modal_string(visit_counts::Vector{Int})
 end
 
 function solve()
-    num_rolls = 5_000_000
+    num_rolls = 10_000_000
     visit_counts = simulate_monopoly(num_rolls, 4)
     return get_modal_string(visit_counts)
 end
