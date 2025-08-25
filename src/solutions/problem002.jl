@@ -11,8 +11,10 @@ find the sum of the even-valued terms.
 
 ## Solution approach
 
-Generate the Fibonacci sequence up to 4 million then filter for even-valued terms and sum
-them.
+Use the `fibonacci_sequence` utility function from Utils.Sequences, which efficiently 
+generates all Fibonacci numbers up to a given limit using iterative computation. 
+Filter the resulting sequence for even-valued terms and sum them using Julia's 
+built-in sum function with a generator expression.
 
 ## Complexity analysis
 
