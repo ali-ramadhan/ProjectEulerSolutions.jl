@@ -17,14 +17,14 @@ Find the nth prime number.
 function find_nth_prime(n)
     count = 0
     num = 1
-    
+
     while count < n
         num += 1
         if is_prime(num)
             count += 1
         end
     end
-    
+
     return num
 end
 

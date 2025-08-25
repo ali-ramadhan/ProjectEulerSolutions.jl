@@ -20,7 +20,7 @@ module Problem038
 Check if a string `s` contains all the digits 1-9 exactly once.
 """
 function is_pandigital(s)
-    length(s) == 9 && Set(s) == Set('1':'9')
+    return length(s) == 9 && Set(s) == Set('1':'9')
 end
 
 """

@@ -26,15 +26,15 @@ function find_pythagorean_triplet()
         # Derived from a² + b² = c² and a + b + c = 1000
         numerator = 500000 - 1000 * a
         denominator = 1000 - a
-        
+
         # Check if b is a natural number
         if numerator % denominator == 0
             b = numerator ÷ denominator
-            
+
             # Check if b is positive and greater than a
             if b > 0 && b > a
                 c = 1000 - a - b
-                
+
                 # Verify that a < b < c and it's a Pythagorean triplet
                 if a < b < c && a^2 + b^2 == c^2
                     return a, b, c
@@ -42,7 +42,7 @@ function find_pythagorean_triplet()
             end
         end
     end
-    
+
     return nothing  # No solution found
 end
 

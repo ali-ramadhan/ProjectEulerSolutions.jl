@@ -9,10 +9,8 @@ using SafeTestsets
     @safetestset "NumberTheory" include("test_number_theory.jl")
 
     # Test problem solutions
-    test_files = filter(
-        file -> occursin(r"^test_problem\d{3}\.jl$", file),
-        readdir(@__DIR__)
-    )
+    test_files =
+        filter(file -> occursin(r"^test_problem\d{3}\.jl$", file), readdir(@__DIR__))
 
     sort!(test_files)
 

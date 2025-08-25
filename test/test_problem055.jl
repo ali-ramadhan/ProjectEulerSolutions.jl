@@ -1,4 +1,5 @@
-using ProjectEulerSolutions.Problem055: reverse_digits, is_lychrel, count_lychrel_numbers, solve
+using ProjectEulerSolutions.Problem055:
+    reverse_digits, is_lychrel, count_lychrel_numbers, solve
 
 @test reverse_digits(47) == 74
 @test reverse_digits(349) == 943

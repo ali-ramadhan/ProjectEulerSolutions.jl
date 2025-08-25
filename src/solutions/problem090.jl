@@ -88,7 +88,7 @@ end
 
 function solve()
     """Count distinct cube arrangements that can display all square numbers"""
-    squares = [(0,1), (0,4), (0,9), (1,6), (2,5), (3,6), (4,9), (6,4), (8,1)]
+    squares = [(0, 1), (0, 4), (0, 9), (1, 6), (2, 5), (3, 6), (4, 9), (6, 4), (8, 1)]
     return count_valid_cube_arrangements(squares)
 end
 

@@ -33,14 +33,14 @@ function count_fractions_in_range(limit, lower_bound, upper_bound)
         if lower_n == d * lower_bound
             lower_n += 1
         end
-        
+
         upper_n = floor(Int, d * upper_bound)
         if upper_n == d * upper_bound
             upper_n -= 1
         end
-        
+
         if lower_n <= upper_n  # Skip if range is empty
-            for n in lower_n:upper_n                
+            for n in lower_n:upper_n
                 if gcd(n, d) == 1
                     count += 1
                 end

@@ -1,4 +1,5 @@
-using ProjectEulerSolutions.Problem027: count_consecutive_primes, find_quadratic_with_most_primes, solve
+using ProjectEulerSolutions.Problem027:
+    count_consecutive_primes, find_quadratic_with_most_primes, solve
 
 # Example 1 from the problem: n² + n + 41 (a = 1, b = 41)
 @test count_consecutive_primes(1, 41) == 40

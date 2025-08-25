@@ -41,7 +41,7 @@ const CARD_VALUES = Dict(
     'J' => 11,
     'Q' => 12,
     'K' => 13,
-    'A' => 14
+    'A' => 14,
 )
 
 @enum HandRank begin
@@ -131,7 +131,7 @@ function group_by_count(value_counts)
     end
 
     for count in keys(result)
-        sort!(result[count], rev=true)
+        sort!(result[count]; rev = true)
     end
 
     return result

@@ -18,29 +18,29 @@ Find the largest palindrome that is a product of two n-digit numbers.
 function largest_palindrome_product(n_digits)
     lower_bound = 10^(n_digits-1)
     upper_bound = 10^n_digits - 1
-    
+
     max_palindrome = 0
-    
+
     for i in upper_bound:-1:lower_bound
         # break early if we can't find a larger palindrome
         if i * upper_bound < max_palindrome
             break
         end
-        
+
         # Start from j=i to avoid duplicate combinations
         for j in upper_bound:-1:i
             product = i * j
-            
+
             if product < max_palindrome
                 break
             end
-            
+
             if is_palindrome(product) && product > max_palindrome
                 max_palindrome = product
             end
         end
     end
-    
+
     return max_palindrome
 end
 

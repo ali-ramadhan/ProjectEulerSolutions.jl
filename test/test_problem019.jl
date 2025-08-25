@@ -1,4 +1,5 @@
-using ProjectEulerSolutions.Problem019: is_leap_year, days_in_month, count_sundays_on_first, solve
+using ProjectEulerSolutions.Problem019:
+    is_leap_year, days_in_month, count_sundays_on_first, solve
 
 @test !is_leap_year(1900)
 @test is_leap_year(1904)

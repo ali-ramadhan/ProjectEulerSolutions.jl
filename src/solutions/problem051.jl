@@ -26,7 +26,7 @@ function sieve_of_eratosthenes(limit)
 
     for i in 2:isqrt(limit)
         if sieve[i]
-            for j in i^2:i:limit
+            for j in (i ^ 2):i:limit
                 sieve[j] = false
             end
         end
@@ -50,7 +50,7 @@ function generate_subsets(positions)
     n = length(positions)
     subsets = Vector{Int}[]
 
-    for mask in 1:2^n-1
+    for mask in 1:(2 ^ n - 1)
         subset = [positions[i] for i in 1:n if (mask >> (i-1)) & 1 == 1]
         push!(subsets, subset)
     end
@@ -65,7 +65,7 @@ Find the smallest prime which, by replacing part of the number with the same dig
 is part of a family of at least family_size primes.
 Returns a tuple (smallest_prime, family).
 """
-function find_prime_family(family_size, limit=1_000_000)
+function find_prime_family(family_size, limit = 1_000_000)
     primes = sieve_of_eratosthenes(limit)
     primes_set = Set(primes)
     checked_primes = Set{Int}()
@@ -135,7 +135,7 @@ end
 Find the smallest prime which, by replacing part of the number with the same digit,
 is part of an eight prime value family.
 """
-function find_eight_prime_family(limit=1_000_000)
+function find_eight_prime_family(limit = 1_000_000)
     smallest, _ = find_prime_family(8, limit)
     return smallest
 end

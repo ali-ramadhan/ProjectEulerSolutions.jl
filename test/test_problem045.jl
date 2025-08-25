@@ -1,4 +1,5 @@
-using ProjectEulerSolutions.Problem045: is_pentagonal, hexagonal, find_next_tri_pent_hex, solve
+using ProjectEulerSolutions.Problem045:
+    is_pentagonal, hexagonal, find_next_tri_pent_hex, solve
 
 @test is_pentagonal(1)
 @test is_pentagonal(5)

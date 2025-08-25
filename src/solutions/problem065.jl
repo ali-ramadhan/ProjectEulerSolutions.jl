@@ -32,11 +32,11 @@ the structure [2; (1, 2k, 1)...] for k = 1, 2, 3, ...
 """
 function e_continued_fraction_terms(n)
     terms = BigInt[2] # First term is 2
-    
+
     if n == 1
         return terms
     end
-    
+
     k = 1
     while length(terms) < n
         # Add the group (1, 2k, 1)
@@ -44,20 +44,20 @@ function e_continued_fraction_terms(n)
         if length(terms) >= n
             break
         end
-        
+
         push!(terms, 2*k)
         if length(terms) >= n
             break
         end
-        
+
         push!(terms, 1)
         if length(terms) >= n
             break
         end
-        
+
         k += 1
     end
-    
+
     return terms
 end
 
@@ -75,18 +75,18 @@ function calculate_convergent(terms)
     p_0 = BigInt(terms[1])
     q_minus_1 = BigInt(0)
     q_0 = BigInt(1)
-    
+
     for i in 2:length(terms)
         p_i = terms[i] * p_0 + p_minus_1
         q_i = terms[i] * q_0 + q_minus_1
-        
+
         p_minus_1 = p_0
         p_0 = p_i
-        
+
         q_minus_1 = q_0
         q_0 = q_i
     end
-    
+
     return p_0, q_0
 end
 

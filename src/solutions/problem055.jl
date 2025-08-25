@@ -53,7 +53,7 @@ Check if a number is a Lychrel number by performing the reverse-and-add
 process for up to max_iterations. Returns true if no palindrome is found
 within the specified iterations.
 """
-function is_lychrel(n, max_iterations=50)
+function is_lychrel(n, max_iterations = 50)
     num = BigInt(n)
 
     for _ in 1:max_iterations
@@ -76,7 +76,7 @@ Count how many Lychrel numbers are below the given limit.
 function count_lychrel_numbers(limit)
     count = 0
 
-    for n in 1:limit-1
+    for n in 1:(limit - 1)
         if is_lychrel(n)
             count += 1
         end

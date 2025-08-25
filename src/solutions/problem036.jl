@@ -25,7 +25,7 @@ end
 Check if the number n is palindromic in base 2 (binary).
 """
 function is_palindromic_base2(n)
-    binary = string(n, base=2)
+    binary = string(n; base = 2)
     return binary == reverse(binary)
 end
 
@@ -42,7 +42,7 @@ palindromic, it would need to start with 0 as well, which violates the no-leadin
 function sum_double_base_palindromes(limit)
     total_sum = 0
 
-    for n in 1:2:limit-1
+    for n in 1:2:(limit - 1)
         if is_palindromic_base10(n) && is_palindromic_base2(n)
             total_sum += n
         end

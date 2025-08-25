@@ -27,10 +27,10 @@ More memory efficient than precomputing all divisors.
 """
 function sum_proper_divisors(n::Int)
     n <= 1 && return 0
-    
+
     divisor_sum = 1  # 1 is always a proper divisor
     sqrt_n = isqrt(n)
-    
+
     for i in 2:sqrt_n
         if n % i == 0
             divisor_sum += i
@@ -39,7 +39,7 @@ function sum_proper_divisors(n::Int)
             end
         end
     end
-    
+
     return divisor_sum
 end
 
@@ -51,14 +51,14 @@ function find_amicable_chain(start_num::Int, limit::Int)
     # Use Floyd's cycle detection (tortoise and hare)
     slow = start_num
     fast = start_num
-    
+
     # Phase 1: Detect if there's a cycle
     while true
         slow = sum_proper_divisors(slow)
         if slow > limit || slow <= 1
             return (0, 0)
         end
-        
+
         fast = sum_proper_divisors(fast)
         if fast > limit || fast <= 1
             return (0, 0)
@@ -67,24 +67,24 @@ function find_amicable_chain(start_num::Int, limit::Int)
         if fast > limit || fast <= 1
             return (0, 0)
         end
-        
+
         if slow == fast
             break
         end
     end
-    
+
     # Phase 2: Find the start of the cycle
     cycle_start = start_num
     while cycle_start != slow
         cycle_start = sum_proper_divisors(cycle_start)
         slow = sum_proper_divisors(slow)
     end
-    
+
     # Phase 3: Measure cycle length and find minimum
     cycle_length = 1
     min_element = cycle_start
     current = sum_proper_divisors(cycle_start)
-    
+
     while current != cycle_start
         cycle_length += 1
         if current < min_element
@@ -92,19 +92,19 @@ function find_amicable_chain(start_num::Int, limit::Int)
         end
         current = sum_proper_divisors(current)
     end
-    
+
     # Verify start_num is actually in the cycle
     current = cycle_start
     found_start = (current == start_num)
-    
-    for _ in 1:cycle_length-1
+
+    for _ in 1:(cycle_length - 1)
         current = sum_proper_divisors(current)
         if current == start_num
             found_start = true
             break
         end
     end
-    
+
     return found_start ? (cycle_length, min_element) : (0, 0)
 end
 
@@ -112,14 +112,14 @@ function find_longest_amicable_chain(limit)
     longest_length = 0
     smallest_in_longest = 0
     checked = Set{Int}()
-    
+
     for num in 2:limit
         if num in checked
             continue
         end
-        
+
         chain_length, min_element = find_amicable_chain(num, limit)
-        
+
         if chain_length > 0
             # Mark all numbers in this chain as checked
             current = num
@@ -127,14 +127,14 @@ function find_longest_amicable_chain(limit)
                 push!(checked, current)
                 current = sum_proper_divisors(current)
             end
-            
+
             if chain_length > longest_length
                 longest_length = chain_length
                 smallest_in_longest = min_element
             end
         end
     end
-    
+
     return (longest_length, smallest_in_longest)
 end
 

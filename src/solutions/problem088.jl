@@ -69,12 +69,7 @@ function find_minimal_product_sums(max_k)
         # Generate more combinations by multiplying with factors
         factor = min_factor
         while product * factor <= max_n
-            generate_combinations(
-                product * factor,
-                sum + factor,
-                count + 1,
-                factor
-            )
+            generate_combinations(product * factor, sum + factor, count + 1, factor)
             factor += 1
         end
     end

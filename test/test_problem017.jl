@@ -1,4 +1,5 @@
-using ProjectEulerSolutions.Problem017: number_to_words, count_letters, count_letters_in_range, solve
+using ProjectEulerSolutions.Problem017:
+    number_to_words, count_letters, count_letters_in_range, solve
 
 @test count_letters(number_to_words(342)) == 23  # "three hundred and forty-two"
 @test count_letters(number_to_words(115)) == 20  # "one hundred and fifteen"

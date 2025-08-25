@@ -50,7 +50,7 @@ const TRIANGLE = [
     [70, 11, 33, 28, 77, 73, 17, 78, 39, 68, 17, 57],
     [91, 71, 52, 38, 17, 14, 91, 43, 58, 50, 27, 29, 48],
     [63, 66, 4, 68, 89, 53, 67, 30, 73, 16, 69, 87, 40, 31],
-    [4, 62, 98, 27, 23, 9, 70, 98, 73, 93, 38, 53, 60, 4, 23]
+    [4, 62, 98, 27, 23, 9, 70, 98, 73, 93, 38, 53, 60, 4, 23],
 ]
 
 """
@@ -65,10 +65,10 @@ function max_path_sum(triangle)
     tri = deepcopy(triangle)
 
     # Start from the second-to-last row and work upwards
-    for i in length(tri)-1:-1:1
+    for i in (length(tri) - 1):-1:1
         for j in 1:length(tri[i])
             # Add the maximum of the two adjacent values in the row below
-            tri[i][j] += max(tri[i+1][j], tri[i+1][j+1])
+            tri[i][j] += max(tri[i + 1][j], tri[i + 1][j + 1])
         end
     end
 

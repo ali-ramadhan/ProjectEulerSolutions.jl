@@ -9,7 +9,7 @@ test_triangle_str = """
 """
 
 open("test_triangle.txt", "w") do io
-    write(io, test_triangle_str)
+    return write(io, test_triangle_str)
 end
 
 test_triangle = parse_triangle("test_triangle.txt")

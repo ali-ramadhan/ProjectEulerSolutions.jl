@@ -77,7 +77,7 @@ function find_minimal_path_sum_three_ways(matrix)
     for j in 2:cols
         # First, consider direct paths from the left
         for i in 1:rows
-            dp[i, j] = dp[i, j-1] + matrix[i, j]
+            dp[i, j] = dp[i, j - 1] + matrix[i, j]
         end
 
         # Iteratively update the minimum paths until no more improvements are found
@@ -86,12 +86,12 @@ function find_minimal_path_sum_three_ways(matrix)
 
             # Top-down pass: consider paths from above
             for i in 2:rows
-                dp[i, j] = min(dp[i, j], dp[i-1, j] + matrix[i, j])
+                dp[i, j] = min(dp[i, j], dp[i - 1, j] + matrix[i, j])
             end
 
             # Bottom-up pass: consider paths from below
-            for i in rows-1:-1:1
-                dp[i, j] = min(dp[i, j], dp[i+1, j] + matrix[i, j])
+            for i in (rows - 1):-1:1
+                dp[i, j] = min(dp[i, j], dp[i + 1, j] + matrix[i, j])
             end
 
             # Check if there was any change

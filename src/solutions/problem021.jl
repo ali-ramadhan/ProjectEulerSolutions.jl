@@ -23,7 +23,7 @@ and the sum of proper divisors of b equals a, with a ≠ b.
 function find_amicable_numbers(limit)
     amicable_numbers = Int[]
 
-    for a in 2:limit-1
+    for a in 2:(limit - 1)
         b = sum(get_divisors(a)) - a
         if a != b && b < limit && sum(get_divisors(b)) - b == a
             push!(amicable_numbers, a)

@@ -6,7 +6,8 @@ mathematical sequences like Fibonacci, triangular numbers, etc.
 """
 module Sequences
 
-export fibonacci_sequence, triangle_number, pentagonal_number, hexagonal_number, sum_of_squares, square_of_sum
+export fibonacci_sequence,
+    triangle_number, pentagonal_number, hexagonal_number, sum_of_squares, square_of_sum
 
 """
     fibonacci_sequence(limit)
@@ -19,15 +20,14 @@ Example: fibonacci_sequence(100) returns [1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89]
 function fibonacci_sequence(limit)
     fibs = Int[]
     a, b = 1, 1
-    
+
     while a <= limit
         push!(fibs, a)
         a, b = b, a + b
     end
-    
+
     return fibs
 end
-
 
 """
     triangle_number(n)
@@ -65,7 +65,6 @@ function hexagonal_number(n)
     return n * (2n - 1)
 end
 
-
 """
     sum_of_squares(n)
 
@@ -90,6 +89,5 @@ function square_of_sum(n)
     sum = n * (n + 1) ÷ 2
     return sum^2
 end
-
 
 end # module Sequences

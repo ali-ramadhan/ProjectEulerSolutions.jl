@@ -18,7 +18,7 @@ Example: get_divisors(12) returns [1, 2, 3, 4, 6, 12]
 """
 function get_divisors(n)
     divisors = Int[]
-    
+
     for i in 1:isqrt(n)
         if n % i == 0
             push!(divisors, i)
@@ -27,7 +27,7 @@ function get_divisors(n)
             end
         end
     end
-    
+
     return sort(divisors)
 end
 

@@ -51,7 +51,7 @@ function is_curious_fraction(numerator, denominator)
         (num_ones == den_tens && num_ones != 0) ? (num_tens // den_ones) : nothing,
 
         # Cancel matching first digits
-        (num_tens == den_tens && num_tens != 0) ? (num_ones // den_ones) : nothing
+        (num_tens == den_tens && num_tens != 0) ? (num_ones // den_ones) : nothing,
     ]
 
     for cancelled_fraction in digit_cancellations
@@ -72,7 +72,7 @@ function find_curious_fractions()
     result = Rational{Int}[]
 
     for numerator in 10:99
-        for denominator in (numerator+1):99
+        for denominator in (numerator + 1):99
             if is_curious_fraction(numerator, denominator)
                 push!(result, numerator // denominator)
             end

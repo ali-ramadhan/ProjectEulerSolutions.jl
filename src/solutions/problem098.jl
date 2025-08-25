@@ -30,7 +30,7 @@ function find_anagram_pairs(words)
     for group in values(anagram_groups)
         if length(group) >= 2
             for i in 1:length(group)
-                for j in (i+1):length(group)
+                for j in (i + 1):length(group)
                     push!(pairs, (group[i], group[j]))
                 end
             end

@@ -41,22 +41,22 @@ Mathematical insight:
 function find_max_totient_ratio(limit)
     n = 1
     p = 2
-    
+
     # Keep multiplying by consecutive primes until we exceed the limit
     while true
         next_n = n * p
         if next_n > limit
             break
         end
-        
+
         n = next_n
-        
+
         p += 1
         while !is_prime(p)
             p += 1
         end
     end
-    
+
     return n
 end
 

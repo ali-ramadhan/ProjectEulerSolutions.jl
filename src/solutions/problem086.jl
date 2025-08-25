@@ -98,7 +98,9 @@ function find_first_m_exceeding_target(target::Int)
         upper *= 2
         # Optional progress tracking for very large targets
         if upper >= 1000
-            println("Searching for upper bound: M = $upper, solutions = $(count_integer_routes(upper))")
+            println(
+                "Searching for upper bound: M = $upper, solutions = $(count_integer_routes(upper))",
+            )
         end
     end
 

@@ -44,7 +44,7 @@ function build_divisible_pandigitals(digits, used, position, result)
 
     # Try each unused digit at the current position
     for d in 0:9
-        if used[d+1]
+        if used[d + 1]
             continue
         end
 
@@ -56,7 +56,7 @@ function build_divisible_pandigitals(digits, used, position, result)
         # Check divisibility constraints for positions 4-10
         if position >= 4
             div_index = position - 3
-            three_digit = 100 * digits[position-2] + 10 * digits[position-1] + d
+            three_digit = 100 * digits[position - 2] + 10 * digits[position - 1] + d
 
             if three_digit % DIVISORS[div_index] != 0
                 continue
@@ -64,12 +64,12 @@ function build_divisible_pandigitals(digits, used, position, result)
         end
 
         push!(digits, d)
-        used[d+1] = true
+        used[d + 1] = true
 
         build_divisible_pandigitals(digits, used, position + 1, result)
 
         pop!(digits)
-        used[d+1] = false
+        used[d + 1] = false
     end
 end
 

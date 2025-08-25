@@ -33,7 +33,7 @@ The number of divisors of a product of coprime numbers equals the product of the
 """
 function find_first_triangle_with_divisors(min_divisors)
     n = 1
-    
+
     while true
         if n % 2 == 0
             # n is even, T(n) = (n/2)*(n+1)
@@ -44,13 +44,13 @@ function find_first_triangle_with_divisors(min_divisors)
             a = n
             b = (n + 1) ÷ 2
         end
-        
+
         num_divisors = length(get_divisors(a)) * length(get_divisors(b))
-        
+
         if num_divisors > min_divisors
             return n * (n + 1) ÷ 2
         end
-        
+
         n += 1
     end
 end

@@ -27,12 +27,12 @@ Uses a sieve-like approach for efficient computation of all φ values.
 """
 function count_reduced_proper_fractions(limit)
     phi = totient_sieve(limit)
-    
+
     result = BigInt(0)
     for d in 2:limit
         result += phi[d]
     end
-    
+
     return result
 end
 

@@ -37,28 +37,28 @@ function pell_solution(D)
     if a₀^2 == D
         return BigInt(0), BigInt(0)  # No solution for perfect squares
     end
-    
+
     # Initialize for the continued fraction
     m = BigInt(0)
     d = BigInt(1)
     a = a₀
-    
+
     # Initialize convergents
     p₀, p₁ = BigInt(1), BigInt(a₀)
     q₀, q₁ = BigInt(0), BigInt(1)
-    
+
     # Compute the continued fraction and convergents until we find a solution
     while p₁^2 - D*q₁^2 != 1
         # Update continued fraction terms
         m = d * a - m
         d = (D - m^2) ÷ d
         a = (a₀ + m) ÷ d
-        
+
         # Update convergents
         p₀, p₁ = p₁, a*p₁ + p₀
         q₀, q₁ = q₁, a*q₁ + q₀
     end
-    
+
     return p₁, q₁
 end
 
@@ -77,20 +77,20 @@ Uses BigInt to handle extremely large solutions.
 function find_d_with_largest_x(limit)
     max_x = BigInt(0)
     max_d = 0
-    
+
     for d in 2:limit
         # Skip perfect squares as they have no solution in positive integers
         if isqrt(d)^2 == d
             continue
         end
-        
+
         x, y = pell_solution(d)
         if x > max_x
             max_x = x
             max_d = d
         end
     end
-    
+
     return max_d, max_x
 end
 

@@ -1,5 +1,10 @@
 using Test
-using ProjectEulerSolutions.Problem090: normalize_cube, can_form_number, can_form_all_numbers, count_valid_cube_arrangements, solve
+using ProjectEulerSolutions.Problem090:
+    normalize_cube,
+    can_form_number,
+    can_form_all_numbers,
+    count_valid_cube_arrangements,
+    solve
 
 @testset "normalize_cube" begin
     # Test that 6 and 9 are both included when either is present
@@ -29,7 +34,7 @@ end
     # Example from problem description
     cube1 = [0, 5, 6, 7, 8, 9]
     cube2 = [1, 2, 3, 4, 8, 9]
-    squares = [(0,1), (0,4), (0,9), (1,6), (2,5), (3,6), (4,9), (6,4), (8,1)]
+    squares = [(0, 1), (0, 4), (0, 9), (1, 6), (2, 5), (3, 6), (4, 9), (6, 4), (8, 1)]
     @test can_form_all_numbers(cube1, cube2, squares) == true
 
     # Test a combination that shouldn't work
@@ -40,7 +45,7 @@ end
 
 @testset "count_valid_cube_arrangements" begin
     # Test with a smaller set of numbers
-    small_numbers = [(0,1), (0,4)]
+    small_numbers = [(0, 1), (0, 4)]
     result = count_valid_cube_arrangements(small_numbers)
     @test result > 0  # Should find some valid arrangements
 end

@@ -51,8 +51,8 @@ function build_order_constraints(login_attempts)
         end
 
         # Add ordering constraints: for each triplet abc, a must come before b and c, and b before c
-        for i in 1:length(attempt)-1
-            for j in i+1:length(attempt)
+        for i in 1:(length(attempt) - 1)
+            for j in (i + 1):length(attempt)
                 push!(order_graph[attempt[i]], attempt[j])
             end
         end

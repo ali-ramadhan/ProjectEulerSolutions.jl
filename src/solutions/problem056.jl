@@ -30,7 +30,7 @@ function max_digital_sum(limit)
     max_a = 0
     max_b = 0
 
-    for a in 1:(limit-1)
+    for a in 1:(limit - 1)
         # Skip a=1 as 1^b = 1 always
         a == 1 && continue
 
@@ -38,7 +38,7 @@ function max_digital_sum(limit)
         # of powers of 10 is always 1
         a % 10 == 0 && continue
 
-        for b in 1:(limit-1)
+        for b in 1:(limit - 1)
             power = big(a)^b
             current_sum = digit_sum(power)
 

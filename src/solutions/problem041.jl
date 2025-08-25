@@ -39,7 +39,7 @@ function find_largest_pandigital_prime()
             end
         end
 
-        sort!(candidates, rev=true)
+        sort!(candidates; rev = true)
 
         for num in candidates
             if is_prime(num)

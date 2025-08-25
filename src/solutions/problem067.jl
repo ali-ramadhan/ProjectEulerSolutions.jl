@@ -30,12 +30,12 @@ representing a row of the triangle.
 function parse_triangle(filename)
     lines = readlines(filename)
     triangle = Vector{Vector{Int}}()
-    
+
     for line in lines
         row = parse.(Int, split(line))
         push!(triangle, row)
     end
-    
+
     return triangle
 end
 
@@ -47,17 +47,17 @@ This algorithm has O(n^2) time complexity where n is the number of rows in the t
 """
 function find_maximum_path_sum(triangle)
     dp_triangle = deepcopy(triangle)
-    
+
     # Start from the second-to-last row and work upward
-    for row in length(triangle)-1:-1:1
+    for row in (length(triangle) - 1):-1:1
         for col in 1:length(triangle[row])
             # For each position, add the maximum of the two possible children
-            left_child = dp_triangle[row+1][col]
-            right_child = dp_triangle[row+1][col+1]
+            left_child = dp_triangle[row + 1][col]
+            right_child = dp_triangle[row + 1][col + 1]
             dp_triangle[row][col] += max(left_child, right_child)
         end
     end
-    
+
     # The top element now contains the maximum path sum
     return dp_triangle[1][1]
 end

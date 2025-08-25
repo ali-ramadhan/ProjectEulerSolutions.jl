@@ -27,7 +27,7 @@ function solve_pell_equation(limit)
     """Solve using Pell equation x² - 3y² = 1 approach."""
     x, y = 2, 1  # Fundamental solution
     total = 0
-    
+
     while true
         # Check both cases: (2x + 1) mod 3 and (2x - 1) mod 3
         if (2x + 1) % 3 == 0
@@ -55,17 +55,17 @@ function solve_pell_equation(limit)
                 end
             end
         end
-        
+
         # Generate next Pell solution
         x_new, y_new = 2x + 3y, x + 2y
         x, y = x_new, y_new
-        
+
         # Safety check to avoid infinite loop
         if x > limit
             break
         end
     end
-    
+
     return total
 end
 

@@ -22,13 +22,13 @@ function generate_primes_below(limit)
 
     for i in 2:isqrt(limit)
         if is_prime[i]
-            for j in i^2:i:limit
+            for j in (i ^ 2):i:limit
                 is_prime[j] = false
             end
         end
     end
 
-    return [i for i in 1:limit-1 if is_prime[i]], is_prime
+    return [i for i in 1:(limit - 1) if is_prime[i]], is_prime
 end
 
 """

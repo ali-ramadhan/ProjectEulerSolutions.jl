@@ -29,17 +29,17 @@ Solving for n: n = (3d - 1) / 7
 For n to be an integer, 3d - 1 must be divisible by 7
 This means d must be of the form 7k + 5 (since 3*(7k+5) - 1 = 21k + 15 - 1 = 21k + 14 = 7*(3k+2))
 """
-function find_numerator_left_of_target(target_num, target_den, max_denominator)    
+function find_numerator_left_of_target(target_num, target_den, max_denominator)
     # Find the largest denominator d ≤ max_denominator such that d ≡ 5 (mod 7)
     max_k = (max_denominator - 5) ÷ 7
     max_d = 7 * max_k + 5
-    
+
     # Calculate the corresponding numerator
     n = (3 * max_d - 1) ÷ 7
-    
+
     # Verify our solution satisfies the property
     @assert target_num * max_d - target_den * n == 1
-    
+
     return n
 end
 

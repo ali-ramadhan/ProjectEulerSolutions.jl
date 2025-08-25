@@ -1,4 +1,5 @@
-using ProjectEulerSolutions.Problem042: is_triangle_number, word_value, count_triangle_words, solve
+using ProjectEulerSolutions.Problem042:
+    is_triangle_number, word_value, count_triangle_words, solve
 
 @test is_triangle_number(1)
 @test is_triangle_number(3)

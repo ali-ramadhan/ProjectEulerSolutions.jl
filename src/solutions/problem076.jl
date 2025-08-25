@@ -37,14 +37,14 @@ Space complexity: O(n)
 function count_partition_ways(n)
     dp = zeros(Int, n+1)
     dp[1] = 1  # There's 1 way to partition 0 (by not selecting any number)
-    
+
     for j in 1:n
         for i in j:n
-            dp[i+1] += dp[i+1-j]
+            dp[i + 1] += dp[i + 1 - j]
         end
     end
-    
-    return dp[n+1] - 1  # Subtracting 1 to exclude the partition [n]
+
+    return dp[n + 1] - 1  # Subtracting 1 to exclude the partition [n]
 end
 
 function solve()

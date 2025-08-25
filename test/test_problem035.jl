@@ -1,4 +1,5 @@
-using ProjectEulerSolutions.Problem035: is_circular_prime, count_circular_primes_below, generate_primes_below, solve
+using ProjectEulerSolutions.Problem035:
+    is_circular_prime, count_circular_primes_below, generate_primes_below, solve
 
 primes, is_prime_arr = generate_primes_below(1000)
 

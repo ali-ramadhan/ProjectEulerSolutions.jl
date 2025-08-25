@@ -1,4 +1,5 @@
-using ProjectEulerSolutions.Problem030: is_sum_of_digit_powers, find_sum_of_digit_power_numbers, solve
+using ProjectEulerSolutions.Problem030:
+    is_sum_of_digit_powers, find_sum_of_digit_power_numbers, solve
 
 @test is_sum_of_digit_powers(1634, 4) == true
 @test is_sum_of_digit_powers(8208, 4) == true

@@ -51,7 +51,7 @@ function sieve_of_eratosthenes(limit)
     for i in 2:isqrt(limit)
         if is_prime_arr[i]
             # Mark all multiples of i as non-prime
-            for j in i^2:i:limit
+            for j in (i ^ 2):i:limit
                 is_prime_arr[j] = false
             end
         end
@@ -59,7 +59,6 @@ function sieve_of_eratosthenes(limit)
 
     return [i for i in 2:limit if is_prime_arr[i]]
 end
-
 
 """
     prime_factors(n)
@@ -92,6 +91,5 @@ function prime_factors(n)
 
     return factors
 end
-
 
 end # module Primes

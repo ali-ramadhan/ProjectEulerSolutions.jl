@@ -85,7 +85,7 @@ function find_longest_cycle(limit)
     max_length = 0
     max_d = 0
 
-    for d in 2:(limit-1)
+    for d in 2:(limit - 1)
         length = cycle_length(d)
         if length > max_length
             max_length = length

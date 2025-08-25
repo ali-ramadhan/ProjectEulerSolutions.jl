@@ -1,4 +1,5 @@
-using ProjectEulerSolutions.Problem084: community_chest, chance, simulate_monopoly, get_modal_string, solve
+using ProjectEulerSolutions.Problem084:
+    community_chest, chance, simulate_monopoly, get_modal_string, solve
 
 # Test modal string formatting with known visit counts
 test_counts = zeros(Int, 40)

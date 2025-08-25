@@ -56,7 +56,7 @@ function champernowne_digit(n)
     digit_position = offset % digits
 
     # Extract and return the digit
-    return parse(Int, string(number)[digit_position+1])
+    return parse(Int, string(number)[digit_position + 1])
 end
 
 function solve()

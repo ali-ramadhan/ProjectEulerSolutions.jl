@@ -6,8 +6,14 @@ including digit sums, palindromes, permutations, and other digit-based operation
 """
 module Digits
 
-export digit_sum, get_digits, count_digits, is_palindrome, is_pandigital, 
-       digit_rotations, are_permutations, digits_to_number
+export digit_sum,
+    get_digits,
+    count_digits,
+    is_palindrome,
+    is_pandigital,
+    digit_rotations,
+    are_permutations,
+    digits_to_number
 
 """
     digit_sum(n)
@@ -38,7 +44,7 @@ function get_digits(n)
     if n == 0
         return [0]
     end
-    
+
     digits = Int[]
     while n > 0
         pushfirst!(digits, n % 10)
@@ -57,7 +63,7 @@ Example: count_digits(123) returns 3
 function count_digits(n)
     n = abs(n)  # Handle negative numbers
     n == 0 && return 1
-    
+
     count = 0
     while n > 0
         count += 1
@@ -87,13 +93,13 @@ A pandigital number uses each digit in the range exactly once.
 Example: is_pandigital(123, 1:3) returns true
 Example: is_pandigital(2143, 1:4) returns true
 """
-function is_pandigital(n, digits=1:9)
+function is_pandigital(n, digits = 1:9)
     n_digits = get_digits(n)
     digit_set = Set(digits)
-    
+
     # Must have exactly the right number of digits
     length(n_digits) == length(digit_set) || return false
-    
+
     # Must use each digit exactly once
     return Set(n_digits) == digit_set
 end
@@ -110,7 +116,7 @@ function digit_rotations(n)
     rotations = Int[]
 
     for i in 1:len
-        rotated = n_str[i:end] * n_str[1:i-1]
+        rotated = n_str[i:end] * n_str[1:(i - 1)]
         push!(rotations, parse(Int, rotated))
     end
 

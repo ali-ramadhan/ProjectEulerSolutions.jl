@@ -15,13 +15,13 @@ Calculate the sum of all numbers below `limit` that are multiples of any number 
 """
 function sum_multiples(factors, limit)
     multiples = Set{Int}()
-    
+
     for factor in factors
-        for n in factor:factor:(limit-1)
+        for n in factor:factor:(limit - 1)
             push!(multiples, n)
         end
     end
-    
+
     return sum(multiples)
 end
 

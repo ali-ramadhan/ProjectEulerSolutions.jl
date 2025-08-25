@@ -1,4 +1,5 @@
-using ProjectEulerSolutions.Problem082: parse_matrix, find_minimal_path_sum_three_ways, solve
+using ProjectEulerSolutions.Problem082:
+    parse_matrix, find_minimal_path_sum_three_ways, solve
 
 # Test the example from the problem statement
 example_matrix = """

@@ -1,4 +1,5 @@
-using ProjectEulerSolutions.Problem038: is_pandigital, find_largest_pandigital_multiple, solve
+using ProjectEulerSolutions.Problem038:
+    is_pandigital, find_largest_pandigital_multiple, solve
 
 @test is_pandigital("123456789")
 @test !is_pandigital("123456780")

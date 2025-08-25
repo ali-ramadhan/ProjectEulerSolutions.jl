@@ -23,9 +23,9 @@ function euler_totient(n)
     if n == 1
         return 1
     end
-    
+
     result = n
-    
+
     # Handle factor 2
     if n % 2 == 0
         result = result ÷ 2  # result *= (1 - 1/2)
@@ -33,7 +33,7 @@ function euler_totient(n)
             n ÷= 2
         end
     end
-    
+
     # Handle odd factors
     factor = 3
     while factor^2 <= n
@@ -45,12 +45,12 @@ function euler_totient(n)
         end
         factor += 2
     end
-    
+
     # If n > 1, then n is a prime factor itself
     if n > 1
         result = result - result ÷ n  # result *= (1 - 1/n)
     end
-    
+
     return result
 end
 
@@ -67,7 +67,7 @@ This is used in problems that need the sum of totient values or many totient com
 function totient_sieve(limit)
     # Initialize phi[i] = i for i from 1 to limit
     phi = collect(1:limit)
-    
+
     # Sieve-like approach to compute phi values
     for p in 2:limit
         # If phi[p] == p, then p is prime
@@ -79,7 +79,7 @@ function totient_sieve(limit)
             end
         end
     end
-    
+
     return phi
 end
 

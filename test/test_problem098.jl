@@ -1,4 +1,10 @@
-using ProjectEulerSolutions.Problem098: find_anagram_pairs, get_letter_mapping, apply_mapping, is_perfect_square, find_square_anagram_pairs, solve
+using ProjectEulerSolutions.Problem098:
+    find_anagram_pairs,
+    get_letter_mapping,
+    apply_mapping,
+    is_perfect_square,
+    find_square_anagram_pairs,
+    solve
 
 # Test anagram pair finding
 pairs = find_anagram_pairs(["CARE", "RACE", "DOG", "GOD", "CAT"])
@@ -17,7 +23,7 @@ pairs = find_anagram_pairs(["CARE", "RACE", "DOG", "GOD", "CAT"])
 mapping = get_letter_mapping("CARE", "RACE", 1296)
 @test mapping !== nothing
 @test mapping['C'] == '1'
-@test mapping['A'] == '2' 
+@test mapping['A'] == '2'
 @test mapping['R'] == '9'
 @test mapping['E'] == '6'
 

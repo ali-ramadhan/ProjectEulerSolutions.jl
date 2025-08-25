@@ -36,14 +36,14 @@ Returns the magic sum if valid, 0 otherwise.
 """
 function is_valid_configuration(outer, inner)
     n = length(outer)
-    
+
     if length(inner) != n
         return 0
     end
-    
+
     # Calculate the magic sum using the first line
     magic_sum = outer[1] + inner[1] + inner[mod1(2, n)]
-    
+
     # Check all lines have the same sum
     for i in 1:n
         next_i = mod1(i + 1, n)
@@ -51,7 +51,7 @@ function is_valid_configuration(outer, inner)
             return 0
         end
     end
-    
+
     return magic_sum
 end
 
@@ -78,18 +78,17 @@ The string starts from the outer node with the minimum value and reads clockwise
 function ngon_string(outer, inner)
     n = length(outer)
     min_idx = argmin(outer)
-    
+
     # Build the string by reading triplets clockwise from the minimum
     result = ""
-    for i in 0:(n-1)
+    for i in 0:(n - 1)
         idx = mod1(min_idx + i, n)
         next_idx = mod1(idx + 1, n)
         result *= string(outer[idx]) * string(inner[idx]) * string(inner[next_idx])
     end
-    
+
     return result
 end
-
 
 """
     find_magic_5gon()
@@ -108,22 +107,22 @@ Returns a list of tuples (string_representation, magic_sum, length).
 """
 function find_magic_5gon()
     n = 5  # 5-gon
-    
+
     # We'll try different combinations with 10 always on an outer node
     solutions = Tuple{String, Int, Int}[]
-    
+
     # Try different configurations of outer and inner nodes
     for outer_positions in combinations(1:10, n)
         if 10 ∉ outer_positions
             continue
         end
-        
+
         inner_positions = setdiff(1:10, outer_positions)
-        
+
         for outer_perm in permutations(outer_positions)
             for inner_perm in permutations(inner_positions)
                 magic_sum = is_valid_configuration(outer_perm, inner_perm)
-                
+
                 if magic_sum > 0
                     string_rep = ngon_string(outer_perm, inner_perm)
                     push!(solutions, (string_rep, magic_sum, length(string_rep)))
@@ -131,7 +130,7 @@ function find_magic_5gon()
             end
         end
     end
-    
+
     return solutions
 end
 
@@ -143,13 +142,13 @@ Find the maximum 16-digit string for a "magic" 5-gon ring.
 function solve()
     solutions = find_magic_5gon()
     max_16_digit = ""
-    
+
     for (str, sum, len) in solutions
         if len == 16 && (max_16_digit == "" || str > max_16_digit)
             max_16_digit = str
         end
     end
-    
+
     return max_16_digit
 end
 

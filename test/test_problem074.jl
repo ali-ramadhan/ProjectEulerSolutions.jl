@@ -7,8 +7,8 @@ using ProjectEulerSolutions.Problem074: digit_factorial_sum, chain_length, solve
 @test digit_factorial_sum(540) == 145
 
 # Test chain lengths
-next_cache = Dict{Int,Int}()
-length_cache = Dict{Int,Int}()
+next_cache = Dict{Int, Int}()
+length_cache = Dict{Int, Int}()
 
 @test chain_length(69, next_cache, length_cache) == 5
 @test chain_length(78, next_cache, length_cache) == 4

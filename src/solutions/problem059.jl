@@ -69,8 +69,11 @@ function is_english_text(text)
     # Check for common English words
     str_lower = lowercase(str)
     return (
-        occursin(" the ", str_lower) &&
-        (occursin(" and ", str_lower) || occursin(" to ", str_lower) || occursin(" of ", str_lower))
+        occursin(" the ", str_lower) && (
+            occursin(" and ", str_lower) ||
+            occursin(" to ", str_lower) ||
+            occursin(" of ", str_lower)
+        )
     )
 end
 

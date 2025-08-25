@@ -20,7 +20,6 @@ function is_perfect_square(n)
     return root^2 == n
 end
 
-
 """
     digit_sum_of_sqrt(n, digits_count)
 

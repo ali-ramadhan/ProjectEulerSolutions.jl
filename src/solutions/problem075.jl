@@ -54,31 +54,31 @@ right angle triangle can be formed with perimeter L.
 """
 function count_singular_integer_right_triangles(limit)
     perimeter_counts = Dict{Int, Int}()
-    
+
     # Upper bound for m: m < sqrt(limit / 2)
     max_m = isqrt(limit ÷ 2)
-    
+
     for m in 2:max_m
-        for n in 1:(m-1)
+        for n in 1:(m - 1)
             if !is_valid_pair(m, n)
                 continue
             end
-            
+
             a, b, c, p = generate_pythagorean_triple(m, n)
-            
+
             if p > limit
                 break
             end
-            
+
             for k in 1:(limit ÷ p)
                 perimeter = k * p
                 perimeter_counts[perimeter] = get(perimeter_counts, perimeter, 0) + 1
             end
         end
     end
-    
+
     singular_count = count(c -> c == 1, values(perimeter_counts))
-    
+
     return singular_count
 end
 

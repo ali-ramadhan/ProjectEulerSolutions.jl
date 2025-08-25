@@ -32,32 +32,32 @@ The ratio n/φ(n) = pq/((p-1)(q-1)) approaches 1 as p and q get larger.
 function find_totient_permutation(limit)
     min_ratio = Inf
     min_n = 0
-    
+
     # Generate primes up to a suitable upper bound
     # We need primes such that their product is < limit
     sqrt_limit = isqrt(limit)
     prime_upper_bound = 2 * sqrt_limit
-    
+
     primes = sieve_of_eratosthenes(prime_upper_bound)
-    
+
     # Search for suitable pairs of primes
     for i in 1:length(primes)
         p = primes[i]
         max_q = limit ÷ p  # Ensure p*q < limit
-        
+
         for j in i:length(primes)  # Start from i to avoid duplicates
             q = primes[j]
-            
+
             if q > max_q
                 break  # Skip remaining primes if they exceed max_q
             end
-            
+
             n = p * q
             phi_n = (p - 1) * (q - 1)  # φ(n) for semiprime n = p*q
-            
+
             if are_permutations(n, phi_n)
                 ratio = n / phi_n
-                
+
                 if ratio < min_ratio
                     min_ratio = ratio
                     min_n = n
@@ -65,7 +65,7 @@ function find_totient_permutation(limit)
             end
         end
     end
-    
+
     return min_n
 end
 

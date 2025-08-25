@@ -7,7 +7,7 @@ using ProjectEulerSolutions.Problem024: find_nth_permutation, solve
 @test find_nth_permutation([0, 1, 2], 5) == [2, 0, 1]
 @test find_nth_permutation([0, 1, 2], 6) == [2, 1, 0]
 
-@test find_nth_permutation([0, 1, 2, 3], 1)  == [0, 1, 2, 3]
+@test find_nth_permutation([0, 1, 2, 3], 1) == [0, 1, 2, 3]
 @test find_nth_permutation([0, 1, 2, 3], 24) == [3, 2, 1, 0]  # Last permutation
 
 solution = solve()

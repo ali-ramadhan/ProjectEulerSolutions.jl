@@ -1,4 +1,5 @@
-using ProjectEulerSolutions.Problem064: period_of_continued_fraction_sqrt, count_continued_fraction_sqrt_with_odd_period, solve
+using ProjectEulerSolutions.Problem064:
+    period_of_continued_fraction_sqrt, count_continued_fraction_sqrt_with_odd_period, solve
 
 @test period_of_continued_fraction_sqrt(2) == 1    # √2 = [1; (2)]
 @test period_of_continued_fraction_sqrt(3) == 2    # √3 = [1; (1,2)]

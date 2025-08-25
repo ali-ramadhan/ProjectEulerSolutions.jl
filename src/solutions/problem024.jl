@@ -11,7 +11,6 @@ What is the millionth lexicographic permutation of the digits 0, 1, 2, 3, 4, 5, 
 """
 module Problem024
 
-
 """
     find_nth_permutation(elements, n)
 

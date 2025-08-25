@@ -1,4 +1,5 @@
-using ProjectEulerSolutions.Problem080: is_perfect_square, digit_sum_of_sqrt, sum_square_root_digital_expansions, solve
+using ProjectEulerSolutions.Problem080:
+    is_perfect_square, digit_sum_of_sqrt, sum_square_root_digital_expansions, solve
 
 # Test if perfect square detection works correctly
 @test is_perfect_square(1) == true

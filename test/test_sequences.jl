@@ -1,7 +1,12 @@
 using Test
 
-using ProjectEulerSolutions.Utils.Sequences: fibonacci_sequence, triangle_number, pentagonal_number,
-                                              hexagonal_number, sum_of_squares, square_of_sum
+using ProjectEulerSolutions.Utils.Sequences:
+    fibonacci_sequence,
+    triangle_number,
+    pentagonal_number,
+    hexagonal_number,
+    sum_of_squares,
+    square_of_sum
 
 @testset "Sequences" begin
     @testset "fibonacci_sequence" begin

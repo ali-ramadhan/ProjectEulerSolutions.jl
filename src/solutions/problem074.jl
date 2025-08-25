@@ -44,13 +44,13 @@ function chain_length(start, next_cache, length_cache)
     if haskey(length_cache, start)
         return length_cache[start]
     end
-    
+
     seen = Set{Int}()
     num = start
-    
+
     while !(num in seen)
         push!(seen, num)
-        
+
         if haskey(next_cache, num)
             num = next_cache[num]
         else
@@ -59,7 +59,7 @@ function chain_length(start, next_cache, length_cache)
             num = next
         end
     end
-    
+
     length_cache[start] = length(seen)
     return length(seen)
 end
@@ -78,16 +78,16 @@ Returns:
 """
 function count_chains_with_length(limit, target_length)
     # Caches for memoization
-    next_cache = Dict{Int,Int}()
-    length_cache = Dict{Int,Int}()
-    
+    next_cache = Dict{Int, Int}()
+    length_cache = Dict{Int, Int}()
+
     count = 0
-    for n in 1:limit-1
+    for n in 1:(limit - 1)
         if chain_length(n, next_cache, length_cache) == target_length
             count += 1
         end
     end
-    
+
     return count
 end
 

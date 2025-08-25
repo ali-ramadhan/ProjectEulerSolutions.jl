@@ -1,4 +1,5 @@
-using ProjectEulerSolutions.Problem079: build_order_constraints, topological_sort, derive_passcode, read_login_attempts, solve
+using ProjectEulerSolutions.Problem079:
+    build_order_constraints, topological_sort, derive_passcode, read_login_attempts, solve
 
 # Test with a simple example
 sample_attempts = ["317", "318", "319"]
@@ -38,8 +39,10 @@ passcode = derive_passcode(sample_attempts)
 example_passcode = "531278"
 example_attempt = "317"
 
-@test findfirst(example_attempt[1], example_passcode) < findfirst(example_attempt[2], example_passcode)
-@test findfirst(example_attempt[2], example_passcode) < findfirst(example_attempt[3], example_passcode)
+@test findfirst(example_attempt[1], example_passcode) <
+      findfirst(example_attempt[2], example_passcode)
+@test findfirst(example_attempt[2], example_passcode) <
+      findfirst(example_attempt[3], example_passcode)
 
 # Test the file reading function with a temporary file
 function test_file_reading()

@@ -14,7 +14,6 @@ module Problem050
 
 using ProjectEulerSolutions.Utils.Primes: sieve_of_eratosthenes
 
-
 """
     find_longest_consecutive_prime_sum(limit)
 
@@ -50,8 +49,8 @@ function find_longest_consecutive_prime_sum(limit)
             break
         end
 
-        for len in max_length+1:length(primes)-start+1
-            prime_sum = cum_sums[start+len] - cum_sums[start]
+        for len in (max_length + 1):(length(primes) - start + 1)
+            prime_sum = cum_sums[start + len] - cum_sums[start]
 
             if prime_sum >= limit
                 break

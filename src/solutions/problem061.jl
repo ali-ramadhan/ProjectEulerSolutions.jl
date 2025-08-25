@@ -128,7 +128,8 @@ function find_cyclical_set()
 
     for start_type in 3:8
         for start_num in figurate_by_type[start_type]
-            result = find_cycle([(start_num, start_type)], Set([start_type]), figurate_by_type)
+            result =
+                find_cycle([(start_num, start_type)], Set([start_type]), figurate_by_type)
 
             if !isnothing(result)
                 return sum([num for (num, _) in result])

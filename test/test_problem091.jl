@@ -1,5 +1,10 @@
 using Test
-using ProjectEulerSolutions.Problem091: count_right_angle_at_origin, count_right_angle_on_axes, count_right_angle_interior, count_right_triangles, solve
+using ProjectEulerSolutions.Problem091:
+    count_right_angle_at_origin,
+    count_right_angle_on_axes,
+    count_right_angle_interior,
+    count_right_triangles,
+    solve
 
 @testset "count_right_angle_at_origin" begin
     # Test basic counting

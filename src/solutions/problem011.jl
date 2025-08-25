@@ -61,42 +61,42 @@ const GRID = [
 Find the greatest product of `length` adjacent numbers in any direction
 (horizontal, vertical, or diagonal) in the grid.
 """
-function find_greatest_product(grid, length=4)
+function find_greatest_product(grid, length = 4)
     rows, cols = size(grid)
     max_product = 0
-    
+
     # Check horizontal products (right)
     for r in 1:rows
-        for c in 1:(cols-length+1)
-            product = prod(grid[r, c+i-1] for i in 1:length)
+        for c in 1:(cols - length + 1)
+            product = prod(grid[r, c + i - 1] for i in 1:length)
             max_product = max(max_product, product)
         end
     end
-    
+
     # Check vertical products (down)
-    for r in 1:(rows-length+1)
+    for r in 1:(rows - length + 1)
         for c in 1:cols
-            product = prod(grid[r+i-1, c] for i in 1:length)
+            product = prod(grid[r + i - 1, c] for i in 1:length)
             max_product = max(max_product, product)
         end
     end
-    
+
     # Check diagonal products (down-right)
-    for r in 1:(rows-length+1)
-        for c in 1:(cols-length+1)
-            product = prod(grid[r+i-1, c+i-1] for i in 1:length)
+    for r in 1:(rows - length + 1)
+        for c in 1:(cols - length + 1)
+            product = prod(grid[r + i - 1, c + i - 1] for i in 1:length)
             max_product = max(max_product, product)
         end
     end
-    
+
     # Check diagonal products (down-left)
-    for r in 1:(rows-length+1)
+    for r in 1:(rows - length + 1)
         for c in length:cols
-            product = prod(grid[r+i-1, c-(i-1)] for i in 1:length)
+            product = prod(grid[r + i - 1, c - (i - 1)] for i in 1:length)
             max_product = max(max_product, product)
         end
     end
-    
+
     return max_product
 end
 

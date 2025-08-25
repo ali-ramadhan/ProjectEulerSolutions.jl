@@ -24,7 +24,7 @@ function sieve_of_eratosthenes(limit)
 
     for i in 2:isqrt(limit)
         if sieve[i]
-            for j in i^2:i:limit
+            for j in (i ^ 2):i:limit
                 sieve[j] = false
             end
         end
@@ -73,14 +73,16 @@ function find_prime_permutation_sequence()
             sort!(group)
 
             # Check all pairs to see if a third prime completes an arithmetic sequence
-            for i in 1:length(group)-1
-                for j in i+1:length(group)
+            for i in 1:(length(group) - 1)
+                for j in (i + 1):length(group)
                     p1, p2 = group[i], group[j]
                     diff = p2 - p1
 
                     p3 = p2 + diff
 
-                    if p3 <= 9999 && p3 in prime_set && get_sorted_digits(p3) == get_sorted_digits(p1)
+                    if p3 <= 9999 &&
+                       p3 in prime_set &&
+                       get_sorted_digits(p3) == get_sorted_digits(p1)
                         if !(p1 == 1487 && p2 == 4817 && p3 == 8147)
                             return (p1, p2, p3)
                         end

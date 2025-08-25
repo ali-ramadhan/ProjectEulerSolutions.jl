@@ -1,6 +1,19 @@
 using ProjectEulerSolutions.Problem054:
-    HighCard, OnePair, TwoPairs, ThreeOfAKind, Straight, Flush, FullHouse, FourOfAKind, StraightFlush, RoyalFlush,
-    parse_card, parse_hand, compare_hands, evaluate_hand, solve
+    HighCard,
+    OnePair,
+    TwoPairs,
+    ThreeOfAKind,
+    Straight,
+    Flush,
+    FullHouse,
+    FourOfAKind,
+    StraightFlush,
+    RoyalFlush,
+    parse_card,
+    parse_hand,
+    compare_hands,
+    evaluate_hand,
+    solve
 
 @test parse_card("5H").value == 5
 @test parse_card("5H").suit == 'H'

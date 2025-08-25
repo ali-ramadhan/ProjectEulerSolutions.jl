@@ -28,17 +28,17 @@ function collatz_length(n, cache)
     if n == 1
         return 1
     end
-    
+
     if haskey(cache, n)
         return cache[n]
     end
-    
+
     if n % 2 == 0
         length = 1 + collatz_length(n ÷ 2, cache)
     else
         length = 1 + collatz_length(3n + 1, cache)
     end
-    
+
     cache[n] = length
     return length
 end
@@ -51,18 +51,18 @@ Uses memoization for efficiency when calculating sequence lengths.
 """
 function longest_collatz_under(limit)
     cache = Dict(1 => 1)
-    
+
     max_length = 0
     max_start = 0
-    
-    for start in 1:limit-1
+
+    for start in 1:(limit - 1)
         length = collatz_length(start, cache)
         if length > max_length
             max_length = length
             max_start = start
         end
     end
-    
+
     return max_start
 end
 

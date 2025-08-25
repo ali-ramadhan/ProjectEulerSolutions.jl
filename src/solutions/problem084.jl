@@ -67,10 +67,46 @@ module Problem084
 
 # Monopoly board squares (0-39)
 const BOARD_SQUARES = [
-    "GO", "A1", "CC1", "A2", "T1", "R1", "B1", "CH1", "B2", "B3",      # 00-09
-    "JAIL", "C1", "U1", "C2", "C3", "R2", "D1", "CC2", "D2", "D3",     # 10-19
-    "FP", "E1", "CH2", "E2", "E3", "R3", "F1", "F2", "U2", "F3",       # 20-29
-    "G2J", "G1", "CC3", "G2", "G3", "R4", "CH3", "H1", "T2", "H2"      # 30-39
+    "GO",
+    "A1",
+    "CC1",
+    "A2",
+    "T1",
+    "R1",
+    "B1",
+    "CH1",
+    "B2",
+    "B3",      # 00-09
+    "JAIL",
+    "C1",
+    "U1",
+    "C2",
+    "C3",
+    "R2",
+    "D1",
+    "CC2",
+    "D2",
+    "D3",     # 10-19
+    "FP",
+    "E1",
+    "CH2",
+    "E2",
+    "E3",
+    "R3",
+    "F1",
+    "F2",
+    "U2",
+    "F3",       # 20-29
+    "G2J",
+    "G1",
+    "CC3",
+    "G2",
+    "G3",
+    "R4",
+    "CH3",
+    "H1",
+    "T2",
+    "H2",      # 30-39
 ]
 
 # Special squares
@@ -81,7 +117,6 @@ const CC_SQUARES = [2, 17, 33]
 const CH_SQUARES = [7, 22, 36]
 const R_SQUARES = [5, 15, 25, 35]  # Railways
 const U_SQUARES = [12, 28]         # Utilities
-
 
 """
     community_chest()
@@ -212,11 +247,15 @@ end
 Get the six-digit modal string representing the three most visited squares.
 """
 function get_modal_string(visit_counts::Vector{Int})
-    sorted_indices = sortperm(visit_counts, rev=true)
+    sorted_indices = sortperm(visit_counts; rev = true)
 
     top_three = [(sorted_indices[i] - 1) for i in 1:3]
 
-    return string(lpad(top_three[1], 2, '0'), lpad(top_three[2], 2, '0'), lpad(top_three[3], 2, '0'))
+    return string(
+        lpad(top_three[1], 2, '0'),
+        lpad(top_three[2], 2, '0'),
+        lpad(top_three[3], 2, '0'),
+    )
 end
 
 function solve()

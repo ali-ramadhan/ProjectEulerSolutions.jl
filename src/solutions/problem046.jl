@@ -28,7 +28,7 @@ function sieve_of_eratosthenes(limit)
 
     for i in 2:isqrt(limit)
         if is_prime[i]
-            for j in i^2:i:limit
+            for j in (i ^ 2):i:limit
                 is_prime[j] = false
             end
         end
@@ -89,7 +89,7 @@ function find_goldbach_counterexample()
         end
     end
 
-    error("No solution found within the limit")
+    return error("No solution found within the limit")
 end
 
 function solve()

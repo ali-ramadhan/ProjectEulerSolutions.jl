@@ -1,7 +1,14 @@
 using Test
 using ProjectEulerSolutions.Utils.Digits:
-    digit_sum, get_digits, count_digits, is_palindrome, is_pandigital,
-    digit_rotations, are_permutations, digits_to_number, has_even_digit
+    digit_sum,
+    get_digits,
+    count_digits,
+    is_palindrome,
+    is_pandigital,
+    digit_rotations,
+    are_permutations,
+    digits_to_number,
+    has_even_digit
 
 @testset "Digits" begin
     @testset "digit_sum" begin

@@ -1,4 +1,5 @@
-using ProjectEulerSolutions.Problem047: count_distinct_prime_factors, find_consecutive_with_distinct_prime_factors, solve
+using ProjectEulerSolutions.Problem047:
+    count_distinct_prime_factors, find_consecutive_with_distinct_prime_factors, solve
 
 @test count_distinct_prime_factors(2) == 1
 @test count_distinct_prime_factors(4) == 1  # 2²

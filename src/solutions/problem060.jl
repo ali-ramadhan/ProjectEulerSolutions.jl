@@ -13,8 +13,6 @@ module Problem060
 
 using ProjectEulerSolutions.Utils.Primes: is_prime, sieve_of_eratosthenes
 
-
-
 """
     concat_numbers(a, b)
 
@@ -35,13 +33,13 @@ function is_pair_compatible(p, q, prime_cache)
     qp = concat_numbers(q, p)
 
     pq_prime = get!(prime_cache, pq) do
-        is_prime(pq)
+        return is_prime(pq)
     end
 
     !pq_prime && return false
 
     qp_prime = get!(prime_cache, qp) do
-        is_prime(qp)
+        return is_prime(qp)
     end
 
     return qp_prime
@@ -66,7 +64,7 @@ Parameters:
 Returns:
 - A tuple (prime_set, sum) where prime_set is the set of primes and sum is their sum
 """
-function find_prime_pair_set(set_size=5, limit=10000)
+function find_prime_pair_set(set_size = 5, limit = 10000)
     # Generate primes up to the limit (exclude 2 as it can't form a compatible set with odd primes)
     # Any concatenation with 2 at the end would be even and thus not prime
     primes = filter(p -> p > 2, sieve_of_eratosthenes(limit))
@@ -82,7 +80,7 @@ function find_prime_pair_set(set_size=5, limit=10000)
     # Fill the graph by testing all pairs
     for i in 1:length(primes)
         p = primes[i]
-        for j in i+1:length(primes)
+        for j in (i + 1):length(primes)
             q = primes[j]
             if is_pair_compatible(p, q, prime_cache)
                 push!(graph[p], q)

@@ -62,7 +62,7 @@ function find_minimum_d()
     for j in 2:n_max
         p_j = pentagonal(j)
 
-        for k in 1:j-1
+        for k in 1:(j - 1)
             p_k = pentagonal(k)
             diff = p_j - p_k
 

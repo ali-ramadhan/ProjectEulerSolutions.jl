@@ -25,15 +25,7 @@ Note: You can assume that no more than four consecutive identical units are used
 """
 module Problem089
 
-values = Dict(
-    'I' => 1,
-    'V' => 5,
-    'X' => 10,
-    'L' => 50,
-    'C' => 100,
-    'D' => 500,
-    'M' => 1000,
-)
+values = Dict('I' => 1, 'V' => 5, 'X' => 10, 'L' => 50, 'C' => 100, 'D' => 500, 'M' => 1000)
 
 function roman_to_int(roman)
     total = 0

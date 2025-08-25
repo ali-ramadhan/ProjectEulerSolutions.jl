@@ -74,18 +74,18 @@ function find_minimal_path_sum(matrix)
 
     # Fill the first row (can only come from the left)
     for j in 2:cols
-        dp[1, j] = dp[1, j-1] + matrix[1, j]
+        dp[1, j] = dp[1, j - 1] + matrix[1, j]
     end
 
     # Fill the first column (can only come from above)
     for i in 2:rows
-        dp[i, 1] = dp[i-1, 1] + matrix[i, 1]
+        dp[i, 1] = dp[i - 1, 1] + matrix[i, 1]
     end
 
     # Fill the rest of the DP table
     for i in 2:rows
         for j in 2:cols
-            dp[i, j] = matrix[i, j] + min(dp[i-1, j], dp[i, j-1])
+            dp[i, j] = matrix[i, j] + min(dp[i - 1, j], dp[i, j - 1])
         end
     end
 
