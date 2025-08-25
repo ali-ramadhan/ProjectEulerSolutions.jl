@@ -13,7 +13,7 @@ Find the last ten digits of this prime number.
 """
 module Problem097
 
-function last_ten_digits_of_prime()
+function solve()
     # We need to find the last 10 digits of 28433 × 2^7830457 + 1
     # This is equivalent to (28433 × 2^7830457 + 1) mod 10^10
 
@@ -26,10 +26,6 @@ function last_ten_digits_of_prime()
     result = (28433 * power_of_2 + 1) % modulus
 
     return result
-end
-
-function solve()
-    return last_ten_digits_of_prime()
 end
 
 end # module
