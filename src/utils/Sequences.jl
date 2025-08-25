@@ -35,6 +35,26 @@ end
 Calculate the nth triangular number: T(n) = n(n+1)/2.
 Triangular numbers are 1, 3, 6, 10, 15, 21, 28, ...
 
+## Derivation
+
+Triangular numbers represent the number of dots that can be arranged in an equilateral
+triangle. The nth triangular number is the sum of the first n natural numbers:
+
+    T(n) = 1 + 2 + 3 + ... + n
+
+Using the arithmetic series formula (Gauss method):
+    T(n) = n(n+1)/2
+
+Geometrically, this can be visualized as:
+    T(1) = •           (1 dot)
+    T(2) = • •         (3 dots total)
+           •
+    T(3) = • • •       (6 dots total)
+           • •
+           •
+
+Each row k contributes k dots, so T(n) = Σ(k=1 to n) k = n(n+1)/2.
+
 Example: triangle_number(5) returns 15
 """
 function triangle_number(n)
@@ -46,6 +66,28 @@ end
 
 Calculate the nth pentagonal number: P(n) = n(3n-1)/2.
 Pentagonal numbers are 1, 5, 12, 22, 35, 51, ...
+
+## Derivation
+
+Pentagonal numbers represent the number of dots that can be arranged in a regular
+pentagon pattern. They can be derived as a special case of polygonal numbers.
+
+For a k-sided polygonal number, the general formula is:
+    P(k,n) = n[(k-2)n - (k-4)]/2
+
+For pentagons (k=5):
+    P(5,n) = n[(5-2)n - (5-4)]/2 = n(3n-1)/2
+
+Alternatively, pentagonal numbers can be constructed by the recurrence relation:
+    P(1) = 1
+    P(n) = P(n-1) + 3n - 2
+
+This shows that each successive pentagonal number adds 3n-2 dots to form the next
+pentagon layer. The pattern 3n-2 gives the differences: 2, 5, 8, 11, 14, ...
+(arithmetic sequence with common difference 3).
+
+Geometrically, pentagonal numbers extend triangular numbers by adding pentagonal
+"shells" around a central dot.
 
 Example: pentagonal_number(4) returns 22
 """
@@ -59,6 +101,36 @@ end
 Calculate the nth hexagonal number: H(n) = n(2n-1).
 Hexagonal numbers are 1, 6, 15, 28, 45, 66, ...
 
+## Derivation
+
+Hexagonal numbers represent the number of dots that can be arranged in a regular
+hexagon pattern. They can be derived using the general polygonal number formula.
+
+For a k-sided polygonal number:
+    P(k,n) = n[(k-2)n - (k-4)]/2
+
+For hexagons (k=6):
+    H(n) = n[(6-2)n - (6-4)]/2 = n(4n-2)/2 = n(2n-1)
+
+Alternatively, hexagonal numbers have a beautiful relationship with triangular numbers.
+Every hexagonal number is also a triangular number:
+    H(n) = T(2n-1)
+
+This can be verified:
+    H(3) = 3(2·3-1) = 3·5 = 15
+    T(5) = 5·6/2 = 15 ✓
+    
+So H(n) = n(2n-1) = T(2n-1)
+
+The recurrence relation is:
+    H(1) = 1
+    H(n) = H(n-1) + 4n - 3
+
+This shows each hexagonal layer adds 4n-3 dots, giving differences: 3, 7, 11, 15, ...
+(arithmetic sequence with common difference 4).
+
+Remarkably, every hexagonal number is also a triangular number: H(n) = T(2n-1).
+
 Example: hexagonal_number(4) returns 28
 """
 function hexagonal_number(n)
@@ -71,6 +143,23 @@ end
 Calculate the sum of squares of the first n natural numbers: 1² + 2² + ... + n².
 Uses the formula: n(n+1)(2n+1)/6
 
+## Derivation
+
+The sum 1² + 2² + ... + n² can be derived using mathematical induction or by
+considering the relationship:
+    k³ - (k-1)³ = 3k² - 3k + 1
+
+Summing from k=1 to n:
+    n³ = 3(1² + 2² + ... + n²) - 3(1 + 2 + ... + n) + n
+    n³ = 3S - 3·n(n+1)/2 + n
+
+Where S = 1² + 2² + ... + n². Solving for S:
+    S = (n³ + 3n(n+1)/2 - n)/3
+    S = (2n³ + 3n² + 3n - 2n)/6
+    S = (2n³ + 3n² + n)/6
+    S = n(2n² + 3n + 1)/6
+    S = n(n+1)(2n+1)/6
+
 Example: sum_of_squares(3) returns 14 (1² + 2² + 3² = 1 + 4 + 9)
 """
 function sum_of_squares(n)
@@ -82,6 +171,23 @@ end
 
 Calculate the square of the sum of the first n natural numbers: (1 + 2 + ... + n)².
 Uses the formula: (n(n+1)/2)²
+
+## Derivation
+
+The sum of the first n natural numbers is a well-known arithmetic series:
+    1 + 2 + 3 + ... + n
+
+This can be derived by considering the sum S = 1 + 2 + ... + n twice:
+    S = 1 + 2 + 3 + ... + (n-1) + n
+    S = n + (n-1) + (n-2) + ... + 2 + 1
+
+Adding these equations:
+    2S = (n+1) + (n+1) + ... + (n+1)  [n terms]
+    2S = n(n+1)
+    S = n(n+1)/2
+
+Therefore, the square of this sum is:
+    (1 + 2 + ... + n)² = (n(n+1)/2)²
 
 Example: square_of_sum(3) returns 36 ((1 + 2 + 3)² = 6² = 36)
 """
