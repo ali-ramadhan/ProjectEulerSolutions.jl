@@ -52,8 +52,9 @@ Find the value of D = |P_k - P_j| where P_j and P_k are pentagonal numbers
 whose sum and difference are also pentagonal, and D is minimized.
 
 Uses an efficient search strategy by:
-1. Checking pairs in order of increasing difference
-2. Early-skipping pairs that can't have a smaller difference than already found
+
+ 1. Checking pairs in order of increasing difference
+ 2. Early-skipping pairs that can't have a smaller difference than already found
 """
 function find_minimum_d()
     n_max = 2500  # Sufficient upper limit for this problem

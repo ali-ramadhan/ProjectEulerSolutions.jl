@@ -18,25 +18,29 @@ Find the nth lexicographic permutation of a collection of elements without gener
 all possible permutations.
 
 Algorithm:
-- Uses the factorial number system to directly calculate which element goes in each position
-- For n elements, the permutations can be divided into n groups of (n-1)! permutations each
-- We determine which group contains our target permutation to select each element
+
+  - Uses the factorial number system to directly calculate which element goes in each position
+  - For n elements, the permutations can be divided into n groups of (n-1)! permutations each
+  - We determine which group contains our target permutation to select each element
 
 Example: Finding the 10th permutation of [0, 1, 2, 3]
-1. First digit: With 3! = 6 permutations per first digit
-   - 9 ÷ 6 = 1 with remainder 3, so select elements[1] = 1
-   - Result so far: [1], remaining: [0, 2, 3], remainder: 3
 
-2. Second digit: With 2! = 2 permutations per second digit
-   - 3 ÷ 2 = 1 with remainder 1, so select elements[1] = 2
-   - Result so far: [1, 2], remaining: [0, 3], remainder: 1
+ 1. First digit: With 3! = 6 permutations per first digit
 
-3. Third digit: With 1! = 1 permutation per third digit
-   - 1 ÷ 1 = 1 with remainder 0, so select elements[1] = 3
-   - Result so far: [1, 2, 3], remaining: [0]
+      + 9 ÷ 6 = 1 with remainder 3, so select elements[1] = 1
+      + Result so far: [1], remaining: [0, 2, 3], remainder: 3
 
-4. Last digit: Only one possibility: 0
-   - Final result: [1, 2, 3, 0]
+ 2. Second digit: With 2! = 2 permutations per second digit
+
+      + 3 ÷ 2 = 1 with remainder 1, so select elements[1] = 2
+      + Result so far: [1, 2], remaining: [0, 3], remainder: 1
+ 3. Third digit: With 1! = 1 permutation per third digit
+
+      + 1 ÷ 1 = 1 with remainder 0, so select elements[1] = 3
+      + Result so far: [1, 2, 3], remaining: [0]
+ 4. Last digit: Only one possibility: 0
+
+      + Final result: [1, 2, 3, 0]
 """
 function find_nth_permutation(elements, n)
     elements = deepcopy(collect(elements))

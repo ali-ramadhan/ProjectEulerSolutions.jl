@@ -20,8 +20,9 @@ Count the number of combinations nCr where 1 ≤ n ≤ 100 and nCr > limit.
 Uses the properties of binomial coefficients to optimize the calculation.
 
 Takes advantage of two key properties:
-1. Symmetry: binomial(n,r) = binomial(n,n-r)
-2. Monotonicity: For fixed n, binomial(n,r) increases as r approaches n/2
+
+ 1. Symmetry: binomial(n,r) = binomial(n,n-r)
+ 2. Monotonicity: For fixed n, binomial(n,r) increases as r approaches n/2
 """
 function count_combinations_exceeding(limit)
     count = 0

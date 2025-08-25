@@ -1,7 +1,7 @@
 """
 Project Euler Problem 73: Counting Fractions in a Range
 
-Consider the fraction, n/d, where n and d are positive integers. If n < d and HCF(n, d) = 1, 
+Consider the fraction, n/d, where n and d are positive integers. If n < d and HCF(n, d) = 1,
 it is called a reduced proper fraction.
 
 If we list the set of reduced proper fractions for d ≤ 8 in ascending order of size, we get:
@@ -9,7 +9,7 @@ If we list the set of reduced proper fractions for d ≤ 8 in ascending order of
 
 It can be seen that there are 3 fractions between 1/3 and 1/2.
 
-How many fractions lie between 1/3 and 1/2 in the sorted set of reduced proper fractions 
+How many fractions lie between 1/3 and 1/2 in the sorted set of reduced proper fractions
 for d ≤ 12,000?
 """
 module Problem073
@@ -18,10 +18,11 @@ module Problem073
     count_fractions_in_range(limit, lower_bound, upper_bound)
 
 Count the number of reduced proper fractions n/d such that:
-1. n < d
-2. gcd(n, d) = 1
-3. lower_bound < n/d < upper_bound
-4. d ≤ limit
+
+ 1. n < d
+ 2. gcd(n, d) = 1
+ 3. lower_bound < n/d < upper_bound
+ 4. d ≤ limit
 
 Uses optimizations to avoid unnecessary GCD computations.
 """

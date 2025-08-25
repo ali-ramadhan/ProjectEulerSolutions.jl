@@ -56,9 +56,10 @@ Calculate the minimal path sum from any cell in the leftmost column to any cell
 in the rightmost column, moving only right, up, and down.
 
 Uses dynamic programming to efficiently calculate minimal path sum. For each column j:
-1. First compute paths coming directly from the left (col j-1)
-2. Then iteratively update by considering paths that move up or down within column j
-   until no more improvements are found.
+
+ 1. First compute paths coming directly from the left (col j-1)
+ 2. Then iteratively update by considering paths that move up or down within column j
+    until no more improvements are found.
 
 Returns the minimum path sum to the rightmost column.
 """

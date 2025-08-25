@@ -22,8 +22,6 @@ and checking only numbers that end in 1, 3, 7, or 9.
 
 By divisibility rules, 9-digit, 8-digit, 6-digit, and 3-digit pandigitals
 cannot be prime (sum of digits 1 to n is divisible by 3).
-
-
 """
 function find_largest_pandigital_prime()
     for n in 7:-1:1

@@ -47,9 +47,10 @@ end
     is_english_text(text)
 
 Check if the text appears to be readable English based on several criteria:
-- Characters are all in the printable ASCII range
-- There's a reasonable number of spaces
-- It contains common English words
+
+  - Characters are all in the printable ASCII range
+  - There's a reasonable number of spaces
+  - It contains common English words
 """
 function is_english_text(text)
     # Check that most characters are in the printable ASCII range

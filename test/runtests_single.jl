@@ -7,9 +7,11 @@ using SafeTestsets
 Run tests for a single Project Euler problem.
 
 # Arguments
-- `problem_num`: Problem number (e.g., 1, "001", "42")
+
+  - `problem_num`: Problem number (e.g., 1, "001", "42")
 
 # Examples
+
 ```julia
 # From REPL or script
 include("runtests_single.jl")
@@ -19,6 +21,7 @@ test_problem(83)     # Test problem 83
 ```
 
 # Usage from command line
+
 ```bash
 julia runtests_single.jl 42    # Test problem 42
 julia runtests_single.jl       # Interactive mode - prompts for problem number

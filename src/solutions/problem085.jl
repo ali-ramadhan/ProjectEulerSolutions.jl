@@ -19,8 +19,9 @@ to choose 2 horizontal lines from (m+1) available horizontal lines
 and 2 vertical lines from (n+1) available vertical lines.
 
 For an m×n grid:
-- There are (m+1) horizontal lines (top, bottom, and m-1 internal)
-- There are (n+1) vertical lines (left, right, and n-1 internal)
+
+  - There are (m+1) horizontal lines (top, bottom, and m-1 internal)
+  - There are (n+1) vertical lines (left, right, and n-1 internal)
 
 The formula uses combinations: C(m+1,2) * C(n+1,2) where C(n,k) = binomial(n,k)
 """

@@ -18,9 +18,10 @@ Find the nth digit of Champernowne's constant (the decimal fraction created by
 concatenating positive integers 0.123456789101112...).
 
 Algorithm:
-1. Determine which category of numbers (1-digit, 2-digit, etc.) contains the nth digit.
-2. Calculate the specific number within that category.
-3. Extract the correct digit from that number.
+
+ 1. Determine which category of numbers (1-digit, 2-digit, etc.) contains the nth digit.
+ 2. Calculate the specific number within that category.
+ 3. Extract the correct digit from that number.
 """
 function champernowne_digit(n)
     position = 0

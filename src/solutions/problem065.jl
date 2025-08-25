@@ -64,7 +64,7 @@ end
 """
     calculate_convergent(terms)
 
-Calculate the convergent (numerator and denominator) for a given 
+Calculate the convergent (numerator and denominator) for a given
 continued fraction represented by the array of terms.
 Uses the recursive formula for computing convergents:
 p₍ᵢ₎ = a₍ᵢ₎ * p₍ᵢ₋₁₎ + p₍ᵢ₋₂₎

@@ -70,11 +70,13 @@ end
 Count how many starting numbers below the given limit have a chain length matching the target length.
 
 Parameters:
-- limit: The upper bound for starting numbers (exclusive)
-- target_length: The chain length we're looking for
+
+  - limit: The upper bound for starting numbers (exclusive)
+  - target_length: The chain length we're looking for
 
 Returns:
-- The count of numbers below limit with chain length equal to target_length
+
+  - The count of numbers below limit with chain length equal to target_length
 """
 function count_chains_with_length(limit, target_length)
     # Caches for memoization

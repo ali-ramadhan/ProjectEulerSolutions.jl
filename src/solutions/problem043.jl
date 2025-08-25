@@ -5,13 +5,14 @@ The number, 1406357289, is a 0 to 9 pandigital number because it is made up of e
 but it also has a rather interesting sub-string divisibility property.
 
 Let d₁ be the 1st digit, d₂ be the 2nd digit, and so on. In this way, we note the following:
-- d₂d₃d₄=406 is divisible by 2
-- d₃d₄d₅=063 is divisible by 3
-- d₄d₅d₆=635 is divisible by 5
-- d₅d₆d₇=357 is divisible by 7
-- d₆d₇d₈=572 is divisible by 11
-- d₇d₈d₉=728 is divisible by 13
-- d₈d₉d₁₀=289 is divisible by 17
+
+  - d₂d₃d₄=406 is divisible by 2
+  - d₃d₄d₅=063 is divisible by 3
+  - d₄d₅d₆=635 is divisible by 5
+  - d₅d₆d₇=357 is divisible by 7
+  - d₆d₇d₈=572 is divisible by 11
+  - d₇d₈d₉=728 is divisible by 13
+  - d₈d₉d₁₀=289 is divisible by 17
 
 Find the sum of all 0 to 9 pandigital numbers with this property.
 """
@@ -25,10 +26,11 @@ const DIVISORS = [2, 3, 5, 7, 11, 13, 17]
 Recursively build 0-9 pandigital numbers that satisfy the substring divisibility properties.
 
 Parameters:
-- digits: Current array of digits being built (length = position-1)
-- used: Boolean array tracking which digits (0-9) have been used
-- position: Current digit position being filled (1-10)
-- result: Array to collect valid pandigital numbers
+
+  - digits: Current array of digits being built (length = position-1)
+  - used: Boolean array tracking which digits (0-9) have been used
+  - position: Current digit position being filled (1-10)
+  - result: Array to collect valid pandigital numbers
 """
 function build_divisible_pandigitals(digits, used, position, result)
     # Base case: if we've placed all 10 digits, we have a complete number

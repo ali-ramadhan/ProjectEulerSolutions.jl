@@ -15,14 +15,15 @@ module Problem039
 Count the number of right triangles with integer sides whose perimeter equals p.
 
 Mathematical derivation:
-- For a right triangle with sides a, b, c (where c is the hypotenuse)
-- We know a² + b² = c² (Pythagorean theorem)
-- And a + b + c = p (perimeter constraint)
-- Substituting c = p - a - b into the Pythagorean theorem:
-  a² + b² = (p - a - b)²
-- Expanding and solving for b:
-  b = (p(p - 2a)) / (2(p - a))
-- We check if this value of b is an integer, and if it forms a valid triangle with a ≤ b ≤ c
+
+  - For a right triangle with sides a, b, c (where c is the hypotenuse)
+  - We know a² + b² = c² (Pythagorean theorem)
+  - And a + b + c = p (perimeter constraint)
+  - Substituting c = p - a - b into the Pythagorean theorem:
+    a² + b² = (p - a - b)²
+  - Expanding and solving for b:
+    b = (p(p - 2a)) / (2(p - a))
+  - We check if this value of b is an integer, and if it forms a valid triangle with a ≤ b ≤ c
 """
 function count_right_triangles(p)
     count = 0

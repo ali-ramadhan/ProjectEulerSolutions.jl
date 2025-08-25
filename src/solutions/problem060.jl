@@ -58,11 +58,13 @@ We want to find a 5-clique, a fully connected subgraph of 5 nodes within this gr
 Uses a graph-based approach with depth-first search with some pruning strategies to efficiently find the solution
 
 Parameters:
-- set_size: Size of the prime set to find (default: 5)
-- limit: Upper limit for generating primes (default: 10000)
+
+  - set_size: Size of the prime set to find (default: 5)
+  - limit: Upper limit for generating primes (default: 10000)
 
 Returns:
-- A tuple (prime_set, sum) where prime_set is the set of primes and sum is their sum
+
+  - A tuple (prime_set, sum) where prime_set is the set of primes and sum is their sum
 """
 function find_prime_pair_set(set_size = 5, limit = 10000)
     # Generate primes up to the limit (exclude 2 as it can't form a compatible set with odd primes)

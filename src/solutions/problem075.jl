@@ -1,7 +1,7 @@
 """
 Project Euler Problem 75: Singular Integer Right Triangles
 
-It turns out that 12 cm is the smallest length of wire that can be bent to form 
+It turns out that 12 cm is the smallest length of wire that can be bent to form
 an integer sided right angle triangle in exactly one way, but there are many more examples.
 
 12 cm: (3,4,5)
@@ -11,13 +11,13 @@ an integer sided right angle triangle in exactly one way, but there are many mor
 40 cm: (8,15,17)
 48 cm: (12,16,20)
 
-In contrast, some lengths of wire, like 20 cm, cannot be bent to form an integer sided 
-right angle triangle, and other lengths allow more than one solution to be found; 
+In contrast, some lengths of wire, like 20 cm, cannot be bent to form an integer sided
+right angle triangle, and other lengths allow more than one solution to be found;
 for example, using 120 cm it is possible to form exactly three different integer sided right angle triangles.
 
 120 cm: (30,40,50), (20,48,52), (24,45,51)
 
-Given that L is the length of the wire, for how many values of L ≤ 1,500,000 
+Given that L is the length of the wire, for how many values of L ≤ 1,500,000
 can exactly one integer sided right angle triangle be formed?
 """
 module Problem075
@@ -49,7 +49,7 @@ end
 """
     count_singular_integer_right_triangles(limit)
 
-Count the number of values L ≤ limit for which exactly one integer-sided 
+Count the number of values L ≤ limit for which exactly one integer-sided
 right angle triangle can be formed with perimeter L.
 """
 function count_singular_integer_right_triangles(limit)

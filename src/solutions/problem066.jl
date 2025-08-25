@@ -69,8 +69,9 @@ Find the value of D ≤ limit for which the minimal solution to Pell's equation
 x² - Dy² = 1 has the largest value of x.
 
 Returns a tuple (d, x) where:
-- d is the value of D that produces the largest x
-- x is the largest minimal solution value
+
+  - d is the value of D that produces the largest x
+  - x is the largest minimal solution value
 
 Uses BigInt to handle extremely large solutions.
 """

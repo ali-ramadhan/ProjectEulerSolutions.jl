@@ -15,9 +15,10 @@ Calculate partition numbers p(n) using Euler's pentagonal number theorem.
 Returns the array of partition numbers.
 
 Optional parameters:
-- max_n: If provided, calculate up to p(max_n)
-- target_mod: Calculate values modulo this number
-- divisible_by: If provided, stop when p(n) is divisible by this value and return (p_array, n)
+
+  - max_n: If provided, calculate up to p(max_n)
+  - target_mod: Calculate values modulo this number
+  - divisible_by: If provided, stop when p(n) is divisible by this value and return (p_array, n)
 
 The pentagonal number theorem gives an efficient recurrence relation:
 p(n) = p(n-1) + p(n-2) - p(n-5) - p(n-7) + p(n-12) + ...

@@ -28,15 +28,17 @@ Mathematical insight: For ordered dimensions a ≤ b ≤ c, the shortest path is
 This is because unfolding the cuboid optimally places the two smaller dimensions adjacent.
 
 The algorithm:
-1. For each longest dimension a from 1 to max_dimension
-2. For each possible sum bc_sum = b + c from 2 to 2a
-3. Check if a² + bc_sum² is a perfect square
-4. If so, count valid (b,c) pairs using the direct formula
+
+ 1. For each longest dimension a from 1 to max_dimension
+ 2. For each possible sum bc_sum = b + c from 2 to 2a
+ 3. Check if a² + bc_sum² is a perfect square
+ 4. If so, count valid (b,c) pairs using the direct formula
 
 Direct counting formula derivation:
-- We need 1 ≤ c ≤ b ≤ a and b + c = bc_sum
-- c can range from max(1, bc_sum - a) to min(bc_sum ÷ 2, a)
-- The count is: min(bc_sum ÷ 2, a) - max(bc_sum - a, 1) + 1
+
+  - We need 1 ≤ c ≤ b ≤ a and b + c = bc_sum
+  - c can range from max(1, bc_sum - a) to min(bc_sum ÷ 2, a)
+  - The count is: min(bc_sum ÷ 2, a) - max(bc_sum - a, 1) + 1
 """
 function count_integer_routes(max_dimension::Int)
     count = 0
@@ -86,8 +88,8 @@ Find the smallest M such that count_integer_routes(M) > target using binary sear
 This is much more efficient than linear search, especially for large targets.
 The algorithm has two phases:
 
-1. **Exponential search**: Find upper bound by doubling until we exceed the target.
-2. **Binary search**: Narrow down the exact answer between lower and upper bounds.
+ 1. **Exponential search**: Find upper bound by doubling until we exceed the target.
+ 2. **Binary search**: Narrow down the exact answer between lower and upper bounds.
 
 Time complexity: O(log M * cost_of_counting) vs O(M * cost_of_counting) for linear search
 """

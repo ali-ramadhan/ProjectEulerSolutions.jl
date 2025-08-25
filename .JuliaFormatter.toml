@@ -11,4 +11,4 @@ normalize_line_endings = "unix"
 trailing_comma = true
 separate_kwargs_with_semicolon = true
 surround_whereop_typeparameters = false
-
+format_docstrings = true

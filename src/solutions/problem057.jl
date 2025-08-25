@@ -25,10 +25,10 @@ Count how many of the first 'limit' expansions of √2 have more digits
 in the numerator than in the denominator.
 
 Uses the recurrence relation for computing continued fraction convergents:
-    p₁ = 3, q₁ = 2
-    p_n = 2 * p_{n-1} + p_{n-2},
-    q_n = 2 * q_{n-1} + q_{n-2}
-    for n ≥ 2
+p₁ = 3, q₁ = 2
+p_n = 2 * p_{n-1} + p_{n-2},
+q_n = 2 * q_{n-1} + q_{n-2}
+for n ≥ 2
 
 See: https://en.wikipedia.org/wiki/Continued_fraction#Formulation
 """

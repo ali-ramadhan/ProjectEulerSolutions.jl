@@ -15,7 +15,7 @@ module Problem009
     find_pythagorean_triplet()
 
 Find the unique Pythagorean triplet (a, b, c) where a + b + c = 1000.
-Uses the formula b = (500000 - 1000a)/(1000 - a) derived by combining 
+Uses the formula b = (500000 - 1000a)/(1000 - a) derived by combining
 the Pythagorean theorem with the sum constraint to avoid nested loops.
 Returns a tuple (a, b, c).
 """

@@ -23,10 +23,11 @@ consecutive positive integers, 1 to n, can be obtained, giving your answer as a
 four digit number abcd.
 
 Implementation Notes:
-- Uses rational arithmetic to handle fractional intermediate results exactly
-- Employs 5 explicit parenthesization patterns with full digit permutations
-- Alternative approaches include RPN evaluation or recursive partitioning with DP
-- Current method prioritizes clarity for fixed digit count over scalability
+
+  - Uses rational arithmetic to handle fractional intermediate results exactly
+  - Employs 5 explicit parenthesization patterns with full digit permutations
+  - Alternative approaches include RPN evaluation or recursive partitioning with DP
+  - Current method prioritizes clarity for fixed digit count over scalability
 """
 module Problem093
 

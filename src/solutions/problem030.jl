@@ -31,9 +31,10 @@ Calculate the upper bound for the search space when looking for numbers that equ
 the sum of their digits raised to a given power.
 
 For a number with n digits:
-- The maximum digit power sum possible is n × 9^power
-- For a valid number, the digit power sum must have at least n digits
-- We find the largest n where n × 9^power still has at least n digits
+
+  - The maximum digit power sum possible is n × 9^power
+  - For a valid number, the digit power sum must have at least n digits
+  - We find the largest n where n × 9^power still has at least n digits
 """
 function calculate_upper_bound(power)
     n = 1
@@ -49,9 +50,10 @@ end
 Find the sum of all numbers that can be written as the sum of the given power of their digits.
 
 The function:
-1. Determines a mathematically sound upper bound for the search
-2. Identifies all numbers within the range that equal the sum of their digits raised to the given power
-3. Returns the sum of all these special numbers
+
+ 1. Determines a mathematically sound upper bound for the search
+ 2. Identifies all numbers within the range that equal the sum of their digits raised to the given power
+ 3. Returns the sum of all these special numbers
 """
 function find_sum_of_digit_power_numbers(power)
     upper_bound = calculate_upper_bound(power)

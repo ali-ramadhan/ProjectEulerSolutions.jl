@@ -19,8 +19,9 @@ module Problem019
     is_leap_year(year)
 
 Determine if the given year is a leap year according to the rule:
-- A leap year occurs on any year evenly divisible by 4
-- But not on a century unless it is divisible by 400
+
+  - A leap year occurs on any year evenly divisible by 4
+  - But not on a century unless it is divisible by 400
 """
 function is_leap_year(year)
     return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)
@@ -49,9 +50,10 @@ Count the number of Sundays that fell on the first day of the month
 from January of start_year to December of end_year, inclusive.
 
 The algorithm works by:
-1. Starting with Jan 1, 1900 as a Monday (day 1)
-2. Tracking the day of week for the first of each month
-3. Counting when the first falls on a Sunday during the specified period
+
+ 1. Starting with Jan 1, 1900 as a Monday (day 1)
+ 2. Tracking the day of week for the first of each month
+ 3. Counting when the first falls on a Sunday during the specified period
 """
 function count_sundays_on_first(start_year, end_year)
     # 0 = Sunday, 1 = Monday, ..., 6 = Saturday

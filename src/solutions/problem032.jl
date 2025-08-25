@@ -29,8 +29,9 @@ end
 
 Find all products whose multiplicand/multiplier/product identity can be written as a 1-9 pandigital.
 This function checks two cases:
-1. 1-digit × 4-digit = 4-digit
-2. 2-digit × 3-digit = 4-digit
+
+ 1. 1-digit × 4-digit = 4-digit
+ 2. 2-digit × 3-digit = 4-digit
 
 These are the only cases where the combined digits can sum to 9, which is required for a 1-9 pandigital.
 Returns the sum of all such unique products.

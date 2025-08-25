@@ -22,13 +22,16 @@ Calculate the sum of the numbers on the diagonals in an n × n spiral,
 where n is odd (representing the side length of the spiral).
 
 For a spiral of size (2k+1) × (2k+1), the diagonal numbers follow a pattern:
-- The center is 1
-- Each subsequent ring adds 4 diagonal numbers
-- The corners of each ring k have values:
-  - Bottom-right: (2k+1)²
-  - Bottom-left: (2k+1)² - 2k
-  - Top-left: (2k+1)² - 4k
-  - Top-right: (2k+1)² - 6k
+
+  - The center is 1
+
+  - Each subsequent ring adds 4 diagonal numbers
+  - The corners of each ring k have values:
+
+      + Bottom-right: (2k+1)²
+      + Bottom-left: (2k+1)² - 2k
+      + Top-left: (2k+1)² - 4k
+      + Top-right: (2k+1)² - 6k
 
 Using this pattern, we can derive a closed-form formula to calculate the sum directly.
 """

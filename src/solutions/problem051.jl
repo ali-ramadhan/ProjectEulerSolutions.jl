@@ -41,10 +41,11 @@ end
 Generate all non-empty subsets of the given positions using bit manipulation.
 
 This function leverages binary representation to create a "mask" for each possible subset:
-1. For a set with n elements, there are 2^n possible subsets (including the empty set)
-2. Each subset can be represented by an n-bit binary number, where each bit indicates whether
-   to include (1) or exclude (0) the corresponding element
-3. We iterate from 1 to 2^n-1 (skipping 0 to exclude the empty set)
+
+ 1. For a set with n elements, there are 2^n possible subsets (including the empty set)
+ 2. Each subset can be represented by an n-bit binary number, where each bit indicates whether
+    to include (1) or exclude (0) the corresponding element
+ 3. We iterate from 1 to 2^n-1 (skipping 0 to exclude the empty set)
 """
 function generate_subsets(positions)
     n = length(positions)

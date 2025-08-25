@@ -65,10 +65,11 @@ Find the smallest odd composite number that cannot be written as the sum of a pr
 disproving Goldbach's conjecture.
 
 The approach:
-1. Generate primes using the Sieve of Eratosthenes
-2. Pre-compute a set of values of the form 2s² for quick lookup
-3. Check odd composite numbers sequentially until finding one that cannot be expressed
-   as the sum of a prime and twice a square
+
+ 1. Generate primes using the Sieve of Eratosthenes
+ 2. Pre-compute a set of values of the form 2s² for quick lookup
+ 3. Check odd composite numbers sequentially until finding one that cannot be expressed
+    as the sum of a prime and twice a square
 """
 function find_goldbach_counterexample()
     limit = 10000

@@ -111,10 +111,11 @@ Note: Numbers that arrive at 1 are called "happy numbers",
 those that arrive at 89 are "unhappy numbers".
 
 Algorithm:
-1. Generate all unique digit combinations (sorted to avoid duplicates)
-2. For each combination, calculate sum of digit squares
-3. Check if that sum leads to 89 in the chain
-4. If yes, add the multinomial coefficient (number of permutations)
+
+ 1. Generate all unique digit combinations (sorted to avoid duplicates)
+ 2. For each combination, calculate sum of digit squares
+ 3. Check if that sum leads to 89 in the chain
+ 4. If yes, add the multinomial coefficient (number of permutations)
 """
 function count_unhappy_numbers(num_digits)
     # Pre-compute maximum possible sum and which sums lead to 89

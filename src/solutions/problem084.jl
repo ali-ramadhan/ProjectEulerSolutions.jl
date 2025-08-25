@@ -42,19 +42,21 @@ movement; any instruction not concerned with movement will be ignored and the pl
 will remain on the CC/CH square.
 
 Community Chest (2/16 cards):
-1. Advance to GO
-2. Go to JAIL
+
+ 1. Advance to GO
+ 2. Go to JAIL
 
 Chance (10/16 cards):
-1. Advance to GO
-2. Go to JAIL
-3. Go to C1
-4. Go to E3
-5. Go to H2
-6. Go to R1
-7. Go to the next R (railway company)
-8. Go to the next R
-9. Go to next U (utility company)
+
+ 1. Advance to GO
+ 2. Go to JAIL
+ 3. Go to C1
+ 4. Go to E3
+ 5. Go to H2
+ 6. Go to R1
+ 7. Go to the next R (railway company)
+ 8. Go to the next R
+ 9. Go to next U (utility company)
 10. Go back 3 squares.
 
 So, the most popular squares, in order, are JAIL (6.24%) = Square 10, E3 (3.18%) =

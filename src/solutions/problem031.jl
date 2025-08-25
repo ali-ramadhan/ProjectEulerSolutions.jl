@@ -18,9 +18,10 @@ Count the number of ways to make 'target' amount using the given 'coins'.
 Uses dynamic programming to efficiently solve this classic coin change problem.
 
 This approach iterates through each coin denomination and updates the ways array:
-- ways[amount+1] represents the number of ways to make 'amount' pence
-- For each coin and amount combination, we add the number of ways to make
-  (amount - coin) to the current count for amount
+
+  - ways[amount+1] represents the number of ways to make 'amount' pence
+  - For each coin and amount combination, we add the number of ways to make
+    (amount - coin) to the current count for amount
 """
 function count_coin_combinations(target, coins)
     # ways[amount+1] = ways to make 'amount'

@@ -1,13 +1,13 @@
 """
 Project Euler Problem 68: Magic 5-gon Ring
 
-Consider a "magic" 5-gon ring, filled with the numbers 1 to 10, 
+Consider a "magic" 5-gon ring, filled with the numbers 1 to 10,
 and each line (consisting of 3 numbers) adding to the same sum.
 
-Working clockwise, and starting from the group of three with the 
+Working clockwise, and starting from the group of three with the
 numerically lowest external node, each solution can be described uniquely.
 
-Using the numbers 1 to 10, what is the maximum 16-digit string 
+Using the numbers 1 to 10, what is the maximum 16-digit string
 for a "magic" 5-gon ring?
 """
 module Problem068
@@ -21,18 +21,22 @@ Check if the given configuration of outer and inner nodes forms a valid magic n-
 Returns the magic sum if valid, 0 otherwise.
 
 # Arguments
-- `outer`: Array of values for the outer nodes (vertices) of the n-gon, arranged clockwise
-- `inner`: Array of values for the inner nodes (connecting points) of the n-gon, arranged clockwise
+
+  - `outer`: Array of values for the outer nodes (vertices) of the n-gon, arranged clockwise
+  - `inner`: Array of values for the inner nodes (connecting points) of the n-gon, arranged clockwise
 
 # Details
-- Each "line" consists of an outer node, its corresponding inner node, and the next inner node clockwise
-- For outer[i], the line contains: outer[i] + inner[i] + inner[mod1(i+1, n)]
-- The function checks if all lines sum to the same "magic" value
-- For a 5-gon ring, there are 5 lines: 
-  * Line 1: outer[1] + inner[1] + inner[2]
-  * Line 2: outer[2] + inner[2] + inner[3]
-  * ...
-  * Line 5: outer[5] + inner[5] + inner[1] (wraps around to the beginning)
+
+  - Each "line" consists of an outer node, its corresponding inner node, and the next inner node clockwise
+
+  - For outer[i], the line contains: outer[i] + inner[i] + inner[mod1(i+1, n)]
+  - The function checks if all lines sum to the same "magic" value
+  - For a 5-gon ring, there are 5 lines:
+
+      + Line 1: outer[1] + inner[1] + inner[2]
+      + Line 2: outer[2] + inner[2] + inner[3]
+      + ...
+      + Line 5: outer[5] + inner[5] + inner[1] (wraps around to the beginning)
 """
 function is_valid_configuration(outer, inner)
     n = length(outer)
@@ -62,18 +66,22 @@ Convert a valid magic n-gon ring to its string representation.
 The string starts from the outer node with the minimum value and reads clockwise.
 
 # Arguments
-- `outer`: Array of values for the outer nodes (vertices) of the n-gon, arranged clockwise
-- `inner`: Array of values for the inner nodes (connecting points) of the n-gon, arranged clockwise
+
+  - `outer`: Array of values for the outer nodes (vertices) of the n-gon, arranged clockwise
+  - `inner`: Array of values for the inner nodes (connecting points) of the n-gon, arranged clockwise
 
 # Details
-- First finds the index of the minimum value in the outer array
-- Starting from that minimum outer node, constructs the string by reading triplets clockwise
-- Each triplet consists of: outer[i] + inner[i] + inner[mod1(i+1, n)]
-- For a 5-gon with minimum outer node at position 1, the string would represent:
-  * outer[1],inner[1],inner[2], outer[2],inner[2],inner[3], ..., outer[5],inner[5],inner[1]
-- For Project Euler Problem 68, we need to find the maximum 16-digit string,
-  which requires the number 10 to be placed on an outer node. If it's placed on an inner node
-  then it will appear twice leading to a 17-digit string.
+
+  - First finds the index of the minimum value in the outer array
+
+  - Starting from that minimum outer node, constructs the string by reading triplets clockwise
+  - Each triplet consists of: outer[i] + inner[i] + inner[mod1(i+1, n)]
+  - For a 5-gon with minimum outer node at position 1, the string would represent:
+
+      + outer[1],inner[1],inner[2], outer[2],inner[2],inner[3], ..., outer[5],inner[5],inner[1]
+  - For Project Euler Problem 68, we need to find the maximum 16-digit string,
+    which requires the number 10 to be placed on an outer node. If it's placed on an inner node
+    then it will appear twice leading to a 17-digit string.
 """
 function ngon_string(outer, inner)
     n = length(outer)
@@ -97,13 +105,14 @@ Find all possible magic 5-gon ring configurations using the numbers 1-10.
 Returns a list of tuples (string_representation, magic_sum, length).
 
 # Details
-- Generates all possible distributions of numbers 1-10 between outer and inner nodes
-- Ensures 10 is always placed on an outer node (to get a 16-digit string rather than 17)
-- For each valid distribution, checks if it forms a magic 5-gon ring (all lines sum to the same value)
-- For each valid configuration, computes the string representation and saves it with the magic sum
-- The full search space is large: 10C5 combinations for selecting outer nodes,
-  with 5! permutations of outer nodes and 5! permutations of inner nodes for each combination
-- This function is useful for verifying the solution or finding all valid magic 5-gon rings
+
+  - Generates all possible distributions of numbers 1-10 between outer and inner nodes
+  - Ensures 10 is always placed on an outer node (to get a 16-digit string rather than 17)
+  - For each valid distribution, checks if it forms a magic 5-gon ring (all lines sum to the same value)
+  - For each valid configuration, computes the string representation and saves it with the magic sum
+  - The full search space is large: 10C5 combinations for selecting outer nodes,
+    with 5! permutations of outer nodes and 5! permutations of inner nodes for each combination
+  - This function is useful for verifying the solution or finding all valid magic 5-gon rings
 """
 function find_magic_5gon()
     n = 5  # 5-gon
