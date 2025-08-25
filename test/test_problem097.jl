@@ -1,5 +1,5 @@
 using Test
-using ProjectEulerSolutions.Problem097: last_ten_digits_of_prime, solve
+using ProjectEulerSolutions.Problem097: solve
 
 # Correct answer
 @test solve() == 8739992577
