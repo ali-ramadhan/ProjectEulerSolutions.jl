@@ -10,6 +10,28 @@ how many letters would be used?
 NOTE: Do not count spaces or hyphens. For example, 342 (three hundred and forty-two)
 contains 23 letters and 115 (one hundred and fifteen) contains 20 letters.
 The use of "and" when writing out numbers is in compliance with British usage.
+
+## Solution approach
+
+We build a systematic word conversion system:
+1. Create a dictionary mapping numbers to their word representations
+2. Implement recursive logic to handle hundreds, tens, and units
+3. Follow British convention by adding "and" between hundreds and remainder
+4. Count only letters, excluding spaces and hyphens
+
+The algorithm handles each range separately: 1-19 (special cases), 20-99 (tens+units),
+100-999 (hundreds+and+remainder), and 1000 (special case).
+
+## Complexity analysis
+
+Time complexity: O(n)
+- Convert each number from 1 to 1000 to words: O(n) numbers
+- Each conversion takes constant time: O(1)
+- Counting letters in each word: O(average_word_length)
+
+Space complexity: O(1)
+- Fixed-size dictionary for number words
+- Constant additional space for string operations
 """
 module Problem017
 
@@ -81,7 +103,6 @@ end
 Count the number of letters in a string, ignoring spaces and hyphens.
 """
 function count_letters(str)
-    # Filter out spaces and hyphens, then count the remaining characters
     return length(filter(c -> !isspace(c) && c != '-', str))
 end
 
