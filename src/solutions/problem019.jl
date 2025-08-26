@@ -1,7 +1,8 @@
 """
 Project Euler Problem 19: Counting Sundays
 
-You are given the following information, but you may prefer to do some research for yourself.
+You are given the following information, but you may prefer to do some research for
+yourself.
 
 1 Jan 1900 was a Monday.
 Thirty days has September, April, June and November.
@@ -9,9 +10,32 @@ All the rest have thirty-one, saving February alone,
 Which has twenty-eight, rain or shine.
 And on leap years, twenty-nine.
 
-A leap year occurs on any year evenly divisible by 4, but not on a century unless it is divisible by 400.
+A leap year occurs on any year evenly divisible by 4, but not on a century unless it is
+divisible by 400.
 
-How many Sundays fell on the first of the month during the twentieth century (1 Jan 1901 to 31 Dec 2000)?
+How many Sundays fell on the first of the month during the twentieth century (1 Jan 1901 to
+31 Dec 2000)?
+
+## Solution approach
+
+We simulate the calendar starting from the known fact that Jan 1, 1900 was a Monday.
+For each month, we:
+1. Check if the first day is a Sunday and count it (only for years 1901-2000)
+2. Calculate the number of days in the current month
+3. Advance the day-of-week by that number of days (mod 7)
+
+We handle leap years correctly using the standard rule: divisible by 4, but not
+by 100 unless also divisible by 400.
+
+## Complexity analysis
+
+Time complexity: O(n)
+- We iterate through 101 years × 12 months = 1212 iterations
+- Each iteration performs constant-time calculations
+- Linear in the number of months in the date range
+
+Space complexity: O(1)
+- Only uses a constant amount of additional space for counters and variables
 """
 module Problem019
 

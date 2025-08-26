@@ -1,3 +1,4 @@
+using Test
 using ProjectEulerSolutions.Problem019:
     is_leap_year, days_in_month, count_sundays_on_first, solve
 
@@ -15,4 +16,5 @@ using ProjectEulerSolutions.Problem019:
 # There are 2 Sundays on the first of the month in 1900 (but not part of the problem period)
 @test count_sundays_on_first(1900, 1900) == 2
 
+# Correct answer
 @test solve() == 171
