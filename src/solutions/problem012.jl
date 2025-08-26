@@ -16,10 +16,32 @@ Let us list the factors of the first seven triangle numbers:
 
 We can see that 28 is the first triangle number to have over five divisors.
 What is the value of the first triangle number to have over five hundred divisors?
+
+## Solution approach
+
+We use the mathematical property that the nth triangular number T(n) = n(n+1)/2.
+To optimize divisor counting, we factor T(n) as a product of two coprime numbers:
+- If n is even: T(n) = (n/2) × (n+1)
+- If n is odd: T(n) = n × ((n+1)/2)
+
+Since the factors are coprime, the number of divisors of their product equals
+the product of their individual divisor counts. This avoids computing T(n)
+explicitly for large numbers.
+
+## Complexity analysis
+
+Time complexity: O(n × √max_factor)
+- We iterate through values of n until we find the answer
+- For each n, we count divisors of two factors, each taking O(√factor) time
+- The algorithm terminates when we reach the target divisor count
+
+Space complexity: O(d)
+- The divisor-counting function uses O(d) space where d is the number of divisors
 """
 module Problem012
 
 using ProjectEulerSolutions.Utils.Divisors: get_divisors
+using ProjectEulerSolutions.Utils.Sequences: triangle_number
 
 """
     find_first_triangle_with_divisors(min_divisors)
@@ -48,7 +70,7 @@ function find_first_triangle_with_divisors(min_divisors)
         num_divisors = length(get_divisors(a)) * length(get_divisors(b))
 
         if num_divisors > min_divisors
-            return n * (n + 1) ÷ 2
+            return triangle_number(n)
         end
 
         n += 1
