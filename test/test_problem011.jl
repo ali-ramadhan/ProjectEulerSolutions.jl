@@ -1,3 +1,4 @@
+using Test
 using ProjectEulerSolutions.Problem011: find_greatest_product, solve, GRID
 
 @test size(GRID) == (20, 20)

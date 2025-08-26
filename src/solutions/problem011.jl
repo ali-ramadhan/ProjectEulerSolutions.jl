@@ -28,6 +28,26 @@ The product of these numbers is 26 × 63 × 78 × 14 = 1788696.
 
 What is the greatest product of four adjacent numbers in the same direction
 (up, down, left, right, or diagonally) in the 20 × 20 grid?
+
+## Solution approach
+
+We implement a brute-force approach that checks all possible directions:
+1. Horizontal products (left to right)
+2. Vertical products (top to bottom) 
+3. Diagonal products (down-right)
+4. Diagonal products (down-left)
+
+For each direction, we slide a window of 4 consecutive numbers across all valid
+positions and compute their product, tracking the maximum.
+
+## Complexity analysis
+
+Time complexity: O(n²)
+- We examine each position in the grid and check 4 directions
+- Grid size is 20×20, so we have roughly 4 × 20² = 1600 operations
+
+Space complexity: O(1)
+- Only stores the grid (constant size) and a few variables for tracking maximum
 """
 module Problem011
 
