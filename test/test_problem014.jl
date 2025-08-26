@@ -8,6 +8,7 @@ memo = Dict(1 => 1)
 @test collatz_length(2, memo) == 2  # 2 → 1
 @test collatz_length(4, memo) == 3  # 4 → 2 → 1
 
-@test longest_collatz_under(14) ≥ 9  # 9 has a longer sequence than 13
+start_number, _ = longest_collatz_under(14)
+@test start_number ≥ 9  # 9 has a longer sequence than 13
 
 @test solve() == 837799
