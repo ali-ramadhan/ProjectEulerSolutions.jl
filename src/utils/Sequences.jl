@@ -6,28 +6,66 @@ mathematical sequences like Fibonacci, triangular numbers, etc.
 """
 module Sequences
 
-export fibonacci_sequence,
+export Fibonacci,
     triangle_number, pentagonal_number, hexagonal_number, sum_of_squares, square_of_sum
 
 """
-    fibonacci_sequence(limit)
+    Fibonacci{T<:Integer}(limit::T)
+    Fibonacci(limit::T) where T<:Integer
+    Fibonacci{T}() where T<:Integer
+    Fibonacci()
 
-Generate Fibonacci numbers up to the given limit.
-Returns an array of Fibonacci numbers.
+A parametric iterator for generating Fibonacci numbers up to a given limit.
 
-Example: fibonacci_sequence(100) returns [1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89]
-"""
-function fibonacci_sequence(limit)
-    fibs = Int[]
-    a, b = 1, 1
+The iterator supports any integer type T (Int, Int128, BigInt, etc.) for both the
+limit and the generated sequence values. This allows for high-precision calculations
+or performance optimization with specific integer types.
 
-    while a <= limit
-        push!(fibs, a)
-        a, b = b, a + b
-    end
+## Examples
 
-    return fibs
+```julia
+# Basic usage with Int
+for fib in Fibonacci(100)
+    println(fib)
 end
+
+# Using Int128 for larger numbers
+for fib in Fibonacci(Int128(10^20))
+    println(fib)
+end
+
+# Using BigInt for arbitrary precision
+for fib in Fibonacci{BigInt}(10^50)
+    println(fib)
+end
+
+# Unlimited iteration (up to typemax)
+for (i, fib) in enumerate(Fibonacci())
+    i > 10 && break
+    println(fib)
+end
+```
+"""
+struct Fibonacci{T<:Integer}
+    limit::T
+end
+
+Fibonacci{T}() where T<:Integer = Fibonacci{T}(typemax(T))
+Fibonacci() = Fibonacci{Int}(typemax(Int))
+
+function Base.iterate(fib::Fibonacci{T}) where T
+    zero(T) > fib.limit && return nothing
+    return (zero(T), (zero(T), one(T)))
+end
+
+function Base.iterate(fib::Fibonacci{T}, state::Tuple{T, T}) where T
+    current, next = state
+    next > fib.limit && return nothing
+    return (next, (next, current + next))
+end
+
+Base.eltype(::Type{Fibonacci{T}}) where T = T
+Base.IteratorSize(::Type{Fibonacci{T}}) where T = Base.SizeUnknown()
 
 """
     triangle_number(n)
@@ -119,7 +157,7 @@ Every hexagonal number is also a triangular number:
 This can be verified:
     H(3) = 3(2·3-1) = 3·5 = 15
     T(5) = 5·6/2 = 15 ✓
-    
+
 So H(n) = n(2n-1) = T(2n-1)
 
 The recurrence relation is:

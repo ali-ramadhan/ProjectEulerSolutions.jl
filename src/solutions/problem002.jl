@@ -11,10 +11,9 @@ find the sum of the even-valued terms.
 
 ## Solution approach
 
-Use the `fibonacci_sequence` utility function from Utils.Sequences, which efficiently 
-generates all Fibonacci numbers up to a given limit using iterative computation. 
-Filter the resulting sequence for even-valued terms and sum them using Julia's 
-built-in sum function with a generator expression.
+Use the `Fibonacci` iterator from Utils.Sequences, which efficiently generates
+Fibonacci numbers up to a given limit using the iterator protocol. Sum only the
+even-valued terms directly during iteration without storing the entire sequence.
 
 ## Complexity analysis
 
@@ -22,16 +21,25 @@ Time complexity: O(log n)
 - The Fibonacci sequence grows exponentially, so there are approximately log(n) terms
   up to limit n.
 
-Space complexity: O(log n)
-- Storage for the generated Fibonacci sequence up to the limit.
+Space complexity: O(1)
+- Uses constant space with the iterator, no intermediate storage required.
 """
 module Problem002
 
-using ProjectEulerSolutions.Utils.Sequences: fibonacci_sequence
+using ProjectEulerSolutions.Utils.Sequences: Fibonacci
+
+function sum_even_fibonacci(limit)
+    result = 0
+    for fib in Fibonacci(limit)
+        if fib % 2 == 0
+            result += fib
+        end
+    end
+    return result
+end
 
 function solve()
-    fibs = fibonacci_sequence(4_000_000)
-    return sum(f for f in fibs if f % 2 == 0)
+    return sum_even_fibonacci(4_000_000)
 end
 
 end # module
