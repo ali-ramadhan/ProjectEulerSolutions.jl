@@ -1,3 +1,4 @@
+using Test
 using ProjectEulerSolutions.Problem014: collatz_length, longest_collatz_under, solve
 
 memo = Dict(1 => 1)

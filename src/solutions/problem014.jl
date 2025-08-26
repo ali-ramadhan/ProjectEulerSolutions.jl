@@ -15,6 +15,28 @@ numbers finish at 1.
 Which starting number, under one million, produces the longest chain?
 
 NOTE: Once the chain starts the terms are allowed to go above one million.
+
+## Solution approach
+
+We use memoization (dynamic programming) to avoid recalculating Collatz sequence
+lengths for numbers we've already seen. For each starting number from 1 to 999,999:
+1. Calculate its Collatz sequence length using the recursive formula
+2. Cache results to speed up future calculations
+3. Track the number that produces the longest sequence
+
+The memoization is crucial because many sequences overlap (e.g., the sequence
+starting from 4 appears within the sequence starting from 8).
+
+## Complexity analysis
+
+Time complexity: O(n × log(max_value))
+- We examine n starting numbers (up to 1,000,000)
+- Each sequence length calculation takes O(log(max_value)) time on average
+- Memoization reduces redundant calculations significantly
+
+Space complexity: O(n)
+- We store memoization cache that can grow up to O(n) entries
+- Cache size depends on the range of numbers encountered during sequence generation
 """
 module Problem014
 
