@@ -85,11 +85,13 @@ function longest_collatz_under(limit)
         end
     end
 
-    return max_start
+    return max_start, max_length
 end
 
 function solve()
-    return longest_collatz_under(1_000_000)
+    result, max_length = longest_collatz_under(1_000_000)
+    @info "Number $result has longest Collatz sequence with $max_length terms"
+    return result
 end
 
 end # module

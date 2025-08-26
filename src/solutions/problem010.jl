@@ -34,11 +34,13 @@ using ProjectEulerSolutions.Utils.Primes: sieve_of_eratosthenes
 
 function sum_of_primes_below(limit)
     primes = sieve_of_eratosthenes(limit)
-    return sum(primes)
+    return primes, sum(primes)
 end
 
 function solve()
-    return sum_of_primes_below(2_000_000)
+    primes, result = sum_of_primes_below(2_000_000)
+    @info "Sum of $(length(primes)) primes below 2,000,000 is $result"
+    return result
 end
 
 end # module

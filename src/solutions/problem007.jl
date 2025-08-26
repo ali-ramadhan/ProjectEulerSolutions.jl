@@ -42,7 +42,9 @@ function find_nth_prime(n)
 end
 
 function solve()
-    return find_nth_prime(10001)
+    result = find_nth_prime(10001)
+    @info "The 10,001st prime is $result"
+    return result
 end
 
 end # module

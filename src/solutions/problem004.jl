@@ -57,7 +57,10 @@ function largest_palindrome_product(n_digits)
 end
 
 function solve()
-    return largest_palindrome_product(3)
+    result = largest_palindrome_product(3)
+    @info "Found largest palindrome from 3-digit products: $result = " *
+          "$(digits(result) |> reverse |> join)"
+    return result
 end
 
 end # module

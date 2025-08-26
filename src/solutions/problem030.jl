@@ -70,11 +70,13 @@ Find the sum of all numbers that equal the sum of their digits raised to the giv
 function find_sum_of_digit_power_numbers(power)
     upper_bound = calculate_upper_bound(power)
     digit_power_numbers = [n for n in 2:upper_bound if is_sum_of_digit_powers(n, power)]
-    return sum(digit_power_numbers)
+    return sum(digit_power_numbers), upper_bound
 end
 
 function solve()
-    return find_sum_of_digit_power_numbers(5)
+    result, upper_bound = find_sum_of_digit_power_numbers(5)
+    @info "Found digit fifth power numbers in range 2 to $upper_bound, sum = $result"
+    return result
 end
 
 end # module

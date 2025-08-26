@@ -108,7 +108,10 @@ function find_longest_cycle(limit)
 end
 
 function solve()
-    return find_longest_cycle(1000)
+    result = find_longest_cycle(1000)
+    max_length = cycle_length(result)
+    @info "1/$result has the longest recurring cycle with $max_length digits"
+    return result
 end
 
 end # module

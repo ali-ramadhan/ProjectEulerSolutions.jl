@@ -117,7 +117,9 @@ function largest_product_in_series(num_digits)
 end
 
 function solve()
-    product, _ = largest_product_in_series(13)
+    product, substring = largest_product_in_series(13)
+    @info "Found 13 consecutive digits with largest product: " *
+          "$(join(collect(substring), " × ")) = $product"
     return product
 end
 

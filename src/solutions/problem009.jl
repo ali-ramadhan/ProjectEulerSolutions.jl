@@ -72,6 +72,7 @@ Solve Problem 9 by finding the product of the Pythagorean triplet.
 """
 function solve()
     a, b, c = find_pythagorean_triplet()
+    @info "Found Pythagorean triplet: $(a)² + $(b)² = $(c)² where $a + $b + $c = 1000"
     return a * b * c
 end
 

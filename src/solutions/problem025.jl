@@ -63,7 +63,9 @@ function first_fibonacci_with_n_digits(n)
 end
 
 function solve()
-    return first_fibonacci_with_n_digits(1000)
+    result = first_fibonacci_with_n_digits(1000)
+    @info "F_$result is the first Fibonacci number with 1000 digits"
+    return result
 end
 
 end # module
