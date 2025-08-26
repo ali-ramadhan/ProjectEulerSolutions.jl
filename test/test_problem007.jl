@@ -1,3 +1,4 @@
+using Test
 using ProjectEulerSolutions.Problem007: find_nth_prime, solve
 
 @test find_nth_prime(1) == 2
@@ -7,4 +8,5 @@ using ProjectEulerSolutions.Problem007: find_nth_prime, solve
 @test find_nth_prime(5) == 11
 @test find_nth_prime(6) == 13
 
+# Correct answer
 @test solve() == 104743
