@@ -1,3 +1,4 @@
+using Test
 using ProjectEulerSolutions.Problem016: power_digit_sum, solve
 
 @test power_digit_sum(2, 15) == 26
