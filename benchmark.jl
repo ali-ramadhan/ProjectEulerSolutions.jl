@@ -96,7 +96,8 @@ Last updated: $timestamp
 
     for (problem_num, time) in results
         problem_str = lpad(problem_num, 3, '0')
-        markdown_content *= "| $problem_str     | $time    |\n"
+        time_str = rpad(time, 11)  # Pad to match "Median Time" column width
+        markdown_content *= "| $problem_str     | $time_str |\n"
     end
 
     # Read current README content
