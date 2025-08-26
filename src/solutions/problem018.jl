@@ -1,8 +1,8 @@
 """
 Project Euler Problem 18: Maximum Path Sum I
 
-By starting at the top of the triangle below and moving to adjacent numbers on the row below,
-the maximum total from top to bottom is 23.
+By starting at the top of the triangle below and moving to adjacent numbers on the row
+below, the maximum total from top to bottom is 23.
 
 3
 7 4
@@ -29,9 +29,30 @@ Find the maximum total from top to bottom of the triangle below:
 63 66 04 68 89 53 67 30 73 16 69 87 40 31
 04 62 98 27 23 09 70 98 73 93 38 53 60 04 23
 
-NOTE: As there are only 16384 routes, it is possible to solve this problem by trying every route.
-However, Problem 67, is the same challenge with a triangle containing one-hundred rows;
-it cannot be solved by brute force, and requires a clever method!
+NOTE: As there are only 16384 routes, it is possible to solve this problem by trying every
+route. However, Problem 67, is the same challenge with a triangle containing one-hundred
+rows; it cannot be solved by brute force, and requires a clever method!
+
+## Solution approach
+
+We use dynamic programming with a bottom-up approach:
+1. Start from the second-to-last row of the triangle
+2. For each position, add the maximum of the two adjacent values below it
+3. Work our way up to the top, where the final answer will be stored
+
+This "greedy" choice at each level is optimal because we're finding the maximum
+path sum, and the optimal substructure property holds.
+
+## Complexity analysis
+
+Time complexity: O(n²)
+- We visit each element in the triangle exactly once
+- Triangle with n rows has n(n+1)/2 elements total
+- Each element requires constant-time operations
+
+Space complexity: O(n²)
+- We create a deep copy of the triangle to avoid modifying the original
+- Could be optimized to O(n) by processing in-place or using a single row
 """
 module Problem018
 
@@ -59,7 +80,6 @@ const TRIANGLE = [
 Find the maximum path sum from top to bottom of the given triangle.
 Uses dynamic programming by starting from the bottom row and working upwards.
 For each position, we choose the maximum of the two possible paths below.
-This approach has O(n²) time complexity, where n is the number of rows.
 """
 function max_path_sum(triangle)
     tri = deepcopy(triangle)
