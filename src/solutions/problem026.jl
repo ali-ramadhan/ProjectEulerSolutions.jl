@@ -1,7 +1,8 @@
 """
 Project Euler Problem 26: Reciprocal Cycles
 
-A unit fraction contains 1 in the numerator. The decimal representation of the unit fractions with denominators 2 to 10 are given:
+A unit fraction contains 1 in the numerator. The decimal representation of the unit
+fractions with denominators 2 to 10 are given:
 
 1/2 = 0.5
 1/3 = 0.(3)
@@ -13,9 +14,32 @@ A unit fraction contains 1 in the numerator. The decimal representation of the u
 1/9 = 0.(1)
 1/10 = 0.1
 
-Where 0.1(6) means 0.166666..., and has a 1-digit recurring cycle. It can be seen that 1/7 has a 6-digit recurring cycle.
+Where 0.1(6) means 0.166666..., and has a 1-digit recurring cycle. It can be seen that 1/7
+has a 6-digit recurring cycle.
 
-Find the value of d < 1000 for which 1/d contains the longest recurring cycle in its decimal fraction part.
+Find the value of d < 1000 for which 1/d contains the longest recurring cycle in its decimal
+fraction part.
+
+## Solution approach
+
+We simulate long division to find the cycle length in the decimal expansion of 1/d:
+1. Remove factors of 2 and 5 from d (these only affect termination, not cycle length)
+2. Track remainders during long division using a dictionary
+3. When we encounter a remainder we've seen before, we've found the cycle
+4. The cycle length is the difference between current and previous positions of that
+   remainder
+
+This method is much more efficient than generating the actual decimal expansion.
+
+## Complexity analysis
+
+Time complexity: O(n × d)
+- We check each denominator d from 2 to n-1 (n ≈ 1000)
+- For each d, finding the cycle length takes at most O(d) time (bounded by the number of
+  possible remainders)
+
+Space complexity: O(d)
+- We store a dictionary of remainders and their positions, with at most d entries
 """
 module Problem026
 
@@ -24,18 +48,6 @@ module Problem026
 
 Calculate the length of the recurring cycle in the decimal expansion of 1/d.
 Returns 0 for terminating decimals.
-
-A decimal expansion terminates only when the denominator's prime factorization contains just 2s and 5s (factors of 10).
-For other denominators, the decimal expansion will have a recurring cycle.
-Factors of 2 and 5 in the denominator don't affect the cycle length, but may push the recurring portion further right.
-
-First, we remove all factors of 2 and 5 from the denominator, as they don't contribute to the cycle.
-Then we simulate long division and track the remainders we encounter.
-When we see a remainder we've seen before, we've found a cycle.
-The cycle length is the difference between the current position and the position where we first saw that remainder.
-
-By tracking the position of each remainder in a dictionary, we can efficiently detect cycles.
-This approach is much faster than actually generating the decimal expansion.
 """
 function cycle_length(d)
     d_reduced = d
@@ -79,7 +91,6 @@ end
     find_longest_cycle(limit)
 
 Find the value of d < limit for which 1/d has the longest recurring cycle.
-Returns the denominator with the longest cycle.
 """
 function find_longest_cycle(limit)
     max_length = 0

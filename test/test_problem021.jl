@@ -1,3 +1,4 @@
+using Test
 using ProjectEulerSolutions.Problem021: find_amicable_numbers, solve
 using ProjectEulerSolutions.Utils.Divisors: get_divisors
 

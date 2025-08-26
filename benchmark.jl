@@ -2,6 +2,10 @@ using BenchmarkTools
 using ProjectEulerSolutions
 using Statistics
 using Dates
+using Logging
+
+# Disable info logging during benchmarks to ensure accurate performance measurements
+Logging.disable_logging(Logging.Info)
 
 function benchmark_problem(problem_num)
     problem_num = lpad(problem_num, 3, '0')
@@ -40,13 +44,21 @@ end
 
 function format_time(nanoseconds)
     if nanoseconds < 1000
-        return "$(round(nanoseconds, digits=1)) ns"
+        # For nanoseconds: 3 significant figures
+        rounded = round(nanoseconds, sigdigits=3)
+        return "$(rounded == round(Int, rounded) ? Int(rounded) : rounded) ns"
     elseif nanoseconds < 1_000_000
-        return "$(round(nanoseconds / 1000, digits=1)) μs"
+        # For microseconds: 3 significant figures
+        rounded = round(nanoseconds / 1000, sigdigits=3)
+        return "$(rounded == round(Int, rounded) ? Int(rounded) : rounded) μs"
     elseif nanoseconds < 1_000_000_000
-        return "$(round(nanoseconds / 1_000_000, digits=1)) ms"
+        # For milliseconds: 3 significant figures
+        rounded = round(nanoseconds / 1_000_000, sigdigits=3)
+        return "$(rounded == round(Int, rounded) ? Int(rounded) : rounded) ms"
     else
-        return "$(round(nanoseconds / 1_000_000_000, digits=2)) s"
+        # For seconds: 3 significant figures
+        rounded = round(nanoseconds / 1_000_000_000, sigdigits=3)
+        return "$(rounded == round(Int, rounded) ? Int(rounded) : rounded) s"
     end
 end
 

@@ -1,3 +1,4 @@
+using Test
 using ProjectEulerSolutions.Problem022: parse_names, name_value, compute_name_scores, solve
 
 @test name_value("COLIN") == 53

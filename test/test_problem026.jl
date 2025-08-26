@@ -1,3 +1,4 @@
+using Test
 using ProjectEulerSolutions.Problem026: cycle_length, find_longest_cycle, solve
 
 @test cycle_length(2) == 0   # 1/2 = 0.5 (terminating)

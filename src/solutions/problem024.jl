@@ -1,13 +1,36 @@
 """
 Project Euler Problem 24: Lexicographic Permutations
 
-A permutation is an ordered arrangement of objects. For example, 3124 is one possible permutation
-of the digits 1, 2, 3 and 4. If all of the permutations are listed numerically or alphabetically,
-we call it lexicographic order. The lexicographic permutations of 0, 1 and 2 are:
+A permutation is an ordered arrangement of objects. For example, 3124 is one possible
+permutation of the digits 1, 2, 3 and 4. If all of the permutations are listed numerically
+or alphabetically, we call it lexicographic order. The lexicographic permutations of 0, 1
+and 2 are:
 
 012   021   102   120   201   210
 
-What is the millionth lexicographic permutation of the digits 0, 1, 2, 3, 4, 5, 6, 7, 8 and 9?
+What is the millionth lexicographic permutation of the digits 0, 1, 2, 3, 4, 5, 6, 7, 8 and
+9?
+
+## Solution approach
+
+Instead of generating all permutations, we use the factorial number system to directly
+compute the nth permutation:
+1. For n elements, permutations are grouped into n sets of (n-1)! permutations each
+2. Determine which group contains the target by dividing by (n-1)!
+3. Select the corresponding element and remove it from the available elements
+4. Repeat for the remaining elements with the remainder
+
+This avoids generating and sorting all 10! = 3,628,800 permutations.
+
+## Complexity analysis
+
+Time complexity: O(n²)
+- We iterate through n positions (digits 0-9, so n=10)
+- For each position, we remove an element from the list which takes O(n) time
+- Computing factorials takes constant time for small n
+
+Space complexity: O(n)
+- We store a copy of the elements and the result permutation
 """
 module Problem024
 
@@ -16,31 +39,6 @@ module Problem024
 
 Find the nth lexicographic permutation of a collection of elements without generating
 all possible permutations.
-
-Algorithm:
-
-  - Uses the factorial number system to directly calculate which element goes in each position
-  - For n elements, the permutations can be divided into n groups of (n-1)! permutations each
-  - We determine which group contains our target permutation to select each element
-
-Example: Finding the 10th permutation of [0, 1, 2, 3]
-
- 1. First digit: With 3! = 6 permutations per first digit
-
-      + 9 ÷ 6 = 1 with remainder 3, so select elements[1] = 1
-      + Result so far: [1], remaining: [0, 2, 3], remainder: 3
-
- 2. Second digit: With 2! = 2 permutations per second digit
-
-      + 3 ÷ 2 = 1 with remainder 1, so select elements[1] = 2
-      + Result so far: [1, 2], remaining: [0, 3], remainder: 1
- 3. Third digit: With 1! = 1 permutation per third digit
-
-      + 1 ÷ 1 = 1 with remainder 0, so select elements[1] = 3
-      + Result so far: [1, 2, 3], remaining: [0]
- 4. Last digit: Only one possibility: 0
-
-      + Final result: [1, 2, 3, 0]
 """
 function find_nth_permutation(elements, n)
     elements = deepcopy(collect(elements))

@@ -1,3 +1,4 @@
+using Test
 using ProjectEulerSolutions.Problem025: first_fibonacci_with_n_digits, solve
 
 @test first_fibonacci_with_n_digits(2) == 7  # F_7 = 13 has 2 digits

@@ -1,3 +1,4 @@
+using Test
 using ProjectEulerSolutions.Problem027:
     count_consecutive_primes, find_quadratic_with_most_primes, solve
 

@@ -1,19 +1,40 @@
 """
 Project Euler Problem 27: Quadratic Primes
 
-Euler discovered the remarkable quadratic formula: n² + n + 41.
-It turns out that the formula will produce 40 primes for the consecutive integer values 0 ≤ n ≤ 39.
-However, when n = 40, 40² + 40 + 41 = 40(40 + 1) + 41 is divisible by 41, and certainly when n = 41,
-41² + 41 + 41 is clearly divisible by 41.
+Euler discovered the remarkable quadratic formula: n² + n + 41. It turns out that the
+formula will produce 40 primes for the consecutive integer values 0 ≤ n ≤ 39. However, when
+n = 40, 40² + 40 + 41 = 40(40 + 1) + 41 is divisible by 41, and certainly when n = 41, 41² +
+41 + 41 is clearly divisible by 41.
 
-The incredible formula n² - 79n + 1601 was discovered, which produces 80 primes for the consecutive values
-0 ≤ n ≤ 79. The product of the coefficients, -79 and 1601, is -126479.
+The incredible formula n² - 79n + 1601 was discovered, which produces 80 primes for the
+consecutive values 0 ≤ n ≤ 79. The product of the coefficients, -79 and 1601, is -126479.
 
-Considering quadratics of the form:
-n² + an + b, where |a| < 1000 and |b| ≤ 1000
+Considering quadratics of the form: n² + an + b, where |a| < 1000 and |b| ≤ 1000
 
-Find the product of the coefficients, a and b, for the quadratic expression that produces the maximum
-number of primes for consecutive values of n, starting with n = 0.
+Find the product of the coefficients, a and b, for the quadratic expression that produces
+the maximum number of primes for consecutive values of n, starting with n = 0.
+
+## Solution approach
+
+We systematically test all possible combinations of a and b within the given ranges:
+1. Since n=0 gives us just b, b must be prime for the sequence to start with a prime
+2. We only test prime values of b in [2, 1000] to reduce the search space
+3. For each (a,b) pair, count consecutive primes starting from n=0
+4. Track the combination that produces the maximum number of consecutive primes
+
+This optimization reduces the search space from 1000 × 2001 to 1999 × 168 (number of primes
+≤ 1000).
+
+## Complexity analysis
+
+Time complexity: O(a_max × p × n_max × √v_max)
+- We test a_max ≈ 2000 values of a
+- We test p ≈ 168 prime values of b
+- For each pair, we test up to n_max consecutive values (bounded by ~100 in practice)
+- Each primality test takes O(√v_max) where v_max is the maximum quadratic value
+
+Space complexity: O(p)
+- We store the list of prime values for b, which has p ≈ 168 elements
 """
 module Problem027
 
@@ -44,12 +65,9 @@ end
 """
     find_quadratic_with_most_primes()
 
-Find the coefficients a and b for the quadratic expression n² + an + b that produces
-the maximum number of primes for consecutive values of n, starting from n = 0.
+Find the coefficients a and b for the quadratic expression n² + an + b that produces the
+maximum number of primes for consecutive values of n, starting from n = 0.
 Returns (a, b, max_count).
-
-For n=0, the formula evaluates to just b, so b must be a prime number for the sequence to start with a prime.
-So instead of checking all values of b in the range [-1000, 1000], we only need to check prime values of b in the range [2, 1000].
 """
 function find_quadratic_with_most_primes()
     max_count = 0

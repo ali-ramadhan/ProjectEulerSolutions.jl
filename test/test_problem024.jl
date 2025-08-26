@@ -1,3 +1,4 @@
+using Test
 using ProjectEulerSolutions.Problem024: find_nth_permutation, solve
 
 @test find_nth_permutation([0, 1, 2], 1) == [0, 1, 2]

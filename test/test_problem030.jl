@@ -1,3 +1,4 @@
+using Test
 using ProjectEulerSolutions.Problem030:
     is_sum_of_digit_powers, find_sum_of_digit_power_numbers, solve
 

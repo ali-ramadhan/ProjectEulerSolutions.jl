@@ -1,3 +1,4 @@
+using Test
 using ProjectEulerSolutions.Problem028: diagonal_sum, solve
 
 @test diagonal_sum(1) == 1  # 1×1 spiral has only the center
