@@ -8,6 +8,27 @@ For example, 3² + 4² = 9 + 16 = 25 = 5².
 
 There exists exactly one Pythagorean triplet for which a + b + c = 1000.
 Find the product abc.
+
+## Solution approach
+
+Instead of using nested loops to check all combinations, we derive a direct formula
+for b given a. From the constraints a² + b² = c² and a + b + c = 1000, we can
+substitute c = 1000 - a - b into the Pythagorean theorem to get:
+a² + b² = (1000 - a - b)²
+
+Solving for b yields: b = (500000 - 1000a) / (1000 - a)
+
+We iterate through valid values of a and check if b is a positive integer greater
+than a, then verify the resulting triplet satisfies all constraints.
+
+## Complexity analysis
+
+Time complexity: O(n)
+- We iterate through at most 332 values of a (since a < 1000/3 for a < b < c)
+- Each iteration performs constant-time arithmetic and checks
+
+Space complexity: O(1)
+- Only uses a constant amount of additional space for variables
 """
 module Problem009
 
@@ -15,8 +36,6 @@ module Problem009
     find_pythagorean_triplet()
 
 Find the unique Pythagorean triplet (a, b, c) where a + b + c = 1000.
-Uses the formula b = (500000 - 1000a)/(1000 - a) derived by combining
-the Pythagorean theorem with the sum constraint to avoid nested loops.
 Returns a tuple (a, b, c).
 """
 function find_pythagorean_triplet()
