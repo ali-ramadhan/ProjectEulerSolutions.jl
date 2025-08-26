@@ -2,6 +2,25 @@
 Project Euler Problem 13: Large Sum
 
 Work out the first ten digits of the sum of the following one-hundred 50-digit numbers.
+
+## Solution approach
+
+We use Julia's BigInt type to handle arbitrary precision arithmetic.
+The approach is straightforward:
+1. Parse each 50-digit number string as a BigInt
+2. Sum all the BigInt values
+3. Convert the sum to a string and extract the first 10 digits
+
+This approach is simple and reliable for this problem size.
+
+## Complexity analysis
+
+Time complexity: O(n × d)
+- n = 100 numbers, d = 50 digits per number
+- Parsing and summing large integers takes time proportional to their digit length
+
+Space complexity: O(d)
+- We store the large integers and their sum, which grow with digit length d
 """
 module Problem013
 
@@ -109,12 +128,6 @@ const NUMBERS = [
     "53503534226472524250874054075591789781264330331690",
 ]
 
-"""
-    first_ten_digits_of_sum()
-
-Calculate the sum of the 100 large numbers and return its first 10 digits.
-Uses BigInt to handle the large number arithmetic precisely.
-"""
 function first_ten_digits_of_sum()
     total_sum = sum(parse(BigInt, num) for num in NUMBERS)
     sum_str = string(total_sum)
