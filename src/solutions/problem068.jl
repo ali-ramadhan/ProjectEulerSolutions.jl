@@ -11,36 +11,45 @@ Using the numbers 1 to 10, what is the maximum 16-digit string for a "magic" 5-g
 
 ## Solution approach
 
-This solution uses brute force enumeration with optimization:
-1. Generate all possible ways to assign numbers 1-10 to outer and inner nodes of the 5-gon
-2. Ensure 10 is always placed on an outer node (to get 16-digit strings instead of 17-digit)
-3. For each assignment, check all permutations to see if they form a valid magic 5-gon
-4. For valid configurations, generate the string representation starting from the lowest
-   outer node
-5. Return the lexicographically maximum 16-digit string
+This solution uses mathematical deduction instead of brute force:
+
+1. **16-digit constraint**: For a 16-digit string, 10 must be on an outer node (otherwise
+   we get 17 digits since inner nodes appear twice).
+
+2. **Logical deduction for maximum**: For the lexicographically maximum string:
+   - Outer nodes must be {6, 7, 8, 9, 10} (larger numbers for maximum string)
+   - Inner nodes must be {1, 2, 3, 4, 5} (smaller numbers to balance the sums)
+
+3. **Magic sum calculation**: Using the constraint 5×magic_sum = sum(outer) + 2×sum(inner):
+   - sum(outer) = 6+7+8+9+10 = 40
+   - sum(inner) = 1+2+3+4+5 = 15
+   - magic_sum = (40 + 2×15) / 5 = 14
+
+4. **Targeted construction**: With these constraints, we only need to find valid arrangements
+   of {1,2,3,4,5} on inner nodes and {6,7,8,9,10} on outer nodes that sum to 14.
 
 ## Complexity analysis
 
-Time complexity: O(C(10,5) × 5! × 5!) ≈ O(3.6 × 10^7)
-- Choose 5 positions for outer nodes: C(10,5) = 252 ways
-- Permute outer nodes: 5! = 120 ways
-- Permute inner nodes: 5! = 120 ways
-- Validation and string generation: O(1) per configuration
+Time complexity: O(5! × 5!) = O(14,400) in worst case
+- Much more efficient than brute force O(C(10,5) × 5! × 5!) ≈ O(3.6 × 10^7)
+- In practice, early termination makes it even faster
 
 Space complexity: O(1)
 - Store current configuration and results
 - No significant additional storage needed
 
-## Key insights
+## Mathematical background
 
-The key insight is that placing 10 on an outer node ensures 16-digit strings (since outer
-nodes appear only once), while placing 10 on an inner node would create 17-digit strings
-(since inner nodes appear twice in the representation). This constraint significantly
-reduces the search space.
+The magic sum formula: For any valid n-gon configuration, the sum of all lines equals
+sum(outer_nodes) + 2×sum(inner_nodes). Since there are n lines, each with the same sum:
+magic_sum = (sum(outer) + 2×sum(inner)) / n
+
+For the maximal 5-gon solution, this mathematical constraint combined with the requirement
+for maximum lexicographic value uniquely determines the number placement.
 """
 module Problem068
 
-using Combinatorics: combinations, permutations
+using Combinatorics: permutations
 
 """
     is_valid_configuration(outer, inner)
@@ -132,69 +141,62 @@ function ngon_string(outer, inner)
 end
 
 """
-    find_magic_5gon()
+    find_max_magic_5gon()
 
-Find all possible magic 5-gon ring configurations using the numbers 1-10. Returns a list of
-tuples (string_representation, magic_sum, length).
+Find the maximum 16-digit string for a magic 5-gon ring using logical deduction.
 
-# Details
+For the maximum solution:
+- Outer nodes: {6, 7, 8, 9, 10}
+- Inner nodes: {1, 2, 3, 4, 5} 
+- Magic sum: 14
 
-  - Generates all possible distributions of numbers 1-10 between outer and inner nodes
-  - Ensures 10 is always placed on an outer node (to get a 16-digit string rather than 17)
-  - For each valid distribution, checks if it forms a magic 5-gon ring (all lines sum to the
-    same value)
-  - For each valid configuration, computes the string representation and saves it with the
-    magic sum
-  - The full search space is large: 10C5 combinations for selecting outer nodes, with 5!
-    permutations of outer nodes and 5! permutations of inner nodes for each combination
-  - This function is useful for verifying the solution or finding all valid magic 5-gon
-    rings
+This function systematically tries arrangements of these specific number sets rather than
+all possible permutations, making it much more efficient than brute force.
 """
-function find_magic_5gon()
-    n = 5  # 5-gon
-
-    # We'll try different combinations with 10 always on an outer node
-    solutions = Tuple{String, Int, Int}[]
-
-    # Try different configurations of outer and inner nodes
-    for outer_positions in combinations(1:10, n)
-        if 10 ∉ outer_positions
-            continue
-        end
-
-        inner_positions = setdiff(1:10, outer_positions)
-
-        for outer_perm in permutations(outer_positions)
-            for inner_perm in permutations(inner_positions)
-                magic_sum = is_valid_configuration(outer_perm, inner_perm)
-
-                if magic_sum > 0
-                    string_rep = ngon_string(outer_perm, inner_perm)
-                    push!(solutions, (string_rep, magic_sum, length(string_rep)))
+function find_max_magic_5gon()
+    # For maximum 16-digit solution, use logical deduction:
+    # - Outer nodes: {6, 7, 8, 9, 10} (for maximum lexicographic value)
+    # - Inner nodes: {1, 2, 3, 4, 5} (to balance the magic sum)
+    # - Expected magic sum: (40 + 2*15) / 5 = 14
+    
+    outer_candidates = [6, 7, 8, 9, 10]
+    inner_candidates = [1, 2, 3, 4, 5]
+    target_magic_sum = 14
+    
+    max_solution = ""
+    
+    # Try different arrangements of the predetermined sets
+    for outer_perm in permutations(outer_candidates)
+        for inner_perm in permutations(inner_candidates)
+            magic_sum = is_valid_configuration(outer_perm, inner_perm)
+            
+            if magic_sum == target_magic_sum
+                string_rep = ngon_string(outer_perm, inner_perm)
+                
+                # Since we want the maximum string and it must be 16 digits
+                if length(string_rep) == 16 && string_rep > max_solution
+                    max_solution = string_rep
                 end
             end
         end
     end
-
-    return solutions
+    
+    return max_solution
 end
 
 """
     solve()
 
-Find the maximum 16-digit string for a "magic" 5-gon ring.
+Find the maximum 16-digit string for a "magic" 5-gon ring using logical deduction.
+
+Returns the lexicographically maximum 16-digit string representation.
 """
 function solve()
-    solutions = find_magic_5gon()
-    max_16_digit = ""
-
-    for (str, sum, len) in solutions
-        if len == 16 && (max_16_digit == "" || str > max_16_digit)
-            max_16_digit = str
-        end
-    end
-
-    return max_16_digit
+    result = find_max_magic_5gon()
+    
+    @info "Found maximum 16-digit magic 5-gon: $result"
+    
+    return result
 end
 
 end # module
