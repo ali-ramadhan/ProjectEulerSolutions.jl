@@ -1,12 +1,11 @@
 """
 Project Euler Problem 91: Right triangles with integer coordinates
 
-The points P (x₁, y₁) and Q (x₂, y₂) are plotted at integer coordinates and are
-joined to the origin O (0,0) to form ΔOPQ.
+The points P (x₁, y₁) and Q (x₂, y₂) are plotted at integer coordinates and are joined to
+the origin O (0,0) to form ΔOPQ.
 
-There are exactly fourteen triangles containing a right angle that can be formed when
-each coordinate lies between 0 and 2 inclusive; that is,
-0 ≤ x₁, y₁, x₂, y₂ ≤ 2.
+There are exactly fourteen triangles containing a right angle that can be formed when each
+coordinate lies between 0 and 2 inclusive; that is, 0 ≤ x₁, y₁, x₂, y₂ ≤ 2.
 
 Given that 0 ≤ x₁, y₁, x₂, y₂ ≤ 50, how many right triangles can be formed?
 """

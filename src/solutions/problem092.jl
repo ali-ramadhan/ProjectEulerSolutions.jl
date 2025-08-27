@@ -10,10 +10,35 @@ For example,
 
 85 → 89 → 145 → 42 → 20 → 4 → 16 → 37 → 58 → 89
 
-Therefore any chain that arrives at 1 or 89 will become stuck in an endless loop. What
-is most amazing is that EVERY starting number will eventually arrive at 1 or 89.
+Therefore any chain that arrives at 1 or 89 will become stuck in an endless loop. What is
+most amazing is that EVERY starting number will eventually arrive at 1 or 89.
 
 How many starting numbers below ten million will arrive at 89?
+
+## Solution approach
+
+Instead of checking each number individually (which would be slow), we use a key insight:
+the sum of digit squares depends only on the digits themselves, not their order.
+
+For 7-digit numbers (up to 10 million), the maximum sum of digit squares is 7×9² = 567.
+We can:
+
+1. Generate all unique digit combinations (multisets) for 7-digit numbers
+2. For each combination, check if its digit-square sum leads to 89
+3. Count how many numbers have that digit combination using multinomial coefficients
+
+This reduces the problem from checking ~10⁷ numbers to checking ~8000 digit combinations.
+
+## Complexity analysis
+
+Time complexity: O(C(n+k-1,k) + S) where n=10 digits, k=7 positions, S=max sum
+- Generating digit combinations: O(C(16,7)) ≈ O(11440)
+- Computing endpoints for sums up to 567: O(567)
+- Multinomial coefficient calculations: O(k) per combination
+
+Space complexity: O(S)
+- Store which sums lead to 89: O(567)
+- Temporary combination storage: O(k)
 """
 module Problem092
 

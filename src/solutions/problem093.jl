@@ -1,9 +1,9 @@
 """
 Project Euler Problem 93: Arithmetic expressions
 
-By using each of the digits from the set, {1, 2, 3, 4}, exactly once, and making use of
-the four arithmetic operations (+, -, *, /) and brackets/parentheses, it is possible to
-form different positive integer targets.
+By using each of the digits from the set, {1, 2, 3, 4}, exactly once, and making use of the
+four arithmetic operations (+, -, *, /) and brackets/parentheses, it is possible to form
+different positive integer targets.
 
 For example,
 
@@ -14,20 +14,38 @@ For example,
 
 Note that concatenations of the digits, like 12 + 34, are not allowed.
 
-Using the set {1, 2, 3, 4}, it is possible to obtain thirty-one different target numbers
-of which 36 is the maximum, and each of the numbers 1 to 28 can be obtained before
-encountering the first non-obtainable number.
+Using the set {1, 2, 3, 4}, it is possible to obtain thirty-one different target numbers of
+which 36 is the maximum, and each of the numbers 1 to 28 can be obtained before encountering
+the first non-obtainable number.
 
 Find the set of four distinct digits, a < b < c < d, for which the longest set of
-consecutive positive integers, 1 to n, can be obtained, giving your answer as a
-four digit number abcd.
+consecutive positive integers, 1 to n, can be obtained, giving your answer as a four digit
+number abcd.
 
-Implementation Notes:
+## Solution approach
 
-  - Uses rational arithmetic to handle fractional intermediate results exactly
-  - Employs 5 explicit parenthesization patterns with full digit permutations
-  - Alternative approaches include RPN evaluation or recursive partitioning with DP
-  - Current method prioritizes clarity for fixed digit count over scalability
+We systematically evaluate all possible arithmetic expressions for each 4-digit combination:
+
+1. **Digit permutations**: Try all 24 permutations of 4 digits
+2. **Operation combinations**: Try all 64 combinations of (+, -, ×, ÷) for 3 operations
+3. **Parenthesization patterns**: Use 5 explicit patterns covering all binary tree
+   structures
+4. **Rational arithmetic**: Handle fractional intermediate results exactly to avoid
+   precision issues
+
+For each valid positive integer result, we track which consecutive integers starting from 1
+can be formed.
+
+## Complexity analysis
+
+Time complexity: O(C(10,4) × 4! × 4³ × P) = O(210 × 24 × 64 × 5) ≈ O(1.6M operations)
+- C(10,4): Choose 4 digits from 0-9
+- 4!: All permutations of chosen digits
+- 4³: All operation combinations
+- P=5: Parenthesization patterns
+
+Space complexity: O(R) where R is the number of achievable results per digit set
+- Typically R ≤ 100 for most digit combinations
 """
 module Problem093
 

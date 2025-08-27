@@ -10,17 +10,32 @@ equal and the third differs from them by no more than one unit.
 Find the sum of the perimeters of all almost equilateral triangles with integral side
 lengths and integral area and whose perimeters do not exceed one billion (1,000,000,000).
 
-Mathematical Background:
+## Solution approach
 
-  - Almost equilateral triangles with integer area are connected to Pell's equation x² - 3y² = 1
-  - Two types exist: (a,a,a+1) and (a,a,a-1) triangles
-  - Only ~14-17 triangles exist below 1 billion perimeter limit
-  - The Pell equation approach generates solutions using recurrence relations:
-    x_{n+1} = 2x_n + 3y_n, y_{n+1} = x_n + 2y_n, starting from (x₁,y₁) = (2,1)
-  - For each Pell solution x, check if (2x±1) is divisible by 3 to get triangle side a = (2x±1)/3
-  - This achieves O(log n) complexity with ~1000x speedup over brute force approaches
+Almost equilateral triangles with integer areas correspond to solutions of Pell's equation
+x² - 3y² = 1.
 
-Implementation uses optimized Pell equation approach for maximum performance.
+For triangles of types (a,a,a+1) and (a,a,a-1), we can derive that valid side lengths
+satisfy:
+- a = (2x±1)/3 where x is a solution to the Pell equation
+
+We generate Pell solutions using the recurrence: x_{n+1} = 2x_n + 3y_n, y_{n+1} = x_n + 2y_n
+starting from the fundamental solution (x₁,y₁) = (2,1).
+
+## Complexity analysis
+
+Time complexity: O(log P) where P is the perimeter limit
+- Each Pell iteration increases x exponentially, so ~log(P) iterations needed
+- Each iteration involves constant-time arithmetic
+
+Space complexity: O(1)
+- Only store current Pell solution and running sum
+
+## Mathematical background
+
+The connection to Pell equations comes from the constraint that triangles must have integer
+area. Using Heron's formula with sides (a,a,a±1) leads to the requirement that certain
+expressions be perfect squares, which reduces to the Pell equation x² - 3y² = 1.
 """
 module Problem094
 
