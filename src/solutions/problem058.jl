@@ -1,8 +1,8 @@
 """
 Project Euler Problem 58: Spiral Primes
 
-Starting with 1 and spiralling anticlockwise in the following way, a square spiral with
-side length 7 is formed.
+Starting with 1 and spiralling anticlockwise in the following way, a square spiral with side
+length 7 is formed.
 
 37 36 35 34 33 32 31
 38 17 16 15 14 13 30
@@ -12,40 +12,39 @@ side length 7 is formed.
 42 21 22 23 24 25 26
 43 44 45 46 47 48 49
 
-It is interesting to note that the odd squares lie along the bottom right diagonal, but
-what is more interesting is that 8 out of the 13 numbers lying along both diagonals are
-prime; that is, a ratio of 8/13 ≈ 62%.
+It is interesting to note that the odd squares lie along the bottom right diagonal, but what
+is more interesting is that 8 out of the 13 numbers lying along both diagonals are prime;
+that is, a ratio of 8/13 ≈ 62%.
 
 If one complete new layer is wrapped around the spiral above, a square spiral with side
-length 9 will be formed. If this process is continued, what is the side length of the
-square spiral for which the ratio of primes along both diagonals first falls below 10%?
+length 9 will be formed. If this process is continued, what is the side length of the square
+spiral for which the ratio of primes along both diagonals first falls below 10%?
+
+## Solution approach
+
+We build the spiral layer by layer, computing the four corner values for each layer. The
+bottom-right corners are always perfect squares (never prime for n > 1), so we only need to
+test the other three corners for primality. We track the running count of primes and total
+diagonal numbers, checking when the ratio drops below 10%.
+
+## Complexity analysis
+
+Time complexity: O(n √n)
+- We check O(n) spiral layers until the ratio drops below 10%
+- Each corner primality test takes O(√m) time where m is the corner value
+
+Space complexity: O(1)
+- Only constant space for counters and current layer values
+
+## Key insights
+
+The spiral construction follows a predictable pattern: for side length s, the corners are at
+positions s², s²-(s-1), s²-2(s-1), s²-3(s-1). Since s² is always composite for s > 1, we
+only test the other three positions.
 """
 module Problem058
 
-"""
-    is_prime(n)
-
-Check if n is prime using trial division with the 6k±1 optimization.
-Only checks divisors up to sqrt(n) and filters common cases.
-"""
-function is_prime(n)
-    n <= 1 && return false
-    n <= 3 && return true
-
-    if n % 2 == 0 || n % 3 == 0
-        return false
-    end
-
-    i = 5
-    while i^2 <= n
-        if n % i == 0 || n % (i + 2) == 0
-            return false
-        end
-        i += 6
-    end
-
-    return true
-end
+using ProjectEulerSolutions.Utils.Primes: is_prime
 
 """
     find_spiral_side_length()
@@ -90,7 +89,11 @@ function find_spiral_side_length()
 end
 
 function solve()
-    return find_spiral_side_length()
+    result = find_spiral_side_length()
+
+    @info "Prime ratio in spiral diagonals falls below 10% at side length $result"
+
+    return result
 end
 
 end # module

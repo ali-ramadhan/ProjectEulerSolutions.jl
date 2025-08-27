@@ -1,7 +1,8 @@
 """
 Project Euler Problem 54: Poker Hands
 
-In the card game poker, a hand consists of five cards and are ranked, from lowest to highest:
+In the card game poker, a hand consists of five cards and are ranked, from lowest to
+highest:
 
   - High Card: Highest value card.
   - One Pair: Two cards of the same value.
@@ -26,6 +27,23 @@ Each line of the file contains ten cards (separated by a single space):
 the first five are Player 1's cards and the last five are Player 2's cards.
 
 How many hands does Player 1 win?
+
+## Solution approach
+
+The solution implements a complete poker hand evaluator using enumerated hand ranks and
+structured card representation. Each hand is evaluated to determine its rank and
+tie-breaking values. Hand comparison follows poker rules exactly, including special cases
+like ace-low straights. The implementation groups cards by value frequency for efficient
+pattern matching.
+
+## Complexity analysis
+
+Time complexity: O(n)
+- n hands to process, each taking O(1) time to evaluate and compare
+- Hand evaluation involves sorting 5 cards and pattern matching
+
+Space complexity: O(1)
+- Constant space for hand evaluation regardless of input size
 """
 module Problem054
 
@@ -302,7 +320,9 @@ end
 
 function solve()
     data_filepath = joinpath(@__DIR__, "..", "..", "data", "0054_poker.txt")
-    return count_player1_wins(data_filepath)
+    wins = count_player1_wins(data_filepath)
+    @info "Player 1 wins $wins out of 1000 poker hands"
+    return wins
 end
 
 end # module

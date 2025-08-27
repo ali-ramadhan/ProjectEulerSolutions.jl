@@ -1,23 +1,31 @@
 """
 Project Euler Problem 56: Powerful Digit Sum
 
-A googol (10^100) is a massive number: one followed by one-hundred zeros;
-100^100 is almost unimaginably large: one followed by two-hundred zeros.
-Despite their size, the sum of the digits in each number is only 1.
+A googol (10^100) is a massive number: one followed by one-hundred zeros; 100^100 is almost
+unimaginably large: one followed by two-hundred zeros. Despite their size, the sum of the
+digits in each number is only 1.
 
-Considering natural numbers of the form, a^b, where a, b < 100,
-what is the maximum digital sum?
+Considering natural numbers of the form, a^b, where a, b < 100, what is the maximum digital
+sum?
+
+## Solution approach
+
+We systematically compute a^b for all valid combinations of a and b, calculating the digit
+sum for each. We skip a=1 (always gives 1) and multiples of 10 (powers of 10 always have
+digit sum 1). We use Julia's BigInt to handle the potentially huge numbers like 99^99.
+
+## Complexity analysis
+
+Time complexity: O(n² × d)
+- n² combinations to check (roughly 100²)
+- Each power computation and digit sum takes O(d) time where d is digits
+
+Space complexity: O(d)
+- Space to store the large BigInt result
 """
 module Problem056
 
-"""
-    digit_sum(n)
-
-Calculate the sum of digits of the number n.
-"""
-function digit_sum(n)
-    return sum(parse(Int, d) for d in string(n))
-end
+using ProjectEulerSolutions.Utils.Digits: digit_sum
 
 """
     max_digital_sum(limit)
@@ -49,6 +57,8 @@ function max_digital_sum(limit)
             end
         end
     end
+
+    @info "Maximum digit sum for a^b (a,b < $limit): $max_a^$max_b = $max_sum"
 
     return max_sum
 end

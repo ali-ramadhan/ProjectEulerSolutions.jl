@@ -1,13 +1,36 @@
 """
 Project Euler Problem 60: Prime Pair Sets
 
-The primes 3, 7, 109, and 673, are quite remarkable. By taking any two primes and concatenating
-them in any order the result will always be prime. For example, taking 7 and 109, both 7109
-and 1097 are prime. The sum of these four primes, 792, represents the lowest sum for a set
-of four primes with this property.
+The primes 3, 7, 109, and 673, are quite remarkable. By taking any two primes and
+concatenating them in any order the result will always be prime. For example, taking 7 and
+109, both 7109 and 1097 are prime. The sum of these four primes, 792, represents the lowest
+sum for a set of four primes with this property.
 
 Find the lowest sum for a set of five primes for which any two primes concatenate to produce
 another prime.
+
+## Solution approach
+
+We model this as a graph problem where each prime is a node, and edges connect primes that
+are "compatible" (both concatenations are prime). We seek a 5-clique (complete subgraph)
+with minimum sum. We build the compatibility graph by testing all prime pairs, then use
+depth-first search with pruning to find the optimal clique.
+
+## Complexity analysis
+
+Time complexity: O(p² × log² n + 5!)
+- p² pairs to test for compatibility (p = number of primes up to limit)
+- Each compatibility test involves primality testing of concatenated numbers
+- Search space is bounded by the exponential clique search
+
+Space complexity: O(p²)
+- Storage for the compatibility graph adjacency lists
+
+## Key insights
+
+We exclude 2 from consideration since concatenating with 2 at the end always produces even
+numbers. The search uses aggressive pruning: if the current partial sum plus minimum
+possible additions exceeds the best known sum, we prune that branch.
 """
 module Problem060
 
@@ -25,8 +48,8 @@ end
 """
     is_pair_compatible(p, q, prime_cache)
 
-Check if primes p and q form a compatible pair where both concatenations are prime.
-Uses a cache to avoid repeated primality tests.
+Check if primes p and q form a compatible pair where both concatenations are prime. Uses a
+cache to avoid repeated primality tests.
 """
 function is_pair_compatible(p, q, prime_cache)
     pq = concat_numbers(p, q)
@@ -48,14 +71,15 @@ end
 """
     find_prime_pair_set(set_size=5, limit=10000)
 
-Find a set of `set_size` primes with the minimum sum where any two primes,
-when concatenated in any order, form prime numbers.
+Find a set of `set_size` primes with the minimum sum where any two primes, when concatenated
+in any order, form prime numbers.
 
 Builds a compatibility graph where each prime is connected to others that meet our criteria
-Each node (prime) has edges to other primes where both concatenations are prime.
-We want to find a 5-clique, a fully connected subgraph of 5 nodes within this graph.
+Each node (prime) has edges to other primes where both concatenations are prime. We want to
+find a 5-clique, a fully connected subgraph of 5 nodes within this graph.
 
-Uses a graph-based approach with depth-first search with some pruning strategies to efficiently find the solution
+Uses a graph-based approach with depth-first search with some pruning strategies to
+efficiently find the solution
 
 Parameters:
 
@@ -165,6 +189,9 @@ end
 
 function solve()
     prime_set, sum_value = find_prime_pair_set(5)
+
+    @info "Found 5-prime set with minimum sum: $prime_set (sum = $sum_value)"
+
     return sum_value
 end
 

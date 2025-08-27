@@ -1,39 +1,40 @@
 """
 Project Euler Problem 51: Prime Digit Replacements
 
-By replacing the 1st digit of the 2-digit number *3, it turns out that six of the nine possible values:
-13, 23, 43, 53, 73, and 83, are all prime.
+By replacing the 1st digit of the 2-digit number *3, it turns out that six of the nine
+possible values: 13, 23, 43, 53, 73, and 83, are all prime.
 
-By replacing the 3rd and 4th digits of 56**3 with the same digit, this 5-digit number is the first
-example having seven primes among the ten generated numbers, yielding the family:
-56003, 56113, 56333, 56443, 56663, 56773, and 56993. Consequently 56003, being the first member
-of this family, is the smallest prime with this property.
+By replacing the 3rd and 4th digits of 56**3 with the same digit, this 5-digit number is the
+first example having seven primes among the ten generated numbers, yielding the family:
+56003, 56113, 56333, 56443, 56663, 56773, and 56993. Consequently 56003, being the first
+member of this family, is the smallest prime with this property.
 
-Find the smallest prime which, by replacing part of the number (not necessarily adjacent digits)
-with the same digit, is part of an eight prime value family.
+Find the smallest prime which, by replacing part of the number (not necessarily adjacent
+digits) with the same digit, is part of an eight prime value family.
+
+## Solution approach
+
+The solution works by systematically examining each prime and testing all possible digit
+replacement patterns to find prime families. For each prime, we group positions by digit
+value, then generate all possible subsets of positions to replace. For each subset, we test
+all digits 0-9 as replacements and count how many resulting numbers are prime.
+
+## Complexity analysis
+
+Time complexity: O(n log log n + p × d × 2^d × 10)
+- Sieve generation: O(n log log n) where n is the limit
+- For each prime p, we group digits by value (O(d) where d is number of digits)
+- For each digit that appears multiple times, we generate O(2^k) subsets where k ≤ d
+- For each subset, we test 10 digit replacements, each taking O(1) with precomputed prime
+  set
+- Total: O(p × d × 2^d) where p is the number of primes and d is average digits per prime
+
+Space complexity: O(n)
+- Prime sieve and set storage
 """
 module Problem051
 
-"""
-    sieve_of_eratosthenes(limit)
-
-Generate all prime numbers up to limit using the Sieve of Eratosthenes algorithm.
-Returns a vector of primes.
-"""
-function sieve_of_eratosthenes(limit)
-    sieve = fill(true, limit)
-    sieve[1] = false
-
-    for i in 2:isqrt(limit)
-        if sieve[i]
-            for j in (i ^ 2):i:limit
-                sieve[j] = false
-            end
-        end
-    end
-
-    return [i for i in 1:limit if sieve[i]]
-end
+using ProjectEulerSolutions.Utils.Primes: sieve_of_eratosthenes
 
 """
     generate_subsets(positions)
@@ -43,8 +44,8 @@ Generate all non-empty subsets of the given positions using bit manipulation.
 This function leverages binary representation to create a "mask" for each possible subset:
 
  1. For a set with n elements, there are 2^n possible subsets (including the empty set)
- 2. Each subset can be represented by an n-bit binary number, where each bit indicates whether
-    to include (1) or exclude (0) the corresponding element
+ 2. Each subset can be represented by an n-bit binary number, where each bit indicates
+    whether to include (1) or exclude (0) the corresponding element
  3. We iterate from 1 to 2^n-1 (skipping 0 to exclude the empty set)
 """
 function generate_subsets(positions)
@@ -62,8 +63,9 @@ end
 """
     find_prime_family(family_size, limit=1_000_000)
 
-Find the smallest prime which, by replacing part of the number with the same digit,
-is part of a family of at least family_size primes.
+Find the smallest prime which, by replacing part of the number with the same digit, is part
+of a family of at least family_size primes.
+
 Returns a tuple (smallest_prime, family).
 """
 function find_prime_family(family_size, limit = 1_000_000)
@@ -130,19 +132,12 @@ function find_prime_family(family_size, limit = 1_000_000)
     return nothing, []  # No solution found
 end
 
-"""
-    find_eight_prime_family(limit=1_000_000)
-
-Find the smallest prime which, by replacing part of the number with the same digit,
-is part of an eight prime value family.
-"""
-function find_eight_prime_family(limit = 1_000_000)
-    smallest, _ = find_prime_family(8, limit)
-    return smallest
-end
-
 function solve()
-    return find_eight_prime_family()
+    smallest_prime, family = find_prime_family(8, 1_000_000)
+
+    @info "Found 8-prime family starting with $smallest_prime: $family"
+
+    return smallest_prime
 end
 
 end # module
