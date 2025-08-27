@@ -3,6 +3,7 @@ Project Euler Problem 42: Coded Triangle Numbers
 
 The nth term of the sequence of triangle numbers is given by, t_n = ½n(n+1);
 so the first ten triangle numbers are:
+
 1, 3, 6, 10, 15, 21, 28, 36, 45, 55, ...
 
 By converting each letter in a word to a number corresponding to its alphabetical position
@@ -12,19 +13,29 @@ a triangle word.
 
 Using words.txt, a 16K text file containing nearly two-thousand common English words,
 how many are triangle words?
+
+## Solution approach
+
+1. Parse the words.txt file to extract all words
+2. For each word, calculate its value by summing alphabetical positions (A=1, B=2, etc.)
+3. Check if the word value is a triangle number using the inverse formula
+4. Count how many words are triangle words
+
+To check if n is triangular: solve t_k = k(k+1)/2 = n for k.
+This gives k = (-1 + √(1 + 8n))/2. If k is a positive integer, n is triangular.
+
+## Complexity analysis
+
+Time complexity: O(W × L + W × √V)
+- W words, each with average length L for calculating word values
+- W triangle number checks, each taking O(√V) where V is the word value
+
+Space complexity: O(W)
+- Store all words from the file
 """
 module Problem042
 
-"""
-    is_triangle_number(n)
-
-Check if a number is a triangle number using the formula t_n = n(n+1)/2.
-A number is a triangle number if (-1 + sqrt(1 + 8n))/2 is a positive integer.
-"""
-function is_triangle_number(n)
-    x = (sqrt(1 + 8 * n) - 1) / 2
-    return isinteger(x)
-end
+using ProjectEulerSolutions.Utils.Sequences: is_triangle_number
 
 """
     word_value(word)
@@ -70,7 +81,9 @@ end
 function solve()
     data_filepath = joinpath(@__DIR__, "..", "..", "data", "0042_words.txt")
     words = parse_words_file(data_filepath)
-    return count_triangle_words(words)
+    result = count_triangle_words(words)
+    @info "Found $result triangle words out of $(length(words)) total words"
+    return result
 end
 
 end # module

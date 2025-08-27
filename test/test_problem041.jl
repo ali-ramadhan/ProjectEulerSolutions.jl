@@ -1,3 +1,3 @@
-using ProjectEulerSolutions.Problem041: find_largest_pandigital_prime, solve
+using ProjectEulerSolutions.Problem041: solve
 
 @test solve() == 7652413

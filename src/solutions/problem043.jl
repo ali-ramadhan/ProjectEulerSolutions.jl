@@ -1,8 +1,9 @@
 """
 Project Euler Problem 43: Sub-string Divisibility
 
-The number, 1406357289, is a 0 to 9 pandigital number because it is made up of each of the digits 0 to 9 in some order,
-but it also has a rather interesting sub-string divisibility property.
+The number, 1406357289, is a 0 to 9 pandigital number because it is made up of each of the
+digits 0 to 9 in some order, but it also has a rather interesting sub-string divisibility
+property.
 
 Let d₁ be the 1st digit, d₂ be the 2nd digit, and so on. In this way, we note the following:
 
@@ -15,6 +16,26 @@ Let d₁ be the 1st digit, d₂ be the 2nd digit, and so on. In this way, we not
   - d₈d₉d₁₀=289 is divisible by 17
 
 Find the sum of all 0 to 9 pandigital numbers with this property.
+
+## Solution approach
+
+Use backtracking to build valid 10-digit pandigital numbers digit by digit.
+At each position, try all unused digits and check the substring divisibility
+constraint for positions 4-10. This pruning eliminates invalid partial solutions early.
+
+The constraints are checked as we build: for position p ≥ 4, the 3-digit substring
+ending at position p must be divisible by the (p-3)th prime.
+
+## Complexity analysis
+
+Time complexity: O(10! × C)
+- In worst case, explore all 10! permutations
+- C is the average cost of divisibility checks during backtracking
+- Early pruning significantly reduces the actual search space
+
+Space complexity: O(10)
+- Recursive call stack depth is at most 10
+- Track used digits with boolean array of size 10
 """
 module Problem043
 
@@ -93,7 +114,10 @@ end
 
 function solve()
     special_pandigitals = find_special_pandigitals()
-    return sum(special_pandigitals)
+    result = sum(special_pandigitals)
+    @info "Found $(length(special_pandigitals)) pandigital numbers with substring " *
+          "divisibility property"
+    return result
 end
 
 end # module

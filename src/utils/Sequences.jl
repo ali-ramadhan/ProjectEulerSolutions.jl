@@ -7,7 +7,8 @@ mathematical sequences like Fibonacci, triangular numbers, etc.
 module Sequences
 
 export Fibonacci,
-    triangle_number, pentagonal_number, hexagonal_number, sum_of_squares, square_of_sum
+    triangle_number, pentagonal_number, hexagonal_number, sum_of_squares, square_of_sum,
+    is_triangle_number, is_pentagonal
 
 """
     Fibonacci{T<:Integer}(limit::T)
@@ -232,6 +233,72 @@ Example: square_of_sum(3) returns 36 ((1 + 2 + 3)² = 6² = 36)
 function square_of_sum(n)
     sum = n * (n + 1) ÷ 2
     return sum^2
+end
+
+"""
+    is_triangle_number(n)
+
+Check if a number is a triangle number using the inverse formula.
+A number n is triangular if (-1 + √(1 + 8n))/2 is a positive integer.
+
+## Derivation
+
+For a triangle number T(k) = k(k+1)/2 = n, solving for k:
+    k(k+1) = 2n
+    k² + k - 2n = 0
+
+Using the quadratic formula:
+    k = (-1 ± √(1 + 8n))/2
+
+Since k must be positive, we take the positive root:
+    k = (-1 + √(1 + 8n))/2
+
+If k is a positive integer, then n is a triangle number.
+
+Example: is_triangle_number(6) returns true (T(3) = 6)
+"""
+function is_triangle_number(n)
+    n <= 0 && return false
+    x = (sqrt(1 + 8 * n) - 1) / 2
+    return isinteger(x)
+end
+
+"""
+    is_pentagonal(n)
+
+Check if a number is a pentagonal number using the inverse formula.
+A number n is pentagonal if (1 + √(1 + 24n))/6 is a positive integer.
+
+## Derivation
+
+For a pentagonal number P(k) = k(3k-1)/2 = n, solving for k:
+    k(3k-1) = 2n
+    3k² - k - 2n = 0
+
+Using the quadratic formula:
+    k = (1 ± √(1 + 24n))/6
+
+Since k must be positive, we take the positive root:
+    k = (1 + √(1 + 24n))/6
+
+If k is a positive integer, then n is a pentagonal number.
+
+Example: is_pentagonal(12) returns true (P(3) = 12)
+"""
+function is_pentagonal(n)
+    n <= 0 && return false
+    
+    discriminant = 1 + 24 * n
+    r = isqrt(discriminant)
+    if r^2 != discriminant
+        return false
+    end
+    
+    if (1 + r) % 6 != 0
+        return false
+    end
+    
+    return true
 end
 
 end # module Sequences

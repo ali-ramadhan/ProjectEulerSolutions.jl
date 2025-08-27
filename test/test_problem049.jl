@@ -1,5 +1,4 @@
-using ProjectEulerSolutions.Problem049:
-    sieve_of_eratosthenes, get_sorted_digits, find_prime_permutation_sequence, solve
+using ProjectEulerSolutions.Problem049: get_sorted_digits, solve
 
 @test get_sorted_digits(1487) == get_sorted_digits(4817)
 @test get_sorted_digits(4817) == get_sorted_digits(8147)

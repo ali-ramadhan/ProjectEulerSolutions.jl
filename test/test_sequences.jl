@@ -6,7 +6,9 @@ using ProjectEulerSolutions.Utils.Sequences:
     pentagonal_number,
     hexagonal_number,
     sum_of_squares,
-    square_of_sum
+    square_of_sum,
+    is_triangle_number,
+    is_pentagonal
 
 @testset "Fibonacci iterator" begin
     # Basic functionality - collect first few values
@@ -84,4 +86,66 @@ end
     @test square_of_sum(3) == 36  # (1 + 2 + 3)² = 6² = 36
     @test square_of_sum(10) == 3025  # as mentioned in Problem 6
     @test square_of_sum(100) == 25502500  # for Problem 6 solution
+end
+
+@testset "is_triangle_number" begin
+    # Test triangle numbers
+    @test is_triangle_number(1)   # T(1) = 1
+    @test is_triangle_number(3)   # T(2) = 3
+    @test is_triangle_number(6)   # T(3) = 6
+    @test is_triangle_number(10)  # T(4) = 10
+    @test is_triangle_number(15)  # T(5) = 15
+    @test is_triangle_number(21)  # T(6) = 21
+    @test is_triangle_number(28)  # T(7) = 28
+    @test is_triangle_number(36)  # T(8) = 36
+    @test is_triangle_number(45)  # T(9) = 45
+    @test is_triangle_number(55)  # T(10) = 55
+
+    # Test non-triangle numbers
+    @test !is_triangle_number(2)
+    @test !is_triangle_number(4)
+    @test !is_triangle_number(5)
+    @test !is_triangle_number(7)
+    @test !is_triangle_number(8)
+    @test !is_triangle_number(9)
+    @test !is_triangle_number(11)
+
+    # Test edge cases
+    @test !is_triangle_number(0)
+    @test !is_triangle_number(-1)
+    @test !is_triangle_number(-10)
+end
+
+@testset "is_pentagonal" begin
+    # Test pentagonal numbers
+    @test is_pentagonal(1)    # P(1) = 1
+    @test is_pentagonal(5)    # P(2) = 5
+    @test is_pentagonal(12)   # P(3) = 12
+    @test is_pentagonal(22)   # P(4) = 22
+    @test is_pentagonal(35)   # P(5) = 35
+    @test is_pentagonal(51)   # P(6) = 51
+    @test is_pentagonal(70)   # P(7) = 70
+    @test is_pentagonal(92)   # P(8) = 92
+    @test is_pentagonal(117)  # P(9) = 117
+    @test is_pentagonal(145)  # P(10) = 145
+
+    # Test non-pentagonal numbers
+    @test !is_pentagonal(2)
+    @test !is_pentagonal(3)
+    @test !is_pentagonal(4)
+    @test !is_pentagonal(6)
+    @test !is_pentagonal(7)
+    @test !is_pentagonal(8)
+    @test !is_pentagonal(9)
+    @test !is_pentagonal(10)
+    @test !is_pentagonal(11)
+
+    # Test edge cases
+    @test !is_pentagonal(0)
+    @test !is_pentagonal(-1)
+    @test !is_pentagonal(-10)
+
+    # Test examples from Problem 44 description
+    @test is_pentagonal(92)   # P(8) = 92
+    @test !is_pentagonal(48)  # 70 - 22 = 48 is not pentagonal
 end

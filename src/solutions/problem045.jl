@@ -10,32 +10,34 @@ Hexagonal    H_n = n(2n-1)       1, 6, 15, 28, 45, ...
 It can be verified that T_285 = P_165 = H_143 = 40755.
 
 Find the next triangle number that is also pentagonal and hexagonal.
+
+## Solution approach
+
+Key insight: Every hexagonal number is also a triangle number.
+Specifically, H_n = n(2n-1) = T_{2n-1} (the (2n-1)th triangle number).
+
+Therefore, we only need to find hexagonal numbers that are also pentagonal.
+Start from H_144 and check each hexagonal number for pentagonality using
+the inverse formula.
+
+## Complexity analysis
+
+Time complexity: O(k)
+- k iterations until finding the next tri-pent-hex number
+- Each pentagonal check takes O(1) time
+
+Space complexity: O(1)
+- Only store current hexagonal index and computed values
+
+## Mathematical background
+
+Hexagonal numbers H_n = n(2n-1) are always triangular:
+H_n = n(2n-1) = T_{2n-1} where T_m = m(m+1)/2
+For m = 2n-1: T_{2n-1} = (2n-1)(2n)/2 = n(2n-1) = H_n
 """
 module Problem045
 
-"""
-    hexagonal(n)
-
-Calculate the nth hexagonal number using the formula H_n = n(2n-1).
-"""
-function hexagonal(n)
-    return n * (2n - 1)
-end
-
-"""
-    is_pentagonal(m)
-
-Check if a given number m is pentagonal using the quadratic formula.
-If (1 + sqrt(1 + 24*m))/6 is an integer, then m is a pentagonal number.
-"""
-function is_pentagonal(m)
-    if m <= 0
-        return false
-    end
-
-    x = (1 + sqrt(1 + 24 * m)) / 6
-    return x == trunc(x)
-end
+using ProjectEulerSolutions.Utils.Sequences: hexagonal_number, is_pentagonal
 
 """
     find_next_tri_pent_hex()
@@ -49,7 +51,7 @@ function find_next_tri_pent_hex()
     n = 144
 
     while true
-        hex_num = hexagonal(n)
+        hex_num = hexagonal_number(n)
         if is_pentagonal(hex_num)
             return hex_num
         end
@@ -58,7 +60,9 @@ function find_next_tri_pent_hex()
 end
 
 function solve()
-    return find_next_tri_pent_hex()
+    result = find_next_tri_pent_hex()
+    @info "Found next triangular-pentagonal-hexagonal number: $result"
+    return result
 end
 
 end # module

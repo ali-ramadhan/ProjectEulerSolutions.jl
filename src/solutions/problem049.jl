@@ -1,37 +1,36 @@
 """
 Project Euler Problem 49: Prime Permutations
 
-The arithmetic sequence, 1487, 4817, 8147, in which each of the terms increases by 3330,
-is unusual in two ways: (i) each of the three terms are prime, and, (ii) each of the 4-digit
+The arithmetic sequence, 1487, 4817, 8147, in which each of the terms increases by 3330, is
+unusual in two ways: (i) each of the three terms are prime, and, (ii) each of the 4-digit
 numbers are permutations of one another.
 
-There are no arithmetic sequences made up of three 1-, 2-, or 3-digit primes, exhibiting this
-property, but there is one other 4-digit increasing sequence.
+There are no arithmetic sequences made up of three 1-, 2-, or 3-digit primes, exhibiting
+this property, but there is one other 4-digit increasing sequence.
 
 What 12-digit number do you form by concatenating the three terms in this sequence?
+
+## Solution approach
+
+1. Generate all 4-digit primes using the Sieve of Eratosthenes
+2. Group primes by their sorted digits to identify permutation groups
+3. For each group with at least 3 primes, check all pairs to see if they form an arithmetic
+   sequence with a third prime
+4. Exclude the known sequence (1487, 4817, 8147) and return the other one
+
+## Complexity analysis
+
+Time complexity: O(N log log N + G × K²)
+- O(N log log N) to generate primes up to N=10000
+- G groups of permutations, each with K primes on average
+- Check O(K²) pairs per group
+
+Space complexity: O(N + G × K)
+- Store N primes and G permutation groups
 """
 module Problem049
 
-"""
-    sieve_of_eratosthenes(limit)
-
-Generate all prime numbers up to the given limit using the Sieve of Eratosthenes.
-Returns an array of primes in ascending order.
-"""
-function sieve_of_eratosthenes(limit)
-    sieve = fill(true, limit)
-    sieve[1] = false
-
-    for i in 2:isqrt(limit)
-        if sieve[i]
-            for j in (i ^ 2):i:limit
-                sieve[j] = false
-            end
-        end
-    end
-
-    return [i for i in 1:limit if sieve[i]]
-end
+using ProjectEulerSolutions.Utils.Primes: sieve_of_eratosthenes
 
 """
     get_sorted_digits(n)
@@ -102,7 +101,10 @@ Solve Problem 49 by finding the sequence and concatenating the terms.
 """
 function solve()
     sequence = find_prime_permutation_sequence()
-    return parse(Int, string(sequence[1], sequence[2], sequence[3]))
+    result = parse(Int, string(sequence[1], sequence[2], sequence[3]))
+    @info "Found prime permutation arithmetic sequence: " *
+          "$(sequence[1]), $(sequence[2]), $(sequence[3])"
+    return result
 end
 
 end # module

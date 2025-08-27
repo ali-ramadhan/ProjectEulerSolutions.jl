@@ -1,7 +1,8 @@
 """
 Project Euler Problem 46: Goldbach's Other Conjecture
 
-It was proposed by Christian Goldbach that every odd composite number can be written as the sum of a prime and twice a square.
+It was proposed by Christian Goldbach that every odd composite number can be written as the
+sum of a prime and twice a square.
 
 9 = 7 + 2 × 1²
 15 = 7 + 2 × 2²
@@ -12,30 +13,29 @@ It was proposed by Christian Goldbach that every odd composite number can be wri
 
 It turns out that the conjecture was false.
 
-What is the smallest odd composite that cannot be written as the sum of a prime and twice a square?
+What is the smallest odd composite that cannot be written as the sum of a prime and twice a
+square?
+
+## Solution approach
+
+1. Generate all primes up to a reasonable limit using the Sieve of Eratosthenes
+2. Pre-compute a set of values of the form 2s² for quick lookup
+3. For each odd composite number n, check if n-p is in the twice-squares set for any prime
+   p < n
+4. Return the first odd composite that fails this test
+
+## Complexity analysis
+
+Time complexity: O(N log log N + N²)
+- O(N log log N) for sieve to generate primes
+- O(N²) to check each odd composite against all smaller primes
+
+Space complexity: O(N)
+- Store boolean sieve array and sets for primes and twice-squares
 """
 module Problem046
 
-"""
-    sieve_of_eratosthenes(limit)
-
-Generate a boolean array where is_prime[i] is true if i is prime, using the Sieve of Eratosthenes.
-This efficient algorithm marks all multiples of each prime as non-prime.
-"""
-function sieve_of_eratosthenes(limit)
-    is_prime = fill(true, limit)
-    is_prime[1] = false
-
-    for i in 2:isqrt(limit)
-        if is_prime[i]
-            for j in (i ^ 2):i:limit
-                is_prime[j] = false
-            end
-        end
-    end
-
-    return is_prime
-end
+using ProjectEulerSolutions.Utils.Primes: sieve_of_eratosthenes
 
 """
     is_prime_plus_twice_square(n, primes, twice_squares)
@@ -73,9 +73,7 @@ The approach:
 """
 function find_goldbach_counterexample()
     limit = 10000
-    is_prime_list = sieve_of_eratosthenes(limit)
-
-    primes = [i for i in 2:limit if is_prime_list[i]]
+    primes, is_prime_list = sieve_of_eratosthenes(limit; return_array=true)
 
     twice_squares = Set(2 * s^2 for s in 1:isqrt(limit ÷ 2))
 
@@ -94,7 +92,9 @@ function find_goldbach_counterexample()
 end
 
 function solve()
-    return find_goldbach_counterexample()
+    result = find_goldbach_counterexample()
+    @info "Found smallest odd composite that disproves Goldbach's other conjecture: $result"
+    return result
 end
 
 end # module

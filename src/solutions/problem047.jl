@@ -12,6 +12,21 @@ The first three consecutive numbers to have three distinct prime factors are:
 
 Find the first four consecutive integers to have four distinct prime factors each.
 What is the first of these numbers?
+
+## Solution approach
+
+Iterate through integers, counting distinct prime factors for each.
+Keep track of consecutive integers with the target number of distinct prime factors.
+Reset the counter whenever an integer doesn't have exactly four distinct prime factors.
+
+## Complexity analysis
+
+Time complexity: O(N × √M)
+- Check N numbers until finding the sequence
+- Factoring each number M takes O(√M) time in worst case
+
+Space complexity: O(F)
+- Store prime factors for counting (F factors per number)
 """
 module Problem047
 
@@ -57,7 +72,9 @@ function find_consecutive_with_distinct_prime_factors(consecutive_count, factor_
 end
 
 function solve()
-    return find_consecutive_with_distinct_prime_factors(4, 4)
+    result = find_consecutive_with_distinct_prime_factors(4, 4)
+    @info "Found first of 4 consecutive integers with 4 distinct prime factors: $result"
+    return result
 end
 
 end # module

@@ -6,9 +6,28 @@ The prime 41, can be written as the sum of six consecutive primes:
 
 This is the longest sum of consecutive primes that adds to a prime below one-hundred.
 
-The longest sum of consecutive primes below one-thousand that adds to a prime, contains 21 terms, and is equal to 953.
+The longest sum of consecutive primes below one-thousand that adds to a prime, contains 21
+terms, and is equal to 953.
 
 Which prime, below one-million, can be written as the sum of the most consecutive primes?
+
+## Solution approach
+
+Use cumulative sums for efficient range sum calculation. For each starting position,
+try increasingly longer sequences of consecutive primes until the sum exceeds the limit.
+Track the longest sequence that produces a prime sum.
+
+The cumulative sum technique reduces computing sum of k consecutive primes from
+O(k) to O(1) time per sum.
+
+## Complexity analysis
+
+Time complexity: O(π(N)² + N log log N)
+- O(N log log N) to generate primes up to N using sieve
+- O(π(N)²) to check all consecutive subsequences, where π(N) ≈ N/ln(N)
+
+Space complexity: O(π(N))
+- Store all primes and cumulative sums up to N
 """
 module Problem050
 
@@ -68,6 +87,7 @@ end
 
 function solve()
     prime, length = find_longest_consecutive_prime_sum(1_000_000)
+    @info "Found prime $prime as sum of $length consecutive primes"
     return prime
 end
 
