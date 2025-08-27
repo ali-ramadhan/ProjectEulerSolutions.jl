@@ -1,3 +1,4 @@
+using Test
 using ProjectEulerSolutions.Problem040: champernowne_digit, solve
 
 @test champernowne_digit(1) == 1

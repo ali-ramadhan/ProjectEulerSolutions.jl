@@ -3,9 +3,38 @@ Project Euler Problem 36: Double-base Palindromes
 
 The decimal number, 585 = 1001001001_2 (binary), is palindromic in both bases.
 
-Find the sum of all numbers, less than one million, which are palindromic in base 10 and base 2.
+Find the sum of all numbers, less than one million, which are palindromic in base 10 and
+base 2.
 
 (Please note that the palindromic number, in either base, may not include leading zeros.)
+
+## Solution approach
+
+We need to find numbers that are palindromic in both decimal (base 10) and binary (base 2).
+A palindrome reads the same forwards and backwards.
+
+Key optimization: We only check odd numbers because even numbers cannot be palindromic in
+binary. This is because even numbers end with 0 in binary, and to be palindromic, they would
+need to start with 0 as well, which violates the no-leading-zeros rule.
+
+For each odd number from 1 to 999,999, we:
+1. Check if it's palindromic in base 10 (convert to string and compare with reverse)
+2. If yes, check if it's palindromic in base 2 (convert to binary string and compare with
+   reverse)
+3. If both conditions are met, add it to our sum
+
+## Complexity analysis
+
+Time complexity: O(n × d)
+- Where n = 500,000 (roughly half of 1,000,000 since we only check odd numbers)
+- d is the average number of digits in decimal and binary representations (≈ log₁₀(n) +
+  log₂(n))
+- String operations for palindrome checking are O(d) for each number
+
+Space complexity: O(d)
+- We create temporary strings for decimal and binary representations
+- Space usage is proportional to the number of digits, which is logarithmic in the input
+- No data structures that grow with the search range
 """
 module Problem036
 
@@ -33,11 +62,7 @@ end
     sum_double_base_palindromes(limit)
 
 Find the sum of all numbers less than the given limit which are palindromic
-in both base 10 (decimal) and base 2 (binary).
-
-Note: We only check odd numbers since even numbers cannot be palindromic in base 2.
-This is because an even number's binary representation ends with 0, and for it to be
-palindromic, it would need to start with 0 as well, which violates the no-leading-zeros rule.
+in both base 10 and base 2.
 """
 function sum_double_base_palindromes(limit)
     total_sum = 0

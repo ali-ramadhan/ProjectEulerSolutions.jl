@@ -35,16 +35,30 @@ function is_prime(n)
 end
 
 """
-    sieve_of_eratosthenes(limit)
+    sieve_of_eratosthenes(limit; return_array=false)
 
-Generate all prime numbers up to and including the given limit using the Sieve of Eratosthenes.
-Returns a list of prime numbers.
+Generate all prime numbers up to and including the given limit using the Sieve of
+Eratosthenes.
 
-This algorithm efficiently identifies primes by eliminating multiples in O(n log log n) time.
+This algorithm efficiently identifies primes by eliminating multiples in O(n log log n)
+time.
 
-Example: sieve_of_eratosthenes(10) returns [2, 3, 5, 7]
+# Arguments
+- `limit`: Upper bound for prime generation
+- `return_array`: If true, returns (primes, is_prime_array), otherwise just primes
+
+# Returns
+- If `return_array=false`: Vector of prime numbers
+- If `return_array=true`: Tuple of (primes, boolean_array) where boolean_array[i] is true if
+  i is prime
+
+# Examples
+```julia
+sieve_of_eratosthenes(10)  # returns [2, 3, 5, 7]
+primes, is_prime = sieve_of_eratosthenes(10, return_array=true)
+```
 """
-function sieve_of_eratosthenes(limit)
+function sieve_of_eratosthenes(limit; return_array=false)
     is_prime_arr = fill(true, limit)
     is_prime_arr[1] = false
 
@@ -57,7 +71,13 @@ function sieve_of_eratosthenes(limit)
         end
     end
 
-    return [i for i in 2:limit if is_prime_arr[i]]
+    primes = [i for i in 2:limit if is_prime_arr[i]]
+
+    if return_array
+        return primes, is_prime_arr
+    else
+        return primes
+    end
 end
 
 """

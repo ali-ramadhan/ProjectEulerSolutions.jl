@@ -1,5 +1,5 @@
-using ProjectEulerSolutions.Problem032:
-    is_pandigital_product, find_pandigital_products, solve
+using Test
+using ProjectEulerSolutions.Problem032: is_pandigital_product, solve
 
 @test is_pandigital_product(39, 186, 7254) == true
 

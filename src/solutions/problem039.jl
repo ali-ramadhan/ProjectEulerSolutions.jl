@@ -6,6 +6,33 @@ there are exactly three solutions for p = 120.
 {20,48,52}, {24,45,51}, {30,40,50}
 
 For which value of p ≤ 1000, is the number of solutions maximised?
+
+## Solution approach
+
+For a right triangle with sides a, b, c (where c is the hypotenuse), we have:
+- a² + b² = c² (Pythagorean theorem)
+- a + b + c = p (perimeter constraint)
+
+We can derive a formula for b in terms of a and p:
+From c = p - a - b and substituting into the Pythagorean theorem:
+a² + b² = (p - a - b)²
+
+Solving for b: b = p(p - 2a) / (2(p - a))
+
+For each perimeter p from 12 to 1000 (minimum perimeter for a right triangle is 3-4-5 = 12),
+we iterate through possible values of a from 1 to p/3, compute the corresponding b using our
+formula, and check if b is an integer and forms a valid triangle with a ≤ b ≤ c.
+
+## Complexity analysis
+
+Time complexity: O(n²)
+- Where n = 1000 (maximum perimeter to check)
+- For each perimeter p, we check approximately p/3 values of a
+- Total operations: Σ(p/3) for p from 12 to 1000 ≈ O(1000²/3)
+
+Space complexity: O(1)
+- We only use constant extra space to track the maximum count and corresponding perimeter
+- No data structures that grow with the input size
 """
 module Problem039
 
@@ -13,17 +40,6 @@ module Problem039
     count_right_triangles(p)
 
 Count the number of right triangles with integer sides whose perimeter equals p.
-
-Mathematical derivation:
-
-  - For a right triangle with sides a, b, c (where c is the hypotenuse)
-  - We know a² + b² = c² (Pythagorean theorem)
-  - And a + b + c = p (perimeter constraint)
-  - Substituting c = p - a - b into the Pythagorean theorem:
-    a² + b² = (p - a - b)²
-  - Expanding and solving for b:
-    b = (p(p - 2a)) / (2(p - a))
-  - We check if this value of b is an integer, and if it forms a valid triangle with a ≤ b ≤ c
 """
 function count_right_triangles(p)
     count = 0

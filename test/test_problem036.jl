@@ -1,3 +1,4 @@
+using Test
 using ProjectEulerSolutions.Problem036:
     is_palindromic_base10, is_palindromic_base2, sum_double_base_palindromes, solve
 

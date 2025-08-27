@@ -45,6 +45,20 @@ using ProjectEulerSolutions.Utils.Primes: is_prime, sieve_of_eratosthenes, prime
         # Test that it includes the limit when it's prime
         @test 29 in sieve_of_eratosthenes(29)
         @test 31 in sieve_of_eratosthenes(31)
+        
+        # Test return_array kwarg
+        primes, is_prime = sieve_of_eratosthenes(10, return_array=true)
+        @test primes == [2, 3, 5, 7]
+        @test length(is_prime) == 10
+        @test is_prime[2] == true
+        @test is_prime[3] == true
+        @test is_prime[4] == false
+        @test is_prime[5] == true
+        @test is_prime[6] == false
+        @test is_prime[7] == true
+        @test is_prime[8] == false
+        @test is_prime[9] == false
+        @test is_prime[10] == false
     end
 
     @testset "prime_factors" begin

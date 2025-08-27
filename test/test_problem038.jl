@@ -1,3 +1,4 @@
+using Test
 using ProjectEulerSolutions.Problem038:
     is_pandigital, find_largest_pandigital_multiple, solve
 

@@ -1,3 +1,4 @@
+using Test
 using ProjectEulerSolutions.Problem037: is_truncatable_prime, find_truncatable_primes, solve
 
 # Single-digit primes are not considered truncatable

@@ -6,6 +6,29 @@ Project Euler Problem 34: Digit Factorials
 Find the sum of all numbers which are equal to the sum of the factorial of their digits.
 
 Note: As 1! = 1 and 2! = 2 are not sums they are not included.
+
+## Solution approach
+
+We need to find all numbers where the number equals the sum of the factorials of its digits.
+The key insight is determining the upper bound for our search.
+
+For a k-digit number, the maximum possible sum of digit factorials is k × 9! = k × 362,880.
+However, the minimum k-digit number is 10^(k-1). For k ≥ 8, we have 10^(k-1) > k × 362,880,
+meaning no k-digit number with k ≥ 8 can equal its digit factorial sum.
+
+Therefore, we only need to check numbers up to 7 × 9! = 2,540,160. We iterate through all
+numbers from 3 (excluding 1 and 2 as stated) up to this bound and check the condition.
+
+## Complexity analysis
+
+Time complexity: O(n × d)
+- Where n = 2,540,160 (our upper bound) and d is the average number of digits (≈ log₁₀(n))
+- For each number, we extract digits and compute factorials, taking O(d) time per number
+- Total: approximately O(2,540,160 × 7) operations
+
+Space complexity: O(1)
+- We only use constant extra space for temporary calculations
+- No data structures that grow with input size
 """
 module Problem034
 
@@ -53,7 +76,11 @@ always exceed its factorial digit sum, so we only need to check up to 7*9!.
 function solve()
     upper_bound = 7 * factorial(9)
     numbers = find_digit_factorial_numbers(upper_bound)
-    return sum(numbers)
+    result = sum(numbers)
+
+    @info "Found $(length(numbers)) digit factorials with sum $result"
+
+    return result
 end
 
 end # module

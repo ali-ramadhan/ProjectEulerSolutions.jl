@@ -1,3 +1,4 @@
+using Test
 using ProjectEulerSolutions.Problem033: is_curious_fraction, find_curious_fractions, solve
 
 @test is_curious_fraction(49, 98)

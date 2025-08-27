@@ -1,7 +1,8 @@
-using ProjectEulerSolutions.Problem035:
-    is_circular_prime, count_circular_primes_below, generate_primes_below, solve
+using Test
+using ProjectEulerSolutions.Problem035: is_circular_prime, count_circular_primes_below, solve
+using ProjectEulerSolutions.Utils.Primes: sieve_of_eratosthenes
 
-primes, is_prime_arr = generate_primes_below(1000)
+primes, is_prime_arr = sieve_of_eratosthenes(1000, return_array=true)
 
 @test is_circular_prime(2, is_prime_arr) == true
 @test is_circular_prime(3, is_prime_arr) == true

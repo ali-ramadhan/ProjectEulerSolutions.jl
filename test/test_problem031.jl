@@ -1,3 +1,4 @@
+using Test
 using ProjectEulerSolutions.Problem031: count_coin_combinations, solve
 
 # 5p can be made in 4 ways
