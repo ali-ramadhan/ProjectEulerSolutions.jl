@@ -1,22 +1,45 @@
 """
 Project Euler Problem 74: Digit Factorial Chains
 
-The number 145 is well known for the property that the sum of the factorial of its digits is equal to 145:
-1! + 4! + 5! = 1 + 24 + 120 = 145.
+The number 145 is well known for the property that the sum of the factorial of its digits is
+equal to 145: 1! + 4! + 5! = 1 + 24 + 120 = 145.
 
-Perhaps less well known is 169, in that it produces the longest chain of numbers that link back to 169; it turns out that there are only three such loops that exist:
+Perhaps less well known is 169, in that it produces the longest chain of numbers that link
+back to 169; it turns out that there are only three such loops that exist:
 169 → 363601 → 1454 → 169
 871 → 45361 → 871
 872 → 45362 → 872
 
-It is not difficult to prove that EVERY starting number will eventually get stuck in a loop. For example,
+It is not difficult to prove that EVERY starting number will eventually get stuck in a loop.
+For example,
 69 → 363600 → 1454 → 169 → 363601 (→ 1454)
 78 → 45360 → 871 → 45361 (→ 871)
 540 → 145 (→ 145)
 
-Starting with 69 produces a chain of five non-repeating terms, but the longest non-repeating chain with a starting number below one million is sixty terms.
+Starting with 69 produces a chain of five non-repeating terms, but the longest non-repeating
+chain with a starting number below one million is sixty terms.
 
-How many chains, with a starting number below one million, contain exactly sixty non-repeating terms?
+How many chains, with a starting number below one million, contain exactly sixty
+non-repeating terms?
+
+## Solution approach
+
+We compute chains by following the digit factorial sum sequence until we encounter a repeat.
+The chain length is the number of unique terms before the repeat.
+
+Key optimizations:
+1. Memoization of digit factorial sums to avoid recomputation
+2. Memoization of chain lengths for already computed starting points
+3. Early termination when encountering known chain lengths
+
+## Complexity analysis
+
+Time complexity: O(n * d * log d)
+- For each number up to n, we may compute a chain of at most d digits
+- Each digit factorial sum takes O(log d) where d is the number of digits
+
+Space complexity: O(n)
+- Stores memoization caches for next values and chain lengths
 """
 module Problem074
 
@@ -67,16 +90,8 @@ end
 """
     count_chains_with_length(limit, target_length)
 
-Count how many starting numbers below the given limit have a chain length matching the target length.
-
-Parameters:
-
-  - limit: The upper bound for starting numbers (exclusive)
-  - target_length: The chain length we're looking for
-
-Returns:
-
-  - The count of numbers below limit with chain length equal to target_length
+Count how many starting numbers below the given limit have a chain length matching the
+target length.
 """
 function count_chains_with_length(limit, target_length)
     # Caches for memoization
@@ -94,7 +109,9 @@ function count_chains_with_length(limit, target_length)
 end
 
 function solve()
-    return count_chains_with_length(1_000_000, 60)
+    result = count_chains_with_length(1_000_000, 60)
+    @info "Found $result chains with exactly 60 non-repeating terms below 1,000,000"
+    return result
 end
 
 end # module

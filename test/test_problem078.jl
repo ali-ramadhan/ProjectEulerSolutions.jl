@@ -1,3 +1,4 @@
+using Test
 using ProjectEulerSolutions.Problem078:
     partition_number, find_divisible_partition, calculate_partition_numbers, solve
 

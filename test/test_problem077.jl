@@ -1,3 +1,4 @@
+using Test
 using ProjectEulerSolutions.Problem077: find_first_with_over_n_ways, solve
 
 # Test with the example from the problem

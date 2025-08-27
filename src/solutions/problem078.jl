@@ -1,10 +1,34 @@
 """
 Project Euler Problem 78: Coin Partitions
 
-Let p(n) represent the number of different ways in which n coins can be separated into piles.
-For example, five coins can be separated into piles in exactly seven different ways, so p(5) = 7.
+Let p(n) represent the number of different ways in which n coins can be separated into
+piles. For example, five coins can be separated into piles in exactly seven different ways,
+so p(5) = 7.
 
 Find the least value of n for which p(n) is divisible by one million.
+
+## Solution approach
+
+We use Euler's pentagonal number theorem to compute partition numbers efficiently:
+p(n) = p(n-1) + p(n-2) - p(n-5) - p(n-7) + p(n-12) + ...
+
+The indices follow the pattern of generalized pentagonal numbers: k(3k±1)/2 for
+k = 1,2,3,... with alternating signs in pairs.
+
+We compute values modulo 1,000,000 and stop when we find the first p(n) ≡ 0 (mod 1,000,000).
+
+## Mathematical background
+
+Euler's pentagonal number theorem: ∏(1 - x^n) = ∑ (-1)^k x^(k(3k-1)/2)
+This leads to the recurrence relation for partition numbers.
+
+## Complexity analysis
+
+Time complexity: O(n * sqrt(n))
+- For each n, we sum over O(sqrt(n)) pentagonal number terms
+
+Space complexity: O(n)
+- Stores partition values up to the answer
 """
 module Problem078
 
@@ -12,19 +36,6 @@ module Problem078
     calculate_partition_numbers(max_n=nothing; target_mod=nothing, divisible_by=nothing)
 
 Calculate partition numbers p(n) using Euler's pentagonal number theorem.
-Returns the array of partition numbers.
-
-Optional parameters:
-
-  - max_n: If provided, calculate up to p(max_n)
-  - target_mod: Calculate values modulo this number
-  - divisible_by: If provided, stop when p(n) is divisible by this value and return (p_array, n)
-
-The pentagonal number theorem gives an efficient recurrence relation:
-p(n) = p(n-1) + p(n-2) - p(n-5) - p(n-7) + p(n-12) + ...
-
-Where the indices come from the generalized pentagonal numbers k(3k-1)/2 and k(3k+1)/2
-with alternating signs.
 """
 function calculate_partition_numbers(
     max_n = nothing;
@@ -87,8 +98,7 @@ end
 """
     partition_number(n, mod_value)
 
-Calculate p(n), the number of ways to partition n, using Euler's pentagonal number theorem.
-Results are computed modulo mod_value.
+Calculate p(n) modulo mod_value using Euler's pentagonal number theorem.
 """
 function partition_number(n, mod_value)
     p = calculate_partition_numbers(n; target_mod = mod_value)
@@ -99,7 +109,6 @@ end
     find_divisible_partition(divisor)
 
 Find the smallest n for which p(n) is divisible by divisor.
-Uses Euler's pentagonal number theorem to efficiently compute partition numbers.
 """
 function find_divisible_partition(divisor)
     _, n = calculate_partition_numbers(; target_mod = divisor, divisible_by = divisor)
@@ -107,7 +116,9 @@ function find_divisible_partition(divisor)
 end
 
 function solve()
-    return find_divisible_partition(1_000_000)
+    result = find_divisible_partition(1_000_000)
+    @info "First n where partition number p($result) ≡ 0 (mod 1,000,000)"
+    return result
 end
 
 end # module

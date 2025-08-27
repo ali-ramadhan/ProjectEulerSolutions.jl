@@ -1,12 +1,31 @@
 """
 Project Euler Problem 79: Passcode Derivation
 
-A common security method used for online banking is to ask the user for three random characters from a passcode.
-For example, if the passcode was 531278, they may ask for the 2nd, 3rd, and 5th characters; the expected reply would be: 317.
+A common security method used for online banking is to ask the user for three random
+characters from a passcode. For example, if the passcode was 531278, they may ask for the
+2nd, 3rd, and 5th characters; the expected reply would be: 317.
 
 The text file, keylog.txt, contains fifty successful login attempts.
 
-Given that the three characters are always asked for in order, analyse the file so as to determine the shortest possible secret passcode of unknown length.
+Given that the three characters are always asked for in order, analyse the file so as to
+determine the shortest possible secret passcode of unknown length.
+
+## Solution approach
+
+We model this as a directed graph where an edge from digit A to digit B means A must appear
+before B in the passcode. From each login attempt "abc", we add edges a→b, a→c, and b→c.
+
+The shortest passcode is the topological ordering of this graph. We use Kahn's algorithm
+to find a valid topological sort.
+
+## Complexity analysis
+
+Time complexity: O(V + E)
+- V is the number of unique digits, E is the number of ordering constraints
+- Kahn's algorithm runs in O(V + E)
+
+Space complexity: O(V + E)
+- Stores the directed graph and in-degree counts
 """
 module Problem079
 
@@ -32,8 +51,7 @@ end
 """
     build_order_constraints(login_attempts)
 
-Build a directed graph as an adjacency list where an edge from A to B
-means digit A must appear before digit B in the passcode.
+Build a directed graph of ordering constraints from login attempts.
 """
 function build_order_constraints(login_attempts)
     # Create a directed graph (adjacency list)
@@ -64,8 +82,7 @@ end
 """
     topological_sort(graph, vertices)
 
-Perform a topological sort on the graph to find a valid ordering of vertices.
-Uses Kahn's algorithm for topological sorting.
+Perform a topological sort using Kahn's algorithm.
 """
 function topological_sort(graph, vertices)
     # Calculate in-degree for each vertex
@@ -118,7 +135,6 @@ end
     derive_passcode(login_attempts)
 
 Derive the shortest possible passcode from the login attempts.
-Returns a string with the passcode.
 """
 function derive_passcode(login_attempts)
     order_graph, unique_digits = build_order_constraints(login_attempts)
@@ -129,7 +145,9 @@ end
 function solve()
     data_filepath = joinpath(@__DIR__, "..", "..", "data", "0079_keylog.txt")
     attempts = read_login_attempts(data_filepath)
-    return derive_passcode(attempts)
+    result = derive_passcode(attempts)
+    @info "Derived shortest passcode from topological sort: $result"
+    return result
 end
 
 end # module

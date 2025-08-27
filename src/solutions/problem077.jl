@@ -8,38 +8,33 @@ It is possible to write ten as the sum of primes in exactly five different ways:
 3 + 3 + 2 + 2
 2 + 2 + 2 + 2 + 2
 
-What is the first value which can be written as the sum of primes in over five thousand different ways?
+What is the first value which can be written as the sum of primes in over five thousand
+different ways?
+
+## Solution approach
+
+This is a variation of the coin change problem where "coins" are prime numbers. We use
+dynamic programming to count the number of ways to express each integer as a sum of primes.
+
+For each prime p and each amount n ≥ p, we add ways[n-p] to ways[n], representing the number
+of ways to make amount n by including prime p.
+
+## Complexity analysis
+
+Time complexity: O(n * π(n))
+- For each of the π(n) primes up to n, we iterate through amounts up to n
+
+Space complexity: O(n)
+- Array to store the number of ways for each amount up to the maximum check value
 """
 module Problem077
 
-"""
-    sieve_of_eratosthenes(limit)
-
-Generate all prime numbers up to the given limit using the Sieve of Eratosthenes algorithm.
-Returns an array of prime numbers up to `limit`.
-"""
-function sieve_of_eratosthenes(limit)
-    is_prime = fill(true, limit)
-    is_prime[1] = false
-
-    for i in 2:isqrt(limit)
-        if is_prime[i]
-            for j in (i ^ 2):i:limit
-                is_prime[j] = false
-            end
-        end
-    end
-
-    return filter(p -> is_prime[p], 1:limit)
-end
+using ProjectEulerSolutions.Utils.Primes: sieve_of_eratosthenes
 
 """
     find_first_with_over_n_ways(n_ways, max_check=100000)
 
 Find the first integer that can be written as a sum of primes in over n_ways different ways.
-Uses dynamic programming to count the number of ways for each integer.
-
-This is essentially a variation of the coin change problem where the "coins" are prime numbers.
 """
 function find_first_with_over_n_ways(n_ways, max_check = 100000)
     primes = sieve_of_eratosthenes(max_check)
@@ -67,7 +62,9 @@ function find_first_with_over_n_ways(n_ways, max_check = 100000)
 end
 
 function solve()
-    return find_first_with_over_n_ways(5000)
+    result = find_first_with_over_n_ways(5000)
+    @info "First number with over 5000 ways to be written as sum of primes: $result"
+    return result
 end
 
 end # module

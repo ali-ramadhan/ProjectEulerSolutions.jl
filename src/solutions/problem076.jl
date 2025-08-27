@@ -9,7 +9,24 @@ It is possible to write five as a sum in exactly six different ways:
 2 + 1 + 1 + 1
 1 + 1 + 1 + 1 + 1
 
-How many different ways can one hundred be written as a sum of at least two positive integers?
+How many different ways can one hundred be written as a sum of at least two positive
+integers?
+
+## Solution approach
+
+This is the integer partition problem. We need p(n) - 1, where p(n) is the partition
+function (total ways to partition n) and we subtract 1 to exclude the trivial partition [n].
+
+We use dynamic programming where dp[i] represents the number of ways to partition i. For
+each number j from 1 to n, we update all values dp[i] where i ≥ j by adding dp[i-j].
+
+## Complexity analysis
+
+Time complexity: O(n²)
+- Two nested loops: outer from 1 to n, inner from j to n
+
+Space complexity: O(n)
+- Array to store partition counts for each value up to n
 """
 module Problem076
 
@@ -17,22 +34,7 @@ module Problem076
     count_partition_ways(n)
 
 Count the number of different ways n can be written as a sum of at least two positive integers.
-This uses dynamic programming to compute the number of partitions of n excluding the partition [n] itself.
-
-The number of partitions of n is known as p(n) in number theory. This function computes p(n) - 1,
-since we exclude the partition [n].
-
-Mathematically, this implements a dynamic programming algorithm based on the recurrence relation:
-p(n) = sum of p(n-k) for k from 1 to n, where p(0) = 1.
-
-This is because each partition of n either includes at least one k or doesn't include any k.
-The dp array stores the number of ways to partition each value from 0 to n.
-
-For example, p(5) = 7 (the partitions are [5], [4,1], [3,2], [3,1,1], [2,2,1], [2,1,1,1], [1,1,1,1,1]),
-so count_partition_ways(5) returns 6.
-
-Time complexity: O(n²)
-Space complexity: O(n)
+Returns p(n) - 1 where p(n) is the partition function.
 """
 function count_partition_ways(n)
     dp = zeros(Int, n+1)
@@ -48,7 +50,9 @@ function count_partition_ways(n)
 end
 
 function solve()
-    return count_partition_ways(100)
+    result = count_partition_ways(100)
+    @info "Number 100 can be partitioned in $result ways, (excluding trivial partition)"
+    return result
 end
 
 end # module

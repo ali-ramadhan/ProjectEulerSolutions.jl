@@ -1,3 +1,4 @@
+using Test
 using ProjectEulerSolutions.Problem074: digit_factorial_sum, chain_length, solve
 
 # Test digit factorial sums

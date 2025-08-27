@@ -1,3 +1,4 @@
+using Test
 using ProjectEulerSolutions.Problem076: count_partition_ways, solve
 
 @test count_partition_ways(1) == 0  # No way to represent 1 as a sum of at least 2 positive integers

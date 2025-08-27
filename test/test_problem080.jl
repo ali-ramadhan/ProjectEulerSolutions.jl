@@ -1,3 +1,4 @@
+using Test
 using ProjectEulerSolutions.Problem080:
     is_perfect_square, digit_sum_of_sqrt, sum_square_root_digital_expansions, solve
 
