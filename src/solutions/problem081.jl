@@ -1,9 +1,8 @@
 """
 Project Euler Problem 81: Path Sum: Two Ways
 
-In the 5×5 matrix below, the minimal path sum from the top left to
-the bottom right, by only moving to the right and down, is indicated in
-bold red and is equal to 2427.
+In the 5×5 matrix below, the minimal path sum from the top left to the bottom right, by only
+moving to the right and down, is indicated in bold red and is equal to 2427.
 
 131 673 234 103  18
 201  96 342 965 150
@@ -11,41 +10,48 @@ bold red and is equal to 2427.
 537 699 497 121 956
 805 732 524  37 331
 
-Find the minimal path sum from the top left to the bottom right by only moving
-right and down in matrix.txt, a 31K text file containing an 80×80 matrix.
+Find the minimal path sum from the top left to the bottom right by only moving right and
+down in matrix.txt, a 31K text file containing an 80×80 matrix.
+
+## Solution approach
+
+This is a classic dynamic programming problem. We build a solution bottom-up by computing
+the minimal path sum to each cell (i,j) based on the minimal sums to its neighboring cells.
+Since we can only move right and down, each cell can only be reached from the cell above
+or the cell to its left.
+
+The recurrence relation is:
+dp[i][j] = matrix[i][j] + min(dp[i-1][j], dp[i][j-1])
+
+We initialize the first row and first column, then fill the DP table systematically.
+
+## Complexity analysis
+
+Time complexity: O(m × n)
+- We visit each cell in the matrix exactly once
+- Each cell requires constant time to process
+
+Space complexity: O(m × n)
+- We store the DP table of the same size as the input matrix
+- Could be optimized to O(min(m, n)) by keeping only the current and previous row/column
 """
 module Problem081
 
-"""
-    parse_matrix(str)
-
-Parse a matrix from a string where each row is a comma-separated list of numbers.
-Returns a 2D array of integers.
-"""
+# Matrix parsing utilities (used by Problems 82 and 83)
 function parse_matrix(str)
     lines = split(strip(str), r"\r?\n")
     rows = length(lines)
-
-    # Determine number of columns based on first row
     cols = length(split(lines[1], ','))
-
     matrix = Array{Int}(undef, rows, cols)
-
     for (i, line) in enumerate(lines)
         nums = split(line, ',')
         for (j, num) in enumerate(nums)
             matrix[i, j] = parse(Int, num)
         end
     end
-
     return matrix
 end
 
-"""
-    read_matrix(filename)
-
-Read a matrix from a file where each row is a comma-separated list of numbers.
-"""
 function read_matrix(filename)
     content = read(filename, String)
     return parse_matrix(content)
@@ -54,11 +60,11 @@ end
 """
     find_minimal_path_sum(matrix)
 
-Calculate the minimal path sum from the top left to the bottom right
-of the matrix, only moving right and down.
+Calculate the minimal path sum from the top left to the bottom right of the matrix, only
+moving right and down.
 
-Uses dynamic programming to efficiently calculate minimal path sum.
-For each cell (i,j), the minimal path sum is:
+Uses dynamic programming to efficiently calculate minimal path sum. For each cell (i,j), the
+minimal path sum is:
 min_path_sum(i,j) = matrix[i,j] + min(min_path_sum(i-1,j), min_path_sum(i,j-1))
 
 Returns the minimum path sum to the bottom-right corner.

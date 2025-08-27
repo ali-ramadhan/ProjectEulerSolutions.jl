@@ -3,63 +3,56 @@ Project Euler Problem 82: Path Sum: Three Ways
 
 NOTE: This problem is a more challenging version of Problem 81.
 
-The minimal path sum in the 5 by 5 matrix below, by starting in any cell in the left column and
-finishing in any cell in the right column, and only moving up, down, and right, is indicated
-in red and bold; the sum is equal to 994.
+The minimal path sum in the 5 by 5 matrix below, by starting in any cell in the left column
+and finishing in any cell in the right column, and only moving up, down, and right, is
+indicated in red and bold; the sum is equal to 994.
 
-[Matrix representation shown in the problem statement]
+131 673 234 103  18
+201  96 342 965 150
+630 803 746 422 111
+537 699 497 121 956
+805 732 524  37 331
 
-Find the minimal path sum from the left column to the right column in matrix.txt,
-a 31K text file containing an 80 by 80 matrix.
+Find the minimal path sum from the left column to the right column in matrix.txt, a 31K text
+file containing an 80 by 80 matrix.
+
+## Solution approach
+
+This extends the basic DP approach from Problem 81 by allowing vertical movement within each
+column. We process the matrix column by column from left to right. For each column, we:
+
+1. Initialize minimal path sums from direct left movement
+2. Iteratively improve these sums by considering up/down movement within the current column
+3. Continue until no further improvements are possible
+
+The key insight is that within each column, we need to consider paths that go up or down to
+find better intermediate positions before continuing right.
+
+## Complexity analysis
+
+Time complexity: O(m × n × m)
+- For each of the n columns, we potentially iterate O(m) times over the m rows
+- In the worst case, each cell in a column might need updating multiple times
+
+Space complexity: O(m × n)
+- We store the DP table for the entire matrix
+- Could be optimized to O(m) by processing one column at a time
 """
 module Problem082
 
-"""
-    parse_matrix(str)
-
-Parse a matrix from a string where each row is a comma-separated list of numbers.
-Returns a 2D array of integers.
-"""
-function parse_matrix(str)
-    lines = split(strip(str), r"\r?\n")
-    rows = length(lines)
-
-    # Determine number of columns based on first row
-    cols = length(split(lines[1], ','))
-
-    matrix = Array{Int}(undef, rows, cols)
-
-    for (i, line) in enumerate(lines)
-        nums = split(line, ',')
-        for (j, num) in enumerate(nums)
-            matrix[i, j] = parse(Int, num)
-        end
-    end
-
-    return matrix
-end
-
-"""
-    read_matrix(filename)
-
-Read a matrix from a file where each row is a comma-separated list of numbers.
-"""
-function read_matrix(filename)
-    content = read(filename, String)
-    return parse_matrix(content)
-end
+using ..Problem081: parse_matrix, read_matrix
 
 """
     find_minimal_path_sum_three_ways(matrix)
 
-Calculate the minimal path sum from any cell in the leftmost column to any cell
-in the rightmost column, moving only right, up, and down.
+Calculate the minimal path sum from any cell in the leftmost column to any cell in the
+rightmost column, moving only right, up, and down.
 
 Uses dynamic programming to efficiently calculate minimal path sum. For each column j:
 
  1. First compute paths coming directly from the left (col j-1)
- 2. Then iteratively update by considering paths that move up or down within column j
-    until no more improvements are found.
+ 2. Then iteratively update by considering paths that move up or down within column j until
+    no more improvements are found.
 
 Returns the minimum path sum to the rightmost column.
 """

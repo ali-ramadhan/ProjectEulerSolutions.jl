@@ -1,17 +1,42 @@
 """
 Project Euler Problem 87: Prime Power Triples
 
-The smallest number expressible as the sum of a prime square, prime cube, and prime
-fourth power is 28. In fact, there are exactly four numbers below fifty that can be
-expressed in such a way:
+The smallest number expressible as the sum of a prime square, prime cube, and prime fourth
+power is 28. In fact, there are exactly four numbers below fifty that can be expressed in
+such a way:
 
 28 = 2² + 2³ + 2⁴
 33 = 3² + 2³ + 2⁴
 49 = 5² + 2³ + 2⁴
 47 = 2² + 3³ + 2⁴
 
-How many numbers below fifty million can be expressed as the sum of a prime square,
-prime cube, and prime fourth power?
+How many numbers below fifty million can be expressed as the sum of a prime square, prime
+cube, and prime fourth power?
+
+## Solution approach
+
+We generate all possible combinations of prime powers below the limit and count unique sums.
+The algorithm:
+
+1. Find maximum primes needed for each power: p² < 50M, p³ < 50M, p⁴ < 50M
+2. Generate primes up to the maximum using sieve of Eratosthenes
+3. Use nested loops to try all combinations of (p₁², p₂³, p₃⁴)
+4. Store sums in a Set to automatically handle uniqueness
+5. Return the count of unique sums
+
+Key optimization: Break early when partial sums exceed the limit to avoid unnecessary
+computation.
+
+## Complexity analysis
+
+Time complexity: O(P₂ × P₃ × P₄)
+- Where Pₖ is the number of primes whose k-th power is below the limit
+- P₄ ≈ ⌊∜50M⌋ ≈ 84 primes, P₃ ≈ ⌊∛50M⌋ ≈ 368 primes, P₂ ≈ ⌊√50M⌋ ≈ 7071 primes
+- Early breaks significantly reduce the actual iterations
+
+Space complexity: O(unique_sums)
+- Set storage for all unique prime power triple sums
+- In practice, much less than the theoretical maximum of P₂ × P₃ × P₄
 """
 module Problem087
 
@@ -19,11 +44,8 @@ using ..Utils.Primes: sieve_of_eratosthenes
 
 function find_prime_power_triples(limit)
     # Find the maximum prime needed for each power
-    # For prime^4, we need p^4 < limit, so p < limit^(1/4)
     max_prime_4th = floor(Int, limit^(1/4))
-    # For prime^3, we need p^3 < limit, so p < cbrt(limit)
     max_prime_3rd = floor(Int, cbrt(limit))
-    # For prime^2, we need p^2 < limit, so p < sqrt(limit)
     max_prime_2nd = floor(Int, sqrt(limit))
 
     # Generate primes up to the maximum needed

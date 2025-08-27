@@ -4,8 +4,35 @@ Project Euler Problem 85: Counting rectangles
 By counting carefully it can be seen that a rectangular grid measuring 3 by 2 contains
 eighteen rectangles.
 
-Although there exists no rectangular grid that contains exactly two million rectangles,
-find the area of the grid with the nearest solution.
+Although there exists no rectangular grid that contains exactly two million rectangles, find
+the area of the grid with the nearest solution.
+
+## Solution approach
+
+This problem requires deriving the formula for counting rectangles in an m×n grid, then
+finding the grid dimensions that produce a count closest to 2,000,000.
+
+To count rectangles in an m×n grid, we choose 2 horizontal lines from (m+1) available lines
+and 2 vertical lines from (n+1) available lines. This gives us: rectangles = C(m+1, 2) ×
+C(n+1, 2) = (m(m+1)/2) × (n(n+1)/2)
+
+We search through possible grid dimensions, computing the rectangle count for each and
+tracking the one closest to our target.
+
+## Complexity analysis
+
+Time complexity: O(√target)
+- We search dimensions up to roughly √(2×target) in each direction
+- For target = 2,000,000, this means checking roughly 2000×2000 combinations
+
+Space complexity: O(1)
+- Only constant space needed for tracking the best solution found so far
+
+## Mathematical background
+
+The rectangle counting formula comes from combinatorics: to form a rectangle, we need to
+select 2 horizontal boundaries (from m+1 choices) and 2 vertical boundaries (from n+1
+choices). Each such selection uniquely defines one rectangle in the grid.
 """
 module Problem085
 
