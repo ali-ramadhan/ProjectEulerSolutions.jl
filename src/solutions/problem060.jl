@@ -11,26 +11,29 @@ another prime.
 
 ## Solution approach
 
-We model this as a graph problem where each prime is a node, and edges connect primes that
-are "compatible" (both concatenations are prime). We seek a 5-clique (complete subgraph)
-with minimum sum. We build the compatibility graph by testing all prime pairs, then use
-depth-first search with pruning to find the optimal clique.
+This problem is equivalent to finding a minimum-weight 5-clique in a graph, which is a known
+NP-hard problem. We model each prime as a node and connect primes that are "compatible"
+(both concatenations are prime). Our backtracking clique-finding algorithm is a variant of
+the classic Bron-Kerbosch algorithm.
 
 ## Complexity analysis
 
-Time complexity: O(p² × log² n + 5!)
+Time complexity: O(p² × log² n + exponential clique search)
 - p² pairs to test for compatibility (p = number of primes up to limit)
 - Each compatibility test involves primality testing of concatenated numbers
-- Search space is bounded by the exponential clique search
+- Exponential search space bounded by aggressive pruning
 
 Space complexity: O(p²)
 - Storage for the compatibility graph adjacency lists
 
 ## Key insights
 
-We exclude 2 from consideration since concatenating with 2 at the end always produces even
-numbers. The search uses aggressive pruning: if the current partial sum plus minimum
-possible additions exceeds the best known sum, we prune that branch.
+1. **Divisibility-by-3 pruning**: Except for prime 3, all primes in a valid set must have
+   the same sum-of-digits modulo 3. This drastically reduces the search space.
+2. **Integer concatenation**: Using arithmetic operations instead of string conversion for
+   number concatenation provides significant performance improvements.
+3. **Early termination**: Pruning based on current partial sums and remaining candidates
+   eliminates many impossible branches early.
 """
 module Problem060
 
@@ -39,10 +42,24 @@ using ProjectEulerSolutions.Utils.Primes: is_prime, sieve_of_eratosthenes
 """
     concat_numbers(a, b)
 
-Concatenate two numbers a and b as digits (e.g., concat_numbers(3, 7) = 37).
+Concatenate two numbers a and b as digits using integer arithmetic.
 """
 function concat_numbers(a, b)
-    return parse(Int, string(a) * string(b))
+    return a * 10^ndigits(b) + b
+end
+
+"""
+    sum_of_digits(n)
+
+Calculate the sum of digits of a number.
+"""
+function sum_of_digits(n)
+    total = 0
+    while n > 0
+        total += n % 10
+        n ÷= 10
+    end
+    return total
 end
 
 """
@@ -69,6 +86,22 @@ function is_pair_compatible(p, q, prime_cache)
 end
 
 """
+    passes_mod3_compatibility(p, q)
+
+Check if two primes pass the divisibility-by-3 compatibility rule. Except for prime 3, all
+primes in a valid set must have the same sum-of-digits mod 3.
+"""
+function passes_mod3_compatibility(p, q)
+    # Prime 3 can be paired with any prime
+    if p == 3 || q == 3
+        return true
+    end
+
+    # For other primes, they must have the same sum-of-digits mod 3
+    return sum_of_digits(p) % 3 == sum_of_digits(q) % 3
+end
+
+"""
     find_prime_pair_set(set_size=5, limit=10000)
 
 Find a set of `set_size` primes with the minimum sum where any two primes, when concatenated
@@ -91,13 +124,13 @@ Returns:
   - A tuple (prime_set, sum) where prime_set is the set of primes and sum is their sum
 """
 function find_prime_pair_set(set_size = 5, limit = 10000)
-    # Generate primes up to the limit (exclude 2 as it can't form a compatible set with odd primes)
-    # Any concatenation with 2 at the end would be even and thus not prime
+    # Generate primes up to the limit (exclude 2 as it can't form compatible sets with odd
+    # primes)
     primes = filter(p -> p > 2, sieve_of_eratosthenes(limit))
 
     prime_cache = Dict{Int, Bool}()
 
-    # Build a compatibility graph: for each prime, store the list of compatible primes
+    # Build compatibility graph with mod-3 optimization
     graph = Dict{Int, Vector{Int}}()
     for p in primes
         graph[p] = Int[]
@@ -108,32 +141,33 @@ function find_prime_pair_set(set_size = 5, limit = 10000)
         p = primes[i]
         for j in (i + 1):length(primes)
             q = primes[j]
-            if is_pair_compatible(p, q, prime_cache)
+            # Apply mod-3 filter first, then full compatibility check
+            if passes_mod3_compatibility(p, q) && is_pair_compatible(p, q, prime_cache)
                 push!(graph[p], q)
                 push!(graph[q], p)
             end
         end
     end
 
-    # Recursive DFS function to find prime sets
-    function find_set(current_set, remaining_size)
-        # Base case: we found a set of the required size
+    # Recursive DFS function to find cliques
+    function find_clique(current_set, remaining_size)
+        # Base case: found a complete set
         if remaining_size == 0
             return current_set, sum(current_set)
         end
 
-        # If this is the first element, try each prime as a starting point
+        # If starting fresh, try each prime as starting point
         if isempty(current_set)
             best_set = Int[]
             best_sum = typemax(Int)
 
             for p in primes
-                # Skip primes that are too large
+                # Skip if this prime alone would make the sum too large
                 if p * remaining_size >= best_sum
                     break
                 end
 
-                new_set, new_sum = find_set([p], remaining_size - 1)
+                new_set, new_sum = find_clique([p], remaining_size - 1)
                 if !isempty(new_set) && new_sum < best_sum
                     best_set = new_set
                     best_sum = new_sum
@@ -143,48 +177,47 @@ function find_prime_pair_set(set_size = 5, limit = 10000)
             return best_set, best_sum
         end
 
-        # Find candidates that are compatible with all primes in the current set
+        # Find candidates compatible with all primes in current set
         candidates = copy(graph[current_set[1]])
         for i in 2:length(current_set)
             filter!(p -> p in graph[current_set[i]], candidates)
         end
 
-        # Keep only candidates greater than the last prime to avoid duplicates
+        # Only consider candidates larger than the last prime to avoid duplicates
         last_prime = current_set[end]
         filter!(p -> p > last_prime, candidates)
 
-        # If there aren't enough candidates, return empty
+        # Early termination if not enough candidates
         if length(candidates) < remaining_size
             return Int[], typemax(Int)
         end
 
-        # Sort candidates to try smaller ones first
+        # Sort to try smaller candidates first
         sort!(candidates)
 
-        # Try adding each candidate to the set
         best_set = Int[]
         best_sum = typemax(Int)
         current_sum = sum(current_set)
 
         for candidate in candidates
-            # Early pruning: if adding this candidate would exceed best sum, skip
+            # Pruning: skip if this would exceed the best sum
             if current_sum + candidate + (remaining_size - 1) * candidate >= best_sum
                 continue
             end
 
             new_current = [current_set; candidate]
-            new_set, new_sum = find_set(new_current, remaining_size - 1)
+            result_set, result_sum = find_clique(new_current, remaining_size - 1)
 
-            if !isempty(new_set) && new_sum < best_sum
-                best_set = new_set
-                best_sum = new_sum
+            if !isempty(result_set) && result_sum < best_sum
+                best_set = result_set
+                best_sum = result_sum
             end
         end
 
         return best_set, best_sum
     end
 
-    return find_set(Int[], set_size)
+    return find_clique(Int[], set_size)
 end
 
 function solve()
