@@ -1,3 +1,4 @@
+using Test
 using ProjectEulerSolutions.Problem067: parse_triangle, find_maximum_path_sum, solve
 
 # Create test file and verify parsing

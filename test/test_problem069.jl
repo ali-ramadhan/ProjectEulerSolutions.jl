@@ -1,4 +1,4 @@
-
+using Test
 using ProjectEulerSolutions.Problem069: find_max_totient_ratio, solve
 
 # Test finding maximum n/φ(n) for small limits

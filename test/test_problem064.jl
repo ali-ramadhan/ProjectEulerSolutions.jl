@@ -1,3 +1,4 @@
+using Test
 using ProjectEulerSolutions.Problem064:
     period_of_continued_fraction_sqrt, count_continued_fraction_sqrt_with_odd_period, solve
 

@@ -1,3 +1,4 @@
+using Test
 using ProjectEulerSolutions.Problem066: pell_solution, find_d_with_largest_x, solve
 
 # Test the pell_solution function with known examples from the problem statement
@@ -20,7 +21,7 @@ using ProjectEulerSolutions.Problem066: pell_solution, find_d_with_largest_x, so
 
 @test solve() == 661
 
-# See: https://projecteuler.net/thread=66#4273 
+# See: https://projecteuler.net/thread=66#4273
 @test find_d_with_largest_x(10_000)[1] == 9949
 
 # See: https://projecteuler.net/thread=66;page=2#5225

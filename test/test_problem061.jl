@@ -1,3 +1,4 @@
+using Test
 using ProjectEulerSolutions.Problem061: generate_figurate_numbers, find_cyclical_set, solve
 
 @test generate_figurate_numbers(3, 1, 20) == [1, 3, 6, 10, 15]

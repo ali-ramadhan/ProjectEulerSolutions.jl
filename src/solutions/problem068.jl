@@ -1,14 +1,42 @@
 """
 Project Euler Problem 68: Magic 5-gon Ring
 
-Consider a "magic" 5-gon ring, filled with the numbers 1 to 10,
-and each line (consisting of 3 numbers) adding to the same sum.
+Consider a "magic" 5-gon ring, filled with the numbers 1 to 10, and each line (consisting of
+3 numbers) adding to the same sum.
 
-Working clockwise, and starting from the group of three with the
-numerically lowest external node, each solution can be described uniquely.
+Working clockwise, and starting from the group of three with the numerically lowest external
+node, each solution can be described uniquely.
 
-Using the numbers 1 to 10, what is the maximum 16-digit string
-for a "magic" 5-gon ring?
+Using the numbers 1 to 10, what is the maximum 16-digit string for a "magic" 5-gon ring?
+
+## Solution approach
+
+This solution uses brute force enumeration with optimization:
+1. Generate all possible ways to assign numbers 1-10 to outer and inner nodes of the 5-gon
+2. Ensure 10 is always placed on an outer node (to get 16-digit strings instead of 17-digit)
+3. For each assignment, check all permutations to see if they form a valid magic 5-gon
+4. For valid configurations, generate the string representation starting from the lowest
+   outer node
+5. Return the lexicographically maximum 16-digit string
+
+## Complexity analysis
+
+Time complexity: O(C(10,5) × 5! × 5!) ≈ O(3.6 × 10^7)
+- Choose 5 positions for outer nodes: C(10,5) = 252 ways
+- Permute outer nodes: 5! = 120 ways
+- Permute inner nodes: 5! = 120 ways
+- Validation and string generation: O(1) per configuration
+
+Space complexity: O(1)
+- Store current configuration and results
+- No significant additional storage needed
+
+## Key insights
+
+The key insight is that placing 10 on an outer node ensures 16-digit strings (since outer
+nodes appear only once), while placing 10 on an inner node would create 17-digit strings
+(since inner nodes appear twice in the representation). This constraint significantly
+reduces the search space.
 """
 module Problem068
 
@@ -23,11 +51,13 @@ Returns the magic sum if valid, 0 otherwise.
 # Arguments
 
   - `outer`: Array of values for the outer nodes (vertices) of the n-gon, arranged clockwise
-  - `inner`: Array of values for the inner nodes (connecting points) of the n-gon, arranged clockwise
+  - `inner`: Array of values for the inner nodes (connecting points) of the n-gon, arranged
+    clockwise
 
 # Details
 
-  - Each "line" consists of an outer node, its corresponding inner node, and the next inner node clockwise
+  - Each "line" consists of an outer node, its corresponding inner node, and the next inner
+    node clockwise
 
   - For outer[i], the line contains: outer[i] + inner[i] + inner[mod1(i+1, n)]
   - The function checks if all lines sum to the same "magic" value
@@ -62,25 +92,28 @@ end
 """
     ngon_string(outer, inner)
 
-Convert a valid magic n-gon ring to its string representation.
-The string starts from the outer node with the minimum value and reads clockwise.
+Convert a valid magic n-gon ring to its string representation. The string starts from the
+outer node with the minimum value and reads clockwise.
 
 # Arguments
 
   - `outer`: Array of values for the outer nodes (vertices) of the n-gon, arranged clockwise
-  - `inner`: Array of values for the inner nodes (connecting points) of the n-gon, arranged clockwise
+  - `inner`: Array of values for the inner nodes (connecting points) of the n-gon, arranged
+    clockwise
 
 # Details
 
   - First finds the index of the minimum value in the outer array
 
-  - Starting from that minimum outer node, constructs the string by reading triplets clockwise
+  - Starting from that minimum outer node, constructs the string by reading triplets
+    clockwise
   - Each triplet consists of: outer[i] + inner[i] + inner[mod1(i+1, n)]
   - For a 5-gon with minimum outer node at position 1, the string would represent:
 
-      + outer[1],inner[1],inner[2], outer[2],inner[2],inner[3], ..., outer[5],inner[5],inner[1]
-  - For Project Euler Problem 68, we need to find the maximum 16-digit string,
-    which requires the number 10 to be placed on an outer node. If it's placed on an inner node
+      + outer[1],inner[1],inner[2], outer[2],inner[2],inner[3], ...,
+        outer[5],inner[5],inner[1]
+  - For Project Euler Problem 68, we need to find the maximum 16-digit string, which
+    requires the number 10 to be placed on an outer node. If it's placed on an inner node
     then it will appear twice leading to a 17-digit string.
 """
 function ngon_string(outer, inner)
@@ -101,18 +134,21 @@ end
 """
     find_magic_5gon()
 
-Find all possible magic 5-gon ring configurations using the numbers 1-10.
-Returns a list of tuples (string_representation, magic_sum, length).
+Find all possible magic 5-gon ring configurations using the numbers 1-10. Returns a list of
+tuples (string_representation, magic_sum, length).
 
 # Details
 
   - Generates all possible distributions of numbers 1-10 between outer and inner nodes
   - Ensures 10 is always placed on an outer node (to get a 16-digit string rather than 17)
-  - For each valid distribution, checks if it forms a magic 5-gon ring (all lines sum to the same value)
-  - For each valid configuration, computes the string representation and saves it with the magic sum
-  - The full search space is large: 10C5 combinations for selecting outer nodes,
-    with 5! permutations of outer nodes and 5! permutations of inner nodes for each combination
-  - This function is useful for verifying the solution or finding all valid magic 5-gon rings
+  - For each valid distribution, checks if it forms a magic 5-gon ring (all lines sum to the
+    same value)
+  - For each valid configuration, computes the string representation and saves it with the
+    magic sum
+  - The full search space is large: 10C5 combinations for selecting outer nodes, with 5!
+    permutations of outer nodes and 5! permutations of inner nodes for each combination
+  - This function is useful for verifying the solution or finding all valid magic 5-gon
+    rings
 """
 function find_magic_5gon()
     n = 5  # 5-gon

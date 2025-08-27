@@ -1,3 +1,4 @@
+using Test
 using ProjectEulerSolutions.Problem068: is_valid_configuration, ngon_string, solve
 
 # Test the validity of the solution for the 3-gon ring example from the problem statement

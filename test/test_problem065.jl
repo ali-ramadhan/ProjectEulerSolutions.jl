@@ -1,3 +1,4 @@
+using Test
 using ProjectEulerSolutions.Problem065:
     e_continued_fraction_terms, calculate_convergent, sum_of_digits_in_numerator, solve
 
@@ -47,5 +48,5 @@ end
 # Test the sum of digits function as given in the problem statement
 @test sum_of_digits_in_numerator(10) == 17
 
-# Test the final solution
+# Correct answer
 @test solve() == 272
