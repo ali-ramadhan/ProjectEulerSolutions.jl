@@ -73,8 +73,13 @@ function count_solutions(n)
     return (divisor_count + 1) ÷ 2
 end
 
-function solve()
-    target = 1000
+"""
+    find_n_with_solutions_exceeding(target)
+
+Find the smallest value of n for which the number of distinct solutions
+to 1/x + 1/y = 1/n exceeds the given target.
+"""
+function find_n_with_solutions_exceeding(target)
     n = 1
 
     while true
@@ -87,6 +92,10 @@ function solve()
 
         n += 1
     end
+end
+
+function solve()
+    return find_n_with_solutions_exceeding(1000)
 end
 
 end # module
