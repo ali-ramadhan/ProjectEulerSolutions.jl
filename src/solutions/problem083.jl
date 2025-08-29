@@ -66,14 +66,14 @@ function find_minimal_path_sum(matrix)
     # Priority queue for Dijkstra's algorithm
     # We store (distance, (row, col)) pairs
     pq = PriorityQueue{Tuple{Int, Int}, Int}()
-    enqueue!(pq, (1, 1) => distances[1, 1])
+    push!(pq, (1, 1) => distances[1, 1])
 
     # Possible movements: right, down, left, up
     directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
 
     while !isempty(pq)
         # Get the node with minimum distance
-        (row, col), dist = dequeue_pair!(pq)
+        (row, col), dist = popfirst!(pq)
 
         # If we've reached the destination, we're done
         if row == rows && col == cols
@@ -100,7 +100,7 @@ function find_minimal_path_sum(matrix)
             # If we found a shorter path, update distance and enqueue
             if new_dist < distances[new_row, new_col]
                 distances[new_row, new_col] = new_dist
-                enqueue!(pq, (new_row, new_col) => new_dist)
+                push!(pq, (new_row, new_col) => new_dist)
             end
         end
     end
