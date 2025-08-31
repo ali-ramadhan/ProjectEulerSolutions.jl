@@ -28,5 +28,42 @@ end
 total_4digit_sum = sum(expected_S for (_, _, _, expected_S) in expected_4digit_results)
 @test total_4digit_sum == 273700
 
-# The answer for problem 111 (sum of all S(10,d))
+# Test M(10,d) values based on forum consensus
+expected_M_values = [
+    (0, 8), (1, 9), (2, 8), (3, 9), (4, 9),
+    (5, 9), (6, 9), (7, 9), (8, 8), (9, 9)
+]
+
+for (digit, expected_M) in expected_M_values
+    M, N, S = find_primes_with_repeated_digit(digit, 10)
+    @test M == expected_M
+end
+
+# Test N(10,d) values based on forum data
+expected_N_values = [
+    (0, 8), (1, 11), (2, 39), (3, 7), (4, 1),
+    (5, 1), (6, 1), (7, 9), (8, 32), (9, 8)
+]
+
+for (digit, expected_N) in expected_N_values
+    M, N, S = find_primes_with_repeated_digit(digit, 10)
+    @test N == expected_N
+end
+
+# Test S(10,d) values based on forum data
+expected_S_values = [
+    (0, 38000000042), (1, 12882626601), (2, 97447914665), (3, 23234122821), (4, 4444444447),
+    (5, 5555555557), (6, 6666666661), (7, 59950904793), (8, 285769942206), (9, 78455389922)
+]
+
+for (digit, expected_S) in expected_S_values
+    M, N, S = find_primes_with_repeated_digit(digit, 10)
+    @test S == expected_S
+end
+
+# Test total number of primes (should be 117 based on forum data)
+total_primes = sum(expected_N for (_, expected_N) in expected_N_values)
+@test total_primes == 117
+
+# Correct answer
 @test solve() == 612407567715

@@ -60,44 +60,105 @@ using Combinatorics: combinations
     generate_numbers_with_repeated_digit(digit, count, total_length)
 
 Generate all numbers of length total_length that contain exactly count occurrences
-of the given digit. Uses combinations from Combinatorics.jl to select positions
-for repeated digits, then Iterators.product to fill remaining positions.
+of the given digit. Optimized with last digit constraint for non-prime ending digits.
 Returns an array of unique integers.
 """
 function generate_numbers_with_repeated_digit(digit, count, total_length)
-    numbers = Int[]
+    if digit in [0, 2, 4, 5, 6, 8]
+        # For non-prime ending digits, apply last digit constraint
+        return generate_with_last_digit_constraint(digit, count, total_length)
+    else
+        # For prime-ending digits (1,3,7,9), use standard generation
+        return generate_standard(digit, count, total_length)
+    end
+end
 
-    # Choose positions for the repeated digit
+"""
+    generate_with_last_digit_constraint(digit, count, total_length)
+
+Generate numbers with the constraint that the last digit must be in {1,3,7,9}.
+Used for digits that cannot be the last digit of a prime.
+"""
+function generate_with_last_digit_constraint(digit, count, total_length)
+    numbers = Int[]
+    positions = 1:total_length
+    prime_ending_digits = [1, 3, 7, 9]
+    
+    for pos_combo in combinations(positions, count)
+        # Last position cannot contain the repeated digit if it's not prime-ending
+        if total_length in pos_combo
+            continue
+        end
+        
+        non_repeated_positions = setdiff(positions, pos_combo)
+        num_non_repeated = length(non_repeated_positions)
+        
+        if num_non_repeated == 0
+            continue
+        end
+        
+        # Available digits for non-repeated positions (0-9 except the repeated digit)
+        available_digits = [d for d in 0:9 if d != digit]
+        
+        # Last position index in non_repeated_positions
+        last_pos_idx = findfirst(==(total_length), non_repeated_positions)
+        
+        for digit_assignment in Iterators.product(fill(available_digits, num_non_repeated)...)
+            # Construct the full number
+            digits_arr = fill(digit, total_length)
+            for (i, pos) in enumerate(non_repeated_positions)
+                digits_arr[pos] = digit_assignment[i]
+            end
+            
+            # Skip numbers with leading zeros
+            if digits_arr[1] == 0
+                continue
+            end
+            
+            # Ensure last digit is in {1,3,7,9}
+            if !(digits_arr[total_length] in prime_ending_digits)
+                continue
+            end
+            
+            number = sum(digits_arr[i] * 10^(total_length - i) for i in 1:total_length)
+            push!(numbers, number)
+        end
+    end
+    
+    return unique(numbers)
+end
+
+"""
+    generate_standard(digit, count, total_length)
+
+Standard generation for digits that can be the last digit of a prime.
+"""
+function generate_standard(digit, count, total_length)
+    numbers = Int[]
     positions = 1:total_length
 
     for pos_combo in combinations(positions, count)
-        # Generate all possible values for non-repeated positions
         non_repeated_positions = setdiff(positions, pos_combo)
         num_non_repeated = length(non_repeated_positions)
 
         if num_non_repeated == 0
-            # All digits are the repeated digit - this would be like 1111, 2222, etc.
-            # These are never prime for n > 1
             continue
         end
 
-        # Available digits for non-repeated positions (0-9 except the repeated digit)
         available_digits = [d for d in 0:9 if d != digit]
 
-        # Generate all possible digit assignments for non-repeated positions
         for digit_assignment in Iterators.product(fill(available_digits, num_non_repeated)...)
-            # Construct the full number
-            digits = fill(digit, total_length)
+            digits_arr = fill(digit, total_length)
             for (i, pos) in enumerate(non_repeated_positions)
-                digits[pos] = digit_assignment[i]
+                digits_arr[pos] = digit_assignment[i]
             end
 
             # Skip numbers with leading zeros
-            if digits[1] == 0
+            if digits_arr[1] == 0
                 continue
             end
 
-            number = sum(digits[i] * 10^(total_length - i) for i in 1:total_length)
+            number = sum(digits_arr[i] * 10^(total_length - i) for i in 1:total_length)
             push!(numbers, number)
         end
     end
@@ -148,6 +209,12 @@ function find_primes_with_repeated_digit(digit, total_length)
                 continue
             end
             if candidate % 5 == 0 && digit != 5
+                continue
+            end
+            
+            # Check divisibility by 3 (sum of digits divisible by 3)
+            digit_sum = sum(digits(candidate))
+            if digit_sum % 3 == 0 && candidate != 3
                 continue
             end
 
