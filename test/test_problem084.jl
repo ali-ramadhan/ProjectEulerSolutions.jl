@@ -19,7 +19,7 @@ counts_4sided = simulate_monopoly(500000, 4)
 @test counts_4sided[11] == maximum(counts_4sided)  # JAIL most visited
 
 # Test 6-sided dice produces known result with enough rolls
-counts_6sided = simulate_monopoly(10_000_000, 6)
+counts_6sided = simulate_monopoly(20_000_000, 6)
 @test get_modal_string(counts_6sided) == "102400"
 
 # Test correct solution
