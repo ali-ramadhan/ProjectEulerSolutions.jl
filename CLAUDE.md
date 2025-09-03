@@ -9,6 +9,7 @@ speed, mathematical syntax, and powerful libraries.
 # Coding principles
 * Favor simplicity when coding solutions - the code must be easily understandable!
 * Prioritize algorithmic efficiency - solutions should run in under a minute!
+* **Keep solve() function minimal**: The solve() function MUST be very short (2-3 lines maximum) and only call a helper function with parameters. Never put main logic directly in solve().
 * Always aim for clarity in mathematical expression and problem decomposition.
 * Use Julia's multiple dispatch and type system to create flexible, reusable code.
 * Implement solutions that scale well for larger inputs beyond the problem constraints.
@@ -124,13 +125,8 @@ function helper_function(args...)
 end
 
 function solve()
-    # Implementation
-    result = helper_function(args...)
-
-    # Optional: Log interesting findings
-    # @info "Found optimal parameters: a=$a, b=$b with $count consecutive primes"
-
-    return result
+    # IMPORTANT: Keep this function minimal - just call a helper function
+    return helper_function(target_parameter)
 end
 
 end # module
