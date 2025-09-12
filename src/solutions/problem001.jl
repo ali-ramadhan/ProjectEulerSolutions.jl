@@ -38,11 +38,11 @@ Since 3 and 5 are coprime, lcm(3,5) = 3 × 5 = 15.
 module Problem001
 
 """
-    sum_arithmetic_series(n, limit)
+    sum_multiples(n, limit)
 
 Calculate the sum of multiples of `n` below `limit` using arithmetic series formula.
 """
-function sum_arithmetic_series(n, limit)
+function sum_multiples(n, limit)
     if n >= limit
         return 0
     end
@@ -51,26 +51,19 @@ function sum_arithmetic_series(n, limit)
 end
 
 """
-    sum_multiples(factors, limit)
+    sum_multiples_two(a, b, limit)
 
-Calculate the sum of all numbers below `limit` that are multiples of the given factors
-using inclusion-exclusion principle. Supports 1 or 2 factors only.
+Calculate the sum of all numbers below `limit` that are multiples of the given factors a or
+b using inclusion-exclusion principle.
 """
-function sum_multiples(factors, limit)
-    if length(factors) == 1
-        return sum_arithmetic_series(factors[1], limit)
-    elseif length(factors) == 2
-        a, b = factors[1], factors[2]
-        return sum_arithmetic_series(a, limit) +
-               sum_arithmetic_series(b, limit) -
-               sum_arithmetic_series(lcm(a, b), limit)
-    else
-        error("Only supports 1 or 2 factors")
-    end
+function sum_multiples_two(a, b, limit)
+        return sum_multiples(a, limit) +
+               sum_multiples(b, limit) -
+               sum_multiples(lcm(a, b), limit)
 end
 
 function solve()
-    return sum_multiples([3, 5], 1000)
+    return sum_multiples_two(3, 5, 1000)
 end
 
 end # module
