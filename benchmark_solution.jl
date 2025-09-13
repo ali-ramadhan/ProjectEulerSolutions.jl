@@ -9,7 +9,9 @@ function main()
     end
 
     problem_num = parse(Int, ARGS[1])
-    problem_module_name = Symbol("Problem$problem_num")
+    # Convert to 4-digit format for module name
+    problem_str = lpad(string(problem_num), 4, '0')
+    problem_module_name = Symbol("Problem$problem_str")
 
     try
         problem_module = getproperty(ProjectEulerSolutions, problem_module_name)
@@ -20,7 +22,7 @@ function main()
 
         display(result)
     catch e
-        println("Error: Could not load Problem$problem_num or its solve function")
+        println("Error: Could not load Problem$problem_str or its solve function")
         println("Make sure the problem solution exists and is properly implemented")
         exit(1)
     end
