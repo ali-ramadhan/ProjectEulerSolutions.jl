@@ -28,12 +28,12 @@ julia runtests_single.jl       # Interactive mode - prompts for problem number
 ```
 """
 function test_problem(problem_num)
-    # Convert to 3-digit string format
+    # Convert to 4-digit string format
     problem_str = string(problem_num)
-    if length(problem_str) <= 3
-        problem_str = lpad(problem_str, 3, '0')
+    if length(problem_str) <= 4
+        problem_str = lpad(problem_str, 4, '0')
     else
-        error("Problem number must be 3 digits or less")
+        error("Problem number must be 4 digits or less")
     end
 
     test_file = "test_problem$problem_str.jl"

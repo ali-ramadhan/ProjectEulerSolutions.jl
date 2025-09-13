@@ -7,12 +7,16 @@ and provide a centralized location for optimized implementations.
 """
 module Utils
 
+export save_benchmark
+
+include("Benchmarks.jl")
 include("Primes.jl")
 include("Divisors.jl")
 include("Digits.jl")
 include("NumberTheory.jl")
 include("Sequences.jl")
 
+using .Benchmarks
 using .Primes
 using .Divisors
 using .Digits
