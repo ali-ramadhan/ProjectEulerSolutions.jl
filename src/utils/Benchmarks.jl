@@ -107,12 +107,11 @@ end
     format_ansi_codes(text)
 
 Convert escape sequences to the expected [XXm format for ANSI color codes.
+Removes the ANSI escape character (0x1b) to convert sequences like `\u001b[90m` to `[90m`.
 """
 function format_ansi_codes(text)
-    # Replace escape sequences (\e) with empty string, but preserve the color codes in [XXm format
-    # The original code was doing: replace(output, "\\e" => "")
-    # We need to preserve the ANSI codes but in [XXm format
-    return replace(text, "\\e" => "")
+    # Remove ANSI escape character (0x1b) to get clean [XXm format
+    return replace(text, '\x1b' => "")
 end
 
 """
