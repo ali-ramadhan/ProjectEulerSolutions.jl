@@ -37,14 +37,14 @@ function sum_even_fibonacci(limit)
     limit < 2 && return 0
 
     a, b = 2, 8
-    sum = a + b
+    result = a + b
 
     while (c = 4b + a) ≤ limit
-        sum += c
+        result += c
         a, b = b, c
     end
 
-    return sum
+    return result
 end
 
 function solve()
