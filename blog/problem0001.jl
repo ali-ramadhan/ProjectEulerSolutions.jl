@@ -20,14 +20,18 @@ function sum_multiples_three_ie(a, b, c, L)
            sum_multiples(lcm(a, b, c), L)
 end
 
+@show sum_multiples_two_generator(3, 5, 1000)
 benchmark_two_generator = @benchmark sum_multiples_two_generator(3, 5, 1000)
 save_benchmark(benchmark_two_generator, 1, "two_generator")
 
+@show sum_multiples_two_ie(3, 5, 1000)
 benchmark_two_ie = @benchmark sum_multiples_two_ie(3, 5, 1000)
 save_benchmark(benchmark_two_ie, 1, "two_ie")
 
+@show sum_multiples_three_generator(3, 5, 7, 10^6)
 benchmark_three_generator = @benchmark sum_multiples_three_generator(3, 5, 7, 10^6)
 save_benchmark(benchmark_three_generator, 1, "three_generator")
 
+@show sum_multiples_three_ie(3, 5, 7, 10^6)
 benchmark_three_ie = @benchmark sum_multiples_three_ie(3, 5, 7, 10^6)
 save_benchmark(benchmark_three_ie, 1, "three_ie")

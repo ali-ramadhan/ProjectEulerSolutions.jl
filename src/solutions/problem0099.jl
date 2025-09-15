@@ -30,7 +30,7 @@ Time complexity: O(n) where n = 1000 lines
 Space complexity: O(n)
 - Store all base-exponent pairs from file
 """
-module Problem99
+module Problem0099
 
 function read_base_exp_pairs(filename)
     pairs = Tuple{Int64, Int64}[]

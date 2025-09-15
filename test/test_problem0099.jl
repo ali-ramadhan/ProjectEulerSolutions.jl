@@ -1,5 +1,5 @@
 using Test
-using ProjectEulerSolutions.Problem99: read_base_exp_pairs, find_largest_exponential, solve
+using ProjectEulerSolutions.Problem0099: read_base_exp_pairs, find_largest_exponential, solve
 
 @testset "Problem 99 Tests" begin
     @testset "Basic functionality tests" begin
