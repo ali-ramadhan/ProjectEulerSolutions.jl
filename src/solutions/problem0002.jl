@@ -11,31 +11,40 @@ find the sum of the even-valued terms.
 
 ## Solution approach
 
-Use the `Fibonacci` iterator from Utils.Sequences, which efficiently generates
-Fibonacci numbers up to a given limit using the iterator protocol. Sum only the
-even-valued terms directly during iteration without storing the entire sequence.
+Use the mathematical insight that every third Fibonacci number is even, and these even
+Fibonacci numbers follow the recurrence relation: F(n) = 4F(n-3) + F(n-6).
+Starting with the first two even Fibonacci numbers (2 and 8), generate subsequent
+even terms directly without computing or checking the parity of intermediate terms.
+
+## Mathematical background
+
+In the Fibonacci sequence, the pattern of even/odd follows: odd, odd, even, odd, odd, even...
+This means every third term is even. The even Fibonacci numbers form their own sequence:
+2, 8, 34, 144, 610, 2584, ... which follows the recurrence F(n) = 4F(n-3) + F(n-6).
 
 ## Complexity analysis
 
 Time complexity: O(log n)
 - The Fibonacci sequence grows exponentially, so there are approximately log(n) terms
-  up to limit n.
+  up to limit n. Since we only generate even terms, we reduce iterations by ~67%.
 
 Space complexity: O(1)
-- Uses constant space with the iterator, no intermediate storage required.
+- Uses constant space, storing only the last two even Fibonacci numbers.
 """
 module Problem0002
 
-using ProjectEulerSolutions.Utils.Sequences: Fibonacci
-
 function sum_even_fibonacci(limit)
-    result = 0
-    for fib in Fibonacci(limit)
-        if fib % 2 == 0
-            result += fib
-        end
+    limit < 2 && return 0
+
+    a, b = 2, 8
+    sum = a + b
+
+    while (c = 4b + a) ≤ limit
+        sum += c
+        a, b = b, c
     end
-    return result
+
+    return sum
 end
 
 function solve()
