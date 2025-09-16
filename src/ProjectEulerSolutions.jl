@@ -16,4 +16,15 @@ for file in sort(problem_files)
     include(file)
 end
 
+# Include bonus problems
+bonus_files = filter(
+    file -> occursin(r"bonus_.*\.jl$", file),
+    readdir(joinpath(@__DIR__, "bonus"); join = true),
+)
+
+for file in sort(bonus_files)
+    include(file)
+end
+
 end # module
+

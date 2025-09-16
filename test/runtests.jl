@@ -20,4 +20,19 @@ using SafeTestsets
         @info "Testing $test_name..."
         @eval @safetestset $test_name include($test_file)
     end
+
+    # Test bonus problems
+    bonus_test_files = filter(
+        file -> occursin(r"^test_bonus_.*\.jl$", file),
+        readdir(joinpath(@__DIR__, "bonus"))
+    )
+
+    sort!(bonus_test_files)
+
+    for test_file in bonus_test_files
+        bonus_name = match(r"test_bonus_(.*)\.jl", test_file).captures[1]
+        test_name = "Bonus $bonus_name"
+        @info "Testing $test_name..."
+        @eval @safetestset $test_name include(joinpath("bonus", $test_file))
+    end
 end
