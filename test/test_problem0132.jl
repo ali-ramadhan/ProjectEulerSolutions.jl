@@ -14,7 +14,7 @@ using ProjectEulerSolutions.Problem0132: multiplicative_order, prime_divides_rep
 @test prime_divides_repunit(9091, 10) == true # 9091 divides R(10)
 
 # Test with known example from problem description: R(10) = 11 × 41 × 271 × 9091
-prime_factors_r10 = find_repunit_prime_factors(10, 10)  # Get first 10 to be safe
+prime_factors_r10 = find_repunit_prime_factors(10, 4)  # R(10) has exactly 4 prime factors
 @test 11 in prime_factors_r10
 @test 41 in prime_factors_r10
 @test 271 in prime_factors_r10
