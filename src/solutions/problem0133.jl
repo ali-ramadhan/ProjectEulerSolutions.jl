@@ -23,10 +23,10 @@ For R(10^n), we need the multiplicative order of 10 modulo p to divide 10^n = 2^
 This is only possible if the multiplicative order contains only factors of 2 and 5.
 
 The algorithm:
-1. Generate all primes up to 100,000 (excluding 2 and 5)
-2. For each prime p, compute the multiplicative order of 10 modulo p
+1. Generate all primes up to 100,000 (including 2 and 5)
+2. For each prime p with gcd(10, p) = 1, compute the multiplicative order of 10 modulo p
 3. Check if this order has any prime factors other than 2 and 5
-4. Sum all primes whose order contains other prime factors
+4. Sum all primes that can never divide R(10^n). Note that 2 and 5 are always included because repunits are never divisible by 2 or 5
 
 ## Complexity analysis
 
@@ -131,11 +131,6 @@ function find_never_factor_primes(limit)
     can_factors = Int[]
 
     for p in primes
-        # Skip 2 and 5
-        if p == 2 || p == 5
-            continue
-        end
-
         if can_divide_repunit_10n(p)
             push!(can_factors, p)
         else
