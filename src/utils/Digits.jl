@@ -83,7 +83,7 @@ for zero allocations and better performance.
 function is_palindrome(n)
     n = abs(n)  # Handle negative numbers
     original = n
-    reversed = 0
+    reversed = zero(typeof(n))
 
     while n > 0
         reversed = reversed * 10 + (n % 10)

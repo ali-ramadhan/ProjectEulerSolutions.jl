@@ -28,10 +28,11 @@ module Problem0004
 using ProjectEulerSolutions.Utils.Digits: is_palindrome
 
 function largest_palindrome_product(upper_limit)
+    T = typeof(upper_limit)
     n_digits = ndigits(upper_limit)
-    lower_bound = 10^(n_digits-1)
+    lower_bound = T(10)^(n_digits-1)
 
-    max_palindrome = 0
+    max_palindrome = zero(T)
 
     for i in upper_limit:-1:lower_bound
         # break early if we can't find a larger palindrome

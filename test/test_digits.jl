@@ -57,6 +57,12 @@ using ProjectEulerSolutions.Utils.Digits:
         @test is_palindrome(999000000999)
         @test !is_palindrome(906608)
         @test !is_palindrome(999000000998)
+
+        # Test type genericity
+        @test is_palindrome(Int32(121))
+        @test is_palindrome(Int64(12321))
+        @test is_palindrome(Int128(999000000999))
+        @test is_palindrome(BigInt(12321))
     end
 
     @testset "is_pandigital" begin
