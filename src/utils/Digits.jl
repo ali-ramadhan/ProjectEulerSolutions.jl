@@ -77,11 +77,20 @@ end
 
 Check if the number n is a palindrome (reads the same forward and backward).
 
-Example: is_palindrome(121) returns true
+Implementation uses mathematical digit reversal instead of string conversion
+for zero allocations and better performance.
 """
 function is_palindrome(n)
-    str = string(abs(n))  # Handle negative numbers
-    return str == reverse(str)
+    n = abs(n)  # Handle negative numbers
+    original = n
+    reversed = 0
+
+    while n > 0
+        reversed = reversed * 10 + (n % 10)
+        n ÷= 10
+    end
+
+    return reversed == original
 end
 
 """

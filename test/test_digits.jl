@@ -51,6 +51,12 @@ using ProjectEulerSolutions.Utils.Digits:
         @test !is_palindrome(12345)
         @test !is_palindrome(349)
         @test !is_palindrome(1292)
+
+        # Test large palindromes (from problem 4)
+        @test is_palindrome(906609)
+        @test is_palindrome(999000000999)
+        @test !is_palindrome(906608)
+        @test !is_palindrome(999000000998)
     end
 
     @testset "is_pandigital" begin
