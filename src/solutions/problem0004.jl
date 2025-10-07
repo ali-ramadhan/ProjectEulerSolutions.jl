@@ -14,7 +14,7 @@ palindrome. Two key optimizations:
   2. Use early termination when remaining products cannot exceed the current maximum.
 
 ## Complexity analysis
-
+    
 Time complexity: O(n²)
 - In the worst case, we examine all pairs of n-digit numbers. For 3-digit numbers,
   this is approximately 900² operations, but early termination significantly reduces
@@ -27,14 +27,12 @@ module Problem0004
 
 using ProjectEulerSolutions.Utils.Digits: is_palindrome
 
-function largest_palindrome_product(upper_limit)
+function largest_palindrome_product(lower_limit, upper_limit; max_product=nothing)
     T = typeof(upper_limit)
-    n_digits = ndigits(upper_limit)
-    lower_bound = T(10)^(n_digits-1)
-
     max_palindrome = zero(T)
+    best_i, best_j = zero(T), zero(T)
 
-    for i in upper_limit:-1:lower_bound
+    for i in upper_limit:-1:lower_limit
         # break early if we can't find a larger palindrome
         if i * upper_limit < max_palindrome
             break
@@ -44,24 +42,30 @@ function largest_palindrome_product(upper_limit)
         for j in upper_limit:-1:i
             product = i * j
 
+            # Skip if product exceeds max_product constraint
+            if !isnothing(max_product) && product >= max_product
+                continue
+            end
+
             if product < max_palindrome
                 break
             end
 
             if is_palindrome(product) && product > max_palindrome
                 max_palindrome = product
+                best_i, best_j = i, j
             end
         end
     end
 
-    return max_palindrome
+    return (palindrome=max_palindrome, factors=(best_i, best_j))
 end
 
 function solve()
-    result = largest_palindrome_product(999)
-    @info "Found largest palindrome from 3-digit products: $result = " *
-          "$(digits(result) |> reverse |> join)"
-    return result
+    result = largest_palindrome_product(100, 999)
+    @info "Found largest palindrome from 3-digit products: $(result.palindrome) = " *
+          "$(result.factors[1]) × $(result.factors[2])"
+    return result.palindrome
 end
 
 end # module
