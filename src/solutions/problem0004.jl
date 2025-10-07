@@ -27,20 +27,20 @@ module Problem0004
 
 using ProjectEulerSolutions.Utils.Digits: is_palindrome
 
-function largest_palindrome_product(n_digits)
+function largest_palindrome_product(upper_limit)
+    n_digits = ndigits(upper_limit)
     lower_bound = 10^(n_digits-1)
-    upper_bound = 10^n_digits - 1
 
     max_palindrome = 0
 
-    for i in upper_bound:-1:lower_bound
+    for i in upper_limit:-1:lower_bound
         # break early if we can't find a larger palindrome
-        if i * upper_bound < max_palindrome
+        if i * upper_limit < max_palindrome
             break
         end
 
         # Start from j=i to avoid duplicate combinations
-        for j in upper_bound:-1:i
+        for j in upper_limit:-1:i
             product = i * j
 
             if product < max_palindrome
@@ -57,7 +57,7 @@ function largest_palindrome_product(n_digits)
 end
 
 function solve()
-    result = largest_palindrome_product(3)
+    result = largest_palindrome_product(999)
     @info "Found largest palindrome from 3-digit products: $result = " *
           "$(digits(result) |> reverse |> join)"
     return result
