@@ -102,16 +102,6 @@ function apply_mapping(word, mapping)
 end
 
 """
-    is_perfect_square(n)
-
-Check if a number is a perfect square.
-"""
-function is_perfect_square(n)
-    root = Int(round(sqrt(n)))
-    return root * root == n
-end
-
-"""
     find_square_anagram_pairs(words)
 
 Find all square anagram word pairs and return the largest square number.
@@ -133,7 +123,7 @@ function find_square_anagram_pairs(words)
             if mapping !== nothing
                 mapped_number = apply_mapping(word2, mapping)
 
-                if mapped_number !== nothing && is_perfect_square(mapped_number)
+                if mapped_number !== nothing && ispow2(mapped_number)
                     max_square = max(max_square, square, mapped_number)
                 end
             end

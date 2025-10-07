@@ -45,14 +45,6 @@ to an integer, as cosh(π√163) = (e^(π√163) + e^(-π√163))/2 ≈ 26253741
 """
 module BonusHeegner
 
-function is_perfect_square(n::Int)::Bool
-    if n < 0
-        return false
-    end
-    sqrt_n = isqrt(n)
-    return sqrt_n * sqrt_n == n
-end
-
 function distance_to_nearest_integer(x::Float64)::Float64
     if isinf(x) || isnan(x)
         return Inf
@@ -82,7 +74,7 @@ function find_closest_cos_to_integer(limit::Int)
     end
 
     for n in -limit:limit
-        if n == 0 || is_perfect_square(abs(n)) || n in heegner_numbers
+        if n == 0 || ispow2(abs(n)) || n in heegner_numbers
             continue
         end
 

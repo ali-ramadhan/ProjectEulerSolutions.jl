@@ -1,15 +1,5 @@
 using Test
-using ProjectEulerSolutions.BonusHeegner: is_perfect_square, distance_to_nearest_integer, find_closest_cos_to_integer, solve
-
-# Test perfect square detection
-@test is_perfect_square(0) == true
-@test is_perfect_square(1) == true
-@test is_perfect_square(4) == true
-@test is_perfect_square(9) == true
-@test is_perfect_square(16) == true
-@test is_perfect_square(2) == false
-@test is_perfect_square(3) == false
-@test is_perfect_square(-1) == false
+using ProjectEulerSolutions.BonusHeegner: distance_to_nearest_integer, find_closest_cos_to_integer, solve
 
 # Test distance to nearest integer
 @test distance_to_nearest_integer(1.0) == 0.0

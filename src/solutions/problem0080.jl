@@ -31,16 +31,6 @@ Space complexity: O(d)
 module Problem0080
 
 """
-    is_perfect_square(n)
-
-Check if a number is a perfect square.
-"""
-function is_perfect_square(n)
-    root = isqrt(n)
-    return root^2 == n
-end
-
-"""
     digit_sum_of_sqrt(n, digits_count)
 
 Calculate the sum of the first `digits_count` digits of the square root of `n`.
@@ -72,7 +62,7 @@ function sum_square_root_digital_expansions(limit, digits_count)
     total_sum = 0
 
     for n in 1:limit
-        if !is_perfect_square(n)
+        if !ispow2(n)
             total_sum += digit_sum_of_sqrt(n, digits_count)
         end
     end
