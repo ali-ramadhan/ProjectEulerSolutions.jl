@@ -33,8 +33,12 @@ module Problem0006
 
 using ProjectEulerSolutions.Utils.Sequences: sum_of_squares, square_of_sum
 
+function sum_square_difference(n)
+    return square_of_sum(n) - sum_of_squares(n)
+end
+
 function solve()
-    return square_of_sum(100) - sum_of_squares(100)
+    return sum_square_difference(100)
 end
 
 end # module
