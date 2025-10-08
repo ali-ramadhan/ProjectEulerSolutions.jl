@@ -123,7 +123,7 @@ function find_square_anagram_pairs(words)
             if mapping !== nothing
                 mapped_number = apply_mapping(word2, mapping)
 
-                if mapped_number !== nothing && ispow2(mapped_number)
+                if mapped_number !== nothing && isqrt(mapped_number)^2 == mapped_number
                     max_square = max(max_square, square, mapped_number)
                 end
             end

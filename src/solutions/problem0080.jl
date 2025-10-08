@@ -62,7 +62,7 @@ function sum_square_root_digital_expansions(limit, digits_count)
     total_sum = 0
 
     for n in 1:limit
-        if !ispow2(n)
+        if isqrt(n)^2 != n
             total_sum += digit_sum_of_sqrt(n, digits_count)
         end
     end
