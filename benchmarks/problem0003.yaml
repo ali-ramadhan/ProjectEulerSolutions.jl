@@ -1,6 +1,6 @@
 problem:
   julia_version: "Julia 1.11.6"
-  cpu: "48 × AMD Ryzen Threadripper 7960X 24-Cores"
+  cpu: "AMD Ryzen Threadripper 7960X"
   output: |-
     BenchmarkTools.Trial: 10000 samples with 13 evaluations per sample.
      Range [90m([39m[36m[1mmin[22m[39m … [35mmax[39m[90m):  [39m[36m[1m1.104 μs[22m[39m … [35m 18.720 μs[39m  [90m┊[39m GC [90m([39mmin … max[90m): [39m0.00% … 0.00%
@@ -16,7 +16,7 @@ problem:
   os: "Linux"
 semiprime:
   julia_version: "Julia 1.11.6"
-  cpu: "48 × AMD Ryzen Threadripper 7960X 24-Cores"
+  cpu: "AMD Ryzen Threadripper 7960X"
   output: |-
     BenchmarkTools.Trial: 100 samples with 1 evaluation per sample.
      Range [90m([39m[36m[1mmin[22m[39m … [35mmax[39m[90m):  [39m[36m[1m182.485 ms[22m[39m … [35m199.061 ms[39m  [90m┊[39m GC [90m([39mmin … max[90m): [39m0.00% … 0.00%
@@ -32,7 +32,7 @@ semiprime:
   os: "Linux"
 cool_prime:
   julia_version: "Julia 1.11.6"
-  cpu: "48 × AMD Ryzen Threadripper 7960X 24-Cores"
+  cpu: "AMD Ryzen Threadripper 7960X"
   output: |-
     BenchmarkTools.Trial: 100 samples with 1 evaluation per sample.
      Range [90m([39m[36m[1mmin[22m[39m … [35mmax[39m[90m):  [39m[36m[1m129.941 ms[22m[39m … [35m142.035 ms[39m  [90m┊[39m GC [90m([39mmin … max[90m): [39m0.00% … 0.00%

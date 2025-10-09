@@ -6,6 +6,11 @@ using InteractiveUtils: versioninfo
 using YAML
 using Dates
 
+# CPU name mapping to simplify verbose CPU strings
+const CPU_NAME_MAP = Dict(
+    "48 × AMD Ryzen Threadripper 7960X 24-Cores" => "AMD Ryzen Threadripper 7960X"
+)
+
 """
     save_benchmark(result, problem_number, benchmark_name)
 
@@ -94,7 +99,8 @@ function get_system_info()
 
     # CPU - using direct system call like versioninfo does
     cpu_info = Sys.cpu_info()
-    cpu = "$(length(cpu_info)) × $(cpu_info[1].model)"
+    cpu_raw = "$(length(cpu_info)) × $(cpu_info[1].model)"
+    cpu = get(CPU_NAME_MAP, cpu_raw, cpu_raw)
 
     return Dict(
         "julia_version" => julia_version,

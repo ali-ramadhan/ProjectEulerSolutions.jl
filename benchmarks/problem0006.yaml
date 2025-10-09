@@ -1,6 +1,6 @@
 n_100:
   julia_version: "Julia 1.11.6"
-  cpu: "48 × AMD Ryzen Threadripper 7960X 24-Cores"
+  cpu: "AMD Ryzen Threadripper 7960X"
   output: |-
     BenchmarkTools.Trial: 10000 samples with 1000 evaluations per sample.
      Range [90m([39m[36m[1mmin[22m[39m … [35mmax[39m[90m):  [39m[36m[1m0.931 ns[22m[39m … [35m18.507 ns[39m  [90m┊[39m GC [90m([39mmin … max[90m): [39m0.00% … 0.00%
