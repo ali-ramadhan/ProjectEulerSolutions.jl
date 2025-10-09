@@ -8,7 +8,8 @@ using Dates
 
 # CPU name mapping to simplify verbose CPU strings
 const CPU_NAME_MAP = Dict(
-    "48 × AMD Ryzen Threadripper 7960X 24-Cores" => "AMD Ryzen Threadripper 7960X"
+    "48 × AMD Ryzen Threadripper 7960X 24-Cores" => "AMD Ryzen Threadripper 7960X",
+    "96 × AMD EPYC 7402 24-Core Processor" => "2 × AMD EPYC 7402",
 )
 
 """
