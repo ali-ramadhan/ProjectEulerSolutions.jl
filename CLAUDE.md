@@ -33,6 +33,8 @@ speed, mathematical syntax, and powerful libraries.
 * If you add a new solution and the tests can't find the module (UndefVarError:
   ProblemXXX not defined), you need to force Julia to reload the ProjectEulerSolutions
   module by running: `touch src/ProjectEulerSolutions.jl`.
+* We are currently using Julia 1.12.0. Whenever you run the `julia` command use
+  `julia +1.12.0 --project`.
 
 # Adding a new solution
 
