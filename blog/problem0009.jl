@@ -2,6 +2,9 @@ using BenchmarkTools
 using ProjectEulerSolutions.Utils: save_benchmark
 using ProjectEulerSolutions.Problem0009: find_pythagorean_triplets
 
-@show find_pythagorean_triplets(1000)
-benchmark_1000 = @benchmark find_pythagorean_triplets(1000)
-save_benchmark(benchmark_1000, 9, "n_1000")
+for n in (1000, 1000000, 1234567890)
+    @show n, find_pythagorean_triplets(n)
+    benchmark = @benchmark find_pythagorean_triplets($n) samples=100 seconds=1000
+    save_benchmark(benchmark, 9, "n_$n")
+end
+
