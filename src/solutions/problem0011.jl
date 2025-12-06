@@ -33,7 +33,7 @@ What is the greatest product of four adjacent numbers in the same direction
 
 We implement a brute-force approach that checks all possible directions:
 1. Horizontal products (left to right)
-2. Vertical products (top to bottom) 
+2. Vertical products (top to bottom)
 3. Diagonal products (down-right)
 4. Diagonal products (down-left)
 
@@ -75,45 +75,31 @@ const GRID = [
     01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48
 ]
 
-"""
-    find_greatest_product(grid, length=4)
+# Direction vectors: (row_delta, col_delta)
+const DIRECTIONS = [
+    (0, 1),   # horizontal (right)
+    (1, 0),   # vertical (down)
+    (1, 1),   # diagonal down-right
+    (1, -1),  # diagonal down-left
+]
 
-Find the greatest product of `length` adjacent numbers in any direction
+"""
+    find_greatest_product(grid, len=4)
+
+Find the greatest product of `len` adjacent numbers in any direction
 (horizontal, vertical, or diagonal) in the grid.
 """
-function find_greatest_product(grid, length = 4)
+function find_greatest_product(grid, len = 4)
     rows, cols = size(grid)
     max_product = 0
 
-    # Check horizontal products (right)
-    for r in 1:rows
-        for c in 1:(cols - length + 1)
-            product = prod(grid[r, c + i - 1] for i in 1:length)
-            max_product = max(max_product, product)
-        end
-    end
-
-    # Check vertical products (down)
-    for r in 1:(rows - length + 1)
-        for c in 1:cols
-            product = prod(grid[r + i - 1, c] for i in 1:length)
-            max_product = max(max_product, product)
-        end
-    end
-
-    # Check diagonal products (down-right)
-    for r in 1:(rows - length + 1)
-        for c in 1:(cols - length + 1)
-            product = prod(grid[r + i - 1, c + i - 1] for i in 1:length)
-            max_product = max(max_product, product)
-        end
-    end
-
-    # Check diagonal products (down-left)
-    for r in 1:(rows - length + 1)
-        for c in length:cols
-            product = prod(grid[r + i - 1, c - (i - 1)] for i in 1:length)
-            max_product = max(max_product, product)
+    for (dr, dc) in DIRECTIONS
+        for r in 1:rows, c in 1:cols
+            end_r, end_c = r + (len - 1) * dr, c + (len - 1) * dc
+            if 1 <= end_r <= rows && 1 <= end_c <= cols
+                product = prod(grid[r + i * dr, c + i * dc] for i in 0:(len - 1))
+                max_product = max(max_product, product)
+            end
         end
     end
 
