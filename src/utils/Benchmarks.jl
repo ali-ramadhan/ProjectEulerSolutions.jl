@@ -130,7 +130,9 @@ Load existing benchmarks from a YAML file, or return an empty dict if file doesn
 function load_existing_benchmarks(yaml_file)
     if isfile(yaml_file)
         try
-            return YAML.load_file(yaml_file)
+            data = YAML.load_file(yaml_file)
+            # YAML.load_file returns nothing for empty files
+            return isnothing(data) ? Dict() : data
         catch e
             @warn "Could not load existing benchmarks from $yaml_file: $e"
             return Dict()
