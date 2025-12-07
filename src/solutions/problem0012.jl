@@ -62,7 +62,7 @@ function find_first_triangle_with_divisors(min_divisors)
             a = n ÷ 2
             b = n + 1
         else
-            # n is odd, T(n) = n*((n+1)/2)
+            # n is odd, T(n) = n*(n+1)/2
             a = n
             b = (n + 1) ÷ 2
         end
@@ -70,7 +70,7 @@ function find_first_triangle_with_divisors(min_divisors)
         num_divisors = length(get_divisors(a)) * length(get_divisors(b))
 
         if num_divisors > min_divisors
-            return triangle_number(n)
+            return n, triangle_number(n)
         end
 
         n += 1
@@ -78,7 +78,8 @@ function find_first_triangle_with_divisors(min_divisors)
 end
 
 function solve()
-    return find_first_triangle_with_divisors(500)
+    _, triangle_number = find_first_triangle_with_divisors(500)
+    return triangle_number
 end
 
 end # module
