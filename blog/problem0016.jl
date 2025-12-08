@@ -1,0 +1,11 @@
+using BenchmarkTools
+using ProjectEulerSolutions.Utils: save_benchmark
+using ProjectEulerSolutions.Problem0016: power_digit_sum
+
+@show power_digit_sum(2, 1000)
+b_2_1000 = @benchmark power_digit_sum(2, 1000)
+save_benchmark(b_2_1000, 16, "power_digit_sum_2_1000")
+
+@show power_digit_sum(2, 1000000)
+b_2_1M = @benchmark power_digit_sum(2, 1000000)
+save_benchmark(b_2_1M, 16, "power_digit_sum_2_1M")
