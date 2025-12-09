@@ -6,25 +6,24 @@ such that cos(π√n) is closest to an integer.
 
 ## Solution approach
 
-This problem is related to Heegner numbers, which are special negative integers that lead to
-unique factorization in certain quadratic fields. When cos(π√n) is very close to an integer,
-it often involves these special numbers.
+For each non-square integer n with |n| ≤ 1000:
+- If n > 0: compute cos(π√n), which is bounded by [-1, 1]
+- If n < 0: compute cosh(π√|n|), which grows exponentially
 
-The approach is to:
-1. Iterate through all non-square integers n with |n| ≤ 1000
-2. For each n, calculate cos(π√n):
-   - If n > 0: cos(π√n)
-   - If n < 0: cosh(π√|n|) since cos(iπ√|n|) = cosh(π√|n|)
-3. Find the n that minimizes |cos(π√n) - round(cos(π√n))|
+We use BigFloat with dynamically calculated precision because:
+- cosh(π√n) ≈ e^(π√n)/2 grows exponentially, requiring many digits for large |n|
+- Float64 only has ~16 significant digits, completely inadequate
+- Precision is calculated as: ceil(π√limit / ln(10)) + 32 fractional digits, converted to bits
+- For limit=1000: ~43 integer digits + 32 fractional = 250 bits
 
 ## Complexity analysis
 
 Time complexity: O(n)
 - Single pass through all integers from -1000 to 1000
-- Constant time operations for each integer
+- Constant time BigFloat operations for each integer
 
-Space complexity: O(1)
-- Only storing the best result found so far
+Space complexity: O(n)
+- Storing all (n, value, distance) tuples to find and display the top 10
 
 ## Mathematical background
 
@@ -35,73 +34,89 @@ Heegner numbers are the negative square-free integers d such that the imaginary 
 field Q(√d) has class number 1. The complete list is: -1, -2, -3, -7, -11, -19, -43, -67,
 -163.
 
-The largest Heegner number is -163, which is famous for Ramanujan's near-integer: e^(π√163)
-≈ 262537412640768744.
+The largest Heegner number is -163, which is famous for Ramanujan's near-integer:
+e^(π√163) ≈ 262537412640768743.99999999999925...
+
+This makes cosh(π√163) ≈ e^(π√163)/2 ≈ 1.3127×10¹⁷ extremely close to an integer,
+with distance ≈ 3.75×10⁻¹³.
 
 ## Key insights
 
-The connection to Heegner numbers suggests that n = -163 will likely give the result closest
-to an integer, as cosh(π√163) = (e^(π√163) + e^(-π√163))/2 ≈ 262537412640768744/2.
+Negative integers dominate because cosh(π√|n|) can achieve near-integer values through
+the special arithmetic properties of quadratic fields. For positive n, cos(π√n) is
+bounded by [-1, 1], limiting how close it can get to an integer.
 """
 module BonusHeegner
 
-function distance_to_nearest_integer(x::Float64)::Float64
-    if isinf(x) || isnan(x)
-        return Inf
-    end
-    nearest = round(x)
-    return abs(x - nearest)
+using Printf
+
+"""
+    distance_to_nearest_integer(x)
+
+Compute the distance from x to the nearest integer.
+"""
+function distance_to_nearest_integer(x)
+    return abs(x - round(x))
 end
 
-function find_closest_cos_to_integer(limit::Int)
-    best_n = 0
-    best_distance = Inf
+"""
+    required_precision_bits(limit; fractional_digits=32)
 
-    heegner_numbers = [-1, -2, -3, -7, -11, -19, -43, -67, -163]
+Calculate the BigFloat precision needed to accurately measure distance to nearest
+integer for cosh(π√limit). We need enough bits for the integer part plus extra
+for the fractional part.
 
-    for n in heegner_numbers
-        if abs(n) <= limit
-            arg = π * sqrt(-n)
-            cos_value = cosh(arg)
-            distance = distance_to_nearest_integer(cos_value)
+cosh(π√n) ≈ e^(π√n)/2, so log₁₀(cosh(π√n)) ≈ π√n / ln(10)
+"""
+function required_precision_bits(limit; fractional_digits=32)
+    val = cosh(big(π) * sqrt(big(limit)))
+    integer_digits = ceil(Int, log10(val))
+    total_digits = integer_digits + fractional_digits
+    return ceil(Int, total_digits * log2(10))
+end
 
-            if distance < best_distance
-                best_distance = distance
-                best_n = n
-                @info "Heegner number: n = $n, cosh(π√|n|) ≈ $cos_value, distance = $distance"
+"""
+    find_closest_cos_to_integer(limit)
+
+Search all non-square integers n with |n| ≤ limit and find which n makes
+cos(π√n) closest to an integer. Automatically calculates required BigFloat precision.
+
+Returns the best n and logs the top 10 closest values.
+"""
+function find_closest_cos_to_integer(limit)
+    precision_bits = required_precision_bits(limit)
+    @info "Using $precision_bits bits of precision for limit=$limit"
+
+    setprecision(BigFloat, precision_bits) do
+        results = Vector{Tuple{Int,BigFloat,BigFloat}}()  # (n, value, distance)
+
+        for n in -limit:limit
+            n == 0 && continue
+            isqrt(abs(n))^2 == abs(n) && continue
+
+            if n > 0
+                val = cos(big(π) * sqrt(big(n)))
+            else
+                val = cosh(big(π) * sqrt(big(-n)))
             end
+
+            dist = distance_to_nearest_integer(val)
+
+            push!(results, (n, val, dist))
         end
+
+        # Sort by distance
+        sort!(results, by=x -> x[3])
+
+        # Log the top 10
+        @info "Top 10 values of n where cos(π√n) is closest to an integer:"
+        for i in 1:min(10, length(results))
+            n, val, dist = results[i]
+            @info @sprintf("%d: n = %d, value ≈ %.10e, distance ≈ %.10e", i, n, val, dist)
+        end
+
+        return results[1][1]
     end
-
-    for n in -limit:limit
-        if n == 0 || ispow2(abs(n)) || n in heegner_numbers
-            continue
-        end
-
-        cos_value = if n > 0
-            cos(π * sqrt(n))
-        else
-            arg = π * sqrt(-n)
-            if arg > 50
-                continue
-            end
-            cosh(arg)
-        end
-
-        if abs(cos_value) > 1e12
-            continue
-        end
-
-        distance = distance_to_nearest_integer(cos_value)
-
-        if distance < best_distance
-            best_distance = distance
-            best_n = n
-            @info "New best: n = $n, cos(π√n) ≈ $cos_value, distance = $distance"
-        end
-    end
-
-    return best_n
 end
 
 function solve()
