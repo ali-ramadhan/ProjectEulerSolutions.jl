@@ -14,11 +14,11 @@ const CPU_NAME_MAP = Dict(
 )
 
 """
-    save_benchmark(result, problem_number, benchmark_name)
+    save_benchmark(result, problem_tag, benchmark_name)
 
-Save a BenchmarkTools result to a YAML file organized by problem number.
-Each problem gets its own YAML file (e.g., `problem0001.yaml`) with multiple
-benchmark entries. Each benchmark includes timestamp, system information,
+Save a BenchmarkTools result to a YAML file organized by problem tag.
+Each problem gets its own YAML file (e.g., `problem-0001.yaml`, `bonus-root13.yaml`)
+with multiple benchmark entries. Each benchmark includes timestamp, system information,
 and formatted benchmark output with preserved ANSI color codes.
 
 Files are automatically saved to the `benchmarks/` directory. If the directory doesn't
@@ -26,17 +26,18 @@ exist, it will be created.
 
 # Arguments
 - `result`: BenchmarkTools.Trial or BenchmarkGroup result
-- `problem_number`: Problem number (integer)
+- `problem_tag`: Tag that forms the filename (e.g., "problem-0005", "bonus-root13")
 - `benchmark_name`: Name for this benchmark (string)
 
 # Example
 ```julia
 using BenchmarkTools, ProjectEulerSolutions
 result = @benchmark sum(1:1000)
-save_benchmark(result, 1, "optimized")  # Saves to benchmarks/problem0001.yaml
+save_benchmark(result, "problem-0001", "optimized")  # Saves to benchmarks/problem-0001.yaml
+save_benchmark(result, "bonus-root13", "v1")         # Saves to benchmarks/bonus-root13.yaml
 ```
 """
-function save_benchmark(result, problem_number, benchmark_name)
+function save_benchmark(result, problem_tag, benchmark_name)
     display(result)
 
     # Ensure benchmarks directory exists
@@ -46,8 +47,7 @@ function save_benchmark(result, problem_number, benchmark_name)
     end
 
     # Generate filename
-    problem_str = lpad(string(problem_number), 4, '0')
-    yaml_file = joinpath(benchmarks_dir, "problem$(problem_str).yaml")
+    yaml_file = joinpath(benchmarks_dir, "$(problem_tag).yaml")
 
     # Get system information
     system_info = get_system_info()
