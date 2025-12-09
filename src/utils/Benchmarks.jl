@@ -58,20 +58,23 @@ function save_benchmark(result, problem_number, benchmark_name)
     output = String(take!(io))
     formatted_output = format_ansi_codes(output)
 
-    # Create benchmark entry
+    # Create benchmark entry (cpu is the key, not stored in entry)
     benchmark_entry = Dict(
         "date" => Dates.format(now(), "yyyy-mm-ddTHH:MM:SS.sss"),
         "julia_version" => system_info["julia_version"],
         "os" => system_info["os"],
-        "cpu" => system_info["cpu"],
         "output" => formatted_output
     )
 
     # Load existing benchmarks or create new dict
     existing_benchmarks = load_existing_benchmarks(yaml_file)
 
-    # Add new benchmark
-    existing_benchmarks[benchmark_name] = benchmark_entry
+    # Add new benchmark nested under benchmark_name -> cpu
+    cpu = system_info["cpu"]
+    if !haskey(existing_benchmarks, benchmark_name)
+        existing_benchmarks[benchmark_name] = Dict()
+    end
+    existing_benchmarks[benchmark_name][cpu] = benchmark_entry
 
     # Save to YAML file
     YAML.write_file(yaml_file, existing_benchmarks)
