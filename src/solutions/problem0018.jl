@@ -40,8 +40,10 @@ We use dynamic programming with a bottom-up approach:
 2. For each position, add the maximum of the two adjacent values below it
 3. Work our way up to the top, where the final answer will be stored
 
-This "greedy" choice at each level is optimal because we're finding the maximum
-path sum, and the optimal substructure property holds.
+This works because the problem has optimal substructure: the best path from any
+position is its value plus the best path from whichever child leads to a higher sum.
+By solving bottom-up, each subproblem is already solved when we need it. Note that
+a greedy top-down approach (always picking the larger child) would fail.
 
 ## Complexity analysis
 
@@ -82,18 +84,18 @@ Uses dynamic programming by starting from the bottom row and working upwards.
 For each position, we choose the maximum of the two possible paths below.
 """
 function max_path_sum(triangle)
-    tri = deepcopy(triangle)
+    max_sums = deepcopy(triangle)
 
     # Start from the second-to-last row and work upwards
-    for i in (length(tri) - 1):-1:1
-        for j in 1:length(tri[i])
+    for i in (length(max_sums) - 1):-1:1
+        for j in 1:length(max_sums[i])
             # Add the maximum of the two adjacent values in the row below
-            tri[i][j] += max(tri[i + 1][j], tri[i + 1][j + 1])
+            max_sums[i][j] += max(max_sums[i + 1][j], max_sums[i + 1][j + 1])
         end
     end
 
     # The top of the triangle now contains the maximum path sum
-    return tri[1][1]
+    return max_sums[1][1]
 end
 
 function solve()
