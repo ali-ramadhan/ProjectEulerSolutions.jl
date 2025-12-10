@@ -11,5 +11,5 @@ benchmark_100k = @benchmark find_nth_prime(100000)
 save_benchmark(benchmark_100k, "problem-0007", "n_100k")
 
 @show find_nth_prime(1000000)
-benchmark_1m = @benchmark find_nth_prime(1000000) samples=100 seconds=1000
+benchmark_1m = @benchmark find_nth_prime(1000000) samples=100 evals=1 seconds=1000
 save_benchmark(benchmark_1m, "problem-0007", "n_1M")

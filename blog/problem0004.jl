@@ -11,5 +11,5 @@ benchmark_6_digits = @benchmark largest_palindrome_product(100000, 999999)
 save_benchmark(benchmark_6_digits, "problem-0004", "6_digits")
 
 @show largest_palindrome_product(100000000, 999999999)
-benchmark_9_digits = @benchmark largest_palindrome_product(100000000, 999999999) samples=100 seconds=1000
+benchmark_9_digits = @benchmark largest_palindrome_product(100000000, 999999999) samples=100 evals=1 seconds=1000
 save_benchmark(benchmark_9_digits, "problem-0004", "9_digits")
