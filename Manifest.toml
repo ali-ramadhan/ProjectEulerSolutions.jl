@@ -357,9 +357,9 @@ uuid = "1914dd2f-81c6-5fcd-8719-6d5c9610ff09"
 version = "0.5.16"
 
 [[deps.MappedArrays]]
-git-tree-sha1 = "2dab0221fe2b0f2cb6754eaa743cc266339f527e"
+git-tree-sha1 = "0ee4497a4e80dbd29c058fcee6493f5219556f40"
 uuid = "dbb5928d-eab1-5f90-85c2-b9b0edb7c900"
-version = "0.4.2"
+version = "0.4.3"
 
 [[deps.Markdown]]
 deps = ["Base64", "JuliaSyntaxHighlighting", "StyledStrings"]
@@ -490,7 +490,7 @@ uuid = "92933f4c-e287-5a05-a399-4b506db050ca"
 version = "1.11.0"
 
 [[deps.ProjectEulerSolutions]]
-deps = ["BenchmarkTools", "ColorTypes", "Combinatorics", "DataStructures", "Dates", "FFTW", "FileIO", "ImageIO", "InteractiveUtils", "LinearAlgebra", "PNGFiles", "Random", "SafeTestsets", "Statistics", "Test", "YAML"]
+deps = ["BenchmarkTools", "ColorTypes", "Combinatorics", "DataStructures", "Dates", "FFTW", "FileIO", "ImageIO", "InteractiveUtils", "LinearAlgebra", "PNGFiles", "Printf", "Random", "SafeTestsets", "Statistics", "Test", "YAML"]
 path = "."
 uuid = "ddda82f4-262b-4029-9852-219106c05efd"
 version = "0.1.0"
@@ -712,9 +712,9 @@ version = "5.15.0+0"
 
 [[deps.libpng_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Zlib_jll"]
-git-tree-sha1 = "5cb3c5d039f880c0b3075803c8bf45cb95ae1e91"
+git-tree-sha1 = "de8ab4f01cb2d8b41702bab9eaad9e8b7d352f73"
 uuid = "b53b4c65-9356-5827-b1ea-8c7a1a84506f"
-version = "1.6.51+0"
+version = "1.6.53+0"
 
 [[deps.libsixel_jll]]
 deps = ["Artifacts", "JLLWrappers", "JpegTurbo_jll", "Libdl", "libpng_jll"]
