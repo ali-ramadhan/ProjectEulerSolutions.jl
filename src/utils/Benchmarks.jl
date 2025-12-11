@@ -14,6 +14,7 @@ const CPU_NAME_MAP = Dict(
     "24 × AMD Ryzen 9 5900X 12-Core Processor            " => "AMD Ryzen 9 5900X",
     "8 × Intel(R) Core(TM) Ultra 5 238V" => "Intel Core Ultra 5 238V",
     "8 × Intel(R) Core(TM) i7-7700HQ CPU @ 2.80GHz" => "Intel Core i7-7700HQ",
+    "8 × Intel(R) Core(TM) i7-4810MQ CPU @ 2.80GHz" => "Intel Core i7-4810MQ"
 )
 
 """
