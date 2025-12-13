@@ -1,6 +1,7 @@
 using Test
 
 using ProjectEulerSolutions.Utils.Primes
+using ProjectEulerSolutions.Utils.Primes: get_witnesses
 
 @testset "Primes" begin
     @testset "is_prime" begin
@@ -37,6 +38,37 @@ using ProjectEulerSolutions.Utils.Primes
                 @test !is_prime(143, primality_test)  # 11 * 13
             end
         end
+    end
+
+    @testset "Miller-Rabin precomputed witnesses" begin
+        # Test that MillerRabin(max_n) creates correct witness sets
+        @test length(MillerRabin(1000).witnesses) == 1
+        @test length(MillerRabin(10^6).witnesses) == 2
+        @test length(MillerRabin(10^9).witnesses) == 4
+        @test length(MillerRabin(10^12).witnesses) == 4
+        @test length(MillerRabin(10^15).witnesses) == 9
+        @test length(MillerRabin(10^18).witnesses) == 9
+
+        # Test get_witnesses returns correct bounds
+        @test get_witnesses(2046) == (2,)
+        @test get_witnesses(2047) == (2, 3)  # crosses first threshold
+        @test get_witnesses(1_373_652) == (2, 3)
+        @test get_witnesses(1_373_653) == (31, 73)  # crosses to next set
+
+        # Test precomputed mode matches auto-select mode
+        mr_precomputed = MillerRabin(10^6)
+        for n in [2, 3, 4, 5, 97, 100, 1009, 1000, 104729, 104730]
+            @test is_prime(n, MillerRabin()) == is_prime(n, mr_precomputed)
+        end
+
+        # Test large primes near witness set boundaries
+        @test is_prime(2039, MillerRabin())       # prime < 2047 (1 witness)
+        @test is_prime(1373639, MillerRabin())    # prime < 1_373_653 (2 witnesses)
+        @test is_prime(3215031733, MillerRabin()) # prime < 3_215_031_751 (4 witnesses)
+
+        # Test composites near boundaries (Carmichael-like numbers that might fool weak tests)
+        @test !is_prime(2047, MillerRabin())     # 23 * 89
+        @test !is_prime(1373653, MillerRabin())  # composite
     end
 
     @testset "sieve_of_eratosthenes" begin
