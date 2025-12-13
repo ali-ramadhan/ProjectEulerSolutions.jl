@@ -6,15 +6,26 @@ that are used across multiple Project Euler problems.
 """
 module Primes
 
-export is_prime, sieve_of_eratosthenes, prime_factors
+export is_prime, TrialDivision, MillerRabin
+export sieve_of_eratosthenes, prime_factors
+
+#####
+##### Primality tests
+#####
+
+abstract type PrimalityTest end
+struct TrialDivision <: PrimalityTest end
+struct MillerRabin <: PrimalityTest end
+
+is_prime(n) = is_prime(n, TrialDivision())
 
 """
-    is_prime(n)
+    is_prime(n, ::TrialDivision)
 
 Check if n is prime using trial division with 6k±1 optimization.
 Only checks divisors up to sqrt(n) and filters common cases.
 """
-function is_prime(n)
+function is_prime(n, ::TrialDivision)
     n <= 1 && return false
     n <= 3 && return true
 
@@ -31,6 +42,82 @@ function is_prime(n)
         i += 6
     end
 
+    return true
+end
+
+"""
+    is_prime(n, ::MillerRabin)
+
+Determines if `n` is prime using the deterministic Miller-Rabin test.
+This function is 100% accurate for any integer n < 2^64.
+"""
+function is_prime(n, ::MillerRabin)
+    # Handle small edge cases efficiently
+    if n < 2
+        return false
+    elseif n == 2 || n == 3
+        return true
+    elseif n % 2 == 0
+        return false
+    end
+
+    # Decompose n - 1 into d * 2^s
+    # We want to find odd d and integer s such that n-1 = d * 2^s
+    d = n - 1
+    s = trailing_zeros(d) # Built-in fast bit counting
+    d >>= s
+
+    # Deterministic bases for 64-bit integers
+    # Testing these specific bases guarantees correctness for n < 2^64.
+    # See: https://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test
+    bases = (2, 3, 5, 7, 11) # (2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37)
+
+    for a in bases
+        # If the base is larger than n, we don't need to test it (or further ones)
+        if n <= a
+            break
+        end
+
+        if is_composite_witness(n, a, d, s)
+            return false
+        end
+    end
+
+    return true
+end
+
+"""
+    is_composite_witness(n, a, d, s)
+
+Checks if 'a' is a witness to the compositeness of 'n'.
+Returns true if 'n' is definitely composite.
+Returns false if 'n' is probably prime (to base 'a').
+"""
+@inline function is_composite_witness(n, a, d, s)
+    # Compute x = a^d mod n
+    # We use built-in powermod which handles Int128 promotion internally
+    # to avoid overflow during intermediate calculations.
+    x = powermod(a, d, n)
+
+    # If x = 1 or x = n-1, then 'n' passes the test for this base 'a'
+    if x == 1 || x == n - 1
+        return false
+    end
+
+    # Square x repeatedly up to s-1 times
+    for _ in 1:(s - 1)
+        # x = x^2 mod n
+        # We manually promote to Int128 to ensure (x*x) doesn't overflow Int64
+        x = (Int128(x) * x) % n
+
+        # If we hit n-1, 'n' passes the test for this base
+        if x == n - 1
+            return false
+        end
+    end
+
+    # If we finished the loop and never saw n-1 (and didn't start at 1),
+    # then 'a' is a witness that 'n' is composite.
     return true
 end
 

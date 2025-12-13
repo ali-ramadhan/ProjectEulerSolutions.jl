@@ -1,38 +1,42 @@
 using Test
 
-using ProjectEulerSolutions.Utils.Primes: is_prime, sieve_of_eratosthenes, prime_factors
+using ProjectEulerSolutions.Utils.Primes
 
 @testset "Primes" begin
     @testset "is_prime" begin
-        # Small primes
-        @test !is_prime(1)
-        @test is_prime(2)
-        @test is_prime(3)
-        @test !is_prime(4)
-        @test is_prime(5)
-        @test !is_prime(6)
-        @test is_prime(7)
-        @test !is_prime(8)
-        @test !is_prime(9)
-        @test !is_prime(10)
-        @test is_prime(11)
-        @test !is_prime(12)
-        @test is_prime(13)
-        @test !is_prime(14)
-        @test !is_prime(15)
+        for primality_test in (TrialDivision(), MillerRabin())
+                @testset "is_prime ($primality_test)" begin
+                # Small primes
+                @test !is_prime(1, primality_test)
+                @test is_prime(2, primality_test)
+                @test is_prime(3, primality_test)
+                @test !is_prime(4, primality_test)
+                @test is_prime(5, primality_test)
+                @test !is_prime(6, primality_test)
+                @test is_prime(7, primality_test)
+                @test !is_prime(8, primality_test)
+                @test !is_prime(9, primality_test)
+                @test !is_prime(10, primality_test)
+                @test is_prime(11, primality_test)
+                @test !is_prime(12, primality_test)
+                @test is_prime(13, primality_test)
+                @test !is_prime(14, primality_test)
+                @test !is_prime(15, primality_test)
 
-        # Larger primes
-        @test is_prime(17)
-        @test is_prime(23)
-        @test is_prime(41)
-        @test is_prime(1601)
-        @test is_prime(3797)
-        @test is_prime(2143)
+                # Larger primes
+                @test is_prime(17, primality_test)
+                @test is_prime(23, primality_test)
+                @test is_prime(41, primality_test)
+                @test is_prime(1601, primality_test)
+                @test is_prime(3797, primality_test)
+                @test is_prime(2143, primality_test)
 
-        # Larger composites
-        @test !is_prime(91)   # 7 * 13
-        @test !is_prime(121)  # 11^2
-        @test !is_prime(143)  # 11 * 13
+                # Larger composites
+                @test !is_prime(91, primality_test)   # 7 * 13
+                @test !is_prime(121, primality_test)  # 11^2
+                @test !is_prime(143, primality_test)  # 11 * 13
+            end
+        end
     end
 
     @testset "sieve_of_eratosthenes" begin
@@ -45,7 +49,7 @@ using ProjectEulerSolutions.Utils.Primes: is_prime, sieve_of_eratosthenes, prime
         # Test that it includes the limit when it's prime
         @test 29 in sieve_of_eratosthenes(29)
         @test 31 in sieve_of_eratosthenes(31)
-        
+
         # Test return_array kwarg
         primes, is_prime = sieve_of_eratosthenes(10, return_array=true)
         @test primes == [2, 3, 5, 7]
