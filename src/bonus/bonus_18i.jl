@@ -98,14 +98,18 @@ function R_mod_p(p::Int)::Int
 end
 
 function sum_R_mod_p(low, high)
-    total_sum = 0
+    primality_test = MillerRabin(high)
+    return _sum_R_mod_p_inner(low, high, primality_test)
+end
 
+# Function barrier: Julia specializes this on the concrete type of primality_test
+function _sum_R_mod_p_inner(low, high, primality_test::MillerRabin{W}) where W
+    total_sum = 0
     for n in low:high
-        if is_prime(n, MillerRabin())
+        if is_prime(n, primality_test)
             total_sum += R_mod_p(n)
         end
     end
-
     return total_sum
 end
 

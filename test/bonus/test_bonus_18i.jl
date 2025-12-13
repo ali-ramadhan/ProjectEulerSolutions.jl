@@ -1,5 +1,5 @@
 using Test
-using ProjectEulerSolutions.Bonus18i: R_mod_p, sum_R_in_range, solve
+using ProjectEulerSolutions.Bonus18i: R_mod_p, solve
 
 # Given examples
 @test R_mod_p(11) == 0
