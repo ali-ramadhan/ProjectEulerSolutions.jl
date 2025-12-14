@@ -1,37 +1,8 @@
 """
 Project Euler Problem 17: Number Letter Counts
 
-If the numbers 1 to 5 are written out in words: one, two, three, four, five,
-then there are 3 + 3 + 5 + 4 + 4 = 19 letters used in total.
-
-If all the numbers from 1 to 1000 (one thousand) inclusive were written out in words,
-how many letters would be used?
-
-NOTE: Do not count spaces or hyphens. For example, 342 (three hundred and forty-two)
-contains 23 letters and 115 (one hundred and fifteen) contains 20 letters.
-The use of "and" when writing out numbers is in compliance with British usage.
-
-## Solution approach
-
-We build a systematic word conversion system:
-1. Create a dictionary mapping numbers to their word representations
-2. Implement recursive logic to handle hundreds, tens, and units
-3. Follow British convention by adding "and" between hundreds and remainder
-4. Count only letters, excluding spaces and hyphens
-
-The algorithm handles each range separately: 1-19 (special cases), 20-99 (tens+units),
-100-999 (hundreds+and+remainder), and 1000 (special case).
-
-## Complexity analysis
-
-Time complexity: O(n)
-- Convert each number from 1 to 1000 to words: O(n) numbers
-- Each conversion takes constant time: O(1)
-- Counting letters in each word: O(average_word_length)
-
-Space complexity: O(1)
-- Fixed-size dictionary for number words
-- Constant additional space for string operations
+Problem description: https://projecteuler.net/problem=17
+Solution description: https://aliramadhan.me/blog/project-euler/problem-0017/
 """
 module Problem0017
 
@@ -65,12 +36,6 @@ const NUMBER_WORDS = Dict(
     90 => "ninety",
 )
 
-"""
-    number_to_words(n)
-
-Convert a number to its British English word representation.
-Uses the British convention of including 'and' between the hundreds and the rest.
-"""
 function number_to_words(n)
     if n == 1000
         return "one thousand"
@@ -97,20 +62,10 @@ function number_to_words(n)
     end
 end
 
-"""
-    count_letters(str)
-
-Count the number of letters in a string, ignoring spaces and hyphens.
-"""
 function count_letters(str)
     return length(filter(c -> !isspace(c) && c != '-', str))
 end
 
-"""
-    count_letters_in_range(start, stop)
-
-Count the total number of letters when writing out all numbers from start to stop in words.
-"""
 function count_letters_in_range(start, stop)
     return sum(count_letters(number_to_words(n)) for n in start:stop)
 end
