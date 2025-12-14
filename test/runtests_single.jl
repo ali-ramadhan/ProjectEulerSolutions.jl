@@ -37,16 +37,16 @@ function test_problem(problem_num)
     end
 
     test_file = "test_problem$problem_str.jl"
-    test_path = joinpath(@__DIR__, test_file)
+    test_path = joinpath(@__DIR__, "problems", test_file)
 
     if !isfile(test_path)
-        error("Test file not found: $test_file")
+        error("Test file not found: problems/$test_file")
     end
 
     @info "Running tests for Problem $problem_str..."
 
     test_name = "Problem $problem_str"
-    @eval @safetestset $test_name include($test_file)
+    @eval @safetestset $test_name include(joinpath("problems", $test_file))
 end
 
 if abspath(PROGRAM_FILE) == @__FILE__
