@@ -1,54 +1,8 @@
 """
 Project Euler Bonus Problem: Secret
 
-Find the secret word by following the instructions below.
-
-The statement of this problem is contained in an image.
-
-Starting with this image, at each step, simultaneously replace each pixel with the sum of
-its four neighbours in orthogonal directions. Note that, although the original pixels are
-represented by 8-bit integers, in later steps they can be arbitrarily large without any
-integer overflow.
-
-The edges of the image are considered "glued" in such a way that pixels on the top edge are
-neighbours to those on the bottom edge; and similarly for left and right edges.
-
-After 10^12 steps, the secret word will be revealed by taking each pixel modulo 7.
-
-## Solution approach
-
-This is a linear cellular automaton on a toroidal grid. Direct simulation of 10^12 steps is
-computationally infeasible, but we can exploit the Frobenius Endomorphism in Z_7.
-
-The key insight is that in the field Z_7, the identity (A + B)^7 == A^7 + B^7 (mod 7) holds.
-This means that applying the neighbor-sum operator 7^k times is equivalent to summing
-neighbors at a distance of 7^k instead of 1.
-
-We decompose 10^12 into its base-7 representation: 10^12 = sum(c_k * 7^k), where c_k in {0,
-    1, ..., 6}
-
-For each digit c_k, we apply c_k sparse operations where neighbors are collected at distance
-7^k (with toroidal wrapping).
-
-## Complexity analysis
-
-Time complexity: O(log_7(N) * W * H)
-- Instead of O(10^12 * W * H), we only need ~15 iterations (since 7^14 > 10^12)
-- Each iteration involves a constant number of array operations
-
-Space complexity: O(W * H)
-- We only store the current grid state plus temporary arrays for shifted versions
-
-## Mathematical background
-
-The Frobenius Endomorphism states that for any prime p and elements in Z_p: (a + b)^p == a^p
-    + b^p (mod p)
-
-Applied to our operator kernel K = x + x^(-1) + y + y^(-1), we get: K^(7^k) == x^(7^k) +
-    x^(-7^k) + y^(7^k) + y^(-7^k) (mod 7)
-
-This allows us to "fast-forward" groups of 7^k steps by simply shifting the neighbor
-distance from 1 to 7^k.
+Problem description: https://projecteuler.net/problem=secret
+Solution description: https://aliramadhan.me/blog/project-euler/bonus-secret/
 """
 module BonusSecret
 
