@@ -1,4 +1,5 @@
 using Test
+using ProjectEulerSolutions.Utils.AnswerHashing: @test_answer
 using ProjectEulerSolutions.Problem0019:
     is_leap_year, days_in_month, count_sundays_on_first, solve
 
@@ -17,4 +18,4 @@ using ProjectEulerSolutions.Problem0019:
 @test count_sundays_on_first(1900, 1900) == 2
 
 # Correct answer
-@test solve() == 171
+@test_answer solve() "0019"

@@ -1,5 +1,6 @@
 using Test
 using ProjectEulerSolutions.Bonus18i: R_mod_p, solve
+using ProjectEulerSolutions.Utils.AnswerHashing: @test_answer
 
 # Given examples
 @test R_mod_p(11) == 0
@@ -22,4 +23,4 @@ for p in (5, 13, 17, 29, 37, 61, 73)
 end
 
 # Correct answer
-@test solve() == 842507000531275
+@test_answer solve() "18i" "bonus"

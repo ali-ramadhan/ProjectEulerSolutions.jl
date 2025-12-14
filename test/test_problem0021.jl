@@ -1,6 +1,7 @@
 using Test
-using ProjectEulerSolutions.Problem0021: find_amicable_numbers, solve
+using ProjectEulerSolutions.Utils.AnswerHashing: @test_answer
 using ProjectEulerSolutions.Utils.Divisors: get_divisors
+using ProjectEulerSolutions.Problem0021: find_amicable_numbers, solve
 
 sum_of_proper_divisors(n) = sum(get_divisors(n)) - n
 
@@ -11,4 +12,4 @@ sum_of_proper_divisors(n) = sum(get_divisors(n)) - n
 @test sum_of_proper_divisors(6) == 1 + 2 + 3
 @test sum_of_proper_divisors(28) == 1 + 2 + 4 + 7 + 14
 
-@test solve() == 31626
+@test_answer solve() "0021"

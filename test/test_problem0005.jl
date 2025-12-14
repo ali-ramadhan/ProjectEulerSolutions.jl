@@ -1,8 +1,9 @@
 using Test
+using ProjectEulerSolutions.Utils.AnswerHashing: @test_answer
 using ProjectEulerSolutions.Problem0005: smallest_multiple, solve
 
 # Test example from problem description
 @test smallest_multiple(10) == 2520
 
 # Correct answer
-@test solve() == 232792560
+@test_answer solve() "0005"

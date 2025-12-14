@@ -1,4 +1,5 @@
 using Test
+using ProjectEulerSolutions.Utils.AnswerHashing: @test_answer
 using ProjectEulerSolutions.Problem0018: max_path_sum, solve
 
 # The example triangle from the problem
@@ -12,4 +13,4 @@ triangle = [
 @test max_path_sum(triangle) == 23
 
 # Correct answer
-@test solve() == 1074
+@test_answer solve() "0018"

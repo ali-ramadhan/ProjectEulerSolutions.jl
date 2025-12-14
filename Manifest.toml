@@ -2,7 +2,7 @@
 
 julia_version = "1.12.2"
 manifest_format = "2.0"
-project_hash = "5d930ef066a25288d4797c8db061a7a4ac07b37d"
+project_hash = "ac25a09790583072a535f81f1d79b8831a97b262"
 
 [[deps.AbstractFFTs]]
 deps = ["LinearAlgebra"]
@@ -490,7 +490,7 @@ uuid = "92933f4c-e287-5a05-a399-4b506db050ca"
 version = "1.11.0"
 
 [[deps.ProjectEulerSolutions]]
-deps = ["BenchmarkTools", "ColorTypes", "Combinatorics", "DataStructures", "Dates", "FFTW", "FileIO", "ImageIO", "InteractiveUtils", "LinearAlgebra", "PNGFiles", "Printf", "Random", "SafeTestsets", "Statistics", "Test", "YAML"]
+deps = ["BenchmarkTools", "ColorTypes", "Combinatorics", "DataStructures", "Dates", "FFTW", "FileIO", "ImageIO", "InteractiveUtils", "LinearAlgebra", "PNGFiles", "Printf", "Random", "SafeTestsets", "StaticArrays", "Statistics", "Test", "YAML"]
 path = "."
 uuid = "ddda82f4-262b-4029-9852-219106c05efd"
 version = "0.1.0"

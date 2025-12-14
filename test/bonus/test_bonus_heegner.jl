@@ -1,5 +1,6 @@
 using Test
 using ProjectEulerSolutions.BonusHeegner: distance_to_nearest_integer, find_closest_cos_to_integer, solve
+using ProjectEulerSolutions.Utils.AnswerHashing: @test_answer
 
 # Test distance to nearest integer
 @test distance_to_nearest_integer(1.0) == 0.0
@@ -14,4 +15,4 @@ result_small = find_closest_cos_to_integer(10)
 @test abs(result_small) <= 10
 
 # Correct answer
-@test solve() == -163
+@test_answer solve() "heegner" "bonus"

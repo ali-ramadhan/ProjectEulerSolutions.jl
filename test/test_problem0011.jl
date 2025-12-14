@@ -1,4 +1,5 @@
 using Test
+using ProjectEulerSolutions.Utils.AnswerHashing: @test_answer
 using ProjectEulerSolutions.Problem0011: find_greatest_product, solve, GRID
 
 @test size(GRID) == (20, 20)
@@ -14,4 +15,4 @@ diagonal_product = GRID[7, 9] * GRID[8, 10] * GRID[9, 11] * GRID[10, 12]
 
 @test find_greatest_product(GRID) >= diagonal_product
 
-@test solve() == 70600674
+@test_answer solve() "0011"

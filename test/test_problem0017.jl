@@ -1,4 +1,5 @@
 using Test
+using ProjectEulerSolutions.Utils.AnswerHashing: @test_answer
 using ProjectEulerSolutions.Problem0017:
     number_to_words, count_letters, count_letters_in_range, solve
 
@@ -13,4 +14,4 @@ using ProjectEulerSolutions.Problem0017:
 @test number_to_words(999) == "nine hundred and ninety-nine"
 @test number_to_words(1000) == "one thousand"
 
-@test solve() == 21124
+@test_answer solve() "0017"

@@ -1,5 +1,6 @@
 using Test
 using ProjectEulerSolutions.BonusRoot13: compute_sqrt_digits, sum_sqrt_decimal_digits, solve
+using ProjectEulerSolutions.Utils.AnswerHashing: @test_answer
 
 # Test compute_sqrt_digits with known values
 # √2 ≈ 1.4142135623730950488...
@@ -25,4 +26,4 @@ digits_sqrt13 = compute_sqrt_digits(13, 10)
 @test all(0 <= d <= 9 for d in digits_sqrt13)
 
 # Correct answer
-@test solve() == 4588
+@test_answer solve() "root13" "bonus"

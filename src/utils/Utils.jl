@@ -15,6 +15,7 @@ include("Divisors.jl")
 include("Digits.jl")
 include("NumberTheory.jl")
 include("Sequences.jl")
+include("AnswerHashing.jl")
 
 using .Benchmarks
 using .Primes
@@ -22,5 +23,6 @@ using .Divisors
 using .Digits
 using .NumberTheory
 using .Sequences
+using .AnswerHashing
 
 end # module Utils

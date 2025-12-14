@@ -1,4 +1,5 @@
 using Test
+using ProjectEulerSolutions.Utils.AnswerHashing: @test_answer
 using ProjectEulerSolutions.Problem0004: largest_palindrome_product, solve
 
 # Test example from problem description
@@ -15,4 +16,4 @@ using ProjectEulerSolutions.Problem0004: largest_palindrome_product, solve
 @test largest_palindrome_product(100, 999, max_product=900000).factors == (924, 962)
 
 # Correct answer
-@test solve() == 906609
+@test_answer solve() "0004"

@@ -1,4 +1,5 @@
 using Test
+using ProjectEulerSolutions.Utils.AnswerHashing: @test_answer
 using ProjectEulerSolutions.Problem0014: collatz_length, longest_collatz_under, solve
 
 memo = Dict(1 => 1)
@@ -11,4 +12,4 @@ memo = Dict(1 => 1)
 start_number, _ = longest_collatz_under(14)
 @test start_number ≥ 9  # 9 has a longer sequence than 13
 
-@test solve() == 837799
+@test_answer solve() "0014"

@@ -1,4 +1,5 @@
 using Test
+using ProjectEulerSolutions.Utils.AnswerHashing: @test_answer
 using ProjectEulerSolutions.Problem0008: product_of_digits, largest_product_in_series, solve
 
 # Test helper functions with examples from the problem description
@@ -8,4 +9,4 @@ using ProjectEulerSolutions.Problem0008: product_of_digits, largest_product_in_s
 @test largest_product_in_series(4)[1] == 5832
 
 # Correct answer
-@test solve() == 23514624000
+@test_answer solve() "0008"

@@ -1,4 +1,5 @@
 using Test
+using ProjectEulerSolutions.Utils.AnswerHashing: @test_answer
 using ProjectEulerSolutions.Problem0007: find_nth_prime, solve
 
 @test find_nth_prime(1) == 2
@@ -9,4 +10,4 @@ using ProjectEulerSolutions.Problem0007: find_nth_prime, solve
 @test find_nth_prime(6) == 13
 
 # Correct answer
-@test solve() == 104743
+@test_answer solve() "0007"
