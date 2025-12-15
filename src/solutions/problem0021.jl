@@ -6,23 +6,16 @@ Solution description: https://aliramadhan.me/blog/project-euler/problem-0021/
 """
 module Problem0021
 
-using ProjectEulerSolutions.Utils.Divisors: get_divisors
-
-function find_amicable_numbers(limit)
-    amicable_numbers = Int[]
-
-    for a in 2:(limit - 1)
-        b = sum(get_divisors(a)) - a
-        if a != b && b < limit && sum(get_divisors(b)) - b == a
-            push!(amicable_numbers, a)
-        end
-    end
-
-    return amicable_numbers
-end
+using ProjectEulerSolutions.Utils.Divisors: is_amicable
 
 function sum_of_amicable_numbers(limit)
-    return sum(find_amicable_numbers(limit))
+    total = 0
+    for a in 2:(limit - 1)
+        if is_amicable(a)
+            total += a
+        end
+    end
+    return total
 end
 
 function solve()

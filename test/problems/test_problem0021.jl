@@ -1,9 +1,9 @@
 using Test
 using ProjectEulerSolutions.Utils.AnswerHashing: @test_answer
-using ProjectEulerSolutions.Utils.Divisors: get_divisors
-using ProjectEulerSolutions.Problem0021: find_amicable_numbers, solve
+using ProjectEulerSolutions.Utils.Divisors: sum_divisors
+using ProjectEulerSolutions.Problem0021: solve
 
-sum_of_proper_divisors(n) = sum(get_divisors(n)) - n
+sum_of_proper_divisors(n) = sum_divisors(n) - n
 
 @test sum_of_proper_divisors(220) == 284
 @test sum_of_proper_divisors(284) == 220
