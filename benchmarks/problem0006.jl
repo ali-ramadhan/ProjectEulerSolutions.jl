@@ -1,5 +1,5 @@
 using BenchmarkTools
-using ProjectEulerSolutions.Utils: save_benchmark
+using ProjectEulerSolutions.Utils.Benchmarks
 using ProjectEulerSolutions.Problem0006: sum_square_difference
 
 @show sum_square_difference(100)

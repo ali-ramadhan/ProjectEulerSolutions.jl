@@ -1,5 +1,5 @@
 using BenchmarkTools
-using ProjectEulerSolutions.Utils: save_benchmark
+using ProjectEulerSolutions.Utils.Benchmarks
 using ProjectEulerSolutions.Problem0007: find_nth_prime
 
 @show find_nth_prime(10001)

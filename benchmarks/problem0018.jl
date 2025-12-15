@@ -1,5 +1,5 @@
 using BenchmarkTools
-using ProjectEulerSolutions.Utils: save_benchmark
+using ProjectEulerSolutions.Utils.Benchmarks
 using ProjectEulerSolutions.Problem0018: solve
 
 @show solve()

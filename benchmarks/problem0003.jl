@@ -1,5 +1,5 @@
 using BenchmarkTools
-using ProjectEulerSolutions.Utils: save_benchmark
+using ProjectEulerSolutions.Utils.Benchmarks
 using ProjectEulerSolutions.Problem0003: largest_prime_factor
 
 @show largest_prime_factor(600851475143)

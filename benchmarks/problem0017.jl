@@ -1,5 +1,5 @@
 using BenchmarkTools
-using ProjectEulerSolutions.Utils: save_benchmark
+using ProjectEulerSolutions.Utils.Benchmarks
 using ProjectEulerSolutions.Problem0017: count_letters_in_range
 
 @show count_letters_in_range(1, 1000)

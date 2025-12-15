@@ -7,8 +7,6 @@ and provide a centralized location for optimized implementations.
 """
 module Utils
 
-export save_benchmark
-
 include("Benchmarks.jl")
 include("Primes.jl")
 include("Divisors.jl")

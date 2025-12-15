@@ -1,6 +1,6 @@
 using Logging
 using BenchmarkTools
-using ProjectEulerSolutions.Utils: save_benchmark
+using ProjectEulerSolutions.Utils.Benchmarks
 using ProjectEulerSolutions.BonusHeegner: find_closest_cos_to_integer
 
 Logging.disable_logging(Logging.Info)

@@ -1,5 +1,5 @@
 using BenchmarkTools
-using ProjectEulerSolutions.Utils: save_benchmark
+using ProjectEulerSolutions.Utils.Benchmarks
 using ProjectEulerSolutions.Problem0005: smallest_multiple
 
 @show smallest_multiple(20)
@@ -17,4 +17,3 @@ save_benchmark(benchmark_88, "problem-0005", "n_88_i128")
 @show ndigits(smallest_multiple(BigInt(100000)))
 benchmark_1000 = @benchmark smallest_multiple(BigInt(100000))
 save_benchmark(benchmark_1000, "problem-0005", "n_100k_bigint")
-
