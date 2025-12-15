@@ -1,16 +1,37 @@
 using Test
 
-using ProjectEulerSolutions.Utils.Divisors: get_divisors, is_abundant, is_perfect
+using ProjectEulerSolutions.Utils.Divisors: divisors, sum_divisors, is_abundant, is_perfect, is_amicable
 
 @testset "Divisors" begin
-    @testset "get_divisors" begin
-        @test get_divisors(1) == [1]
-        @test get_divisors(2) == [1, 2]
-        @test get_divisors(3) == [1, 3]
-        @test get_divisors(6) == [1, 2, 3, 6]
-        @test get_divisors(12) == [1, 2, 3, 4, 6, 12]
-        @test get_divisors(28) == [1, 2, 4, 7, 14, 28]
-        @test get_divisors(220) == [1, 2, 4, 5, 10, 11, 20, 22, 44, 55, 110, 220]
+    @testset "divisors" begin
+        @test divisors(1) == [1]
+        @test divisors(2) == [1, 2]
+        @test divisors(3) == [1, 3]
+        @test divisors(6) == [1, 2, 3, 6]
+        @test divisors(12) == [1, 2, 3, 4, 6, 12]
+        @test divisors(28) == [1, 2, 4, 7, 14, 28]
+        @test divisors(220) == [1, 2, 4, 5, 10, 11, 20, 22, 44, 55, 110, 220]
+    end
+
+    @testset "sum_divisors" begin
+        @test sum_divisors(1) == 1
+        @test sum_divisors(2) == 3      # 1 + 2
+        @test sum_divisors(6) == 12     # 1 + 2 + 3 + 6
+        @test sum_divisors(12) == 28    # 1 + 2 + 3 + 4 + 6 + 12
+        @test sum_divisors(28) == 56    # 1 + 2 + 4 + 7 + 14 + 28
+        @test sum_divisors(220) == 504  # sum of all divisors of 220
+    end
+
+    @testset "is_amicable" begin
+        @test is_amicable(220)   # 220 and 284 are amicable
+        @test is_amicable(284)
+        @test is_amicable(1184)  # 1184 and 1210 are amicable
+        @test is_amicable(1210)
+
+        @test !is_amicable(1)
+        @test !is_amicable(6)    # perfect number, not amicable
+        @test !is_amicable(12)   # abundant, not amicable
+        @test !is_amicable(28)   # perfect number, not amicable
     end
 
     @testset "is_abundant" begin
