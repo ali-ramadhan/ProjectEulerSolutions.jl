@@ -6,7 +6,7 @@ Solution description: https://aliramadhan.me/blog/project-euler/problem-0012/
 """
 module Problem0012
 
-using ProjectEulerSolutions.Utils.Divisors: divisors
+using ProjectEulerSolutions.Utils.Divisors: num_divisors
 using ProjectEulerSolutions.Utils.Sequences: triangle_number
 
 function find_first_triangle_with_divisors(min_divisors)
@@ -23,9 +23,9 @@ function find_first_triangle_with_divisors(min_divisors)
             b = (n + 1) ÷ 2
         end
 
-        num_divisors = length(divisors(a)) * length(divisors(b))
+        total_divisors = num_divisors(a) * num_divisors(b)
 
-        if num_divisors > min_divisors
+        if total_divisors > min_divisors
             return n, triangle_number(n)
         end
 

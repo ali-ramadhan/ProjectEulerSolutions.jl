@@ -6,7 +6,7 @@ including proper divisors, divisor counting, and related concepts.
 """
 module Divisors
 
-export divisors, sum_divisors, is_abundant, is_perfect, is_amicable
+export divisors, sum_divisors, num_divisors, is_abundant, is_perfect, is_amicable
 
 """
     divisors(n)
@@ -17,38 +17,68 @@ Divisors are returned in sorted order.
 Example: divisors(12) returns [1, 2, 3, 4, 6, 12]
 """
 function divisors(n)
-    divisors = Int[]
+    divs = Int[]
+    sqrt_n = isqrt(n)
 
-    for i in 1:isqrt(n)
+    for i in 1:sqrt_n
         if n % i == 0
-            push!(divisors, i)
-            if i^2 != n  # Avoid duplicate for perfect squares
-                push!(divisors, n ÷ i)
-            end
+            push!(divs, i)
+            push!(divs, n ÷ i)
         end
     end
 
-    return sort(divisors)
+    if sqrt_n^2 == n
+        pop!(divs)
+    end
+
+    return sort(divs)
+end
+
+"""
+    num_divisors(n)
+
+Return the number of divisors of n (including 1 and n).
+
+Example: num_divisors(12) returns 6 (divisors: 1, 2, 3, 4, 6, 12)
+"""
+function num_divisors(n)
+    count = 0
+    sqrt_n = isqrt(n)
+
+    for i in 1:sqrt_n
+        if n % i == 0
+            count += 2
+        end
+    end
+
+    if sqrt_n^2 == n
+        count -= 1
+    end
+
+    return count
 end
 
 """
     sum_divisors(n)
 
 Return the sum of all divisors of n (including 1 and n).
-This function performs no memory allocations.
 
 Example: sum_divisors(12) returns 28 (1 + 2 + 3 + 4 + 6 + 12)
 """
 function sum_divisors(n)
     total = 0
-    for i in 1:isqrt(n)
+    sqrt_n = isqrt(n)
+
+    for i in 1:sqrt_n
         if n % i == 0
-            total += i
-            if i^2 != n  # Avoid duplicate for perfect squares
-                total += n ÷ i
-            end
+            total += i + n ÷ i
         end
     end
+
+    if sqrt_n^2 == n
+        total -= sqrt_n
+    end
+
     return total
 end
 

@@ -1,6 +1,6 @@
 using Test
 
-using ProjectEulerSolutions.Utils.Divisors: divisors, sum_divisors, is_abundant, is_perfect, is_amicable
+using ProjectEulerSolutions.Utils.Divisors: divisors, sum_divisors, num_divisors, is_abundant, is_perfect, is_amicable
 
 @testset "Divisors" begin
     @testset "divisors" begin
@@ -20,18 +20,24 @@ using ProjectEulerSolutions.Utils.Divisors: divisors, sum_divisors, is_abundant,
         @test sum_divisors(12) == 28    # 1 + 2 + 3 + 4 + 6 + 12
         @test sum_divisors(28) == 56    # 1 + 2 + 4 + 7 + 14 + 28
         @test sum_divisors(220) == 504  # sum of all divisors of 220
+
+        for n in [100, 360, 1000, 2520, 5040, 10000, 12345, 99999]
+            @test sum_divisors(n) == sum(divisors(n))
+        end
     end
 
-    @testset "is_amicable" begin
-        @test is_amicable(220)   # 220 and 284 are amicable
-        @test is_amicable(284)
-        @test is_amicable(1184)  # 1184 and 1210 are amicable
-        @test is_amicable(1210)
+    @testset "num_divisors" begin
+        @test num_divisors(1) == 1
+        @test num_divisors(2) == 2
+        @test num_divisors(6) == 4      # 1, 2, 3, 6
+        @test num_divisors(12) == 6     # 1, 2, 3, 4, 6, 12
+        @test num_divisors(28) == 6     # 1, 2, 4, 7, 14, 28
+        @test num_divisors(36) == 9     # perfect square: 1, 2, 3, 4, 6, 9, 12, 18, 36
+        @test num_divisors(220) == 12
 
-        @test !is_amicable(1)
-        @test !is_amicable(6)    # perfect number, not amicable
-        @test !is_amicable(12)   # abundant, not amicable
-        @test !is_amicable(28)   # perfect number, not amicable
+        for n in [100, 360, 1000, 2520, 5040, 10000, 12345, 99999]
+            @test num_divisors(n) == length(divisors(n))
+        end
     end
 
     @testset "is_abundant" begin
@@ -53,5 +59,17 @@ using ProjectEulerSolutions.Utils.Divisors: divisors, sum_divisors, is_abundant,
         @test !is_perfect(1)
         @test !is_perfect(12)  # abundant
         @test !is_perfect(8)   # deficient
+    end
+
+    @testset "is_amicable" begin
+        @test is_amicable(220)   # 220 and 284 are amicable
+        @test is_amicable(284)
+        @test is_amicable(1184)  # 1184 and 1210 are amicable
+        @test is_amicable(1210)
+
+        @test !is_amicable(1)
+        @test !is_amicable(6)    # perfect number, not amicable
+        @test !is_amicable(12)   # abundant, not amicable
+        @test !is_amicable(28)   # perfect number, not amicable
     end
 end
