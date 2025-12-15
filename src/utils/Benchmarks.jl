@@ -25,7 +25,7 @@ Each problem gets its own YAML file (e.g., `problem-0001.yaml`, `bonus-root13.ya
 with multiple benchmark entries. Each benchmark includes timestamp, system information,
 and formatted benchmark output with preserved ANSI color codes.
 
-Files are automatically saved to the `benchmarks/` directory. If the directory doesn't
+Files are automatically saved to the `benchmarks/data/` directory. If the directory doesn't
 exist, it will be created.
 
 # Arguments
@@ -37,15 +37,15 @@ exist, it will be created.
 ```julia
 using BenchmarkTools, ProjectEulerSolutions
 result = @benchmark sum(1:1000)
-save_benchmark(result, "problem-0001", "optimized")  # Saves to benchmarks/problem-0001.yaml
-save_benchmark(result, "bonus-root13", "v1")         # Saves to benchmarks/bonus-root13.yaml
+save_benchmark(result, "problem-0001", "optimized")  # Saves to benchmarks/data/problem-0001.yaml
+save_benchmark(result, "bonus-root13", "v1")         # Saves to benchmarks/data/bonus-root13.yaml
 ```
 """
 function save_benchmark(result, problem_tag, benchmark_name)
     display(result)
 
     # Ensure benchmarks directory exists
-    benchmarks_dir = realpath(joinpath(@__DIR__, "..", "..", "benchmarks"))
+    benchmarks_dir = realpath(joinpath(@__DIR__, "..", "..", "benchmarks", "data"))
     if !isdir(benchmarks_dir)
         mkpath(benchmarks_dir)
     end
