@@ -3,7 +3,6 @@ using ProjectEulerSolutions.Utils.AnswerHashing: @test_answer
 using ProjectEulerSolutions.Problem0022: parse_names, name_value, compute_name_scores, solve
 
 @test name_value("COLIN") == 53
-@test name_value("COLIN") * 938 == 49714
 
 sample_content = "\"ALICE\",\"BOB\",\"COLIN\",\"DAVE\""
 parsed_names = parse_names(sample_content)
