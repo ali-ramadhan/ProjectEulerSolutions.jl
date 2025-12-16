@@ -1,5 +1,17 @@
 # Run all benchmark scripts in the benchmarks directory
 
+using Printf
+
+function format_time(seconds)
+    if seconds < 60
+        return @sprintf("%.2f seconds", seconds)
+    elseif seconds < 3600
+        return @sprintf("%.2f minutes", seconds / 60)
+    else
+        return @sprintf("%.2f hours", seconds / 3600)
+    end
+end
+
 function main()
     # Parse command line arguments
     run_bonus = true
@@ -38,19 +50,27 @@ function main()
         end
     end
 
+    total_time = 0.0
+
     # Run problem scripts first
     for script in sort(problem_scripts)
         @info "Running $script"
-        include(joinpath(@__DIR__, script))
+        elapsed = @elapsed include(joinpath(@__DIR__, script))
+        total_time += elapsed
+        @info "Completed $script in $(format_time(elapsed))"
     end
 
     # Run bonus scripts after (if enabled)
     if run_bonus
         for script in sort(bonus_scripts)
             @info "Running $script"
-            include(joinpath(@__DIR__, script))
+            elapsed = @elapsed include(joinpath(@__DIR__, script))
+            total_time += elapsed
+            @info "Completed $script in $(format_time(elapsed))"
         end
     end
+
+    @info "Total runtime: $(format_time(total_time))"
 end
 
 main()
