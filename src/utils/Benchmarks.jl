@@ -16,6 +16,7 @@ const CPU_NAME_MAP = Dict(
     "8 × Intel(R) Core(TM) i7-7700HQ CPU @ 2.80GHz" => "Intel Core i7-7700HQ",
     "8 × Intel(R) Core(TM) i7-4810MQ CPU @ 2.80GHz" => "Intel Core i7-4810MQ",
     "Intel Core 2 Duo E7400" => "Intel Core 2 Duo E7400",
+    "AMD Phenom II X4 970" => "AMD Phenom II X4 970",
 )
 
 """
