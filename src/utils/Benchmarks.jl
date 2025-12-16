@@ -9,12 +9,13 @@ using Dates
 # CPU name mapping to simplify verbose CPU strings
 const CPU_NAME_MAP = Dict(
     "48 × AMD Ryzen Threadripper 7960X 24-Cores" => "AMD Ryzen Threadripper 7960X",
+    "24 × AMD Ryzen 9 5900X 12-Core Processor            " => "AMD Ryzen 9 5900X",
     "96 × AMD EPYC 7402 24-Core Processor" => "2 × AMD EPYC 7402",
     "128 × AMD EPYC 9374F 32-Core Processor" => "2 × AMD EPYC 9374F",
-    "24 × AMD Ryzen 9 5900X 12-Core Processor            " => "AMD Ryzen 9 5900X",
     "8 × Intel(R) Core(TM) Ultra 5 238V" => "Intel Core Ultra 5 238V",
     "8 × Intel(R) Core(TM) i7-7700HQ CPU @ 2.80GHz" => "Intel Core i7-7700HQ",
-    "8 × Intel(R) Core(TM) i7-4810MQ CPU @ 2.80GHz" => "Intel Core i7-4810MQ"
+    "8 × Intel(R) Core(TM) i7-4810MQ CPU @ 2.80GHz" => "Intel Core i7-4810MQ",
+    "Intel Core 2 Duo E7400" => "Intel Core 2 Duo E7400",
 )
 
 """
