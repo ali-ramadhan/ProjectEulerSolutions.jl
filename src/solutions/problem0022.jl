@@ -25,7 +25,7 @@ function compute_name_scores(names)
 end
 
 function solve()
-    data_filepath = joinpath(@__DIR__, "..", "..", "data", "0022_names.txt")
+    data_filepath = joinpath(@__DIR__, "..", "..", "problem_data", "0022_names.txt")
     content = read(data_filepath, String)
     names = parse_names(content)
     return compute_name_scores(names)

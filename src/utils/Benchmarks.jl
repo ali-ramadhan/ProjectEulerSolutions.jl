@@ -23,11 +23,11 @@ const CPU_NAME_MAP = Dict(
     save_benchmark(result, problem_tag, benchmark_name)
 
 Save a BenchmarkTools result to a YAML file organized by problem tag.
-Each problem gets its own YAML file (e.g., `problem-0001.yaml`, `bonus-root13.yaml`)
+Each problem gets its own YAML file (e.g., `problem-0001-benchmarks.yaml`, `bonus-root13-benchmarks.yaml`)
 with multiple benchmark entries. Each benchmark includes timestamp, system information,
 and formatted benchmark output with preserved ANSI color codes.
 
-Files are automatically saved to the `benchmarks/data/` directory. If the directory doesn't
+Files are automatically saved to the `benchmarks/benchmark_data/` directory. If the directory doesn't
 exist, it will be created.
 
 # Arguments
@@ -39,21 +39,21 @@ exist, it will be created.
 ```julia
 using BenchmarkTools, ProjectEulerSolutions
 result = @benchmark sum(1:1000)
-save_benchmark(result, "problem-0001", "optimized")  # Saves to benchmarks/data/problem-0001.yaml
-save_benchmark(result, "bonus-root13", "v1")         # Saves to benchmarks/data/bonus-root13.yaml
+save_benchmark(result, "problem-0001", "optimized")  # Saves to benchmarks/benchmark_data/problem-0001-benchmarks.yaml
+save_benchmark(result, "bonus-root13", "v1")         # Saves to benchmarks/benchmark_data/bonus-root13-benchmarks.yaml
 ```
 """
 function save_benchmark(result, problem_tag, benchmark_name)
     display(result)
 
     # Ensure benchmarks directory exists
-    benchmarks_dir = realpath(joinpath(@__DIR__, "..", "..", "benchmarks", "data"))
+    benchmarks_dir = realpath(joinpath(@__DIR__, "..", "..", "benchmarks", "benchmark_data"))
     if !isdir(benchmarks_dir)
         mkpath(benchmarks_dir)
     end
 
     # Generate filename
-    yaml_file = joinpath(benchmarks_dir, "$(problem_tag).yaml")
+    yaml_file = joinpath(benchmarks_dir, "$(problem_tag)-benchmarks.yaml")
 
     # Get system information
     system_info = get_system_info()

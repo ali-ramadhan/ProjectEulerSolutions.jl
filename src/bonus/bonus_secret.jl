@@ -40,7 +40,7 @@ end
 
 function solve()
     # Load the problem image
-    image_filepath = joinpath(@__DIR__, "..", "..", "data", "bonus_secret_statement.png")
+    image_filepath = joinpath(@__DIR__, "..", "..", "problem_data", "bonus_secret_statement.png")
     img = PNGFiles.load(image_filepath)
 
     # Convert to grayscale and extract pixel values as integers (0-255)
@@ -56,7 +56,7 @@ function solve()
     scaled_result = Gray.(result ./ modulo)
 
     # Save the result
-    output_path = joinpath(@__DIR__, "..", "..", "data", "bonus_secret_result.png")
+    output_path = joinpath(@__DIR__, "..", "..", "problem_data", "bonus_secret_result.png")
     PNGFiles.save(output_path, scaled_result)
 
     return nothing

@@ -35,13 +35,13 @@ function main()
     end
 
     # Separate bonus and problem scripts
-    bonus_scripts = filter(s -> startswith(s, "bonus_"), all_scripts)
-    problem_scripts = filter(s -> startswith(s, "problem"), all_scripts)
+    bonus_scripts = filter(s -> startswith(s, "benchmark_bonus_"), all_scripts)
+    problem_scripts = filter(s -> startswith(s, "benchmark_problem"), all_scripts)
 
     # Filter problem scripts by range if specified
     if !isnothing(n_start) && !isnothing(n_end)
         problem_scripts = filter(problem_scripts) do s
-            m = match(r"problem(\d+)\.jl", s)
+            m = match(r"benchmark_problem(\d+)\.jl", s)
             if !isnothing(m)
                 num = parse(Int, m.captures[1])
                 return n_start <= num <= n_end
