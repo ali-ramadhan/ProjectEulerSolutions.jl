@@ -7,7 +7,7 @@ mathematical sequences like Fibonacci, triangular numbers, etc.
 module Sequences
 
 export Fibonacci,
-    triangle_number, pentagonal_number, hexagonal_number, sum_of_squares, square_of_sum,
+    triangle_number, pentagonal_number, hexagonal_number,
     is_triangle_number, is_pentagonal
 
 """
@@ -174,65 +174,6 @@ Example: hexagonal_number(4) returns 28
 """
 function hexagonal_number(n)
     return n * (2n - 1)
-end
-
-"""
-    sum_of_squares(n)
-
-Calculate the sum of squares of the first n natural numbers: 1² + 2² + ... + n².
-Uses the formula: n(n+1)(2n+1)/6
-
-## Derivation
-
-The sum 1² + 2² + ... + n² can be derived using mathematical induction or by
-considering the relationship:
-    k³ - (k-1)³ = 3k² - 3k + 1
-
-Summing from k=1 to n:
-    n³ = 3(1² + 2² + ... + n²) - 3(1 + 2 + ... + n) + n
-    n³ = 3S - 3·n(n+1)/2 + n
-
-Where S = 1² + 2² + ... + n². Solving for S:
-    S = (n³ + 3n(n+1)/2 - n)/3
-    S = (2n³ + 3n² + 3n - 2n)/6
-    S = (2n³ + 3n² + n)/6
-    S = n(2n² + 3n + 1)/6
-    S = n(n+1)(2n+1)/6
-
-Example: sum_of_squares(3) returns 14 (1² + 2² + 3² = 1 + 4 + 9)
-"""
-function sum_of_squares(n)
-    return n * (n + 1) * (2n + 1) ÷ 6
-end
-
-"""
-    square_of_sum(n)
-
-Calculate the square of the sum of the first n natural numbers: (1 + 2 + ... + n)².
-Uses the formula: (n(n+1)/2)²
-
-## Derivation
-
-The sum of the first n natural numbers is a well-known arithmetic series:
-    1 + 2 + 3 + ... + n
-
-This can be derived by considering the sum S = 1 + 2 + ... + n twice:
-    S = 1 + 2 + 3 + ... + (n-1) + n
-    S = n + (n-1) + (n-2) + ... + 2 + 1
-
-Adding these equations:
-    2S = (n+1) + (n+1) + ... + (n+1)  [n terms]
-    2S = n(n+1)
-    S = n(n+1)/2
-
-Therefore, the square of this sum is:
-    (1 + 2 + ... + n)² = (n(n+1)/2)²
-
-Example: square_of_sum(3) returns 36 ((1 + 2 + 3)² = 6² = 36)
-"""
-function square_of_sum(n)
-    sum = n * (n + 1) ÷ 2
-    return sum^2
 end
 
 """

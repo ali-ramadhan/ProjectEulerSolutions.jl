@@ -6,10 +6,8 @@ Solution description: https://aliramadhan.me/blog/project-euler/problem-0006/
 """
 module Problem0006
 
-using ProjectEulerSolutions.Utils.Sequences: sum_of_squares, square_of_sum
-
 function sum_square_difference(n)
-    return square_of_sum(n) - sum_of_squares(n)
+    return n * (n + 1) * (n - 1) * (3n + 2) ÷ 12
 end
 
 function solve()

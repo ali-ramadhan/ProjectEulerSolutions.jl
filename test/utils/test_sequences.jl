@@ -5,8 +5,6 @@ using ProjectEulerSolutions.Utils.Sequences:
     triangle_number,
     pentagonal_number,
     hexagonal_number,
-    sum_of_squares,
-    square_of_sum,
     is_triangle_number,
     is_pentagonal
 
@@ -72,20 +70,6 @@ end
     @test hexagonal_number(4) == 28
     @test hexagonal_number(5) == 45
     @test hexagonal_number(6) == 66
-end
-
-@testset "sum_of_squares" begin
-    @test sum_of_squares(1) == 1
-    @test sum_of_squares(3) == 14  # 1² + 2² + 3² = 1 + 4 + 9 = 14
-    @test sum_of_squares(10) == 385  # as mentioned in Problem 6
-    @test sum_of_squares(100) == 338350  # for Problem 6 solution
-end
-
-@testset "square_of_sum" begin
-    @test square_of_sum(1) == 1
-    @test square_of_sum(3) == 36  # (1 + 2 + 3)² = 6² = 36
-    @test square_of_sum(10) == 3025  # as mentioned in Problem 6
-    @test square_of_sum(100) == 25502500  # for Problem 6 solution
 end
 
 @testset "is_triangle_number" begin
