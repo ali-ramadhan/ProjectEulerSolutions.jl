@@ -26,7 +26,7 @@ using ProjectEulerSolutions.BonusSecret: simulate_cellular_automaton, solve
 end
 
 @testset "solve produces output" begin
-    output_path = joinpath(@__DIR__, "..", "..", "data", "bonus_secret_result.png")
+    output_path = joinpath(@__DIR__, "..", "..", "problem_data", "bonus_secret_result.png")
 
     isfile(output_path) && rm(output_path)
 
