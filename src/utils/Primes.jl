@@ -152,7 +152,7 @@ This function is 100% accurate when using the appropriate witness set for `n`.
         return false
     elseif n == 2 || n == 3
         return true
-    elseif n % 2 == 0
+    elseif iseven(n)
         return false
     end
 

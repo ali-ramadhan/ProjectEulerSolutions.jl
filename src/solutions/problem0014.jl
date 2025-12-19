@@ -15,7 +15,7 @@ function collatz_length(n, cache)
         return cache[n]
     end
 
-    if n % 2 == 0
+    if iseven(n)
         length = 1 + collatz_length(n ÷ 2, cache)
     else
         length = 1 + collatz_length(3n + 1, cache)

@@ -27,9 +27,9 @@ function euler_totient(n)
     result = n
 
     # Handle factor 2
-    if n % 2 == 0
+    if iseven(n)
         result = result ÷ 2  # result *= (1 - 1/2)
-        while n % 2 == 0
+        while iseven(n)
             n ÷= 2
         end
     end

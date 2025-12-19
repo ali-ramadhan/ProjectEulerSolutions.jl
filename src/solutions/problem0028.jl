@@ -7,7 +7,7 @@ Solution description: https://aliramadhan.me/blog/project-euler/problem-0028/
 module Problem0028
 
 function diagonal_sum(n)
-    if n % 2 == 0
+    if iseven(n)
         error("Spiral size must be odd")
     end
 

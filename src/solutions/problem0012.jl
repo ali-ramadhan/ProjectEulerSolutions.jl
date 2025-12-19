@@ -13,7 +13,7 @@ function find_first_triangle_with_divisors(min_divisors)
     n = 1
 
     while true
-        if n % 2 == 0
+        if iseven(n)
             # n is even, T(n) = (n/2)*(n+1)
             a = n ÷ 2
             b = n + 1
