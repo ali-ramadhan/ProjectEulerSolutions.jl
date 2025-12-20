@@ -3,7 +3,7 @@ using ProjectEulerSolutions.Utils.AnswerHashing: @test_answer
 using ProjectEulerSolutions.Problem0001
 
 
-for sum_multiples_two in (sum_multiples_two_generator, sum_multiples_two_ie)
+for sum_multiples_two in (sum_multiples_two_generator, sum_multiples_two_inclusion_exclusion)
     # Test example from problem description
     @test sum_multiples_two(3, 5, 10) == 23
 
@@ -12,7 +12,7 @@ for sum_multiples_two in (sum_multiples_two_generator, sum_multiples_two_ie)
     @test sum_multiples_two(3, 5, 3) == 0  # No multiples below 3
     @test sum_multiples_two(3, 5, 4) == 3  # Only 3 is below 4
     @test sum_multiples_two(3, 5, 6) == 8  # 3 + 5 = 8
-end
 
-# Correct answer
-@test_answer solve() "0001"
+    # Correct answer
+    @test_answer solve(sum_multiples_two) "0001"
+end
