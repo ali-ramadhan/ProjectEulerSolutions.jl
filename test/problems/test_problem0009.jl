@@ -1,6 +1,6 @@
 using Test
 using ProjectEulerSolutions.Utils.AnswerHashing: @test_answer
-using ProjectEulerSolutions.Problem0009: find_pythagorean_triplets, solve
+using ProjectEulerSolutions.Problem0009: find_pythagorean_triplets, find_pythagorean_triplets_euclid, solve
 
 # Test with the classic 3-4-5 triplet (sum = 12)
 triplets_12 = find_pythagorean_triplets(12)
@@ -18,4 +18,5 @@ a, b, c = triplets_1000[1]
 # Test a sum with no solutions
 @test isempty(find_pythagorean_triplets(7))
 
-@test_answer solve() "0009"
+@test_answer solve(find_pythagorean_triplets) "0009"
+@test_answer solve(find_pythagorean_triplets_euclid) "0009"
