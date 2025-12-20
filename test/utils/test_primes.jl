@@ -71,7 +71,7 @@ using ProjectEulerSolutions.Utils.Primes: get_witnesses
         @test !is_prime(1373653, MillerRabin())  # composite
     end
 
-    @testset "sieve_of_eratosthenes" begin
+    @testset "Sieve of Eratosthenes" begin
         @test sieve_of_eratosthenes(10) == [2, 3, 5, 7]
         @test sieve_of_eratosthenes(20) == [2, 3, 5, 7, 11, 13, 17, 19]
         @test sieve_of_eratosthenes(2) == [2]
@@ -81,23 +81,9 @@ using ProjectEulerSolutions.Utils.Primes: get_witnesses
         # Test that it includes the limit when it's prime
         @test 29 in sieve_of_eratosthenes(29)
         @test 31 in sieve_of_eratosthenes(31)
-
-        # Test return_array kwarg
-        primes, is_prime = sieve_of_eratosthenes(10, return_array=true)
-        @test primes == [2, 3, 5, 7]
-        @test length(is_prime) == 10
-        @test is_prime[2] == true
-        @test is_prime[3] == true
-        @test is_prime[4] == false
-        @test is_prime[5] == true
-        @test is_prime[6] == false
-        @test is_prime[7] == true
-        @test is_prime[8] == false
-        @test is_prime[9] == false
-        @test is_prime[10] == false
     end
 
-    @testset "prime_factors" begin
+    @testset "Prime factors" begin
         @test prime_factors(1) == Int[]
         @test prime_factors(2) == [2]
         @test prime_factors(3) == [3]

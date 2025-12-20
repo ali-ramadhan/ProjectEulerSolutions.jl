@@ -210,49 +210,54 @@ Returns false if 'n' is probably prime (to base 'a').
 end
 
 """
-    sieve_of_eratosthenes(limit; return_array=false)
+    sieve_of_eratosthenes(limit)
 
 Generate all prime numbers up to and including the given limit using the Sieve of
 Eratosthenes.
 
-This algorithm efficiently identifies primes by eliminating multiples in O(n log log n)
-time.
+This implementation uses an odd-only sieve, storing only odd numbers to reduce memory
+usage by approximately 50%. The algorithm efficiently identifies primes by eliminating
+multiples in O(n log log n) time.
 
 # Arguments
 - `limit`: Upper bound for prime generation
-- `return_array`: If true, returns (primes, is_prime_array), otherwise just primes
 
 # Returns
-- If `return_array=false`: Vector of prime numbers
-- If `return_array=true`: Tuple of (primes, boolean_array) where boolean_array[i] is true if
-  i is prime
+- Vector of prime numbers up to `limit`
 
 # Examples
 ```julia
 sieve_of_eratosthenes(10)  # returns [2, 3, 5, 7]
-primes, is_prime = sieve_of_eratosthenes(10, return_array=true)
 ```
 """
-function sieve_of_eratosthenes(limit; return_array=false)
-    is_prime_arr = fill(true, limit)
-    is_prime_arr[1] = false
+function sieve_of_eratosthenes(limit)
+    limit < 2 && return Int[]
+    limit == 2 && return [2]
 
-    for i in 2:isqrt(limit)
-        if is_prime_arr[i]
-            # Mark all multiples of i as non-prime
-            for j in (i ^ 2):i:limit
-                is_prime_arr[j] = false
+    # Array for odd numbers: index i represents 2i + 1
+    max_index = (limit - 1) ÷ 2
+    is_prime = fill(true, max_index)
+
+    # Sieve: for each prime p, mark odd multiples starting at p²
+    i = 1
+    while (2i + 1)^2 <= limit
+        if is_prime[i]
+            p = 2i + 1
+            # First odd multiple >= p² has index (p² - 1) ÷ 2
+            # Step between consecutive odd multiples is p
+            for j in ((p^2 - 1) ÷ 2):p:max_index
+                is_prime[j] = false
             end
         end
+        i += 1
     end
 
-    primes = [i for i in 2:limit if is_prime_arr[i]]
-
-    if return_array
-        return primes, is_prime_arr
-    else
-        return primes
+    # Collect primes: 2 plus all odd primes
+    primes = [2]
+    for i in 1:max_index
+        is_prime[i] && push!(primes, 2i + 1)
     end
+    return primes
 end
 
 """
