@@ -25,6 +25,7 @@ end
 
 function count_sundays_on_first(start_year, end_year)
     # 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+    # January 1st, 1900 was a Monday so we start with day_of_week = 1
     day_of_week = 1
 
     sunday_count = 0
