@@ -220,17 +220,16 @@ Returns `(Bool[], limit)` for `limit < 3`.
 function _sieve_of_eratosthenes(limit)
     limit < 3 && return (Bool[], limit)
 
-    # Array for odd numbers: index i represents 2i + 1
+    # index i represents the odd number 2i + 1
     max_index = (limit - 1) ÷ 2
     is_prime = fill(true, max_index)
 
-    # Sieve: for each prime p, mark odd multiples starting at p²
+    # For each prime p, mark odd multiples starting at p² which has index (p² - 1) ÷ 2.
+    # The step between consecutive odd multiples is p.
     i = 1
     while (2i + 1)^2 <= limit
         if is_prime[i]
             p = 2i + 1
-            # First odd multiple >= p² has index (p² - 1) ÷ 2
-            # Step between consecutive odd multiples is p
             for j in ((p^2 - 1) ÷ 2):p:max_index
                 is_prime[j] = false
             end
@@ -238,7 +237,7 @@ function _sieve_of_eratosthenes(limit)
         i += 1
     end
 
-    return (is_prime, limit)
+    return is_prime, limit
 end
 
 """
