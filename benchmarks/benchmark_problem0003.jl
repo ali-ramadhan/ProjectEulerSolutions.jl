@@ -4,7 +4,7 @@ using ProjectEulerSolutions.Problem0003
 
 @show largest_prime_factor(600851475143)
 benchmark1 = @benchmark largest_prime_factor(600851475143)
-save_benchmark(benchmark1, "problem-0003", "problem")
+save_benchmark(benchmark1, "problem-0003", "solution")
 
 @show largest_prime_factor(2^55 - 55)
 benchmark2 = @benchmark largest_prime_factor(2^55 - 55) samples=100 evals=1 seconds=1000

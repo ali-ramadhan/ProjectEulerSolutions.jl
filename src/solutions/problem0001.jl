@@ -8,9 +8,9 @@ module Problem0001
 
 export sum_multiples,
     sum_multiples_two_generator,
-    sum_multiples_two_ie,
+    sum_multiples_two_inclusion_exclusion,
     sum_multiples_three_generator,
-    sum_multiples_three_ie,
+    sum_multiples_three_inclusion_exclusion,
     solve
 
 function sum_multiples(n, limit)
@@ -29,14 +29,14 @@ function sum_multiples_two_generator(a, b, L)
     return sum(n for n in 1:L-1 if n % a == 0 || n % b == 0)
 end
 
-function sum_multiples_two_ie(a, b, limit)
+function sum_multiples_two_inclusion_exclusion(a, b, limit)
         return sum_multiples(a, limit) +
                sum_multiples(b, limit) -
                sum_multiples(lcm(a, b), limit)
 end
 
 function solve()
-    return sum_multiples_two_ie(3, 5, 1000)
+    return sum_multiples_two_inclusion_exclusion(3, 5, 1000)
 end
 
 #####
@@ -47,7 +47,7 @@ function sum_multiples_three_generator(a, b, c, L)
     return sum(n for n in 1:L-1 if n % a == 0 || n % b == 0 || n % c == 0)
 end
 
-function sum_multiples_three_ie(a, b, c, L)
+function sum_multiples_three_inclusion_exclusion(a, b, c, L)
     return sum_multiples(a, L) +
            sum_multiples(b, L) +
            sum_multiples(c, L) -
