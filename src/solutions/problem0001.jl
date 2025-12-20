@@ -35,8 +35,8 @@ function sum_multiples_two_inclusion_exclusion(a, b, limit)
                sum_multiples(lcm(a, b), limit)
 end
 
-function solve()
-    return sum_multiples_two_inclusion_exclusion(3, 5, 1000)
+function solve(solve_func=sum_multiples_two_inclusion_exclusion)
+    return solve_func(3, 5, 1000)
 end
 
 #####
