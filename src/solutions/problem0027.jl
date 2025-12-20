@@ -31,10 +31,20 @@ function find_quadratic_with_most_primes(; a_max=1000, b_max=1000)
     best_a = 0
     best_b = 0
 
-    primes_list = [p for p in 2:b_max if is_prime(p)]
+    b_primes = [p for p in 3:b_max if is_prime(p)]
 
-    for a in -(a_max-1):(a_max-1)
-        for b in primes_list
+    for b in b_primes
+        for p in 3:(a_max + b)
+            if !is_prime(p)
+                continue
+            end
+
+            a = p - b - 1
+
+            if a >= a_max
+                break
+            end
+
             count = count_consecutive_primes(a, b)
 
             if count > max_prime_count
