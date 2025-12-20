@@ -1,6 +1,6 @@
 using Test
 using ProjectEulerSolutions.Utils.AnswerHashing: @test_answer
-using ProjectEulerSolutions.Problem0024: find_nth_permutation, solve
+using ProjectEulerSolutions.Problem0024
 
 @test find_nth_permutation([0, 1, 2], 1) == [0, 1, 2]
 @test find_nth_permutation([0, 1, 2], 2) == [0, 2, 1]

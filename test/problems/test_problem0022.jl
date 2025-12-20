@@ -1,6 +1,6 @@
 using Test
 using ProjectEulerSolutions.Utils.AnswerHashing: @test_answer
-using ProjectEulerSolutions.Problem0022: parse_names, name_value, compute_name_scores, solve
+using ProjectEulerSolutions.Problem0022
 
 @test name_value("COLIN") == 53
 

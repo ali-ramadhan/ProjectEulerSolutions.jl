@@ -1,6 +1,6 @@
 using BenchmarkTools
 using ProjectEulerSolutions.Utils.Benchmarks
-using ProjectEulerSolutions.Problem0020: sum_of_factorial_digits
+using ProjectEulerSolutions.Problem0020
 
 @show sum_of_factorial_digits(100)
 benchmark1 = @benchmark sum_of_factorial_digits(100)

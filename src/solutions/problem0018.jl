@@ -6,6 +6,8 @@ Solution description: https://aliramadhan.me/blog/project-euler/problem-0018/
 """
 module Problem0018
 
+export TRIANGLE, max_path_sum, solve
+
 const TRIANGLE = [
     [75],
     [95, 64],

@@ -1,6 +1,6 @@
 using BenchmarkTools
 using ProjectEulerSolutions.Utils.Benchmarks
-using ProjectEulerSolutions.Problem0016: power_digit_sum
+using ProjectEulerSolutions.Problem0016
 
 @show power_digit_sum(2, 1000)
 b_2_1000 = @benchmark power_digit_sum(2, 1000)

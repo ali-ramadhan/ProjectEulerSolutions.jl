@@ -1,6 +1,6 @@
 using Test
 using ProjectEulerSolutions.Utils.AnswerHashing: @test_answer
-using ProjectEulerSolutions.Problem0010: sum_of_primes_below, solve
+using ProjectEulerSolutions.Problem0010
 
 # Test helper function with the example from the problem description
 _, sum_primes = sum_of_primes_below(10)

@@ -1,6 +1,6 @@
 using BenchmarkTools
 using ProjectEulerSolutions.Utils.Benchmarks
-using ProjectEulerSolutions.Problem0005: smallest_multiple
+using ProjectEulerSolutions.Problem0005
 
 @show smallest_multiple(20)
 benchmark_20 = @benchmark smallest_multiple(20)

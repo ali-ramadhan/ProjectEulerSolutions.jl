@@ -6,6 +6,8 @@ Solution description: https://aliramadhan.me/blog/project-euler/problem-0007/
 """
 module Problem0007
 
+export find_nth_prime, solve
+
 using ProjectEulerSolutions.Utils.Primes: is_prime
 
 function find_nth_prime(n)

@@ -6,6 +6,8 @@ Solution description: https://aliramadhan.me/blog/project-euler/problem-0028/
 """
 module Problem0028
 
+export diagonal_sum, solve
+
 function diagonal_sum(n)
     if iseven(n)
         error("Spiral size must be odd")

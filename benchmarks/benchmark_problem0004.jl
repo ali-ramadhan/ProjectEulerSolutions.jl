@@ -1,6 +1,6 @@
 using BenchmarkTools
 using ProjectEulerSolutions.Utils.Benchmarks
-using ProjectEulerSolutions.Problem0004: largest_palindrome_product
+using ProjectEulerSolutions.Problem0004
 
 @show largest_palindrome_product(100, 999)
 benchmark_3_digits = @benchmark largest_palindrome_product(100, 999)

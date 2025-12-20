@@ -1,7 +1,7 @@
 using Test
 using ProjectEulerSolutions.Utils.AnswerHashing: @test_answer
 using ProjectEulerSolutions.Utils.Divisors: sum_divisors
-using ProjectEulerSolutions.Problem0021: solve
+using ProjectEulerSolutions.Problem0021
 
 sum_of_proper_divisors(n) = sum_divisors(n) - n
 

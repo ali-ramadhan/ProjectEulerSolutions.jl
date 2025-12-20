@@ -6,6 +6,8 @@ Solution description: https://aliramadhan.me/blog/project-euler/problem-0015/
 """
 module Problem0015
 
+export count_lattice_paths, solve
+
 function count_lattice_paths(n, m)
     return binomial(n+m, n)
 end

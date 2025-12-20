@@ -6,6 +6,13 @@ Solution description: https://aliramadhan.me/blog/project-euler/problem-0001/
 """
 module Problem0001
 
+export sum_multiples,
+    sum_multiples_two_generator,
+    sum_multiples_two_ie,
+    sum_multiples_three_generator,
+    sum_multiples_three_ie,
+    solve
+
 function sum_multiples(n, limit)
     if n >= limit
         return 0

@@ -1,6 +1,6 @@
 using Test
 using ProjectEulerSolutions.Utils.AnswerHashing: @test_answer
-using ProjectEulerSolutions.Problem0018: max_path_sum, solve
+using ProjectEulerSolutions.Problem0018
 
 # The example triangle from the problem
 triangle = [

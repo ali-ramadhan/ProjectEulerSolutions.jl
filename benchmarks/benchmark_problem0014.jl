@@ -1,6 +1,6 @@
 using BenchmarkTools
 using ProjectEulerSolutions.Utils.Benchmarks
-using ProjectEulerSolutions.Problem0014: longest_collatz_under
+using ProjectEulerSolutions.Problem0014
 
 @show longest_collatz_under(1_000_000)
 b_1M = @benchmark longest_collatz_under(1_000_000) samples=100 evals=1 seconds=1000

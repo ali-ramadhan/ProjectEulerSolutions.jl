@@ -1,6 +1,6 @@
 using Test
 using ProjectEulerSolutions.Utils.AnswerHashing: @test_answer
-using ProjectEulerSolutions.Problem0007: find_nth_prime, solve
+using ProjectEulerSolutions.Problem0007
 
 @test find_nth_prime(1) == 2
 @test find_nth_prime(2) == 3

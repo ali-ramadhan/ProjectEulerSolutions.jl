@@ -1,6 +1,6 @@
 using Test
 using ProjectEulerSolutions.Utils.AnswerHashing: @test_answer
-using ProjectEulerSolutions.Problem0025: first_fibonacci_with_n_digits, first_fibonacci_with_n_digits_formula, solve
+using ProjectEulerSolutions.Problem0025
 
 @test first_fibonacci_with_n_digits(2) == 7  # F_7 = 13 has 2 digits
 @test first_fibonacci_with_n_digits(3) == 12 # F_12 = 144 has 3 digits

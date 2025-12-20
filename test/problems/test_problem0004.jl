@@ -1,6 +1,6 @@
 using Test
 using ProjectEulerSolutions.Utils.AnswerHashing: @test_answer
-using ProjectEulerSolutions.Problem0004: largest_palindrome_product, solve
+using ProjectEulerSolutions.Problem0004
 
 # Test example from problem description
 @test largest_palindrome_product(10, 99).palindrome == 9009

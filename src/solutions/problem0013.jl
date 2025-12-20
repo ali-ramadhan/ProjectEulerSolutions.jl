@@ -6,6 +6,8 @@ Solution description: https://aliramadhan.me/blog/project-euler/problem-0013/
 """
 module Problem0013
 
+export NUMBERS, first_ten_digits_of_sum, solve
+
 const NUMBERS = [
     "37107287533902102798797998220837590246510135740250",
     "46376937677490009712648124896970078050417018260538",

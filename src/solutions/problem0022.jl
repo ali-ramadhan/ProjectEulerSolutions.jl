@@ -6,6 +6,8 @@ Solution description: https://aliramadhan.me/blog/project-euler/problem-0022/
 """
 module Problem0022
 
+export parse_names, name_value, compute_name_scores, solve
+
 function parse_names(content)
     names = [replace(name, "\"" => "") for name in split(content, ",")]
     return sort(names)

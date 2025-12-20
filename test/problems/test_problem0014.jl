@@ -1,6 +1,6 @@
 using Test
 using ProjectEulerSolutions.Utils.AnswerHashing: @test_answer
-using ProjectEulerSolutions.Problem0014: collatz_length, longest_collatz_under, solve
+using ProjectEulerSolutions.Problem0014
 
 memo = Dict(1 => 1)
 @test collatz_length(13, memo) == 10

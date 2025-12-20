@@ -6,6 +6,8 @@ Solution description: https://aliramadhan.me/blog/project-euler/problem-0027/
 """
 module Problem0027
 
+export count_consecutive_primes, find_quadratic_with_most_primes, solve
+
 using ProjectEulerSolutions.Utils.Primes: is_prime
 
 function count_consecutive_primes(a, b)

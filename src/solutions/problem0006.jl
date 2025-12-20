@@ -6,6 +6,8 @@ Solution description: https://aliramadhan.me/blog/project-euler/problem-0006/
 """
 module Problem0006
 
+export sum_square_difference, solve
+
 function sum_square_difference(n)
     return n * (n + 1) * (n - 1) * (3n + 2) ÷ 12
 end

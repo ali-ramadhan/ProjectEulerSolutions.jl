@@ -6,6 +6,8 @@ Solution description: https://aliramadhan.me/blog/project-euler/problem-0021/
 """
 module Problem0021
 
+export sum_of_amicable_numbers, solve
+
 using ProjectEulerSolutions.Utils.Divisors: is_amicable
 
 function sum_of_amicable_numbers(limit)

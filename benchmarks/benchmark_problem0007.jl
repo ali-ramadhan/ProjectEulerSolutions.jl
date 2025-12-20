@@ -1,6 +1,6 @@
 using BenchmarkTools
 using ProjectEulerSolutions.Utils.Benchmarks
-using ProjectEulerSolutions.Problem0007: find_nth_prime
+using ProjectEulerSolutions.Problem0007
 
 @show find_nth_prime(10001)
 benchmark_10001 = @benchmark find_nth_prime(10001)

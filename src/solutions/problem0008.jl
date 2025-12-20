@@ -6,6 +6,8 @@ Solution description: https://aliramadhan.me/blog/project-euler/problem-0008/
 """
 module Problem0008
 
+export BIG_NUMBER, product_of_digits, largest_product_in_series, solve
+
 const BIG_NUMBER =
     "73167176531330624919225119674426574742355349194934" *
     "96983520312774506326239578318016984801869478851843" *

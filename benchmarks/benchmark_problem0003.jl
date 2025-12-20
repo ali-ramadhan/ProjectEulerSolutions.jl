@@ -1,6 +1,6 @@
 using BenchmarkTools
 using ProjectEulerSolutions.Utils.Benchmarks
-using ProjectEulerSolutions.Problem0003: largest_prime_factor
+using ProjectEulerSolutions.Problem0003
 
 @show largest_prime_factor(600851475143)
 benchmark1 = @benchmark largest_prime_factor(600851475143)

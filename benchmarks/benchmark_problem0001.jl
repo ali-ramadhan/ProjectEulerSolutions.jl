@@ -1,10 +1,6 @@
 using BenchmarkTools
 using ProjectEulerSolutions.Utils.Benchmarks
-using ProjectEulerSolutions.Problem0001:
-    sum_multiples_two_generator,
-    sum_multiples_two_ie,
-    sum_multiples_three_generator,
-    sum_multiples_three_ie
+using ProjectEulerSolutions.Problem0001
 
 @show sum_multiples_two_generator(3, 5, 1000)
 benchmark_two_generator = @benchmark sum_multiples_two_generator(3, 5, 1000)

@@ -1,6 +1,6 @@
 using BenchmarkTools
 using ProjectEulerSolutions.Utils.Benchmarks
-using ProjectEulerSolutions.Problem0021: sum_of_amicable_numbers
+using ProjectEulerSolutions.Problem0021
 
 @show sum_of_amicable_numbers(10000)
 benchmark1 = @benchmark sum_of_amicable_numbers(10000)

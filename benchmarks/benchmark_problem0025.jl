@@ -1,6 +1,6 @@
 using BenchmarkTools
 using ProjectEulerSolutions.Utils.Benchmarks
-using ProjectEulerSolutions.Problem0025: first_fibonacci_with_n_digits, first_fibonacci_with_n_digits_formula
+using ProjectEulerSolutions.Problem0025
 
 # 1000 digits
 @show first_fibonacci_with_n_digits(1000)

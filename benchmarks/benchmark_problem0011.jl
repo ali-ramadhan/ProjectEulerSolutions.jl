@@ -1,6 +1,6 @@
 using BenchmarkTools
 using ProjectEulerSolutions.Utils.Benchmarks
-using ProjectEulerSolutions.Problem0011: GRID, find_greatest_product
+using ProjectEulerSolutions.Problem0011
 
 @show find_greatest_product(GRID, 4)
 benchmark_len4 = @benchmark find_greatest_product(GRID, 4)

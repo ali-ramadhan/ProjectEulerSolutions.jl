@@ -6,6 +6,8 @@ Solution description: https://aliramadhan.me/blog/project-euler/problem-0025/
 """
 module Problem0025
 
+export first_fibonacci_with_n_digits_formula, first_fibonacci_with_n_digits, solve
+
 function first_fibonacci_with_n_digits_formula(n)
     φ = (1 + √5) / 2
     return ceil(Int, ((n - 1) * log(10) + 0.5 * log(5)) / log(φ))

@@ -6,6 +6,8 @@ Solution description: https://aliramadhan.me/blog/project-euler/problem-0010/
 """
 module Problem0010
 
+export sum_of_primes_below, solve
+
 using ProjectEulerSolutions.Utils.Primes: sieve_of_eratosthenes
 
 function sum_of_primes_below(limit)

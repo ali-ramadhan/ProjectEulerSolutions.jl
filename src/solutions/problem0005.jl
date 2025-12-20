@@ -6,6 +6,8 @@ Solution description: https://aliramadhan.me/blog/project-euler/problem-0005/
 """
 module Problem0005
 
+export smallest_multiple, solve
+
 function smallest_multiple(n)
     result = 1
     for i in 2:n

@@ -1,6 +1,6 @@
 using BenchmarkTools
 using ProjectEulerSolutions.Utils.Benchmarks
-using ProjectEulerSolutions.Problem0009: find_pythagorean_triplets, find_pythagorean_triplets_euclid
+using ProjectEulerSolutions.Problem0009
 
 @show find_pythagorean_triplets(1000)
 benchmark_1000 = @benchmark find_pythagorean_triplets(1000)

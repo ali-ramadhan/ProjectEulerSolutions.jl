@@ -1,6 +1,6 @@
 using Test
 using ProjectEulerSolutions.Utils.AnswerHashing: @test_answer
-using ProjectEulerSolutions.Problem0026: cycle_length, find_longest_cycle, solve
+using ProjectEulerSolutions.Problem0026
 
 @test cycle_length(2) == 0   # 1/2 = 0.5 (terminating)
 @test cycle_length(3) == 1   # 1/3 = 0.(3)

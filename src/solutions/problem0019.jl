@@ -6,6 +6,8 @@ Solution description: https://aliramadhan.me/blog/project-euler/problem-0019/
 """
 module Problem0019
 
+export is_leap_year, days_in_month, count_sundays_on_first, solve
+
 function is_leap_year(year)
     return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)
 end

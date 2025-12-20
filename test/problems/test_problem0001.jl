@@ -1,6 +1,6 @@
 using Test
 using ProjectEulerSolutions.Utils.AnswerHashing: @test_answer
-using ProjectEulerSolutions.Problem0001: sum_multiples_two_generator, sum_multiples_two_ie, solve
+using ProjectEulerSolutions.Problem0001
 
 
 for sum_multiples_two in (sum_multiples_two_generator, sum_multiples_two_ie)

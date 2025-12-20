@@ -1,6 +1,6 @@
 using BenchmarkTools
 using ProjectEulerSolutions.Utils.Benchmarks
-using ProjectEulerSolutions.Problem0028: diagonal_sum
+using ProjectEulerSolutions.Problem0028
 
 @show diagonal_sum(1001)
 benchmark = @benchmark diagonal_sum(1001)

@@ -6,6 +6,8 @@ Solution description: https://aliramadhan.me/blog/project-euler/problem-0009/
 """
 module Problem0009
 
+export find_pythagorean_triplets, find_pythagorean_triplets_euclid, solve
+
 function find_pythagorean_triplets(P)
     triplets = Tuple{Int,Int,Int}[]
 

@@ -6,6 +6,8 @@ Solution description: https://aliramadhan.me/blog/project-euler/problem-0024/
 """
 module Problem0024
 
+export find_nth_permutation, solve
+
 function find_nth_permutation(elements, n)
     elements = deepcopy(collect(elements))
 

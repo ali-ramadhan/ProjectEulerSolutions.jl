@@ -6,6 +6,8 @@ Solution description: https://aliramadhan.me/blog/project-euler/problem-0014/
 """
 module Problem0014
 
+export collatz_length, longest_collatz_under, solve
+
 function collatz_length(n, cache)
     if n == 1
         return 1

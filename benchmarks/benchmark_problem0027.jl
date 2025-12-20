@@ -1,6 +1,6 @@
 using BenchmarkTools
 using ProjectEulerSolutions.Utils.Benchmarks
-using ProjectEulerSolutions.Problem0027: find_quadratic_with_most_primes
+using ProjectEulerSolutions.Problem0027
 
 @show find_quadratic_with_most_primes(a_max=1000, b_max=1000)
 benchmark = @benchmark find_quadratic_with_most_primes(a_max=1000, b_max=1000)

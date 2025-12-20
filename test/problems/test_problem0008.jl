@@ -1,6 +1,6 @@
 using Test
 using ProjectEulerSolutions.Utils.AnswerHashing: @test_answer
-using ProjectEulerSolutions.Problem0008: product_of_digits, largest_product_in_series, solve
+using ProjectEulerSolutions.Problem0008
 
 # Test helper functions with examples from the problem description
 @test product_of_digits("9989") == 5832

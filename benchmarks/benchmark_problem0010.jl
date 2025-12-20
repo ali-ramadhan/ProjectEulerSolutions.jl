@@ -1,6 +1,6 @@
 using BenchmarkTools
 using ProjectEulerSolutions.Utils.Benchmarks
-using ProjectEulerSolutions.Problem0010: sum_of_primes_below
+using ProjectEulerSolutions.Problem0010
 
 @show sum_of_primes_below(2_000_000)[2]
 benchmark_2M = @benchmark sum_of_primes_below(2_000_000)

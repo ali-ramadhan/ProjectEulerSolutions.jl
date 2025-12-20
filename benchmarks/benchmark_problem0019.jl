@@ -1,6 +1,6 @@
 using BenchmarkTools
 using ProjectEulerSolutions.Utils.Benchmarks
-using ProjectEulerSolutions.Problem0019: count_sundays_on_first
+using ProjectEulerSolutions.Problem0019
 
 @show count_sundays_on_first(1901, 2000)
 benchmark1 = @benchmark count_sundays_on_first(1901, 2000)

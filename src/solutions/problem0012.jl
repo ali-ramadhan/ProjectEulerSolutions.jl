@@ -6,6 +6,8 @@ Solution description: https://aliramadhan.me/blog/project-euler/problem-0012/
 """
 module Problem0012
 
+export find_first_triangle_with_divisors, solve
+
 using ProjectEulerSolutions.Utils.Divisors: num_divisors
 using ProjectEulerSolutions.Utils.Sequences: triangle_number
 

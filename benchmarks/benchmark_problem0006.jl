@@ -1,6 +1,6 @@
 using BenchmarkTools
 using ProjectEulerSolutions.Utils.Benchmarks
-using ProjectEulerSolutions.Problem0006: sum_square_difference
+using ProjectEulerSolutions.Problem0006
 
 @show sum_square_difference(100)
 benchmark_100 = @benchmark sum_square_difference(100)

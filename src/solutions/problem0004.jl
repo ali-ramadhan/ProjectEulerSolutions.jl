@@ -6,6 +6,8 @@ Solution description: https://aliramadhan.me/blog/project-euler/problem-0004/
 """
 module Problem0004
 
+export largest_palindrome_product, solve
+
 using ProjectEulerSolutions.Utils.Digits: is_palindrome
 
 function largest_palindrome_product(lower_limit, upper_limit; max_product=nothing)

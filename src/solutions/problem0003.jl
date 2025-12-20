@@ -6,6 +6,8 @@ Solution description: https://aliramadhan.me/blog/project-euler/problem-0003/
 """
 module Problem0003
 
+export largest_prime_factor, solve
+
 using ProjectEulerSolutions.Utils.Primes: prime_factors
 
 function largest_prime_factor(n)

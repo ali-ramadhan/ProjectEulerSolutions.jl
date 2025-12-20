@@ -1,6 +1,6 @@
 using BenchmarkTools
 using ProjectEulerSolutions.Utils.Benchmarks
-using ProjectEulerSolutions.Problem0012: find_first_triangle_with_divisors
+using ProjectEulerSolutions.Problem0012
 
 @show find_first_triangle_with_divisors(500)
 benchmark_500 = @benchmark find_first_triangle_with_divisors(500)

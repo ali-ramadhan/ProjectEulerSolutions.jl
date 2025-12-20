@@ -6,6 +6,8 @@ Solution description: https://aliramadhan.me/blog/project-euler/problem-0002/
 """
 module Problem0002
 
+export sum_even_fibonacci, solve
+
 function sum_even_fibonacci(limit)
     limit < 2 && return 0
 

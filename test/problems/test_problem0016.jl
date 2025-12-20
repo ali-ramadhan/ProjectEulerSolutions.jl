@@ -1,6 +1,6 @@
 using Test
 using ProjectEulerSolutions.Utils.AnswerHashing: @test_answer
-using ProjectEulerSolutions.Problem0016: power_digit_sum, solve
+using ProjectEulerSolutions.Problem0016
 
 @test power_digit_sum(2, 15) == 26
 @test power_digit_sum(2, 1) == 2

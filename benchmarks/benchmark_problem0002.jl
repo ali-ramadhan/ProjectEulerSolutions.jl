@@ -1,6 +1,6 @@
 using BenchmarkTools
 using ProjectEulerSolutions.Utils.Benchmarks
-using ProjectEulerSolutions.Problem0002: sum_even_fibonacci
+using ProjectEulerSolutions.Problem0002
 
 @show sum_even_fibonacci(4_000_000)
 benchmark_4M = @benchmark sum_even_fibonacci(4_000_000)

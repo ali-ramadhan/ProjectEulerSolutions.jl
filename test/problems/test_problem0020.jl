@@ -1,6 +1,6 @@
 using Test
 using ProjectEulerSolutions.Utils.AnswerHashing: @test_answer
-using ProjectEulerSolutions.Problem0020: sum_of_factorial_digits, solve
+using ProjectEulerSolutions.Problem0020
 
 @test sum_of_factorial_digits(10) == 27
 

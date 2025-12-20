@@ -1,6 +1,6 @@
 using BenchmarkTools
 using ProjectEulerSolutions.Utils.Benchmarks
-using ProjectEulerSolutions.Problem0026: find_longest_cycle
+using ProjectEulerSolutions.Problem0026
 
 @show find_longest_cycle(1000)
 benchmark = @benchmark find_longest_cycle(1000)

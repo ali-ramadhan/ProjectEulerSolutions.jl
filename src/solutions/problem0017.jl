@@ -6,6 +6,8 @@ Solution description: https://aliramadhan.me/blog/project-euler/problem-0017/
 """
 module Problem0017
 
+export NUMBER_WORDS, number_to_words, count_letters, count_letters_in_range, solve
+
 const NUMBER_WORDS = Dict(
     1 => "one",
     2 => "two",

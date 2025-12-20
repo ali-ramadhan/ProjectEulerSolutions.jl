@@ -1,6 +1,6 @@
 using BenchmarkTools
 using ProjectEulerSolutions.Utils.Benchmarks
-using ProjectEulerSolutions.Problem0023: solve
+using ProjectEulerSolutions.Problem0023
 
 @show solve()
 benchmark = @benchmark solve()

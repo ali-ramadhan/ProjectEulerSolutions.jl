@@ -6,6 +6,8 @@ Solution description: https://aliramadhan.me/blog/project-euler/problem-0016/
 """
 module Problem0016
 
+export sum_of_digits, power_digit_sum, solve
+
 function sum_of_digits(n)
     sum = 0
     for digit in string(n)

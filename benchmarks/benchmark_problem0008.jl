@@ -1,6 +1,6 @@
 using BenchmarkTools
 using ProjectEulerSolutions.Utils.Benchmarks
-using ProjectEulerSolutions.Problem0008: largest_product_in_series
+using ProjectEulerSolutions.Problem0008
 
 @show largest_product_in_series(4)
 benchmark_4 = @benchmark largest_product_in_series(4)

@@ -6,6 +6,8 @@ Solution description: https://aliramadhan.me/blog/project-euler/problem-0026/
 """
 module Problem0026
 
+export cycle_length, find_longest_cycle, solve
+
 function cycle_length(d)
     # Remove factors of 2 and 5 (they only affect termination, not cycle length)
     while d % 2 == 0

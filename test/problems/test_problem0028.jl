@@ -1,6 +1,6 @@
 using Test
 using ProjectEulerSolutions.Utils.AnswerHashing: @test_answer
-using ProjectEulerSolutions.Problem0028: diagonal_sum, solve
+using ProjectEulerSolutions.Problem0028
 
 # 1×1 spiral has only the center
 @test diagonal_sum(1) == 1

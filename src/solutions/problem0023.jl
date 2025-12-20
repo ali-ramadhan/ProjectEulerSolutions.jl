@@ -6,6 +6,8 @@ Solution description: https://aliramadhan.me/blog/project-euler/problem-0023/
 """
 module Problem0023
 
+export find_abundant_numbers, sum_non_abundant_sums, solve
+
 using ProjectEulerSolutions.Utils.Divisors: is_abundant
 
 function find_abundant_numbers(limit)
