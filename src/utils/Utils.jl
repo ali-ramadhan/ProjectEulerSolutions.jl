@@ -8,7 +8,7 @@ and provide a centralized location for optimized implementations.
 module Utils
 
 include("Benchmarks.jl")
-include("Primes.jl")
+include("Primes/Primes.jl")
 include("Divisors.jl")
 include("Digits.jl")
 include("NumberTheory.jl")
