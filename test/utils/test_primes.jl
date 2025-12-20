@@ -81,6 +81,18 @@ using ProjectEulerSolutions.Utils.Primes: get_witnesses
         # Test that it includes the limit when it's prime
         @test 29 in sieve_of_eratosthenes(29)
         @test 31 in sieve_of_eratosthenes(31)
+
+        @test sum_sieve_of_eratosthenes(10) == 17   # 2 + 3 + 5 + 7
+        @test sum_sieve_of_eratosthenes(20) == 77   # 2 + 3 + 5 + 7 + 11 + 13 + 17 + 19
+        @test sum_sieve_of_eratosthenes(2) == 2
+        @test sum_sieve_of_eratosthenes(1) == 0
+        @test sum_sieve_of_eratosthenes(0) == 0
+        @test sum_sieve_of_eratosthenes(30) == 129  # 2 + 3 + 5 + 7 + 11 + 13 + 17 + 19 + 23 + 29
+
+        # Verify consistency
+        for n in [10, 50, 100, 500, 1024]
+            @test sum_sieve_of_eratosthenes(n) == sum(sieve_of_eratosthenes(n))
+        end
     end
 
     @testset "Prime factors" begin

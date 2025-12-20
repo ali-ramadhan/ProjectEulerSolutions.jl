@@ -7,7 +7,7 @@ that are used across multiple Project Euler problems.
 module Primes
 
 export is_prime, TrialDivision, MillerRabin
-export sieve_of_eratosthenes, prime_factors
+export sieve_of_eratosthenes, sum_sieve_of_eratosthenes, prime_factors
 
 #####
 ##### Primality tests
@@ -210,6 +210,38 @@ Returns false if 'n' is probably prime (to base 'a').
 end
 
 """
+    _sieve_of_eratosthenes(limit)
+
+Internal function that generates the sieve boolean array for odd numbers.
+
+Returns `(is_prime, limit)` where `is_prime[i]` indicates whether `2i + 1` is prime.
+Returns `(Bool[], limit)` for `limit < 3`.
+"""
+function _sieve_of_eratosthenes(limit)
+    limit < 3 && return (Bool[], limit)
+
+    # Array for odd numbers: index i represents 2i + 1
+    max_index = (limit - 1) ÷ 2
+    is_prime = fill(true, max_index)
+
+    # Sieve: for each prime p, mark odd multiples starting at p²
+    i = 1
+    while (2i + 1)^2 <= limit
+        if is_prime[i]
+            p = 2i + 1
+            # First odd multiple >= p² has index (p² - 1) ÷ 2
+            # Step between consecutive odd multiples is p
+            for j in ((p^2 - 1) ÷ 2):p:max_index
+                is_prime[j] = false
+            end
+        end
+        i += 1
+    end
+
+    return (is_prime, limit)
+end
+
+"""
     sieve_of_eratosthenes(limit)
 
 Generate all prime numbers up to and including the given limit using the Sieve of
@@ -234,30 +266,46 @@ function sieve_of_eratosthenes(limit)
     limit < 2 && return Int[]
     limit == 2 && return [2]
 
-    # Array for odd numbers: index i represents 2i + 1
-    max_index = (limit - 1) ÷ 2
-    is_prime = fill(true, max_index)
-
-    # Sieve: for each prime p, mark odd multiples starting at p²
-    i = 1
-    while (2i + 1)^2 <= limit
-        if is_prime[i]
-            p = 2i + 1
-            # First odd multiple >= p² has index (p² - 1) ÷ 2
-            # Step between consecutive odd multiples is p
-            for j in ((p^2 - 1) ÷ 2):p:max_index
-                is_prime[j] = false
-            end
-        end
-        i += 1
-    end
+    is_prime, _ = _sieve_of_eratosthenes(limit)
 
     # Collect primes: 2 plus all odd primes
     primes = [2]
-    for i in 1:max_index
+    for i in eachindex(is_prime)
         is_prime[i] && push!(primes, 2i + 1)
     end
     return primes
+end
+
+"""
+    sum_sieve_of_eratosthenes(limit)
+
+Calculate the sum of all prime numbers up to and including the given limit.
+
+This is more memory-efficient than `sum(sieve_of_eratosthenes(limit))` as it
+avoids allocating the primes vector.
+
+# Arguments
+- `limit`: Upper bound for prime summation
+
+# Returns
+- Sum of all primes up to `limit`
+
+# Examples
+```julia
+sum_sieve_of_eratosthenes(10)  # returns 17 (2 + 3 + 5 + 7)
+```
+"""
+function sum_sieve_of_eratosthenes(limit)
+    limit < 2 && return 0
+    limit == 2 && return 2
+
+    is_prime, _ = _sieve_of_eratosthenes(limit)
+
+    total = 2
+    for i in eachindex(is_prime)
+        is_prime[i] && (total += 2i + 1)
+    end
+    return total
 end
 
 """

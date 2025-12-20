@@ -8,16 +8,15 @@ module Problem0010
 
 export sum_of_primes_below, solve
 
-using ProjectEulerSolutions.Utils.Primes: sieve_of_eratosthenes
+using ProjectEulerSolutions.Utils.Primes: sum_sieve_of_eratosthenes
 
 function sum_of_primes_below(limit)
-    primes = sieve_of_eratosthenes(limit)
-    return primes, sum(primes)
+    return sum_sieve_of_eratosthenes(limit)
 end
 
 function solve()
-    primes, result = sum_of_primes_below(2_000_000)
-    @info "Sum of $(length(primes)) primes below 2,000,000 is $result"
+    result = sum_of_primes_below(2_000_000)
+    @info "Sum of primes below 2,000,000 is $result"
     return result
 end
 
