@@ -38,5 +38,5 @@ using SafeTestsets
         @eval @safetestset $test_name include(joinpath("bonus", $test_file))
     end
 
-    @safetestset "HackerRank ProjectEuler+" include("hacker_rank/test_hacker_rank.jl")
+    include("hacker_rank/test_hacker_rank.jl")
 end
