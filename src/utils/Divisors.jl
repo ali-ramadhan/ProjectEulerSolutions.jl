@@ -6,7 +6,7 @@ including proper divisors, divisor counting, and related concepts.
 """
 module Divisors
 
-export divisors, sum_divisors, num_divisors, is_abundant, is_perfect, is_amicable
+export divisors, sum_divisors, num_divisors, is_abundant, is_perfect, is_amicable, sum_proper_divisors_sieve
 
 """
     divisors(n)
@@ -116,6 +116,26 @@ Example: is_amicable(220) returns true (220 and 284 form an amicable pair)
 function is_amicable(a)
     b = sum_divisors(a) - a
     return a != b && sum_divisors(b) - b == a
+end
+
+"""
+    sum_proper_divisors_sieve(limit)
+
+Return a vector where index i contains the sum of proper divisors of i.
+Uses a sieve approach with O(n log n) time complexity, which is faster than
+computing divisor sums individually when processing many numbers.
+
+Example: sum_proper_divisors_sieve(12)[12] returns 16 (1+2+3+4+6)
+"""
+function sum_proper_divisors_sieve(limit)
+    sums = ones(Int, limit)  # Start with 1 as a proper divisor for n ≥ 2
+    sums[1] = 0              # 1 has no proper divisors
+    for i in 2:(limit ÷ 2)
+        for j in (2 * i):i:limit
+            sums[j] += i
+        end
+    end
+    return sums
 end
 
 end # module Divisors
