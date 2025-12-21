@@ -1,0 +1,56 @@
+# HackerRank ProjectEuler+ Problem 12: Highly Divisible Triangular Number
+# https://www.hackerrank.com/contests/projecteuler/challenges/euler012/problem
+#
+# Project Euler: https://projecteuler.net/problem=12
+# Solution: https://aliramadhan.me/blog/project-euler/problem-0012/
+
+function num_divisors(n)
+    count = 0
+    sqrt_n = isqrt(n)
+
+    for i in 1:sqrt_n
+        if n % i == 0
+            count += 2
+        end
+    end
+
+    if sqrt_n^2 == n
+        count -= 1
+    end
+
+    return count
+end
+
+function triangle_number(n)
+    return div(n * (n + 1), 2)
+end
+
+function find_first_triangle_with_divisors(min_divisors)
+    n = 1
+
+    while true
+        if iseven(n)
+            # n is even, T(n) = (n/2)*(n+1)
+            a = div(n, 2)
+            b = n + 1
+        else
+            # n is odd, T(n) = n*(n+1)/2
+            a = n
+            b = div(n + 1, 2)
+        end
+
+        total_divisors = num_divisors(a) * num_divisors(b)
+
+        if total_divisors > min_divisors
+            return triangle_number(n)
+        end
+
+        n += 1
+    end
+end
+
+T = parse(Int, readline())
+for _ in 1:T
+    N = parse(Int, readline())
+    println(find_first_triangle_with_divisors(N))
+end
