@@ -8,18 +8,11 @@ module Problem0023
 
 export find_abundant_numbers, sum_non_abundant_sums, solve
 
-using ProjectEulerSolutions.Utils.Divisors: is_abundant
+using ProjectEulerSolutions.Utils.Divisors: sum_proper_divisors_sieve
 
 function find_abundant_numbers(limit)
-    abundant_nums = Int[]
-
-    for n in 1:limit
-        if is_abundant(n)
-            push!(abundant_nums, n)
-        end
-    end
-
-    return abundant_nums
+    divisor_sums = sum_proper_divisors_sieve(limit)
+    return [n for n in 1:limit if divisor_sums[n] > n]
 end
 
 function sum_non_abundant_sums(limit)
@@ -49,7 +42,7 @@ function sum_non_abundant_sums(limit)
 end
 
 function solve()
-    return sum_non_abundant_sums(28123)
+    return sum_non_abundant_sums(20161)  # Tighter bound per Wolfram MathWorld
 end
 
 end # module
