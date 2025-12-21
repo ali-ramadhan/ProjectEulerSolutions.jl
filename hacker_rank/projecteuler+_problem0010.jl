@@ -3,6 +3,21 @@
 #
 # Project Euler: https://projecteuler.net/problem=10
 # Solution: https://aliramadhan.me/blog/project-euler/problem-0010/
+#
+# Problem Statement:
+#   The sum of the primes below 10 is 2 + 3 + 5 + 7 = 17.
+#   Find the sum of all the primes not greater than given N.
+#
+# Input Format:
+#   The first line contains an integer T i.e. number of the test cases.
+#   The next T lines will contains an integer N.
+#
+# Constraints:
+#   1 ≤ T ≤ 10^4
+#   1 ≤ N ≤ 10^6
+#
+# Output Format:
+#   Print the value corresponding to each test case in separate line.
 
 function sieve_of_eratosthenes(limit)
     is_prime = fill(true, limit)

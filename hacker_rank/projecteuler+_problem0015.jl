@@ -3,6 +3,26 @@
 #
 # Project Euler: https://projecteuler.net/problem=15
 # Solution: https://aliramadhan.me/blog/project-euler/problem-0015/
+#
+# Problem Statement:
+#   Starting in the top left corner of a 2x2 grid, and only being able to move
+#   to the right and down, there are exactly 6 routes to the bottom right
+#   corner.
+#
+#   How many such routes are there through a NxM grid? As number of ways can be
+#   very large, print it modulo (10^9 + 7).
+#
+# Input Format:
+#   The first line contains an integer T, i.e., number of test cases.
+#   Next T lines will contain integers N and M.
+#
+# Constraints:
+#   1 ≤ T ≤ 10^3
+#   1 ≤ N ≤ 500
+#   1 ≤ M ≤ 500
+#
+# Output Format:
+#   Print the values corresponding to each test case.
 
 function count_lattice_paths(n, m)
     return binomial(n + m, n) % (10^9 + 7)

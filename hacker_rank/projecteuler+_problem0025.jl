@@ -27,11 +27,6 @@
 #   For each test case, print the index of the first Fibonacci number
 #   with at least N digits.
 
-# Using the closed-form formula based on Binet's formula:
-# F_n ~ phi^n / sqrt(5), so the number of digits is approximately
-# n * log10(phi) - 0.5 * log10(5)
-# Solving for n when digits >= N gives us:
-# n >= ((N - 1) * log(10) + 0.5 * log(5)) / log(phi)
 function first_fibonacci_with_n_digits(n)
     phi = (1 + sqrt(5)) / 2
     return ceil(Int, ((n - 1) * log(10) + 0.5 * log(5)) / log(phi))
