@@ -1,5 +1,5 @@
 using Test
-using ProjectEulerSolutions.Utils.AnswerHashing: @test_answer
+using ProjectEulerSolutions.Utils.AnswerHashing
 using ProjectEulerSolutions.Problem0014
 
 memo = Dict(1 => 1)

@@ -1,5 +1,5 @@
 using Test
-using ProjectEulerSolutions.Utils.AnswerHashing: @test_answer
+using ProjectEulerSolutions.Utils.AnswerHashing
 using ProjectEulerSolutions.Utils.Divisors: sum_divisors
 using ProjectEulerSolutions.Problem0021
 

@@ -1,5 +1,5 @@
 using Test
-using ProjectEulerSolutions.Utils.AnswerHashing: @test_answer
+using ProjectEulerSolutions.Utils.AnswerHashing
 using ProjectEulerSolutions.Problem0008
 
 # Test helper functions with examples from the problem description
