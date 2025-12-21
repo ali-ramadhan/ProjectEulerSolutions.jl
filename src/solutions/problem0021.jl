@@ -8,12 +8,14 @@ module Problem0021
 
 export sum_of_amicable_numbers, solve
 
-using ProjectEulerSolutions.Utils.Divisors: is_amicable
+using ProjectEulerSolutions.Utils.Divisors: sum_proper_divisors_sieve
 
 function sum_of_amicable_numbers(limit)
+    divisor_sums = sum_proper_divisors_sieve(limit)
     total = 0
     for a in 2:(limit - 1)
-        if is_amicable(a)
+        b = divisor_sums[a]
+        if b != a && b >= 1 && b <= limit && divisor_sums[b] == a
             total += a
         end
     end
