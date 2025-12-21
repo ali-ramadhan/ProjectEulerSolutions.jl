@@ -21,6 +21,15 @@
 #
 # Output Format:
 #   Print the required answer for each test case.
+#
+# Sample Input:
+#   2
+#   10
+#   100
+#
+# Sample Output:
+#   10
+#   44
 
 function sum_even_fibonacci(limit)
     if limit < 2

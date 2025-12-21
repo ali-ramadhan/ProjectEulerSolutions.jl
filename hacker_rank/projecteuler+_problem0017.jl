@@ -21,7 +21,16 @@
 # - 0 <= N <= 10^12
 #
 # Output Format:
-# Print the number in words for each test case.
+#   Print the number in words for each test case.
+#
+# Sample Input:
+#   2
+#   10
+#   17
+#
+# Sample Output:
+#   Ten
+#   Seventeen
 
 const ONES = Dict(
     1 => "One",

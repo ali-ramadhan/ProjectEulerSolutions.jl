@@ -18,6 +18,17 @@
 #
 # Output Format:
 #   Print the values corresponding to each test case.
+#
+# Sample Input:
+#   3
+#   3
+#   4
+#   7
+#
+# Sample Output:
+#   8
+#   7
+#   11
 
 function sum_digits(n::BigInt)
     return sum(c - '0' for c in string(n))

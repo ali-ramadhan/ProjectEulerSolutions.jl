@@ -33,6 +33,19 @@
 #
 # Output Format:
 #   For each testcase, print the required answer in one line.
+#
+# Sample Input:
+#   4
+#   1
+#   2
+#   3
+#   4
+#
+# Sample Output:
+#   3
+#   6
+#   6
+#   28
 
 function num_divisors(n)
     count = 0

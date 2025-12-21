@@ -18,6 +18,15 @@
 #
 # Output Format:
 #   Print the required answer for each test case.
+#
+# Sample Input:
+#   2
+#   3
+#   6
+#
+# Sample Output:
+#   5
+#   13
 
 function sieve_of_eratosthenes(limit)
     is_prime = fill(true, limit)

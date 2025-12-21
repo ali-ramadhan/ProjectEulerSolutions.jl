@@ -1,11 +1,12 @@
-# Project Euler #26: Reciprocal Cycles
+# HackerRank ProjectEuler+ Problem 26: Reciprocal Cycles
 # https://www.hackerrank.com/contests/projecteuler/challenges/euler026/problem
 #
 # Project Euler: https://projecteuler.net/problem=26
 # Solution: https://aliramadhan.me/blog/project-euler/problem-0026/
 #
-# A unit fraction contains 1 in the numerator. The decimal representation of
-# the unit fractions with denominators 2 to 10 are given:
+# Problem Statement:
+#   A unit fraction contains 1 in the numerator. The decimal representation of
+#   the unit fractions with denominators 2 to 10 are given:
 #
 #   1/2  = 0.5
 #   1/3  = 0.(3)

@@ -1,10 +1,10 @@
-# Project Euler #23: Non-Abundant Sums
+# HackerRank ProjectEuler+ Problem 23: Non-Abundant Sums
 # https://www.hackerrank.com/contests/projecteuler/challenges/euler023/problem
 #
 # Project Euler: https://projecteuler.net/problem=23
 # Solution: https://aliramadhan.me/blog/project-euler/problem-0023/
 #
-# Problem:
+# Problem Statement:
 #   A perfect number is a number for which the sum of its proper divisors is
 #   exactly equal to the number. For example, the sum of the proper divisors of
 #   28 would be 1 + 2 + 4 + 7 + 14 = 28, which means that 28 is a perfect number.
@@ -33,6 +33,15 @@
 #
 # Output Format:
 #   Print YES or NO for each test case.
+#
+# Sample Input:
+#   2
+#   24
+#   49
+#
+# Sample Output:
+#   YES
+#   NO
 
 const MAX_N = 100000
 

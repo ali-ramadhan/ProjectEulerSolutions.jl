@@ -20,6 +20,15 @@
 # Output Format:
 #   For each test case, print an integer that denotes the sum of all the
 #   multiples of 3 or 5 below N.
+#
+# Sample Input:
+#   2
+#   10
+#   100
+#
+# Sample Output:
+#   23
+#   2318
 
 function sum_multiples(n, limit)
     if n >= limit

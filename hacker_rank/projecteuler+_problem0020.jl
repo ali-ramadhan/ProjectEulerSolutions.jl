@@ -1,10 +1,10 @@
-# Project Euler Problem 20: Factorial Digit Sum
+# HackerRank ProjectEuler+ Problem 20: Factorial Digit Sum
 # https://www.hackerrank.com/contests/projecteuler/challenges/euler020/problem
 #
 # Project Euler: https://projecteuler.net/problem=20
 # Solution: https://aliramadhan.me/blog/project-euler/problem-0020/
 #
-# Problem:
+# Problem Statement:
 #   n! means n x (n-1) x ... x 3 x 2 x 1
 #
 #   For example, 10! = 10 x 9 x ... x 3 x 2 x 1 = 3628800,
@@ -22,6 +22,15 @@
 #
 # Output Format:
 #   Print the sum of digits of N! for each test case.
+#
+# Sample Input:
+#   2
+#   3
+#   6
+#
+# Sample Output:
+#   6
+#   9
 
 function sum_of_factorial_digits(n)
     fact = factorial(big(n))

@@ -20,6 +20,15 @@
 #
 # Output Format:
 #   Print the required answer for each test case.
+#
+# Sample Input:
+#   2
+#   3
+#   10
+#
+# Sample Output:
+#   6
+#   2520
 
 function smallest_multiple(n)
     result = 1

@@ -1,10 +1,10 @@
-# Project Euler Problem 22: Names Scores
+# HackerRank ProjectEuler+ Problem 22: Names Scores
 # https://www.hackerrank.com/contests/projecteuler/challenges/euler022/problem
 #
 # Project Euler: https://projecteuler.net/problem=22
 # Solution: https://aliramadhan.me/blog/project-euler/problem-0022/
 #
-# Problem:
+# Problem Statement:
 #   You are given around five-thousand first names, begin by sorting it into
 #   alphabetical order. Then working out the alphabetical value for each name,
 #   multiply this value by its alphabetical position in the list to obtain a
@@ -29,6 +29,19 @@
 #
 # Output Format:
 #   Print the name score for each query.
+#
+# Sample Input:
+#   5
+#   ALEX
+#   LUIS
+#   JAMES
+#   BRIAN
+#   PAMELA
+#   1
+#   PAMELA
+#
+# Sample Output:
+#   240
 
 function name_value(name)
     return sum(Int(ch) - Int('A') + 1 for ch in name)

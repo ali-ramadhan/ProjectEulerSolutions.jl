@@ -20,6 +20,15 @@
 #
 # Output Format:
 #   Print the required answer for each test case in a new line.
+#
+# Sample Input:
+#   2
+#   101110
+#   800000
+#
+# Sample Output:
+#   101101
+#   793397
 
 function is_palindrome(n)
     s = string(n)

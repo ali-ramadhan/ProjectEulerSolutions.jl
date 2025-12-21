@@ -1,10 +1,10 @@
-# Project Euler #21: Amicable Numbers
+# HackerRank ProjectEuler+ Problem 21: Amicable Numbers
 # https://www.hackerrank.com/contests/projecteuler/challenges/euler021/problem
 #
 # Project Euler: https://projecteuler.net/problem=21
 # Solution: https://aliramadhan.me/blog/project-euler/problem-0021/
 #
-# Problem:
+# Problem Statement:
 #   Let d(n) be defined as the sum of proper divisors of n (numbers less than n
 #   which divide evenly into n).
 #
@@ -27,6 +27,13 @@
 #
 # Output Format:
 #   Print the sum of amicable numbers under N for each test case.
+#
+# Sample Input:
+#   1
+#   300
+#
+# Sample Output:
+#   504
 
 const MAX_N = 100000
 

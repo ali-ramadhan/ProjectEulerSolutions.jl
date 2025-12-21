@@ -19,6 +19,17 @@
 #
 # Output Format:
 #   Print the required answer for each test case.
+#
+# Sample Input:
+#   2
+#   10 5
+#   3675356291
+#   10 5
+#   2709360626
+#
+# Sample Output:
+#   3150
+#   0
 
 function product_of_digits(str)
     prod = 1

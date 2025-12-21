@@ -31,6 +31,17 @@
 #
 # Output Format:
 #   Print the values corresponding to each test case.
+#
+# Sample Input:
+#   3
+#   10
+#   15
+#   20
+#
+# Sample Output:
+#   9
+#   9
+#   19
 
 function collatz_length(n, cache)
     if n == 1

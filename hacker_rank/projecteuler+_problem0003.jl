@@ -18,6 +18,15 @@
 #
 # Output Format:
 #   For each test case, display the largest prime factor of N.
+#
+# Sample Input:
+#   2
+#   10
+#   17
+#
+# Sample Output:
+#   5
+#   17
 
 function largest_prime_factor(n)
     largest = 1

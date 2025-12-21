@@ -29,7 +29,18 @@
 # - numbers in [0, 100)
 #
 # Output Format:
-# For each test case, print the maximum path sum on a new line.
+#   For each test case, print the maximum path sum on a new line.
+#
+# Sample Input:
+#   1
+#   4
+#   3
+#   7 4
+#   2 4 6
+#   8 5 9 3
+#
+# Sample Output:
+#   23
 
 function max_path_sum(triangle)
     max_sums = deepcopy(triangle)

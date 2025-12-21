@@ -22,6 +22,15 @@
 #
 # Output Format:
 #   Print the required answer for each test case.
+#
+# Sample Input:
+#   2
+#   3
+#   10
+#
+# Sample Output:
+#   22
+#   2640
 
 function sum_square_difference(n)
     return div(n * (n + 1) * (n - 1) * (3n + 2), 12)

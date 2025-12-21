@@ -23,6 +23,15 @@
 #
 # Output Format:
 #   Print the values corresponding to each test case.
+#
+# Sample Input:
+#   2
+#   2 2
+#   3 2
+#
+# Sample Output:
+#   6
+#   10
 
 function count_lattice_paths(n, m)
     return binomial(n + m, n) % (10^9 + 7)

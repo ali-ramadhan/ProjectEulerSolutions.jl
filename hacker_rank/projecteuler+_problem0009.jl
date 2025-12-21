@@ -22,6 +22,15 @@
 #
 # Output Format:
 #   Print the value corresponding to each test case in separate lines.
+#
+# Sample Input:
+#   2
+#   12
+#   4
+#
+# Sample Output:
+#   60
+#   -1
 
 function find_max_pythagorean_product(N)
     max_product = -1

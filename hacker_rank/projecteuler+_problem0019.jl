@@ -1,10 +1,10 @@
-# Project Euler Problem 19: Counting Sundays
+# HackerRank ProjectEuler+ Problem 19: Counting Sundays
 # https://www.hackerrank.com/contests/projecteuler/challenges/euler019/problem
 #
 # Project Euler: https://projecteuler.net/problem=19
 # Solution: https://aliramadhan.me/blog/project-euler/problem-0019/
 #
-# Problem:
+# Problem Statement:
 #   1 Jan 1900 was a Monday.
 #   - Thirty days has September, April, June and November.
 #   - All the rest have thirty-one, saving February alone, which has
@@ -30,6 +30,17 @@
 #
 # Output Format:
 #   Print the count for each test case.
+#
+# Sample Input:
+#   2
+#   1900 1 1
+#   1910 1 1
+#   2000 1 1
+#   2020 1 1
+#
+# Sample Output:
+#   18
+#   35
 
 function is_leap_year(year)
     return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)

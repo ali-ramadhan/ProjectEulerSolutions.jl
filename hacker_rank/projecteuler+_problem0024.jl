@@ -1,10 +1,10 @@
-# Project Euler Problem 24: Lexicographic Permutations
+# HackerRank ProjectEuler+ Problem 24: Lexicographic Permutations
 # https://www.hackerrank.com/contests/projecteuler/challenges/euler024/problem
 #
 # Project Euler: https://projecteuler.net/problem=24
 # Solution: https://aliramadhan.me/blog/project-euler/problem-0024/
 #
-# Problem:
+# Problem Statement:
 #   A permutation is an ordered arrangement of objects. For example, dabc is
 #   one possible permutation of the word abcd. If all of the permutations are
 #   listed alphabetically, we call it lexicographic order. The lexicographic
@@ -24,6 +24,15 @@
 #
 # Output Format:
 #   Print the Nth lexicographic permutation for each test case.
+#
+# Sample Input:
+#   2
+#   1
+#   2
+#
+# Sample Output:
+#   abcdefghijklm
+#   abcdefghijkml
 
 function find_nth_permutation(elements, n)
     elements = collect(elements)

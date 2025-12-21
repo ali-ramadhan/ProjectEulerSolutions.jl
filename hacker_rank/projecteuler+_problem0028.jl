@@ -1,11 +1,12 @@
-# Project Euler #28: Number Spiral Diagonals
+# HackerRank ProjectEuler+ Problem 28: Number Spiral Diagonals
 # https://www.hackerrank.com/contests/projecteuler/challenges/euler028/problem
 #
 # Project Euler: https://projecteuler.net/problem=28
 # Solution: https://aliramadhan.me/blog/project-euler/problem-0028/
 #
-# Starting with the number 1 and moving to the right in a clockwise direction
-# a 5 by 5 spiral is formed as follows:
+# Problem Statement:
+#   Starting with the number 1 and moving to the right in a clockwise direction
+#   a 5 by 5 spiral is formed as follows:
 #
 #   21 22 23 24 25
 #   20  7  8  9 10

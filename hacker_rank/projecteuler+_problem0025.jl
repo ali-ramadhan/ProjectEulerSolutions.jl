@@ -26,6 +26,15 @@
 # Output Format:
 #   For each test case, print the index of the first Fibonacci number
 #   with at least N digits.
+#
+# Sample Input:
+#   2
+#   3
+#   4
+#
+# Sample Output:
+#   12
+#   17
 
 function first_fibonacci_with_n_digits(n)
     phi = (1 + sqrt(5)) / 2
