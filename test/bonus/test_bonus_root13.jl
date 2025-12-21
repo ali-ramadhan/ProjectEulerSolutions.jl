@@ -1,6 +1,6 @@
 using Test
 using ProjectEulerSolutions.BonusRoot13: compute_sqrt_digits, sum_sqrt_decimal_digits, solve
-using ProjectEulerSolutions.Utils.AnswerHashing: @test_answer
+using ProjectEulerSolutions.Utils.AnswerHashing
 
 # Test compute_sqrt_digits with known values
 # √2 ≈ 1.4142135623730950488...

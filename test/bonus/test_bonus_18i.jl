@@ -1,6 +1,6 @@
 using Test
 using ProjectEulerSolutions.Bonus18i: R_mod_p, solve
-using ProjectEulerSolutions.Utils.AnswerHashing: @test_answer
+using ProjectEulerSolutions.Utils.AnswerHashing
 
 # Given examples
 @test R_mod_p(11) == 0
