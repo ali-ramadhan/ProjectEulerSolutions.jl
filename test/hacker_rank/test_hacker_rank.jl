@@ -1,6 +1,25 @@
 using Test
+using SafeTestsets
 
-# Test data: (script_name, input, expected_output)
+const TEST_DATA_DIR = joinpath(@__DIR__, "data")
+
+function load_test_input(prefix::String)
+    input_path = joinpath(TEST_DATA_DIR, "$(prefix)_input.txt")
+    return read(input_path, String)
+end
+
+function load_test_data(prefix::String)
+    input_path = joinpath(TEST_DATA_DIR, "$(prefix)_input.txt")
+    output_path = joinpath(TEST_DATA_DIR, "$(prefix)_output.txt")
+    input = read(input_path, String)
+    output = read(output_path, String)
+    return (input, output)
+end
+
+# Test data formats:
+#   Inline:           (script, input, expected)
+#   Input from file:  (script, :file_input, prefix, expected)
+#   Both from files:  (script, :file, prefix)
 test_cases = [
     ("projecteuler+_problem0001.jl", "2\n10\n100", "23\n2318\n"),
     ("projecteuler+_problem0002.jl", "2\n10\n100", "10\n44\n"),
@@ -12,9 +31,22 @@ test_cases = [
     ("projecteuler+_problem0008.jl", "2\n10 5\n3675356291\n10 5\n2709360626", "3150\n0\n"),
     ("projecteuler+_problem0009.jl", "2\n12\n4", "60\n-1\n"),
     ("projecteuler+_problem0010.jl", "2\n5\n10", "10\n17\n"),
+    ("projecteuler+_problem0011.jl", :file_input, "problem0011", "73812150\n"),
 ]
 
-for (script, input, expected) in test_cases
+for test_case in test_cases
+    script = test_case[1]
+
+    # Resolve input/output (inline or from file)
+    if test_case[2] === :file
+        input, expected = load_test_data(test_case[3])
+    elseif test_case[2] === :file_input
+        input = load_test_input(test_case[3])
+        expected = test_case[4]
+    else
+        input, expected = test_case[2], test_case[3]
+    end
+
     problem_num = match(r"projecteuler\+_problem(\d{4})\.jl", script).captures[1]
     test_name = "HackerRank ProjectEuler+ Problem $problem_num"
     @info "Testing $test_name..."
