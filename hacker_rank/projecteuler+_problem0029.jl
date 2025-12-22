@@ -34,28 +34,49 @@
 # Sample Output:
 #   15
 
-function count_distinct_powers(a_min, a_max, b_min, b_max; similarity_threshold=1e-10)
-    powers = Float64[]
-    sizehint!(powers, (a_max - a_min + 1) * (b_max - b_min + 1))
+function count_distinct_powers(n::Int)
+    max_log = floor(Int, log2(n))
 
-    for a in a_min:a_max
-        loga = log(a)
-        for b in b_min:b_max
-            push!(powers, b * loga)
+    # Precompute: for each max_power (1 to max_log), count unique exponents
+    # in the union of {k×j : j ∈ [2,n]} for k = 1 to max_power
+    unique_counts = Vector{Int}(undef, max_log)
+    for max_power in 1:max_log
+        seen = Set{Int}()
+        for k in 1:max_power
+            for j in 2:n
+                push!(seen, k * j)
+            end
         end
+        unique_counts[max_power] = length(seen)
     end
 
-    sort!(powers)
+    # Find primitive roots and sum their contributions
+    is_perfect_power = falses(n)
+    result = 0
 
-    count = 1
-    for i in 2:length(powers)
-        if powers[i] - powers[i-1] > similarity_threshold
-            count += 1
+    for base in 2:n
+        if is_perfect_power[base]
+            continue
         end
+
+        # Count how many powers of base are ≤ n
+        power_count = 1
+        val = base
+        while true
+            next_val = val * base
+            if next_val > n
+                break
+            end
+            val = next_val
+            power_count += 1
+            is_perfect_power[val] = true
+        end
+
+        result += unique_counts[power_count]
     end
 
-    return count
+    return result
 end
 
 N = parse(Int, readline())
-println(count_distinct_powers(2, N, 2, N))
+println(count_distinct_powers(N))
