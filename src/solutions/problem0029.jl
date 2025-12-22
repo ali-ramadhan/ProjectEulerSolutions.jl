@@ -8,15 +8,15 @@ module Problem0029
 
 export count_distinct_powers, solve
 
-function count_distinct_powers(b_max)
-    max_log = floor(Int, log2(b_max))
+function count_distinct_powers(N)
+    max_log = floor(Int, log2(N))
 
-    # Precompute S_m = |⋃_{j=1}^m {jb : 2 ≤ b ≤ b_max}| for m = 1 to log₂(b_max)
+    # Precompute S_m = |⋃_{j=1}^m {jb : 2 ≤ b ≤ N}| for m = 1 to log₂(N)
     unique_exponent_counts = Vector{Int}(undef, max_log)
     for m in 1:max_log
         seen = Set{Int}()
         for j in 1:m
-            for b in 2:b_max
+            for b in 2:N
                 push!(seen, j * b)
             end
         end
@@ -24,20 +24,20 @@ function count_distinct_powers(b_max)
     end
 
     # Find primitive roots and sum their contributions
-    is_perfect_power = falses(b_max)
+    is_perfect_power = falses(N)
     result = 0
 
-    for base in 2:b_max
+    for base in 2:N
         if is_perfect_power[base]
             continue
         end
 
-        # Count how many powers of base are ≤ b_max
+        # Count how many powers of base are ≤ N
         power_count = 1
         val = base
         while true
             next_val = val * base
-            if next_val > b_max
+            if next_val > N
                 break
             end
             val = next_val
