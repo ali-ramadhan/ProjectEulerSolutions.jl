@@ -79,13 +79,15 @@ function sum_R_mod_p(low, high)
 end
 
 function _sum_R_mod_p_inner(low, high, primality_test::MillerRabin{W}) where W
-    total_sum = 0
-    for n in low:high
+    total_sum = Threads.Atomic{Int}(0)
+
+    Threads.@threads for n in low:high
         if is_prime(n, primality_test)
-            total_sum += R_mod_p(n)
+            Threads.atomic_add!(total_sum, R_mod_p(n))
         end
     end
-    return total_sum
+
+    return total_sum[]
 end
 
 function solve()
