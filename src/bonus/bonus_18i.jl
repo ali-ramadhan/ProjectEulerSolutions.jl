@@ -79,15 +79,35 @@ function sum_R_mod_p(low, high)
 end
 
 function _sum_R_mod_p_inner(low, high, primality_test::MillerRabin{W}) where W
-    total_sum = Threads.Atomic{Int}(0)
+    num_chunks = Threads.nthreads()
 
-    Threads.@threads for n in low:high
-        if is_prime(n, primality_test)
-            Threads.atomic_add!(total_sum, R_mod_p(n))
+    if num_chunks == 1
+        total_sum = 0
+        for n in low:high
+            if is_prime(n, primality_test)
+                total_sum += R_mod_p(n)
+            end
+        end
+        return total_sum
+    end
+
+    chunk_size = cld(high - low + 1, num_chunks)
+
+    tasks = map(1:num_chunks) do i
+        chunk_start = low + (i - 1) * chunk_size
+        chunk_end = min(chunk_start + chunk_size - 1, high)
+        Threads.@spawn begin
+            local_sum = 0
+            for n in chunk_start:chunk_end
+                if is_prime(n, primality_test)
+                    local_sum += R_mod_p(n)
+                end
+            end
+            return local_sum
         end
     end
 
-    return total_sum[]
+    return sum(fetch, tasks)
 end
 
 function solve()
