@@ -8,37 +8,36 @@ module Problem0029
 
 export count_distinct_powers, solve
 
-function count_distinct_powers(n)
-    max_log = floor(Int, log2(n))
+function count_distinct_powers(b_max)
+    max_log = floor(Int, log2(b_max))
 
-    # Precompute: for each max_power (1 to max_log), count unique exponents
-    # in the union of {k×j : j ∈ [2,n]} for k = 1 to max_power
-    unique_counts = Vector{Int}(undef, max_log)
-    for max_power in 1:max_log
+    # Precompute S_m = |⋃_{j=1}^m {jb : 2 ≤ b ≤ b_max}| for m = 1 to log₂(b_max)
+    unique_exponent_counts = Vector{Int}(undef, max_log)
+    for m in 1:max_log
         seen = Set{Int}()
-        for k in 1:max_power
-            for j in 2:n
-                push!(seen, k * j)
+        for j in 1:m
+            for b in 2:b_max
+                push!(seen, j * b)
             end
         end
-        unique_counts[max_power] = length(seen)
+        unique_exponent_counts[m] = length(seen)
     end
 
     # Find primitive roots and sum their contributions
-    is_perfect_power = falses(n)
+    is_perfect_power = falses(b_max)
     result = 0
 
-    for base in 2:n
+    for base in 2:b_max
         if is_perfect_power[base]
             continue
         end
 
-        # Count how many powers of base are ≤ n
+        # Count how many powers of base are ≤ b_max
         power_count = 1
         val = base
         while true
             next_val = val * base
-            if next_val > n
+            if next_val > b_max
                 break
             end
             val = next_val
@@ -46,7 +45,7 @@ function count_distinct_powers(n)
             is_perfect_power[val] = true
         end
 
-        result += unique_counts[power_count]
+        result += unique_exponent_counts[power_count]
     end
 
     return result
