@@ -43,7 +43,7 @@ save_benchmark(result, "problem-0001", "optimized")  # Saves to benchmarks/bench
 save_benchmark(result, "bonus-root13", "v1")         # Saves to benchmarks/benchmark_data/bonus-root13-benchmarks.yaml
 ```
 """
-function save_benchmark(result, problem_tag, benchmark_name)
+function save_benchmark(result, problem_tag, benchmark_name; thread_count=nothing)
     display(result)
 
     # Ensure benchmarks directory exists
@@ -65,12 +65,16 @@ function save_benchmark(result, problem_tag, benchmark_name)
     formatted_output = format_ansi_codes(output)
 
     # Create benchmark entry (cpu is the key, not stored in entry)
-    benchmark_entry = Dict(
+    benchmark_entry = Dict{String, Any}(
         "date" => Dates.format(now(), "yyyy-mm-ddTHH:MM:SS.sss"),
         "julia_version" => system_info["julia_version"],
         "os" => system_info["os"],
         "output" => formatted_output
     )
+
+    if !isnothing(thread_count)
+        benchmark_entry["thread_count"] = thread_count
+    end
 
     # Load existing benchmarks or create new dict
     existing_benchmarks = load_existing_benchmarks(yaml_file)
