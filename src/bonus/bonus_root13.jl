@@ -6,6 +6,8 @@ Solution description: https://aliramadhan.me/blog/project-euler/bonus-root13/
 """
 module BonusRoot13
 
+export sum_sqrt_decimal_digits, solve
+
 function compute_sqrt_digits(n, num_decimal_digits)
     integer_part = isqrt(n)
 

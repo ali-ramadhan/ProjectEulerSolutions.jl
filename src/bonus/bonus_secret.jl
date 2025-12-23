@@ -9,6 +9,8 @@ module BonusSecret
 using PNGFiles
 using ColorTypes: Gray
 
+export solve
+
 function simulate_cellular_automaton(grid, total_steps, modulo)
     # Work strictly in Z_modulo
     grid = grid .% modulo

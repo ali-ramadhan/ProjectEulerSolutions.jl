@@ -5,6 +5,7 @@ export save_benchmark
 using InteractiveUtils: versioninfo
 using YAML
 using Dates
+using OrderedCollections: OrderedDict
 
 # CPU name mapping to simplify verbose CPU strings
 const CPU_NAME_MAP = Dict(
@@ -65,7 +66,7 @@ function save_benchmark(result, problem_tag, benchmark_name; thread_count=nothin
     formatted_output = format_ansi_codes(output)
 
     # Create benchmark entry (cpu is the key, not stored in entry)
-    benchmark_entry = Dict{String, Any}(
+    benchmark_entry = OrderedDict{String, Any}(
         "date" => Dates.format(now(), "yyyy-mm-ddTHH:MM:SS.sss"),
         "julia_version" => system_info["julia_version"],
         "os" => system_info["os"],
@@ -76,18 +77,21 @@ function save_benchmark(result, problem_tag, benchmark_name; thread_count=nothin
         benchmark_entry["thread_count"] = thread_count
     end
 
-    # Load existing benchmarks or create new dict
+    # Load existing benchmarks or create new OrderedDict
     existing_benchmarks = load_existing_benchmarks(yaml_file)
 
     # Add new benchmark nested under benchmark_name -> cpu
     cpu = system_info["cpu"]
     if !haskey(existing_benchmarks, benchmark_name)
-        existing_benchmarks[benchmark_name] = Dict()
+        existing_benchmarks[benchmark_name] = OrderedDict{String,Any}()
     end
     existing_benchmarks[benchmark_name][cpu] = benchmark_entry
 
+    # Sort keys alphabetically before writing to maintain consistent order
+    sorted_benchmarks = sort_benchmark_keys(existing_benchmarks)
+
     # Save to YAML file
-    YAML.write_file(yaml_file, existing_benchmarks)
+    YAML.write_file(yaml_file, sorted_benchmarks)
 
     @info "Benchmark saved to $yaml_file under '$benchmark_name'"
 end
@@ -136,22 +140,44 @@ function format_ansi_codes(text)
 end
 
 """
+    sort_benchmark_keys(benchmarks)
+
+Sort benchmark dictionary keys alphabetically at both levels:
+- Top level: benchmark names
+- Second level: CPU names within each benchmark
+Returns a new OrderedDict with sorted keys.
+"""
+function sort_benchmark_keys(benchmarks::AbstractDict)
+    sorted = OrderedDict{String,Any}()
+    for name in sort(collect(keys(benchmarks)))
+        cpu_dict = benchmarks[name]
+        if cpu_dict isa AbstractDict
+            sorted[name] = OrderedDict{String,Any}(sort(collect(cpu_dict), by=first))
+        else
+            sorted[name] = cpu_dict
+        end
+    end
+    return sorted
+end
+
+"""
     load_existing_benchmarks(yaml_file)
 
-Load existing benchmarks from a YAML file, or return an empty dict if file doesn't exist.
+Load existing benchmarks from a YAML file, or return an empty OrderedDict if file doesn't exist.
+Uses OrderedDict to preserve key ordering through round-trips.
 """
 function load_existing_benchmarks(yaml_file)
     if isfile(yaml_file)
         try
-            data = YAML.load_file(yaml_file)
+            data = YAML.load_file(yaml_file; dicttype=OrderedDict{String,Any})
             # YAML.load_file returns nothing for empty files
-            return isnothing(data) ? Dict() : data
+            return isnothing(data) ? OrderedDict{String,Any}() : data
         catch e
             @warn "Could not load existing benchmarks from $yaml_file: $e"
-            return Dict()
+            return OrderedDict{String,Any}()
         end
     else
-        return Dict()
+        return OrderedDict{String,Any}()
     end
 end
 

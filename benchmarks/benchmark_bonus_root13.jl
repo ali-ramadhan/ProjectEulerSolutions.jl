@@ -28,9 +28,9 @@ benchmark_sum_sqrt_decimal_digits = @benchmark sum_sqrt_decimal_digits(13, 1000)
 save_benchmark(benchmark_sum_sqrt_decimal_digits, "bonus-root13", "S_13_1000")
 
 @show sum_sqrt_decimal_digits(13, 10000)
-benchmark_sum_sqrt_decimal_digits = @benchmark sum_sqrt_decimal_digits(13, 10000) samples=100 evals=1 seconds=1000
+benchmark_sum_sqrt_decimal_digits = @benchmark sum_sqrt_decimal_digits(13, 10000) samples=100 evals=1 seconds=300
 save_benchmark(benchmark_sum_sqrt_decimal_digits, "bonus-root13", "S_13_10000")
 
 @show sum_sqrt_decimal_digits(13, 100000)
-benchmark_sum_sqrt_decimal_digits = @benchmark sum_sqrt_decimal_digits(13, 100000) samples=100 evals=1 seconds=1000
+benchmark_sum_sqrt_decimal_digits = @benchmark sum_sqrt_decimal_digits(13, 100000) samples=100 evals=1 seconds=300
 save_benchmark(benchmark_sum_sqrt_decimal_digits, "bonus-root13", "S_13_100000")

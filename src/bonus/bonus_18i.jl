@@ -9,6 +9,8 @@ module Bonus18i
 using StaticArrays
 using ProjectEulerSolutions.Utils.Primes
 
+export sum_R_mod_p, solve
+
 @inline function mat_mul_mod(A::SMatrix{3,3,Int}, B::SMatrix{3,3,Int}, p::Int)
     C = MMatrix{3,3,Int}(undef)
     @inbounds for j in 1:3

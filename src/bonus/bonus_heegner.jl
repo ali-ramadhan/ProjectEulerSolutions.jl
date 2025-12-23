@@ -8,6 +8,8 @@ module BonusHeegner
 
 using Printf
 
+export find_closest_cos_to_integer, solve
+
 function distance_to_nearest_integer(x)
     return abs(x - round(x))
 end

@@ -55,7 +55,7 @@ function main()
     # Run problem scripts first
     for script in sort(problem_scripts)
         @info "Running $script"
-        elapsed = @elapsed include(joinpath(@__DIR__, script))
+        elapsed = @elapsed Base.include(Module(), joinpath(@__DIR__, script))
         total_time += elapsed
         @info "Completed $script in $(format_time(elapsed))"
     end
@@ -64,7 +64,7 @@ function main()
     if run_bonus
         for script in sort(bonus_scripts)
             @info "Running $script"
-            elapsed = @elapsed include(joinpath(@__DIR__, script))
+            elapsed = @elapsed Base.include(Module(), joinpath(@__DIR__, script))
             total_time += elapsed
             @info "Completed $script in $(format_time(elapsed))"
         end
