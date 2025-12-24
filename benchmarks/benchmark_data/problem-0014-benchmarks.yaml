@@ -135,21 +135,6 @@ longest_collatz_under_10M:
        Memory estimate[90m: [39m[33m1.06 GiB[39m, allocs estimate[90m: [39m[33m83[39m.
     date: "2025-12-12T06:50:59.380"
     os: "Linux"
-  "2 × Intel(R) Core(TM)2 Duo CPU     E7400  @ 2.80GHz":
-    date: "2025-12-23T16:57:29.591"
-    julia_version: "Julia 1.12.2"
-    os: "Linux"
-    output: |-
-      BenchmarkTools.Trial: 100 samples with 1 evaluation per sample.
-       Range [90m([39m[36m[1mmin[22m[39m … [35mmax[39m[90m):  [39m[36m[1m6.879 s[22m[39m … [35m   7.431 s[39m  [90m┊[39m GC [90m([39mmin … max[90m): [39m1.85% … 9.04%
-       Time  [90m([39m[34m[1mmedian[22m[39m[90m):     [39m[34m[1m7.114 s               [22m[39m[90m┊[39m GC [90m([39mmedian[90m):    [39m6.47%
-       Time  [90m([39m[32m[1mmean[22m[39m ± [32mσ[39m[90m):   [39m[32m[1m7.149 s[22m[39m ± [32m140.458 ms[39m  [90m┊[39m GC [90m([39mmean ± σ[90m):  [39m6.32% ± 1.64%
-      
-        [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m▃[39m▁[39m [39m [39m█[39m [39m▁[39m [39m [39m [39m [39m [39m [39m [34m [39m[39m [39m [39m [32m▁[39m[39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m▁[39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m 
-        [39m▄[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▄[39m▆[39m█[39m█[39m▇[39m▆[39m█[39m▇[39m█[39m▇[39m▆[39m▇[39m▇[39m▆[39m▆[39m▆[34m▄[39m[39m▇[39m▇[39m▆[32m█[39m[39m▁[39m▄[39m▁[39m▁[39m▆[39m▄[39m▆[39m▆[39m▄[39m▆[39m▆[39m█[39m▇[39m▁[39m▁[39m▁[39m▁[39m▁[39m▆[39m▄[39m▁[39m▄[39m▄[39m▆[39m▇[39m▄[39m▇[39m▆[39m [39m▄
-        6.88 s[90m         Histogram: frequency by time[39m         7.42 s [0m[1m<[22m
-      
-       Memory estimate[90m: [39m[33m1.06 GiB[39m, allocs estimate[90m: [39m[33m83[39m.
   "AMD Phenom II X4 970":
     julia_version: "Julia 1.12.3"
     output: |-
@@ -286,21 +271,6 @@ longest_collatz_under_1M:
        Memory estimate[90m: [39m[33m133.17 MiB[39m, allocs estimate[90m: [39m[33m65[39m.
     date: "2025-12-12T06:46:51.622"
     os: "Linux"
-  "2 × Intel(R) Core(TM)2 Duo CPU     E7400  @ 2.80GHz":
-    date: "2025-12-23T16:45:19.119"
-    julia_version: "Julia 1.12.2"
-    os: "Linux"
-    output: |-
-      BenchmarkTools.Trial: 100 samples with 1 evaluation per sample.
-       Range [90m([39m[36m[1mmin[22m[39m … [35mmax[39m[90m):  [39m[36m[1m520.414 ms[22m[39m … [35m900.483 ms[39m  [90m┊[39m GC [90m([39mmin … max[90m): [39m 0.48% … 36.41%
-       Time  [90m([39m[34m[1mmedian[22m[39m[90m):     [39m[34m[1m561.729 ms               [22m[39m[90m┊[39m GC [90m([39mmedian[90m):    [39m 0.61%
-       Time  [90m([39m[32m[1mmean[22m[39m ± [32mσ[39m[90m):   [39m[32m[1m613.793 ms[22m[39m ± [32m117.710 ms[39m  [90m┊[39m GC [90m([39mmean ± σ[90m):  [39m10.10% ± 13.75%
-      
-        [39m [39m [39m [39m [39m▃[39m█[39m█[34m▂[39m[39m▁[39m [39m [39m [39m [39m [39m [32m [39m[39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m 
-        [39m▃[39m▆[39m▆[39m▆[39m█[39m█[39m█[34m█[39m[39m█[39m▃[39m▄[39m▁[39m▁[39m▁[39m▁[32m▁[39m[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▃[39m▁[39m▄[39m▁[39m▁[39m▃[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▄[39m▁[39m▁[39m▃[39m▁[39m▃[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▃[39m▆[39m▁[39m▄[39m▃[39m▃[39m▃[39m▅[39m [39m▃
-        520 ms[90m           Histogram: frequency by time[39m          899 ms [0m[1m<[22m
-      
-       Memory estimate[90m: [39m[33m133.17 MiB[39m, allocs estimate[90m: [39m[33m65[39m.
   "AMD Phenom II X4 970":
     julia_version: "Julia 1.12.3"
     output: |-
