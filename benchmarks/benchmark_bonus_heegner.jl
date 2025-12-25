@@ -11,6 +11,6 @@ save_benchmark(b, "bonus-heegner", "n_1k"; thread_count=Threads.nthreads())
 
 @show find_closest_cos_to_integer(1000000)
 Logging.disable_logging(Logging.Info)
-b = @benchmark find_closest_cos_to_integer(1000000) samples=5 evals=1 seconds=1000
+b = @benchmark find_closest_cos_to_integer(1000000) samples=2 evals=1 seconds=3600
 Logging.disable_logging(Logging.BelowMinLevel)
 save_benchmark(b, "bonus-heegner", "n_1M"; thread_count=Threads.nthreads())
