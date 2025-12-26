@@ -89,6 +89,21 @@ digits4:
         437 μs[90m        [39m[90mHistogram: [39m[90m[1mlog([22m[39m[90mfrequency[39m[90m[1m)[22m[39m[90m by time[39m        824 μs [0m[1m<[22m
       
        Memory estimate[90m: [39m[33m438.42 KiB[39m, allocs estimate[90m: [39m[33m10018[39m.
+  "Intel Core Ultra 5 238V":
+    date: "2025-12-26T02:03:10.973"
+    julia_version: "Julia 1.12.3"
+    os: "Windows"
+    output: |-
+      BenchmarkTools.Trial: 10000 samples with 1 evaluation per sample.
+       Range [90m([39m[36m[1mmin[22m[39m … [35mmax[39m[90m):  [39m[36m[1m121.300 μs[22m[39m … [35m 16.125 ms[39m  [90m┊[39m GC [90m([39mmin … max[90m): [39m 0.00% … 97.32%
+       Time  [90m([39m[34m[1mmedian[22m[39m[90m):     [39m[34m[1m128.500 μs               [22m[39m[90m┊[39m GC [90m([39mmedian[90m):    [39m 0.00%
+       Time  [90m([39m[32m[1mmean[22m[39m ± [32mσ[39m[90m):   [39m[32m[1m184.677 μs[22m[39m ± [32m416.064 μs[39m  [90m┊[39m GC [90m([39mmean ± σ[90m):  [39m19.70% ±  8.99%
+      
+        [39m█[34m▆[39m[39m▄[39m▄[39m▃[39m▂[39m▂[39m▂[39m▁[32m▂[39m[39m▁[39m▁[39m▁[39m▁[39m▂[39m▃[39m▁[39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m▂
+        [39m█[34m█[39m[39m█[39m█[39m█[39m█[39m█[39m█[39m█[32m█[39m[39m█[39m█[39m█[39m█[39m█[39m█[39m█[39m█[39m█[39m█[39m▇[39m▇[39m▇[39m█[39m▇[39m▆[39m▆[39m▆[39m▅[39m▄[39m▅[39m▄[39m▅[39m▃[39m▄[39m▃[39m▁[39m▅[39m▅[39m▅[39m▅[39m▅[39m▄[39m▄[39m▄[39m▅[39m▄[39m▃[39m▃[39m▄[39m▅[39m▅[39m▁[39m▃[39m▁[39m▅[39m▄[39m▅[39m▄[39m▅[39m▃[39m [39m█
+        121 μs[90m        [39m[90mHistogram: [39m[90m[1mlog([22m[39m[90mfrequency[39m[90m[1m)[22m[39m[90m by time[39m        572 μs [0m[1m<[22m
+      
+       Memory estimate[90m: [39m[33m438.42 KiB[39m, allocs estimate[90m: [39m[33m10018[39m.
   "Intel Core i7-4810MQ":
     date: "2025-12-23T10:58:32.079"
     julia_version: "Julia 1.12.3"
@@ -193,6 +208,21 @@ digits5:
         [34m█[39m[39m [32m [39m[39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m 
         [34m█[39m[39m▂[32m▄[39m[39m▆[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▂[39m [39m▂
         1.36 ms[90m         Histogram: frequency by time[39m        19.8 ms [0m[1m<[22m
+      
+       Memory estimate[90m: [39m[33m1.22 MiB[39m, allocs estimate[90m: [39m[33m25033[39m.
+  "Intel Core Ultra 5 238V":
+    date: "2025-12-26T02:03:21.407"
+    julia_version: "Julia 1.12.3"
+    os: "Windows"
+    output: |-
+      BenchmarkTools.Trial: 8508 samples with 1 evaluation per sample.
+       Range [90m([39m[36m[1mmin[22m[39m … [35mmax[39m[90m):  [39m[36m[1m260.000 μs[22m[39m … [35m 13.474 ms[39m  [90m┊[39m GC [90m([39mmin … max[90m): [39m 0.00% … 93.35%
+       Time  [90m([39m[34m[1mmedian[22m[39m[90m):     [39m[34m[1m402.050 μs               [22m[39m[90m┊[39m GC [90m([39mmedian[90m):    [39m 0.00%
+       Time  [90m([39m[32m[1mmean[22m[39m ± [32mσ[39m[90m):   [39m[32m[1m582.368 μs[22m[39m ± [32m750.579 μs[39m  [90m┊[39m GC [90m([39mmean ± σ[90m):  [39m22.44% ± 15.63%
+      
+        [39m▁[39m█[34m▇[39m[39m▃[32m▃[39m[39m▂[39m▄[39m▁[39m▁[39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m▁
+        [39m█[39m█[34m█[39m[39m█[32m█[39m[39m█[39m█[39m█[39m█[39m▇[39m▆[39m▆[39m▆[39m▄[39m▅[39m▅[39m▅[39m▄[39m▃[39m▃[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▄[39m▄[39m▅[39m▆[39m▆[39m▆[39m▆[39m▇[39m█[39m▇[39m▇[39m▇[39m▇[39m▇[39m▇[39m [39m█
+        260 μs[90m        [39m[90mHistogram: [39m[90m[1mlog([22m[39m[90mfrequency[39m[90m[1m)[22m[39m[90m by time[39m       4.67 ms [0m[1m<[22m
       
        Memory estimate[90m: [39m[33m1.22 MiB[39m, allocs estimate[90m: [39m[33m25033[39m.
   "Intel Core i7-4810MQ":
@@ -301,6 +331,21 @@ digits6:
         3.28 ms[90m      [39m[90mHistogram: [39m[90m[1mlog([22m[39m[90mfrequency[39m[90m[1m)[22m[39m[90m by time[39m      22.2 ms [0m[1m<[22m
       
        Memory estimate[90m: [39m[33m2.79 MiB[39m, allocs estimate[90m: [39m[33m57208[39m.
+  "Intel Core Ultra 5 238V":
+    date: "2025-12-26T02:03:31.805"
+    julia_version: "Julia 1.12.3"
+    os: "Windows"
+    output: |-
+      BenchmarkTools.Trial: 3725 samples with 1 evaluation per sample.
+       Range [90m([39m[36m[1mmin[22m[39m … [35mmax[39m[90m):  [39m[36m[1m629.500 μs[22m[39m … [35m17.923 ms[39m  [90m┊[39m GC [90m([39mmin … max[90m): [39m 0.00% … 84.29%
+       Time  [90m([39m[34m[1mmedian[22m[39m[90m):     [39m[34m[1m944.200 μs              [22m[39m[90m┊[39m GC [90m([39mmedian[90m):    [39m 0.00%
+       Time  [90m([39m[32m[1mmean[22m[39m ± [32mσ[39m[90m):   [39m[32m[1m  1.332 ms[22m[39m ± [32m 1.161 ms[39m  [90m┊[39m GC [90m([39mmean ± σ[90m):  [39m22.79% ± 20.54%
+      
+        [39m [39m [39m [39m█[34m▅[39m[39m▁[39m▁[39m▁[32m [39m[39m [39m [39m [39m▂[39m▂[39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m 
+        [39m▇[39m▃[39m▃[39m█[34m█[39m[39m█[39m█[39m█[32m█[39m[39m█[39m█[39m█[39m█[39m█[39m▇[39m▇[39m▅[39m▅[39m▄[39m▃[39m▃[39m▃[39m▄[39m▄[39m▃[39m▁[39m▃[39m▁[39m▁[39m▃[39m▃[39m▄[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▃[39m▄[39m▃[39m▄[39m▅[39m▄[39m▆[39m▇[39m▇[39m▇[39m█[39m█[39m█[39m█[39m▇[39m▇[39m▇[39m▆[39m▆[39m▆[39m▆[39m [39m█
+        630 μs[90m        [39m[90mHistogram: [39m[90m[1mlog([22m[39m[90mfrequency[39m[90m[1m)[22m[39m[90m by time[39m      5.63 ms [0m[1m<[22m
+      
+       Memory estimate[90m: [39m[33m2.79 MiB[39m, allocs estimate[90m: [39m[33m57208[39m.
   "Intel Core i7-4810MQ":
     date: "2025-12-23T10:58:53.089"
     julia_version: "Julia 1.12.3"
@@ -405,6 +450,21 @@ digits7:
         [34m█[39m[39m [39m [39m [32m▄[39m[39m [39m▅[39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m▁[39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m 
         [34m█[39m[39m▄[39m▆[39m▄[32m█[39m[39m▅[39m█[39m▇[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▆[39m█[39m▄[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▄[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▄[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▄[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m▄[39m [39m▆
         8.9 ms[90m        [39m[90mHistogram: [39m[90m[1mlog([22m[39m[90mfrequency[39m[90m[1m)[22m[39m[90m by time[39m      55.6 ms [0m[1m<[22m
+      
+       Memory estimate[90m: [39m[33m6.68 MiB[39m, allocs estimate[90m: [39m[33m121558[39m.
+  "Intel Core Ultra 5 238V":
+    date: "2025-12-26T02:03:42.284"
+    julia_version: "Julia 1.12.3"
+    os: "Windows"
+    output: |-
+      BenchmarkTools.Trial: 1353 samples with 1 evaluation per sample.
+       Range [90m([39m[36m[1mmin[22m[39m … [35mmax[39m[90m):  [39m[36m[1m1.583 ms[22m[39m … [35m15.271 ms[39m  [90m┊[39m GC [90m([39mmin … max[90m): [39m 0.00% … 73.83%
+       Time  [90m([39m[34m[1mmedian[22m[39m[90m):     [39m[34m[1m2.611 ms              [22m[39m[90m┊[39m GC [90m([39mmedian[90m):    [39m 0.00%
+       Time  [90m([39m[32m[1mmean[22m[39m ± [32mσ[39m[90m):   [39m[32m[1m3.693 ms[22m[39m ± [32m 1.860 ms[39m  [90m┊[39m GC [90m([39mmean ± σ[90m):  [39m22.72% ± 23.44%
+      
+        [39m [39m [39m [39m [39m [39m [39m [39m [39m█[34m▃[39m[39m▁[39m [39m [39m [39m [39m [39m [39m [32m [39m[39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m 
+        [39m▄[39m▁[39m▁[39m▁[39m▁[39m▁[39m▃[39m▇[39m█[34m█[39m[39m█[39m█[39m▇[39m▆[39m▇[39m▇[39m▅[39m▇[32m▅[39m[39m▆[39m▆[39m▇[39m▇[39m▆[39m▆[39m█[39m█[39m▆[39m▄[39m▃[39m▄[39m▁[39m▁[39m▃[39m▃[39m▁[39m▄[39m▅[39m▇[39m█[39m█[39m█[39m█[39m█[39m█[39m█[39m▇[39m█[39m▇[39m▇[39m▆[39m▆[39m▅[39m▅[39m▅[39m▄[39m▅[39m▅[39m [39m█
+        1.58 ms[90m      [39m[90mHistogram: [39m[90m[1mlog([22m[39m[90mfrequency[39m[90m[1m)[22m[39m[90m by time[39m     8.55 ms [0m[1m<[22m
       
        Memory estimate[90m: [39m[33m6.68 MiB[39m, allocs estimate[90m: [39m[33m121558[39m.
   "Intel Core i7-4810MQ":

@@ -95,6 +95,22 @@ solution:
       
        Memory estimate[90m: [39m[33m1.34 KiB[39m, allocs estimate[90m: [39m[33m32[39m.
     thread_count: 2
+  "Intel Core Ultra 5 238V":
+    date: "2025-12-26T02:13:54.804"
+    julia_version: "Julia 1.12.3"
+    os: "Windows"
+    output: |-
+      BenchmarkTools.Trial: 62 samples with 1 evaluation per sample.
+       Range [90m([39m[36m[1mmin[22m[39m … [35mmax[39m[90m):  [39m[36m[1m9.540 s[22m[39m … [35m  10.005 s[39m  [90m┊[39m GC [90m([39mmin … max[90m): [39m0.00% … 0.00%
+       Time  [90m([39m[34m[1mmedian[22m[39m[90m):     [39m[34m[1m9.701 s               [22m[39m[90m┊[39m GC [90m([39mmedian[90m):    [39m0.00%
+       Time  [90m([39m[32m[1mmean[22m[39m ± [32mσ[39m[90m):   [39m[32m[1m9.711 s[22m[39m ± [32m100.707 ms[39m  [90m┊[39m GC [90m([39mmean ± σ[90m):  [39m0.00% ± 0.00%
+      
+        [39m [39m [39m [39m [39m▁[39m [39m▄[39m▁[39m [39m [39m▁[39m [39m [39m▁[39m▄[39m [39m [39m▁[39m [39m [39m█[39m▄[39m▁[34m [39m[32m [39m[39m▄[39m▄[39m▄[39m▁[39m▁[39m [39m [39m [39m [39m [39m [39m▁[39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m▁[39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m [39m 
+        [39m▆[39m▁[39m▁[39m▆[39m█[39m▁[39m█[39m█[39m▆[39m▁[39m█[39m▆[39m▆[39m█[39m█[39m▁[39m▆[39m█[39m▁[39m▆[39m█[39m█[39m█[34m▆[39m[32m▁[39m[39m█[39m█[39m█[39m█[39m█[39m▆[39m▆[39m▆[39m▁[39m▆[39m▆[39m█[39m▁[39m▁[39m▆[39m▆[39m▁[39m▁[39m▁[39m▁[39m▁[39m▁[39m█[39m▁[39m▆[39m▆[39m▁[39m▁[39m▆[39m▁[39m▁[39m▁[39m▆[39m [39m▁
+        9.54 s[90m         Histogram: frequency by time[39m         9.95 s [0m[1m<[22m
+      
+       Memory estimate[90m: [39m[33m3.83 KiB[39m, allocs estimate[90m: [39m[33m74[39m.
+    thread_count: 8
   "Intel Core i7-4810MQ":
     date: "2025-12-23T11:09:19.691"
     julia_version: "Julia 1.12.3"
