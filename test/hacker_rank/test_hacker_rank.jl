@@ -51,6 +51,7 @@ test_cases = [
     ("projecteuler+_problem0028.jl", "2\n3\n5", "25\n101\n"),
     ("projecteuler+_problem0029.jl", "5", "15\n"),
     ("projecteuler+_problem0030.jl", "4", "19316\n"),
+    ("projecteuler+_problem0031.jl", "3\n10\n15\n20", "11\n22\n41\n"),
 ]
 
 for test_case in test_cases
