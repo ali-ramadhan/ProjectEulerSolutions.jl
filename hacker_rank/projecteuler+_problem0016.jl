@@ -31,7 +31,7 @@
 #   11
 
 function sum_digits(n::BigInt)
-    return sum(c - '0' for c in string(n))
+    return sum(digits(n))
 end
 
 T = parse(Int, readline())

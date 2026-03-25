@@ -9,11 +9,7 @@ module Problem0016
 export sum_of_digits, power_digit_sum, solve
 
 function sum_of_digits(n)
-    sum = 0
-    for digit in string(n)
-        sum += parse(Int, digit)
-    end
-    return sum
+    return sum(digits(n))
 end
 
 function power_digit_sum(base, exponent)

@@ -34,7 +34,7 @@
 
 function sum_of_factorial_digits(n)
     fact = factorial(big(n))
-    return sum(parse(Int, c) for c in string(fact))
+    return sum(digits(fact))
 end
 
 T = parse(Int, readline())

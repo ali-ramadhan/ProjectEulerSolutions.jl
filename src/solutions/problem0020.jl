@@ -10,8 +10,7 @@ export sum_of_factorial_digits, solve
 
 function sum_of_factorial_digits(n)
     fact = factorial(big(n))
-    digits_sum = sum(parse(Int, c) for c in string(fact))
-    return digits_sum
+    return sum(digits(fact))
 end
 
 function solve()

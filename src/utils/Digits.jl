@@ -23,13 +23,8 @@ Calculate the sum of all digits in the number n.
 Example: digit_sum(123) returns 6 (1 + 2 + 3)
 """
 function digit_sum(n)
-    sum = 0
-    n = abs(n)  # Handle negative numbers
-    while n > 0
-        sum += n % 10
-        n ÷= 10
-    end
-    return sum
+    n == 0 && return 0
+    return sum(digits(abs(n)))
 end
 
 """
@@ -40,17 +35,7 @@ Return an array of digits of n in order (most significant digit first).
 Example: get_digits(123) returns [1, 2, 3]
 """
 function get_digits(n)
-    n = abs(n)  # Handle negative numbers
-    if n == 0
-        return [0]
-    end
-
-    digits = Int[]
-    while n > 0
-        pushfirst!(digits, n % 10)
-        n ÷= 10
-    end
-    return digits
+    return reverse(digits(abs(n)))
 end
 
 """
@@ -61,15 +46,7 @@ Count the number of digits in n.
 Example: count_digits(123) returns 3
 """
 function count_digits(n)
-    n = abs(n)  # Handle negative numbers
-    n == 0 && return 1
-
-    count = 0
-    while n > 0
-        count += 1
-        n ÷= 10
-    end
-    return count
+    return ndigits(abs(n))
 end
 
 """
@@ -120,13 +97,12 @@ Generate all rotations of the digits of n.
 For example, if n=197, returns [197, 971, 719].
 """
 function digit_rotations(n)
-    n_str = string(n)
-    len = length(n_str)
+    d = digits(n)
+    len = length(d)
     rotations = Int[]
 
-    for i in 1:len
-        rotated = n_str[i:end] * n_str[1:(i - 1)]
-        push!(rotations, parse(Int, rotated))
+    for i in 0:len-1
+        push!(rotations, evalpoly(10, circshift(d, i)))
     end
 
     return rotations
@@ -140,7 +116,7 @@ Check if two numbers are permutations of each other (have the same digits).
 Example: are_permutations(123, 321) returns true
 """
 function are_permutations(a, b)
-    return sort(collect(string(abs(a)))) == sort(collect(string(abs(b))))
+    return sort(digits(abs(a))) == sort(digits(abs(b)))
 end
 
 """
@@ -185,8 +161,7 @@ even digits can't satisfy certain mathematical properties.
 Example: has_even_digit(135) returns false, has_even_digit(123) returns true
 """
 function has_even_digit(n)
-    n_str = string(n)
-    return any(c -> c in "02468", n_str)
+    return any(iseven, digits(n))
 end
 
 end # module Digits

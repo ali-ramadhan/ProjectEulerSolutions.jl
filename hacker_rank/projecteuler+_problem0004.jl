@@ -31,8 +31,8 @@
 #   793397
 
 function is_palindrome(n)
-    s = string(n)
-    return s == reverse(s)
+    d = digits(n)
+    return d == reverse(d)
 end
 
 function find_all_palindrome_products()
