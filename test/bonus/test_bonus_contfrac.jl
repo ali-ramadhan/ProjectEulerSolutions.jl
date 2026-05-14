@@ -2,7 +2,7 @@ using Test
 using ProjectEulerSolutions.BonusContfrac:
     encode_rotated,
     decode_cycle,
-    is_trace_complex,
+    is_elliptic,
     is_primitive,
     compute_Q,
     solve
@@ -23,14 +23,15 @@ using ProjectEulerSolutions.Utils.AnswerHashing
 @test encode_rotated([1, 2]) != encode_rotated([1, 3])
 @test encode_rotated([1, 1]) != encode_rotated([1, 2])
 
-# All seed cycles in the algorithm have |trace| <= 1.
+# Every seed cycle in the algorithm is elliptic (trace ∈ {-1, 0, +1}).
 for seed in ([0], [1], [1, 1], [1, 2], [2, 1], [1, 3], [3, 1])
-    @test is_trace_complex(seed)
+    @test is_elliptic(seed)
 end
 
-# A cycle whose product is hyperbolic (|trace| > 1) must not be flagged complex.
-@test !is_trace_complex([2, 2])  # trace = 2
-@test !is_trace_complex([5])     # trace = 5
+# Cycles whose matrix product is parabolic (|tr|=2) or hyperbolic (|tr|>2)
+# must not be flagged elliptic.
+@test !is_elliptic([2, 2])  # trace = 2 (parabolic)
+@test !is_elliptic([5])     # trace = 5 (hyperbolic)
 
 # Primitivity: repetitions of a shorter cycle are not primitive.
 @test is_primitive([1, 2])
