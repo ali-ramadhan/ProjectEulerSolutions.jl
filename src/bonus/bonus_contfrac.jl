@@ -8,12 +8,17 @@ module BonusContfrac
 
 export compute_Q, solve
 
+# Cycles are stored canonically as a packed unsigned integer with the layout
+#   [length : LEN_BITS][digit_1 : DIGIT_BITS][digit_2 : DIGIT_BITS]...
+# so all rotations of the same cycle hash to the same key. The key type
+# selects how many digits fit:
+#   UInt64  → LEN_BITS + DIGIT_BITS*n ≤ 64  ⇒  n ≤ 12
+#   UInt128 → LEN_BITS + DIGIT_BITS*n ≤ 128 ⇒  n ≤ 24
 const LEN_BITS = 4
 const DIGIT_BITS = 5
-const DIGIT_MASK = (1 << DIGIT_BITS) - 1
 
-# Find the lexicographically smallest rotation of the cycle and pack it into a UInt64.
-function encode_rotated(seq::Vector{Int})
+# Find the lexicographically smallest rotation of the cycle and pack it.
+function encode_rotated(seq::Vector{Int}, ::Type{T}=UInt64)::T where {T<:Unsigned}
     n = length(seq)
     best_s = 1
     for s in 2:n
@@ -29,25 +34,27 @@ function encode_rotated(seq::Vector{Int})
         end
     end
 
-    key = UInt64(n)
+    key = T(n)
     for i in 0:(n-1)
         v = seq[mod1(best_s + i, n)]
-        key |= (UInt64(v) << (LEN_BITS + DIGIT_BITS * i))
+        key |= (T(v) << (LEN_BITS + DIGIT_BITS * i))
     end
     return key
 end
 
-function decode_cycle(key::UInt64)
-    n = Int(key & ((1 << LEN_BITS) - 1))
+function decode_cycle(key::T) where {T<:Unsigned}
+    len_mask = (T(1) << LEN_BITS) - T(1)
+    digit_mask = (T(1) << DIGIT_BITS) - T(1)
+    n = Int(key & len_mask)
     seq = Vector{Int}(undef, n)
     for i in 0:(n-1)
-        seq[i+1] = Int((key >> (LEN_BITS + DIGIT_BITS * i)) & DIGIT_MASK)
+        seq[i+1] = Int((key >> (LEN_BITS + DIGIT_BITS * i)) & digit_mask)
     end
     return seq
 end
 
 # Multiply the PSL_2(Z) generator matrices for the cycle and check |trace| <= 1.
-# Int128 is enough headroom for cycle lengths up to ~12 with small entries.
+# Int128 is enough headroom for cycle lengths up to ~30 with small entries.
 function is_trace_complex(seq::Vector{Int})
     A, B = Int128(1), Int128(0)
     C, D = Int128(0), Int128(1)
@@ -84,15 +91,15 @@ function is_primitive(seq::Vector{Int})
 end
 
 # Rule 2: (a, b) -> (a+1, 1, b+1)
-function expand1!(seq::Vector{Int}, out_set::Set{UInt64}, max_n::Int)
+function expand1!(seq::Vector{Int}, out_set::Set{T}, max_n::Int) where {T<:Unsigned}
     n = length(seq)
     if n < 2 || n + 1 > max_n
         return
     end
 
+    new_seq = Vector{Int}(undef, n + 1)
     for i in 1:n
         j = mod1(i + 1, n)
-        new_seq = Vector{Int}(undef, n + 1)
 
         new_seq[1] = seq[i] + 1
         new_seq[2] = 1
@@ -107,23 +114,23 @@ function expand1!(seq::Vector{Int}, out_set::Set{UInt64}, max_n::Int)
         end
 
         if is_trace_complex(new_seq)
-            push!(out_set, encode_rotated(new_seq))
+            push!(out_set, encode_rotated(new_seq, T))
         end
     end
 end
 
 # Rule 1: (c) -> (a, 0, b) where a + b = c
-function expand0!(seq::Vector{Int}, out_set::Set{UInt64}, max_n::Int)
+function expand0!(seq::Vector{Int}, out_set::Set{T}, max_n::Int) where {T<:Unsigned}
     n = length(seq)
     if n + 2 > max_n
         return
     end
 
+    new_seq = Vector{Int}(undef, n + 2)
     for i in 1:n
         v = seq[i]
         for a in 0:v
             b = v - a
-            new_seq = Vector{Int}(undef, n + 2)
 
             new_seq[1] = a
             new_seq[2] = 0
@@ -138,32 +145,37 @@ function expand0!(seq::Vector{Int}, out_set::Set{UInt64}, max_n::Int)
             end
 
             if is_trace_complex(new_seq)
-                push!(out_set, encode_rotated(new_seq))
+                push!(out_set, encode_rotated(new_seq, T))
             end
         end
     end
 end
 
 function compute_Q(max_n::Int=12)
-    classes = [Set{UInt64}() for _ in 1:max_n]
+    if max_n <= 12
+        return _compute_Q(max_n, UInt64)
+    elseif max_n <= 24
+        return _compute_Q(max_n, UInt128)
+    else
+        error("max_n > 24 not supported (bit-packing limit)")
+    end
+end
+
+function _compute_Q(max_n::Int, ::Type{T}) where {T<:Unsigned}
+    classes = [Set{T}() for _ in 1:max_n]
 
     # The irreducible fundamental base cycles
     seeds = [[0], [1], [1, 1], [1, 2], [2, 1], [1, 3], [3, 1]]
 
     for s in seeds
         if length(s) <= max_n && is_trace_complex(s)
-            push!(classes[length(s)], encode_rotated(s))
+            push!(classes[length(s)], encode_rotated(s, T))
         end
     end
 
     for n in 1:max_n
-        if isempty(classes[n])
-            continue
-        end
-
         for key in classes[n]
             seq = decode_cycle(key)
-
             if n + 1 <= max_n
                 expand1!(seq, classes[n+1], max_n)
             end
@@ -176,14 +188,7 @@ function compute_Q(max_n::Int=12)
 
     q_total = 0
     for n in 1:max_n
-        class_cnt = 0
-        for key in classes[n]
-            seq = decode_cycle(key)
-            if is_primitive(seq)
-                class_cnt += 1
-            end
-        end
-
+        class_cnt = count(k -> is_primitive(decode_cycle(k)), classes[n])
         # Each primitive cycle of length n represents n unique sequences
         # (one per cyclic shift).
         q_total += class_cnt * n

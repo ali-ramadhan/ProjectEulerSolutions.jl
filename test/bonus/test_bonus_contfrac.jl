@@ -10,20 +10,18 @@ using ProjectEulerSolutions.Utils.AnswerHashing
 
 # encode_rotated picks the lexicographically smallest rotation, so cyclic
 # shifts of the same cycle must collide.
-@test encode_rotated([1, 2, 3]) == encode_rotated([2, 3, 1])
-@test encode_rotated([1, 2, 3]) == encode_rotated([3, 1, 2])
-@test encode_rotated([1, 1]) == encode_rotated([1, 1])
-@test encode_rotated([1, 2]) == encode_rotated([2, 1])
-@test encode_rotated([1, 3]) == encode_rotated([3, 1])
+@test encode_rotated([1, 2, 3]) == encode_rotated([2, 3, 1]) == encode_rotated([3, 1, 2])
+@test encode_rotated([3, 1]) == encode_rotated([1, 3])
+@test encode_rotated([2, 1]) == encode_rotated([1, 2])
 
-# Distinct cycles must encode differently.
-@test encode_rotated([1, 2]) != encode_rotated([1, 3])
-@test encode_rotated([1, 1]) != encode_rotated([1, 2])
-
-# decode_cycle returns the canonical rotation produced by encode_rotated.
+# decode_cycle inverts encode_rotated, returning the canonical rotation.
 @test decode_cycle(encode_rotated([2, 3, 1])) == [1, 2, 3]
 @test decode_cycle(encode_rotated([3, 1])) == [1, 3]
 @test decode_cycle(encode_rotated([0])) == [0]
+
+# Distinct cycles must produce distinct keys.
+@test encode_rotated([1, 2]) != encode_rotated([1, 3])
+@test encode_rotated([1, 1]) != encode_rotated([1, 2])
 
 # All seed cycles in the algorithm have |trace| <= 1.
 for seed in ([0], [1], [1, 1], [1, 2], [2, 1], [1, 3], [3, 1])
