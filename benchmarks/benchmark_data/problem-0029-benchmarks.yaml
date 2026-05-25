@@ -29,7 +29,7 @@ count_distinct_powers_100:
         17.8 μs[90m         Histogram: frequency by time[39m        31.1 μs [0m[1m<[22m
       
        Memory estimate[90m: [39m[33m56.67 KiB[39m, allocs estimate[90m: [39m[33m87[39m.
-  "32 × 13th Gen Intel(R) Core(TM) i9-13900K":
+  "Intel Core i9-13900K":
     date: "2026-05-18T10:42:22.768"
     julia_version: "Julia 1.12.6"
     os: "Linux"
@@ -180,7 +180,7 @@ count_distinct_powers_100k:
         265 ms[90m           Histogram: frequency by time[39m          359 ms [0m[1m<[22m
       
        Memory estimate[90m: [39m[33m237.03 MiB[39m, allocs estimate[90m: [39m[33m696[39m.
-  "32 × 13th Gen Intel(R) Core(TM) i9-13900K":
+  "Intel Core i9-13900K":
     date: "2026-05-18T10:42:45.103"
     julia_version: "Julia 1.12.6"
     os: "Linux"
@@ -331,7 +331,7 @@ count_distinct_powers_10k:
         12.3 ms[90m      [39m[90mHistogram: [39m[90m[1mlog([22m[39m[90mfrequency[39m[90m[1m)[22m[39m[90m by time[39m      19.7 ms [0m[1m<[22m
       
        Memory estimate[90m: [39m[33m20.45 MiB[39m, allocs estimate[90m: [39m[33m415[39m.
-  "32 × 13th Gen Intel(R) Core(TM) i9-13900K":
+  "Intel Core i9-13900K":
     date: "2026-05-18T10:42:42.345"
     julia_version: "Julia 1.12.6"
     os: "Linux"
@@ -482,7 +482,7 @@ count_distinct_powers_1k:
         334 μs[90m        [39m[90mHistogram: [39m[90m[1mlog([22m[39m[90mfrequency[39m[90m[1m)[22m[39m[90m by time[39m        758 μs [0m[1m<[22m
       
        Memory estimate[90m: [39m[33m1.13 MiB[39m, allocs estimate[90m: [39m[33m210[39m.
-  "32 × 13th Gen Intel(R) Core(TM) i9-13900K":
+  "Intel Core i9-13900K":
     date: "2026-05-18T10:42:31.818"
     julia_version: "Julia 1.12.6"
     os: "Linux"

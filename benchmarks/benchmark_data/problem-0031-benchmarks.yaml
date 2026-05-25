@@ -1,5 +1,5 @@
 uk_1000p:
-  "32 × 13th Gen Intel(R) Core(TM) i9-13900K":
+  "Intel Core i9-13900K":
     date: "2026-05-18T10:43:27.036"
     julia_version: "Julia 1.12.6"
     os: "Linux"
@@ -45,7 +45,7 @@ uk_1000p:
       
        Memory estimate[90m: [39m[33m7.95 KiB[39m, allocs estimate[90m: [39m[33m3[39m.
 uk_200p:
-  "32 × 13th Gen Intel(R) Core(TM) i9-13900K":
+  "Intel Core i9-13900K":
     date: "2026-05-18T10:43:24.610"
     julia_version: "Julia 1.12.6"
     os: "Linux"
@@ -91,7 +91,7 @@ uk_200p:
       
        Memory estimate[90m: [39m[33m1.62 KiB[39m, allocs estimate[90m: [39m[33m2[39m.
 us_1000c:
-  "32 × 13th Gen Intel(R) Core(TM) i9-13900K":
+  "Intel Core i9-13900K":
     date: "2026-05-18T10:43:31.228"
     julia_version: "Julia 1.12.6"
     os: "Linux"
@@ -137,7 +137,7 @@ us_1000c:
       
        Memory estimate[90m: [39m[33m7.95 KiB[39m, allocs estimate[90m: [39m[33m3[39m.
 us_200c:
-  "32 × 13th Gen Intel(R) Core(TM) i9-13900K":
+  "Intel Core i9-13900K":
     date: "2026-05-18T10:43:29.246"
     julia_version: "Julia 1.12.6"
     os: "Linux"

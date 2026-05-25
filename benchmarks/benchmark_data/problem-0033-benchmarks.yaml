@@ -1,5 +1,5 @@
 multiply_curious_fractions_N2_K1:
-  "32 × 13th Gen Intel(R) Core(TM) i9-13900K":
+  "Intel Core i9-13900K":
     date: "2026-05-18T10:43:58.860"
     julia_version: "Julia 1.12.6"
     os: "Linux"
@@ -46,7 +46,7 @@ multiply_curious_fractions_N3_K1:
       
        Memory estimate[90m: [39m[33m996.32 KiB[39m, allocs estimate[90m: [39m[33m23213[39m.
 multiply_curious_fractions_N3_K2:
-  "32 × 13th Gen Intel(R) Core(TM) i9-13900K":
+  "Intel Core i9-13900K":
     date: "2026-05-18T10:44:07.010"
     julia_version: "Julia 1.12.6"
     os: "Linux"
@@ -77,7 +77,7 @@ multiply_curious_fractions_N3_K2:
       
        Memory estimate[90m: [39m[33m907.71 KiB[39m, allocs estimate[90m: [39m[33m18748[39m.
 multiply_curious_fractions_N4_K1:
-  "32 × 13th Gen Intel(R) Core(TM) i9-13900K":
+  "Intel Core i9-13900K":
     date: "2026-05-18T10:44:17.448"
     julia_version: "Julia 1.12.6"
     os: "Linux"
@@ -108,7 +108,7 @@ multiply_curious_fractions_N4_K1:
       
        Memory estimate[90m: [39m[33m15.15 MiB[39m, allocs estimate[90m: [39m[33m311947[39m.
 multiply_curious_fractions_N4_K3:
-  "32 × 13th Gen Intel(R) Core(TM) i9-13900K":
+  "Intel Core i9-13900K":
     date: "2026-05-18T10:44:27.796"
     julia_version: "Julia 1.12.6"
     os: "Linux"

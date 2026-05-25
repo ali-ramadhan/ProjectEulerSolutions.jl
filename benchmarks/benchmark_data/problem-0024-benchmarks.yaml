@@ -29,7 +29,7 @@ solution:
         643 ns[90m           Histogram: frequency by time[39m         1.87 μs [0m[1m<[22m
       
        Memory estimate[90m: [39m[33m2.06 KiB[39m, allocs estimate[90m: [39m[33m38[39m.
-  "32 × 13th Gen Intel(R) Core(TM) i9-13900K":
+  "Intel Core i9-13900K":
     date: "2026-05-18T10:37:50.774"
     julia_version: "Julia 1.12.6"
     os: "Linux"

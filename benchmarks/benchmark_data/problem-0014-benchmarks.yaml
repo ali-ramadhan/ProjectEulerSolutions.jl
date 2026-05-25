@@ -29,7 +29,7 @@ longest_collatz_under_100M:
         38.3 s[90m          Histogram: frequency by time[39m         39.4 s [0m[1m<[22m
       
        Memory estimate[90m: [39m[33m17.00 GiB[39m, allocs estimate[90m: [39m[33m107[39m.
-  "32 × 13th Gen Intel(R) Core(TM) i9-13900K":
+  "Intel Core i9-13900K":
     date: "2026-05-18T10:34:53.362"
     julia_version: "Julia 1.12.6"
     os: "Linux"
@@ -150,7 +150,7 @@ longest_collatz_under_10M:
         2.71 s[90m         Histogram: frequency by time[39m        3.07 s [0m[1m<[22m
       
        Memory estimate[90m: [39m[33m1.06 GiB[39m, allocs estimate[90m: [39m[33m83[39m.
-  "32 × 13th Gen Intel(R) Core(TM) i9-13900K":
+  "Intel Core i9-13900K":
     date: "2026-05-18T10:29:38.769"
     julia_version: "Julia 1.12.6"
     os: "Linux"
@@ -301,7 +301,7 @@ longest_collatz_under_1M:
         146 ms[90m        [39m[90mHistogram: [39m[90m[1mlog([22m[39m[90mfrequency[39m[90m[1m)[22m[39m[90m by time[39m        220 ms [0m[1m<[22m
       
        Memory estimate[90m: [39m[33m133.17 MiB[39m, allocs estimate[90m: [39m[33m65[39m.
-  "32 × 13th Gen Intel(R) Core(TM) i9-13900K":
+  "Intel Core i9-13900K":
     date: "2026-05-18T10:26:30.665"
     julia_version: "Julia 1.12.6"
     os: "Linux"
