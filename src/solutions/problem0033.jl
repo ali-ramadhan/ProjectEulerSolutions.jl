@@ -20,7 +20,7 @@ function find_curious_fractions(N, K)
     for n in lo:hi
         ds = digits(n; pad=N)
 
-        # We want most significant bit first. Otherwise `rem` (built below) ends up digit-reversed.
+        # We want most significant digit first. Otherwise `rem` (built below) ends up digit-reversed.
         reverse!(ds)
 
         for pos in combinations(1:N, K)
