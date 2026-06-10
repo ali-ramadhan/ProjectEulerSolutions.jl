@@ -162,10 +162,10 @@ end
 function compute_Q(max_n::Int=12)
     if max_n <= 12
         return _compute_Q(max_n, UInt64)
-    elseif max_n <= 24
+    elseif max_n <= 15
         return _compute_Q(max_n, UInt128)
     else
-        error("max_n > 24 not supported (bit-packing limit)")
+        error("max_n > 15 not supported (the 4-bit length field caps cycle length at 15)")
     end
 end
 
