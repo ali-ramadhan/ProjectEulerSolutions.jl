@@ -111,6 +111,24 @@ end
     @test !is_triangle_number(0)
     @test !is_triangle_number(-1)
     @test !is_triangle_number(-10)
+
+    # Floating-point square roots can round these neighbors to the same value.
+    for T in (Int64, UInt64, Int128, UInt128, BigInt)
+        n = T(20_000_000_100_000_000)
+        @test is_triangle_number(n)
+        @test !is_triangle_number(n - 1)
+        @test !is_triangle_number(n + 1)
+    end
+
+    # The input fits its type even when 1 + 8n does not.
+    for (T, k) in ((Int64, big(2)^32 - 1),
+                   (Int128, big(2)^64 - 1),
+                   (UInt128, big(2)^64))
+        n = T(k * (k + 1) ÷ 2)
+        @test is_triangle_number(n)
+        @test !is_triangle_number(n - 1)
+        @test !is_triangle_number(n + 1)
+    end
 end
 
 @testset "is_pentagonal" begin

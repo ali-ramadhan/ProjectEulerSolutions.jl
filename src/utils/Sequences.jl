@@ -204,8 +204,10 @@ Example: is_triangle_number(6) returns true (T(3) = 6)
 """
 function is_triangle_number(n)
     n <= 0 && return false
-    x = (sqrt(1 + 8 * n) - 1) / 2
-    return isinteger(x)
+    # Widen before multiplying so the discriminant also fits for large inputs.
+    discriminant = 1 + 8 * widen(n)
+    root = isqrt(discriminant)
+    return isodd(root) && root^2 == discriminant
 end
 
 """
