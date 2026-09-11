@@ -39,6 +39,19 @@ using ProjectEulerSolutions.Utils.Sequences:
 
     # Test that iterator terminates correctly
     @test collect(Fibonacci(100)) == [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89]
+
+    # Bound collection so an overflow regression cannot hang the test suite.
+    @test collect(Iterators.take(Fibonacci(Int8(100)), 20)) ==
+          Int8[0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89]
+    for T in (Int8, UInt8, Int, Int128)
+        expected = BigInt[0, 1]
+        while expected[end] + expected[end-1] <= typemax(T)
+            push!(expected, expected[end] + expected[end-1])
+        end
+        actual = collect(Iterators.take(Fibonacci{T}(), length(expected) + 1))
+        @test actual == expected
+        @test eltype(actual) == T
+    end
 end
 
 @testset "triangle_number" begin

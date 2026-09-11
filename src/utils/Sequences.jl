@@ -62,8 +62,12 @@ end
 function Base.iterate(fib::Fibonacci{T}, state::Tuple{T, T}) where T
     current, next = state
     next > fib.limit && return nothing
-    return (next, (next, current + next))
+    # Check the remaining room before adding, so the state cannot overflow.
+    next_state = current > fib.limit - next ? nothing : (next, current + next)
+    return (next, next_state)
 end
+
+Base.iterate(::Fibonacci, ::Nothing) = nothing
 
 Base.eltype(::Type{Fibonacci{T}}) where T = T
 Base.IteratorSize(::Type{Fibonacci{T}}) where T = Base.SizeUnknown()
