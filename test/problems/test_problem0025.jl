@@ -2,6 +2,9 @@ using Test
 using ProjectEulerSolutions.Utils.AnswerHashing
 using ProjectEulerSolutions.Problem0025
 
+@test first_fibonacci_with_n_digits(1) == 1  # F_1 = 1 already has one digit
+@test first_fibonacci_with_n_digits_formula(1) == 1
+
 @test first_fibonacci_with_n_digits(2) == 7  # F_7 = 13 has 2 digits
 @test first_fibonacci_with_n_digits(3) == 12 # F_12 = 144 has 3 digits
 
