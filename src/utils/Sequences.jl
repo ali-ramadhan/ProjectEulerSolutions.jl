@@ -31,12 +31,12 @@ for fib in Fibonacci(100)
 end
 
 # Using Int128 for larger numbers
-for fib in Fibonacci(Int128(10^20))
+for fib in Fibonacci(Int128(10)^20)
     println(fib)
 end
 
 # Using BigInt for arbitrary precision
-for fib in Fibonacci{BigInt}(10^50)
+for fib in Fibonacci{BigInt}(big(10)^50)
     println(fib)
 end
 
