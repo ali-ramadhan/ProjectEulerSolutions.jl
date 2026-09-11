@@ -71,6 +71,18 @@ using ProjectEulerSolutions.Utils.Primes: get_witnesses
         @test !is_prime(1373653, MillerRabin())  # composite
     end
 
+    @testset "Miller-Rabin near the UInt64 limit" begin
+        prime = big(2)^64 - 59
+        composite = big(4_294_967_291)^2
+        for T in (UInt64, Int128, UInt128, BigInt)
+            for mr in (MillerRabin(), MillerRabin(T(prime)))
+                @test is_prime(T(prime), mr)
+                @test !is_prime(T(composite), mr)
+                @test !is_prime(T(typemax(UInt64)), mr)
+            end
+        end
+    end
+
     @testset "Sieve of Eratosthenes" begin
         @test sieve_of_eratosthenes(10) == [2, 3, 5, 7]
         @test sieve_of_eratosthenes(20) == [2, 3, 5, 7, 11, 13, 17, 19]

@@ -135,8 +135,7 @@ Returns false if 'n' is probably prime (to base 'a').
 """
 @inline function _is_composite_witness(n, a, d, s)
     # Compute x = a^d mod n
-    # We use built-in powermod which handles Int128 promotion internally
-    # to avoid overflow during intermediate calculations.
+    # Built-in powermod widens intermediate products to avoid overflow.
     x = powermod(a, d, n)
 
     # If x = 1 or x = n-1, then 'n' passes the test for this base 'a'
@@ -147,8 +146,8 @@ Returns false if 'n' is probably prime (to base 'a').
     # Square x repeatedly up to s-1 times
     for _ in 1:(s - 1)
         # x = x^2 mod n
-        # We manually promote to Int128 to ensure (x*x) doesn't overflow Int64
-        x = (Int128(x) * x) % n
+        # Widen according to x's type, including unsigned and 128-bit inputs.
+        x = oftype(n, mod(widemul(x, x), n))
 
         # If we hit n-1, 'n' passes the test for this base
         if x == n - 1
