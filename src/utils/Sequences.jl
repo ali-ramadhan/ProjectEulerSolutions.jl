@@ -31,12 +31,12 @@ for fib in Fibonacci(100)
 end
 
 # Using Int128 for larger numbers
-for fib in Fibonacci(Int128(10^20))
+for fib in Fibonacci(Int128(10)^20)
     println(fib)
 end
 
 # Using BigInt for arbitrary precision
-for fib in Fibonacci{BigInt}(10^50)
+for fib in Fibonacci{BigInt}(big(10)^50)
     println(fib)
 end
 
@@ -62,8 +62,12 @@ end
 function Base.iterate(fib::Fibonacci{T}, state::Tuple{T, T}) where T
     current, next = state
     next > fib.limit && return nothing
-    return (next, (next, current + next))
+    # Check the remaining room before adding, so the state cannot overflow.
+    next_state = current > fib.limit - next ? nothing : (next, current + next)
+    return (next, next_state)
 end
+
+Base.iterate(::Fibonacci, ::Nothing) = nothing
 
 Base.eltype(::Type{Fibonacci{T}}) where T = T
 Base.IteratorSize(::Type{Fibonacci{T}}) where T = Base.SizeUnknown()
@@ -122,7 +126,7 @@ Alternatively, pentagonal numbers can be constructed by the recurrence relation:
     P(n) = P(n-1) + 3n - 2
 
 This shows that each successive pentagonal number adds 3n-2 dots to form the next
-pentagon layer. The pattern 3n-2 gives the differences: 2, 5, 8, 11, 14, ...
+pentagon layer. For n ≥ 2, the pattern 3n-2 gives the differences: 4, 7, 10, 13, 16, ...
 (arithmetic sequence with common difference 3).
 
 Geometrically, pentagonal numbers extend triangular numbers by adding pentagonal
@@ -165,7 +169,7 @@ The recurrence relation is:
     H(1) = 1
     H(n) = H(n-1) + 4n - 3
 
-This shows each hexagonal layer adds 4n-3 dots, giving differences: 3, 7, 11, 15, ...
+This shows each hexagonal layer adds 4n-3 dots, giving differences: 5, 9, 13, 17, ...
 (arithmetic sequence with common difference 4).
 
 Remarkably, every hexagonal number is also a triangular number: H(n) = T(2n-1).
@@ -200,8 +204,10 @@ Example: is_triangle_number(6) returns true (T(3) = 6)
 """
 function is_triangle_number(n)
     n <= 0 && return false
-    x = (sqrt(1 + 8 * n) - 1) / 2
-    return isinteger(x)
+    # Widen before multiplying so the discriminant also fits for large inputs.
+    discriminant = 1 + 8 * widen(n)
+    root = isqrt(discriminant)
+    return isodd(root) && root^2 == discriminant
 end
 
 """

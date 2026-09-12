@@ -10,6 +10,7 @@ export sum_even_fibonacci, solve
 
 function sum_even_fibonacci(limit)
     limit < 2 && return 0
+    limit < 8 && return 2
 
     a, b = 2, 8
     result = a + b

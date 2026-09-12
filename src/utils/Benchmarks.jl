@@ -48,7 +48,7 @@ function save_benchmark(result, problem_tag, benchmark_name; thread_count=nothin
     display(result)
 
     # Ensure benchmarks directory exists
-    benchmarks_dir = realpath(joinpath(@__DIR__, "..", "..", "benchmarks", "benchmark_data"))
+    benchmarks_dir = abspath(joinpath(@__DIR__, "..", "..", "benchmarks", "benchmark_data"))
     if !isdir(benchmarks_dir)
         mkpath(benchmarks_dir)
     end

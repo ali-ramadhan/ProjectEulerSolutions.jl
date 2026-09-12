@@ -12,4 +12,11 @@ sum_of_proper_divisors(n) = sum_divisors(n) - n
 @test sum_of_proper_divisors(6) == 1 + 2 + 3
 @test sum_of_proper_divisors(28) == 1 + 2 + 4 + 7 + 14
 
+@test sum_of_amicable_numbers(10) == 0
+@test sum_of_amicable_numbers(220) == 0
+@test sum_of_amicable_numbers(221) == 220
+@test sum_of_amicable_numbers(250) == 220
+@test sum_of_amicable_numbers(284) == 220
+@test sum_of_amicable_numbers(285) == 504
+
 @test_answer solve() "0021"

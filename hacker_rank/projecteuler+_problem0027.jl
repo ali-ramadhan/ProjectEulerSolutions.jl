@@ -28,7 +28,7 @@
 # -1 41
 #
 # Explanation:
-# For a = -1 and b = 41, you get 42 primes.
+# For a = -1 and b = 41, you get 41 primes.
 
 function is_prime(n)
     n <= 1 && return false

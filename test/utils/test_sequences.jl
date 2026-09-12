@@ -39,6 +39,19 @@ using ProjectEulerSolutions.Utils.Sequences:
 
     # Test that iterator terminates correctly
     @test collect(Fibonacci(100)) == [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89]
+
+    # Bound collection so an overflow regression cannot hang the test suite.
+    @test collect(Iterators.take(Fibonacci(Int8(100)), 20)) ==
+          Int8[0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89]
+    for T in (Int8, UInt8, Int, Int128)
+        expected = BigInt[0, 1]
+        while expected[end] + expected[end-1] <= typemax(T)
+            push!(expected, expected[end] + expected[end-1])
+        end
+        actual = collect(Iterators.take(Fibonacci{T}(), length(expected) + 1))
+        @test actual == expected
+        @test eltype(actual) == T
+    end
 end
 
 @testset "triangle_number" begin
@@ -98,6 +111,24 @@ end
     @test !is_triangle_number(0)
     @test !is_triangle_number(-1)
     @test !is_triangle_number(-10)
+
+    # Floating-point square roots can round these neighbors to the same value.
+    for T in (Int64, UInt64, Int128, UInt128, BigInt)
+        n = T(20_000_000_100_000_000)
+        @test is_triangle_number(n)
+        @test !is_triangle_number(n - 1)
+        @test !is_triangle_number(n + 1)
+    end
+
+    # The input fits its type even when 1 + 8n does not.
+    for (T, k) in ((Int64, big(2)^32 - 1),
+                   (Int128, big(2)^64 - 1),
+                   (UInt128, big(2)^64))
+        n = T(k * (k + 1) ÷ 2)
+        @test is_triangle_number(n)
+        @test !is_triangle_number(n - 1)
+        @test !is_triangle_number(n + 1)
+    end
 end
 
 @testset "is_pentagonal" begin

@@ -21,55 +21,54 @@ function required_precision_bits(limit; fractional_digits=32)
     return ceil(Int, total_digits * log2(10))
 end
 
-function process_chunk(chunk_start, chunk_end, precision_bits)
-    setprecision(BigFloat, precision_bits) do
-        local_results = Vector{Tuple{Int,BigFloat,BigFloat}}()
-        for n in chunk_start:chunk_end
-            n == 0 && continue
-            isqrt(abs(n))^2 == abs(n) && continue
+function process_chunk(chunk_start, chunk_end)
+    local_results = Vector{Tuple{Int,BigFloat,BigFloat}}()
+    for n in chunk_start:chunk_end
+        n == 0 && continue
+        isqrt(abs(n))^2 == abs(n) && continue
 
-            if n > 0
-                val = cos(big(π) * sqrt(big(n)))
-            else
-                val = cosh(big(π) * sqrt(big(-n)))
-            end
-
-            dist = distance_to_nearest_integer(val)
-            push!(local_results, (n, val, dist))
+        if n > 0
+            val = cos(big(π) * sqrt(big(n)))
+        else
+            val = cosh(big(π) * sqrt(big(-n)))
         end
-        return local_results
+
+        dist = distance_to_nearest_integer(val)
+        push!(local_results, (n, val, dist))
     end
+    return local_results
 end
 
 function find_closest_cos_to_integer(limit)
     precision_bits = required_precision_bits(limit)
     @info "Using $precision_bits bits of precision for limit=$limit"
 
-    num_chunks = Threads.nthreads()
+    # On Julia 1.10, precision is global: set it once and restore it only after
+    # every worker finishes, including when a worker throws an exception.
+    results = setprecision(BigFloat, precision_bits) do
+        num_chunks = Threads.nthreads()
 
-    if num_chunks == 1
-        results = process_chunk(-limit, limit, precision_bits)
-        sort!(results, by=x -> x[3])
-        log_top_results(results)
-        return results[1][1]
+        if num_chunks == 1
+            return process_chunk(-limit, limit)
+        end
+
+        # Multi-threaded: chunk the range from -limit to limit
+        total_range = 2 * limit + 1
+        chunk_size = cld(total_range, num_chunks)
+
+        tasks = @sync map(1:num_chunks) do i
+            chunk_start = -limit + (i - 1) * chunk_size
+            chunk_end = min(chunk_start + chunk_size - 1, limit)
+            Threads.@spawn process_chunk(chunk_start, chunk_end)
+        end
+
+        return reduce(vcat, fetch.(tasks))
     end
 
-    # Multi-threaded: chunk the range from -limit to limit
-    total_range = 2 * limit + 1
-    chunk_size = cld(total_range, num_chunks)
+    sort!(results, by=x -> x[3])
+    log_top_results(results)
 
-    tasks = map(1:num_chunks) do i
-        chunk_start = -limit + (i - 1) * chunk_size
-        chunk_end = min(chunk_start + chunk_size - 1, limit)
-        Threads.@spawn process_chunk(chunk_start, chunk_end, precision_bits)
-    end
-
-    # Combine results from all chunks
-    all_results = reduce(vcat, fetch.(tasks))
-    sort!(all_results, by=x -> x[3])
-    log_top_results(all_results)
-
-    return all_results[1][1]
+    return results[1][1]
 end
 
 function log_top_results(results)

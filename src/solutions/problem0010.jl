@@ -11,7 +11,8 @@ export sum_of_primes_below, solve
 using ProjectEulerSolutions.Utils.Primes: sum_sieve_of_eratosthenes
 
 function sum_of_primes_below(limit)
-    return sum_sieve_of_eratosthenes(limit)
+    limit <= 2 && return 0
+    return sum_sieve_of_eratosthenes(limit - 1)
 end
 
 function solve()

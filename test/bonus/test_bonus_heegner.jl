@@ -16,3 +16,7 @@ result_small = find_closest_cos_to_integer(10)
 
 # Correct answer
 @test_answer solve() "heegner" "bonus"
+
+# Exercise the threaded path even when the main test process has one thread.
+threaded_test = joinpath(@__DIR__, "heegner_threads.jl")
+@test success(`$(Base.julia_cmd()) --startup-file=no --threads=4 $threaded_test`)
