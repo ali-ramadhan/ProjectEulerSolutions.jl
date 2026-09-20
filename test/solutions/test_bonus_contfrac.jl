@@ -49,4 +49,4 @@ end
 @test compute_Q(2) == 6
 
 # Correct answer
-@test_answer solve() "contfrac" "bonus"
+@test_answer solve() "contfrac"

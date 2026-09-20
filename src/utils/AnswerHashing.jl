@@ -12,6 +12,9 @@ function hash_answer(answer)
     return bytes2hex(sha256(string(answer)))
 end
 
+# Problem numbers ("0012") are hashed under [problems] and bonus problem names ("root13") under [bonus].
+answer_category(problem_id) = occursin(r"^\d{4}$", problem_id) ? "problems" : "bonus"
+
 function load_hashes()
     isfile(ANSWERS_FILE) ? TOML.parsefile(ANSWERS_FILE) : Dict("problems" => Dict(), "bonus" => Dict())
 end
@@ -25,7 +28,8 @@ function save_hashes(hashes)
     end
 end
 
-function verify_answer(problem_id, answer; category="problems")
+function verify_answer(problem_id, answer)
+    category = answer_category(problem_id)
     computed_hash = hash_answer(answer)
     hashes = load_hashes()
     expected = get(get(hashes, category, Dict()), problem_id, nothing)
@@ -45,12 +49,6 @@ end
 macro test_answer(solve_expr, problem_id)
     quote
         @test verify_answer($(esc(problem_id)), $(esc(solve_expr)))
-    end
-end
-
-macro test_answer(solve_expr, problem_id, category)
-    quote
-        @test verify_answer($(esc(problem_id)), $(esc(solve_expr)); category=$(esc(category)))
     end
 end
 

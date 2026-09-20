@@ -26,4 +26,4 @@ digits_sqrt13 = compute_sqrt_digits(13, 10)
 @test all(0 <= d <= 9 for d in digits_sqrt13)
 
 # Correct answer
-@test_answer solve() "root13" "bonus"
+@test_answer solve() "root13"

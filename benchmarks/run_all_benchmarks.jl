@@ -12,6 +12,8 @@ function format_time(seconds)
     end
 end
 
+is_bonus(script) = startswith(script, "benchmark_bonus_")
+
 function main()
     # Parse command line arguments
     run_bonus = true
@@ -30,46 +32,34 @@ function main()
         end
     end
 
-    all_scripts = filter(readdir(@__DIR__)) do f
-        endswith(f, ".jl") && f != "run_all_benchmarks.jl"
+    # Problem benchmarks are `benchmark_problemNNNN.jl` and bonus benchmarks are `benchmark_bonus_<name>.jl`.
+    scripts = filter(readdir(@__DIR__)) do f
+        occursin(r"^benchmark_(problem\d{4}|bonus_\w+)\.jl$", f)
     end
 
-    # Separate bonus and problem scripts
-    bonus_scripts = filter(s -> startswith(s, "benchmark_bonus_"), all_scripts)
-    problem_scripts = filter(s -> startswith(s, "benchmark_problem"), all_scripts)
+    if !run_bonus
+        filter!(!is_bonus, scripts)
+    end
 
-    # Filter problem scripts by range if specified
+    # A problem range only restricts the numbered problems; bonus scripts still run unless --no-bonus is given.
     if !isnothing(n_start) && !isnothing(n_end)
-        problem_scripts = filter(problem_scripts) do s
-            m = match(r"benchmark_problem(\d+)\.jl", s)
-            if !isnothing(m)
-                num = parse(Int, m.captures[1])
-                return n_start <= num <= n_end
-            end
-            return false
+        filter!(scripts) do s
+            m = match(r"^benchmark_problem(\d{4})\.jl$", s)
+            isnothing(m) || n_start <= parse(Int, m[1]) <= n_end
         end
     end
 
+    # Problems first, then bonus problems
+    sort!(scripts; by = s -> (is_bonus(s), s))
+
     total_time = 0.0
 
-    # Run problem scripts first
-    for script in sort(problem_scripts)
+    for script in scripts
         GC.gc()
         @info "Running $script"
         elapsed = @elapsed Base.include(Module(), joinpath(@__DIR__, script))
         total_time += elapsed
         @info "Completed $script in $(format_time(elapsed))"
-    end
-
-    # Run bonus scripts after (if enabled)
-    if run_bonus
-        for script in sort(bonus_scripts)
-            GC.gc()
-            @info "Running $script"
-            elapsed = @elapsed Base.include(Module(), joinpath(@__DIR__, script))
-            total_time += elapsed
-            @info "Completed $script in $(format_time(elapsed))"
-        end
     end
 
     @info "Total runtime: $(format_time(total_time))"

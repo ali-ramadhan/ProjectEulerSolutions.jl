@@ -15,7 +15,7 @@ result_small = find_closest_cos_to_integer(10)
 @test abs(result_small) <= 10
 
 # Correct answer
-@test_answer solve() "heegner" "bonus"
+@test_answer solve() "heegner"
 
 # Exercise the threaded path even when the main test process has one thread.
 threaded_test = joinpath(@__DIR__, "heegner_threads.jl")

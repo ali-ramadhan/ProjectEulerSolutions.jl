@@ -23,4 +23,4 @@ for p in (5, 13, 17, 29, 37, 61, 73)
 end
 
 # Correct answer
-@test_answer solve() "18i" "bonus"
+@test_answer solve() "18i"

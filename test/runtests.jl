@@ -8,34 +8,21 @@ using SafeTestsets
     @safetestset "Sequences" include("utils/test_sequences.jl")
     @safetestset "NumberTheory" include("utils/test_number_theory.jl")
 
-    # Test problem solutions
+    # Problem tests are `test_problemNNNN.jl` and bonus problem tests are `test_bonus_<name>.jl`.
     test_files = filter(
-        file -> occursin(r"^test_problem\d{4}\.jl$", file),
-        readdir(joinpath(@__DIR__, "problems"))
+        file -> occursin(r"^test_(problem\d{4}|bonus_\w+)\.jl$", file),
+        readdir(joinpath(@__DIR__, "solutions"))
     )
 
-    sort!(test_files)
+    # Problems first, then bonus problems
+    sort!(test_files; by = file -> (startswith(file, "test_bonus_"), file))
 
     for test_file in test_files
-        problem_num = match(r"test_problem(\d{4})\.jl", test_file).captures[1]
-        test_name = "Problem $problem_num"
+        m = match(r"^test_(?:problem(\d{4})|bonus_(\w+))\.jl$", test_file)
+        test_name = isnothing(m[1]) ? "Bonus $(m[2])" : "Problem $(m[1])"
+        test_path = joinpath(@__DIR__, "solutions", test_file)
         @info "Testing $test_name..."
-        @eval @safetestset $test_name include(joinpath("problems", $test_file))
-    end
-
-    # Test bonus problems
-    bonus_test_files = filter(
-        file -> occursin(r"^test_bonus_.*\.jl$", file),
-        readdir(joinpath(@__DIR__, "bonus"))
-    )
-
-    sort!(bonus_test_files)
-
-    for test_file in bonus_test_files
-        bonus_name = match(r"test_bonus_(.*)\.jl", test_file).captures[1]
-        test_name = "Bonus $bonus_name"
-        @info "Testing $test_name..."
-        @eval @safetestset $test_name include(joinpath("bonus", $test_file))
+        @eval @safetestset $test_name include($test_path)
     end
 
     include("hacker_rank/test_hacker_rank.jl")
