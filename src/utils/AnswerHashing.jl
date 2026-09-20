@@ -34,8 +34,14 @@ function verify_answer(problem_id, answer)
     hashes = load_hashes()
     expected = get(get(hashes, category, Dict()), problem_id, nothing)
 
-    # Auto-record if no hash exists
+    # Auto-record if no hash exists, except on CI where the recorded hash would be thrown away with the
+    # checkout and a missing (or forgotten) entry would otherwise pass with whatever answer was computed.
     if expected === nothing
+        if get(ENV, "CI", "false") == "true"
+            error("No answer hash recorded for $category/$problem_id. Answer hashes are not auto-recorded " *
+                  "on CI: run the tests locally to record it, then commit test/answers.toml.")
+        end
+
         haskey(hashes, category) || (hashes[category] = Dict{String,String}())
         hashes[category][problem_id] = computed_hash
         save_hashes(hashes)
