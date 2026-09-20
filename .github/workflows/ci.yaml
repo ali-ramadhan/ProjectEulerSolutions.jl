@@ -32,6 +32,30 @@ jobs:
           ignore-no-cache: true
       - uses: julia-actions/julia-runtest@v1
 
+  threads:
+    name: Run Threaded Tests - Julia ${{ matrix.version }} - 4 threads
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        version:
+          - '1.10'
+          - '1.11'
+          - '1.12'
+          - '1.13'
+    steps:
+      - uses: actions/checkout@v6
+      - uses: julia-actions/setup-julia@v3
+        with:
+          version: ${{ matrix.version }}
+      - name: Instantiate project
+        run: julia --project=. -e 'using Pkg; Pkg.instantiate()'
+      # The solutions that use threads take a serial path when Julia has a single thread, as it does in the
+      # test job above, so their threaded code is only exercised here.
+      - name: Run the tests of the solutions that use threads
+        run: julia --threads=4 --project=. test/runtests_threaded.jl
+
   hacker_rank:
     name: Run HackerRank Scripts - Julia 1.2
     runs-on: ubuntu-latest
