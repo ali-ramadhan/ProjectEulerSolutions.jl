@@ -7,6 +7,7 @@ using SafeTestsets
     @safetestset "Primes" include("utils/test_primes.jl")
     @safetestset "Sequences" include("utils/test_sequences.jl")
     @safetestset "NumberTheory" include("utils/test_number_theory.jl")
+    @safetestset "AnswerHashing" include("utils/test_answer_hashing.jl")
 
     # Problem tests are `test_problemNNNN.jl` and bonus problem tests are `test_bonus_<name>.jl`.
     test_files = filter(
