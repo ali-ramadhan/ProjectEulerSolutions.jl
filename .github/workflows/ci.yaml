@@ -54,3 +54,20 @@ jobs:
         run: julia --project=. test/hacker_rank/test_hacker_rank.jl
         env:
           HACKERRANK_JULIA: ${{ steps.hackerrank-julia.outputs.julia-bindir }}/julia
+
+  aqua:
+    name: Aqua
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+      - uses: julia-actions/setup-julia@v3
+        with:
+          version: '1'
+      - uses: julia-actions/julia-buildpkg@v1
+        with:
+          ignore-no-cache: true
+      # Aqua is a test-only dependency, so the checks run through `Pkg.test` (see test/runtests.jl)
+      - uses: julia-actions/julia-runtest@v1
+        with:
+          test_args: aqua
