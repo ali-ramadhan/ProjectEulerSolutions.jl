@@ -37,14 +37,19 @@
 function count_distinct_powers(N::Int)
     max_log = floor(Int, log2(N))
 
-    # Precompute S_m = |⋃_{j=1}^m {jb : 2 ≤ b ≤ N}| for m = 1 to log₂(N)
+    # Precompute S_m = |⋃_{j=1}^m {jb : 2 ≤ b ≤ N}| for m = 1 to log₂(N).
+    # Since S_m = S_{m-1} ∪ {mb : 2 ≤ b ≤ N}, one set is grown across m instead of being
+    # rebuilt for each m, which cuts the number of insertions from ~½ log₂(N)² × N to log₂(N) × N.
     unique_exponent_counts = Vector{Int}(undef, max_log)
+    seen = Set{Int}()
+
+    # Each m adds at most N - 1 new elements, so reserve the most the set can grow to
+    # up front and it never has to rehash.
+    sizehint!(seen, max_log * (N - 1))
+
     for m in 1:max_log
-        seen = Set{Int}()
-        for j in 1:m
-            for b in 2:N
-                push!(seen, j * b)
-            end
+        for b in 2:N
+            push!(seen, m * b)
         end
         unique_exponent_counts[m] = length(seen)
     end
