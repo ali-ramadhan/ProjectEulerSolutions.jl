@@ -13,12 +13,12 @@ export sum_multiples,
     sum_multiples_three_inclusion_exclusion,
     solve
 
-function sum_multiples(n, limit)
-    if n >= limit
+function sum_multiples(m, L)
+    if m >= L
         return 0
     end
-    k = div(limit - 1, n)  # Number of multiples of n below limit
-    return n * k * (k + 1) ÷ 2
+    l = div(L - 1, m)  # Number of multiples of m below L
+    return m * l * (l + 1) ÷ 2
 end
 
 #####
