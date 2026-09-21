@@ -12,6 +12,7 @@ else
         @safetestset "Sequences" include("utils/test_sequences.jl")
         @safetestset "NumberTheory" include("utils/test_number_theory.jl")
         @safetestset "AnswerHashing" include("utils/test_answer_hashing.jl")
+        @safetestset "Repository structure" include("test_structure.jl")
 
         # Problem tests are `test_problemNNNN.jl` and bonus problem tests are `test_bonus_<name>.jl`.
         test_files = filter(
