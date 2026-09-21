@@ -15,6 +15,12 @@ function count_distinct_powers(N)
     unique_exponent_counts = Vector{Int}(undef, max_log)
     for m in 1:max_log
         seen = Set{Int}()
+
+        # The m-th union adds at most N - 1 new elements to the (m-1)-th, so reserve that
+        # many up front to avoid rehashing as the set grows.
+        prev_count = m == 1 ? 0 : unique_exponent_counts[m-1]
+        sizehint!(seen, prev_count + (N - 1))
+
         for j in 1:m
             for b in 2:N
                 push!(seen, j * b)

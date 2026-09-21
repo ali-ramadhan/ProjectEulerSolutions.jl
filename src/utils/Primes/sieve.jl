@@ -56,8 +56,10 @@ function sieve_of_eratosthenes(limit)
 
     is_prime, _ = _sieve_of_eratosthenes(limit)
 
-    # Collect primes: 2 plus all odd primes
+    # Collect primes: 2 plus all odd primes. The final count is known from the sieve,
+    # so reserve it up front instead of growing the vector by repeated reallocation.
     primes = [2]
+    sizehint!(primes, count(is_prime) + 1)
     for i in eachindex(is_prime)
         is_prime[i] && push!(primes, 2i + 1)
     end
