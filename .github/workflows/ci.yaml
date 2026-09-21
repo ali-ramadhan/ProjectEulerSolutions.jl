@@ -59,7 +59,7 @@ jobs:
       # The solutions that use threads take a serial path when Julia has a single thread, as it does in the
       # test job above, so their threaded code is only exercised here.
       - name: Run the tests of the solutions that use threads
-        run: julia --threads=4 --project=. test/runtests_threaded.jl
+        run: julia --threads=auto --project=. test/runtests_threaded.jl
 
   hacker_rank:
     name: Run HackerRank Scripts - Julia 1.2
