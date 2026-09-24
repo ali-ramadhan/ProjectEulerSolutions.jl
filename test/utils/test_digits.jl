@@ -1,6 +1,7 @@
 using Test
 using ProjectEulerSolutions.Utils.Digits:
     digit_sum,
+    digit_factorial_sum,
     get_digits,
     count_digits,
     is_palindrome,
@@ -18,6 +19,17 @@ using ProjectEulerSolutions.Utils.Digits:
         @test digit_sum(999) == 27
         @test digit_sum(1234567890) == 45
         @test digit_sum(BigInt(10)^100) == 1
+    end
+
+    @testset "digit_factorial_sum" begin
+        @test digit_factorial_sum(0) == 1
+        @test digit_factorial_sum(1) == 1
+        @test digit_factorial_sum(9) == 362880
+        @test digit_factorial_sum(123) == 9  # 1! + 2! + 3!
+        @test digit_factorial_sum(145) == 145
+        @test digit_factorial_sum(40585) == 40585
+        @test digit_factorial_sum(-145) == 145
+        @test digit_factorial_sum(BigInt(10)^20) == 21
     end
 
     @testset "get_digits" begin

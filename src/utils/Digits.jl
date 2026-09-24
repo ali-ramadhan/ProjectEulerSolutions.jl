@@ -7,6 +7,7 @@ including digit sums, palindromes, permutations, and other digit-based operation
 module Digits
 
 export digit_sum,
+    digit_factorial_sum,
     get_digits,
     count_digits,
     is_palindrome,
@@ -25,6 +26,27 @@ Example: digit_sum(123) returns 6 (1 + 2 + 3)
 function digit_sum(n)
     n == 0 && return 0
     return sum(digits(abs(n)))
+end
+
+"""
+    digit_factorial_sum(n)
+
+Calculate the sum of the factorials of the digits of n efficiently without
+allocating a digit array.
+
+Example: digit_factorial_sum(145) returns 145 (1! + 4! + 5! = 1 + 24 + 120)
+"""
+function digit_factorial_sum(n)
+    n == 0 && return 1  # 0! = 1
+    n = abs(n)
+    s = 0
+
+    while n > 0
+        n, d = divrem(n, 10)
+        s += factorial(d)
+    end
+
+    return s
 end
 
 """
