@@ -8,7 +8,6 @@ module Problem0034
 
 export find_digit_factorial_divisors, solve
 
-using Combinatorics: with_replacement_combinations
 using ProjectEulerSolutions.Utils.Digits: digit_factorial_sum
 
 # A number with d digits cannot have a digit factorial sum greater than d * 9!, but when d > 7 all d-digit numbers
@@ -24,17 +23,26 @@ function search_numbers!(result, lo, hi)
     return result
 end
 
-# Check every multiset of d digits. For each sum S (the digit factorial sum of the multiset m),
-# check every divisor k of S that is within the range [lo, hi) and verify that n = S ÷ k has the desired properties.
-function search_sums!(result, d, lo, hi)
-    for m in with_replacement_combinations(1:9, d)
-        S = sum(factorial, m)
+# Check the multisets of d digits, picking the digits from 9 downward. For each sum S (the digit factorial sum of the
+# multiset), check every divisor k of S that is within the range [lo, hi) and verify that n = S ÷ k has the desired
+# properties. A d-digit n can only divide a sum S ≥ lo, so a branch stops as soon as its remaining slots, which hold
+# digits no larger than m, can't lift S to lo. Stopping early like this follows PierrotLeFou
+# (https://projecteuler.net/thread=34;page=8#453769) and Jonny (https://projecteuler.net/thread=34;page=8#456005).
+function search_sums!(result, slots, lo, hi, max_digit=9, S=0)
+    if slots == 0
         for k in (S ÷ hi + 1):(S ÷ lo)
             S % k == 0 || continue
             n = S ÷ k
             digit_factorial_sum(n) == S && push!(result, (n, k))
         end
+        return result
     end
+
+    for m in max_digit:-1:1
+        S + slots * factorial(m) < lo && break
+        search_sums!(result, slots - 1, lo, hi, m, S + factorial(m))
+    end
+
     return result
 end
 
@@ -49,9 +57,10 @@ function find_digit_factorial_divisors(N)
 
         n_numbers = hi - lo
         n_sums = binomial(8 + d, d)
-        k_max = d * factorial(9) ÷ lo
+        S_avg = d * sum(factorial, 1:9) / 9  # each digit 1-9 appears d/9 times on average
+        k_avg = S_avg / lo
 
-        if n_numbers <= n_sums * k_max
+        if n_numbers <= n_sums * k_avg
             search_numbers!(result, lo, hi)
         else
             search_sums!(result, d, lo, hi)
