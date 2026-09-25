@@ -72,12 +72,12 @@ function find_circular_primes(N)
         search_rotation_classes!(result, d, N, mr)
     end
 
-    return sort!(result)
+    return result
 end
 
 function solve()
     circular_primes = find_circular_primes(10^6)
-    @info "The largest circular prime below one million is $(circular_primes[end])"
+    @info "$(length(circular_primes)) circular primes below 10^6 with a sum of $(sum(circular_primes))"
     return length(circular_primes)
 end
 
