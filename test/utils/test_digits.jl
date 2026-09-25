@@ -6,6 +6,7 @@ using ProjectEulerSolutions.Utils.Digits:
     count_digits,
     is_palindrome,
     is_pandigital,
+    rotate_digits,
     digit_rotations,
     are_permutations,
     digits_to_number,
@@ -89,11 +90,34 @@ using ProjectEulerSolutions.Utils.Digits:
         @test !is_pandigital(12340, 1:5)  # contains 0
     end
 
+    @testset "rotate_digits" begin
+        @test rotate_digits(5) == 5
+        @test rotate_digits(11) == 11
+        @test rotate_digits(13) == 31
+        @test rotate_digits(197) == 971
+        @test rotate_digits(971) == 719
+        @test rotate_digits(719) == 197
+
+        # Leading zeros: 1000 -> 0001, and 11 as the three-digit 011 -> 110
+        @test rotate_digits(1000) == 1
+        @test rotate_digits(11, 3) == 110
+        @test rotate_digits(1, 4) == 10
+
+        # Test type genericity
+        @test rotate_digits(Int32(197)) === Int32(971)
+        @test rotate_digits(Int128(10)^20 + 1) == 11
+        @test rotate_digits(BigInt(10)^30 + 1) == 11
+    end
+
     @testset "digit_rotations" begin
         @test digit_rotations(5) == [5]
         @test digit_rotations(13) == [13, 31]
         @test digit_rotations(123) == [123, 231, 312]
         @test digit_rotations(197) == [197, 971, 719]
+
+        # Zeros rotate through the leading position
+        @test digit_rotations(101) == [101, 11, 110]
+        @test digit_rotations(1000) == [1000, 1, 10, 100]
     end
 
     @testset "are_permutations" begin

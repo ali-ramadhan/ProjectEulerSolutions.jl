@@ -12,6 +12,7 @@ export digit_sum,
     count_digits,
     is_palindrome,
     is_pandigital,
+    rotate_digits,
     digit_rotations,
     are_permutations,
     digits_to_number
@@ -113,18 +114,35 @@ function is_pandigital(n, digits = 1:9)
 end
 
 """
+    rotate_digits(n, d=ndigits(n))
+
+Rotate the digits of n one place to the left, moving the leading digit to the end.
+`d` is the number of digit positions, so a leading zero left by an earlier rotation
+still counts as a digit: rotate_digits(11, 3) treats 11 as 011 and returns 110.
+
+Example: rotate_digits(197) returns 971
+"""
+function rotate_digits(n, d=ndigits(n))
+    ten = oftype(n, 10)
+    leading, rest = divrem(n, ten^(d - 1))
+    return rest * ten + leading
+end
+
+"""
     digit_rotations(n)
 
-Generate all rotations of the digits of n.
-For example, if n=197, returns [197, 971, 719].
+Generate all rotations of the digits of n, each obtained from the previous one
+with `rotate_digits`.
+
+Example: digit_rotations(197) returns [197, 971, 719]
 """
 function digit_rotations(n)
-    d = digits(n)
-    len = length(d)
-    rotations = Int[]
+    d = ndigits(n)
+    rotations = Vector{typeof(n)}(undef, d)
 
-    for i in 0:len-1
-        push!(rotations, evalpoly(10, circshift(d, i)))
+    for i in 1:d
+        rotations[i] = n
+        n = rotate_digits(n, d)
     end
 
     return rotations

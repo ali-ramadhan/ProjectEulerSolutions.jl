@@ -40,4 +40,5 @@ test_cases = [
     ("projecteuler+_problem0032.jl", "4", "12\n"),
     ("projecteuler+_problem0033.jl", "2 1", "110 322\n"),
     ("projecteuler+_problem0034.jl", "20", "19\n"),
+    ("projecteuler+_problem0035.jl", "100", "446\n"),
 ]
