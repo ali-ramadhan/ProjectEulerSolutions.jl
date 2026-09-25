@@ -72,7 +72,7 @@ function find_circular_primes(N)
         search_rotation_classes!(result, d, N, mr)
     end
 
-    return result
+    return sort!(result)
 end
 
 function solve()
