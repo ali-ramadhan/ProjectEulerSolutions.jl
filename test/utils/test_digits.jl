@@ -5,6 +5,7 @@ using ProjectEulerSolutions.Utils.Digits:
     get_digits,
     count_digits,
     is_palindrome,
+    make_palindrome,
     is_pandigital,
     rotate_digits,
     digit_rotations,
@@ -71,11 +72,44 @@ using ProjectEulerSolutions.Utils.Digits:
         @test !is_palindrome(906608)
         @test !is_palindrome(999000000998)
 
+        # Other bases
+        @test is_palindrome(585; base=2) # 585 = 1001001001 in binary
+        @test is_palindrome(10; base=3)  # 10 = 101 in base 3
+        @test !is_palindrome(6; base=2)  # 6 = 110 in binary
+        @test !is_palindrome(9; base=3)  # 9 = 100 in base 3
+
+        # Agrees with comparing the digits from Base in every base
+        @test all(is_palindrome(n; base) == (digits(n; base) == reverse(digits(n; base))) for n in 0:1000, base in 2:10)
+
         # Test type genericity
         @test is_palindrome(Int32(121))
         @test is_palindrome(Int64(12321))
         @test is_palindrome(Int128(999000000999))
         @test is_palindrome(BigInt(12321))
+        @test is_palindrome(Int32(585); base=2)
+        @test is_palindrome(BigInt(2)^100 + 1; base=2)
+        @test !is_palindrome(BigInt(2)^100; base=2)
+    end
+
+    @testset "make_palindrome" begin
+        @test make_palindrome(7) == 77
+        @test make_palindrome(7; odd=true) == 7
+        @test make_palindrome(123) == 123321
+        @test make_palindrome(123; odd=true) == 12321
+
+        # Zeros are mirrored too
+        @test make_palindrome(10) == 1001
+        @test make_palindrome(10; odd=true) == 101
+        @test make_palindrome(100; odd=true) == 10001
+
+        # The two-digit numbers make every palindrome with three or four digits, in increasing order
+        @test [make_palindrome(h; odd=true) for h in 10:99] == [n for n in 100:999 if is_palindrome(n)]
+        @test [make_palindrome(h) for h in 10:99] == [n for n in 1000:9999 if is_palindrome(n)]
+
+        # Test type genericity
+        @test make_palindrome(Int32(123)) === Int32(123321)
+        @test make_palindrome(Int128(10)^15) === Int128(10)^31 + 1
+        @test make_palindrome(BigInt(10)^20) == BigInt(10)^41 + 1
     end
 
     @testset "is_pandigital" begin

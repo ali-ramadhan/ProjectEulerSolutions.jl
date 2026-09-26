@@ -11,6 +11,7 @@ export digit_sum,
     get_digits,
     count_digits,
     is_palindrome,
+    make_palindrome,
     is_pandigital,
     rotate_digits,
     digit_rotations,
@@ -73,24 +74,50 @@ function count_digits(n)
 end
 
 """
-    is_palindrome(n)
+    is_palindrome(n; base=10)
 
-Check if the number n is a palindrome (reads the same forward and backward).
+Check if the number n is a palindrome (reads the same forward and backward) when
+written in the given base.
 
 Implementation uses mathematical digit reversal instead of string conversion
 for zero allocations and better performance.
+
+Example: is_palindrome(585; base=2) returns true as 585 is 1001001001 in binary
 """
-function is_palindrome(n)
+function is_palindrome(n; base=10)
     n = abs(n)  # Handle negative numbers
+    base = oftype(n, base)
     original = n
     reversed = zero(typeof(n))
 
     while n > 0
-        reversed = reversed * 10 + (n % 10)
-        n ÷= 10
+        n, digit = divrem(n, base)
+        reversed = reversed * base + digit
     end
 
     return reversed == original
+end
+
+"""
+    make_palindrome(h; odd=false)
+
+Build the palindrome that starts with the digits of h by appending them in reverse.
+With `odd=true` the last digit of h becomes the middle digit and is not repeated,
+so the palindrome has an odd number of digits.
+
+Example: make_palindrome(123) returns 123321 and make_palindrome(123; odd=true) returns 12321
+"""
+function make_palindrome(h; odd=false)
+    ten = oftype(h, 10)
+    p = h
+    odd && (h ÷= ten)  # Don't repeat the middle digit
+
+    while h > 0
+        h, digit = divrem(h, ten)
+        p = p * ten + digit
+    end
+
+    return p
 end
 
 """
