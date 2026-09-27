@@ -16,7 +16,8 @@ function is_prime(n, ::TrialDivision)
 
     # Check divisibility by numbers of form 6k±1 up to sqrt(n)
     i = 5
-    while i^2 <= n
+    # Use `widemul` as i^2 overflows `Int64` when n is near `typemax(Int64)`
+    while widemul(i, i) <= n
         if n % i == 0 || n % (i + 2) == 0
             return false
         end

@@ -14,7 +14,8 @@ function prime_factors(n)
 
     # Handle odd factors
     factor = 3
-    while factor^2 <= n
+    # Use `widemul` as factor^2 overflows `Int64` when n is near `typemax(Int64)`
+    while widemul(factor, factor) <= n
         while n % factor == 0
             push!(factors, factor)
             n ÷= factor

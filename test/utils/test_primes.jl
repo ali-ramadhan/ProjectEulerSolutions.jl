@@ -36,6 +36,9 @@ using ProjectEulerSolutions.Utils.Primes: get_witnesses
                 @test !is_prime(91, primality_test)   # 7 * 13
                 @test !is_prime(121, primality_test)  # 11^2
                 @test !is_prime(143, primality_test)  # 11 * 13
+
+                # Largest prime below 2^63: trial division's i^2 used to overflow here and loop forever
+                @test is_prime(typemax(Int64) - 24, primality_test)
             end
         end
     end
@@ -123,5 +126,8 @@ using ProjectEulerSolutions.Utils.Primes: get_witnesses
         @test prime_factors(7) == [7]
         @test prime_factors(11) == [11]
         @test prime_factors(13) == [13]
+
+        # Largest prime below 2^63: factor^2 used to overflow here and loop forever
+        @test prime_factors(typemax(Int64) - 24) == [typemax(Int64) - 24]
     end
 end
