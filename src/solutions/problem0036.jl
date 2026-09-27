@@ -6,9 +6,14 @@ Solution description: https://aliramadhan.me/blog/project-euler/problem-0036/
 """
 module Problem0036
 
-export find_double_base_palindromes, solve
+export find_double_base_palindromes_naive, find_double_base_palindromes, solve
 
 using ProjectEulerSolutions.Utils.Digits: is_palindrome, make_palindrome
+
+# Check every number below N in both bases, testing base 10 first since it rules out almost every number.
+function find_double_base_palindromes_naive(N, K)
+    return [n for n in 1:N-1 if is_palindrome(n) && is_palindrome(n; base=K)]
+end
 
 # An L-digit palindrome is determined by its first ⌈L/2⌉ digits, so we build every decimal palindrome below N from
 # its first half h and keep the ones that are also palindromes in base K.

@@ -1,6 +1,10 @@
 using BenchmarkTools
 using ProjectEulerSolutions.Utils.Benchmarks
-using ProjectEulerSolutions.Problem0036: find_double_base_palindromes
+using ProjectEulerSolutions.Problem0036: find_double_base_palindromes_naive, find_double_base_palindromes
+
+@show find_double_base_palindromes_naive(10^6, 2)
+benchmark_naive_1M = @benchmark find_double_base_palindromes_naive(10^6, 2)
+save_benchmark(benchmark_naive_1M, "problem-0036", "find_double_base_palindromes_naive_1M")
 
 @show find_double_base_palindromes(10^6, 2)
 benchmark_1M = @benchmark find_double_base_palindromes(10^6, 2)

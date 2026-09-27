@@ -1,7 +1,6 @@
 using Test
 using ProjectEulerSolutions.Utils.AnswerHashing
-using ProjectEulerSolutions.Utils.Digits: is_palindrome
-using ProjectEulerSolutions.Problem0036: find_double_base_palindromes, solve
+using ProjectEulerSolutions.Problem0036: find_double_base_palindromes_naive, find_double_base_palindromes, solve
 
 # HackerRank sample: the binary palindromes below 10 are 1, 3, 5, 7 and 9, which sum to 25
 @test find_double_base_palindromes(10, 2) == [1, 3, 5, 7, 9]
@@ -25,10 +24,9 @@ for (K, terms) in oeis_terms
     @test find_double_base_palindromes(10_000, K) == terms
 end
 
-# Agrees with brute force in every base the HackerRank version asks about, also when N cuts a length short
-brute_force(N, K) = [n for n in 1:N-1 if is_palindrome(n) && is_palindrome(n; base=K)]
+# Agrees with checking every number in every base the HackerRank version asks about, also when N cuts a length short
 for K in 2:9, N in (10, 100, 12_345, 10^5, 10^6)
-    @test find_double_base_palindromes(N, K) == brute_force(N, K)
+    @test find_double_base_palindromes(N, K) == find_double_base_palindromes_naive(N, K)
 end
 
 # Correct answer
