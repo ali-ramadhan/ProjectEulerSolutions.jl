@@ -15,9 +15,14 @@ function find_double_base_palindromes_naive(N, K)
     return [n for n in 0:N-1 if is_palindrome(n) && is_palindrome(n; base=K)]
 end
 
+# Julia compiles a separate copy of a function for each combination of argument types. Wrapping K in `Val{K}`
+# allows Julia to compile and optimize/specialize the code for each K. We want the divisions by K in the inlined
+# `is_palindrome` to become bit shifts instead of divisions where possible.
+find_double_base_palindromes(N, K) = find_double_base_palindromes(N, Val(K))
+
 # An L-digit palindrome is determined by its first ⌈L/2⌉ digits, so we build every decimal palindrome below N from
 # its first half h and keep the ones that are also palindromes in base K.
-function find_double_base_palindromes(N, K)
+function find_double_base_palindromes(N, ::Val{K}) where {K}
     result = N > 0 ? [0] : Int[]  # 0 is a palindrome in every base
 
     for L in 1:ndigits(N - 1)

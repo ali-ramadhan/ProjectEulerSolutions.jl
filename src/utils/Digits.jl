@@ -84,7 +84,7 @@ for zero allocations and better performance.
 
 Example: is_palindrome(585; base=2) returns true as 585 is 1001001001 in binary
 """
-function is_palindrome(n; base=10)
+@inline function is_palindrome(n; base=10)
     n = abs(n)  # Handle negative numbers
     base = oftype(n, base)
     original = n
