@@ -6,9 +6,29 @@ Solution description: https://aliramadhan.me/blog/project-euler/problem-0004/
 """
 module Problem0004
 
-export largest_palindrome_product, solve
+export largest_palindrome_product, largest_palindrome_product_naive, solve
 
 using ProjectEulerSolutions.Utils.Digits: is_palindrome
+
+# Check every product i*j, testing whether it's a palindrome by reversing its decimal string
+function largest_palindrome_product_naive(lower_limit, upper_limit)
+    T = typeof(upper_limit)
+    max_palindrome = zero(T)
+    best_i, best_j = zero(T), zero(T)
+
+    for i in lower_limit:upper_limit
+        for j in lower_limit:upper_limit
+            product = i * j
+            s = string(product)
+            if s == reverse(s) && product > max_palindrome
+                max_palindrome = product
+                best_i, best_j = i, j
+            end
+        end
+    end
+
+    return (palindrome=max_palindrome, factors=(best_i, best_j))
+end
 
 function largest_palindrome_product(lower_limit, upper_limit; max_product=nothing)
     T = typeof(upper_limit)
@@ -44,8 +64,8 @@ function largest_palindrome_product(lower_limit, upper_limit; max_product=nothin
     return (palindrome=max_palindrome, factors=(best_i, best_j))
 end
 
-function solve()
-    result = largest_palindrome_product(100, 999)
+function solve(solve_func=largest_palindrome_product)
+    result = solve_func(100, 999)
     @info "Found largest palindrome from 3-digit products: $(result.palindrome) = " *
           "$(result.factors[1]) × $(result.factors[2])"
     return result.palindrome

@@ -2,6 +2,10 @@ using BenchmarkTools
 using ProjectEulerSolutions.Utils.Benchmarks
 using ProjectEulerSolutions.Problem0004
 
+@show largest_palindrome_product_naive(100, 999)
+benchmark_naive_3_digits = @benchmark largest_palindrome_product_naive(100, 999)
+save_benchmark(benchmark_naive_3_digits, "problem-0004", "naive_3_digits")
+
 @show largest_palindrome_product(100, 999)
 benchmark_3_digits = @benchmark largest_palindrome_product(100, 999)
 save_benchmark(benchmark_3_digits, "problem-0004", "3_digits")
