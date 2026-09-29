@@ -16,3 +16,6 @@ for sum_multiples_two in (sum_multiples_two_generator, sum_multiples_two_inclusi
     # Correct answer
     @test_answer solve(sum_multiples_two) "0001"
 end
+
+# Correct answer
+@test_answer solve() "0001"

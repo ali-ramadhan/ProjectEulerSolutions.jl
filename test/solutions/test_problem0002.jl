@@ -20,3 +20,6 @@ end
 for limit in [0:100; 10 .^ (3:15)]
     @test sum_even_fibonacci(limit) == sum_even_fibonacci_naive(limit)
 end
+
+# Correct answer
+@test_answer solve() "0002"

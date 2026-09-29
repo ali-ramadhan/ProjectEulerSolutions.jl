@@ -20,3 +20,6 @@ a, b, c = triplets_1000[1]
 
 @test_answer solve(find_pythagorean_triplets) "0009"
 @test_answer solve(find_pythagorean_triplets_euclid) "0009"
+
+# Correct answer
+@test_answer solve() "0009"
