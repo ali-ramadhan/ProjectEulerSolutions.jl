@@ -15,5 +15,17 @@ benchmark_6_digits = @benchmark largest_palindrome_product(6)
 save_benchmark(benchmark_6_digits, "problem-0004", "6_digits")
 
 @show largest_palindrome_product(9)
-benchmark_9_digits = @benchmark largest_palindrome_product(9) samples=100 evals=1 seconds=1000
+benchmark_9_digits = @benchmark largest_palindrome_product(9) samples=1 evals=1 seconds=1
 save_benchmark(benchmark_9_digits, "problem-0004", "9_digits")
+
+@show largest_palindrome_product_fermat(9)
+benchmark_fermat_9_digits = @benchmark largest_palindrome_product_fermat(9)
+save_benchmark(benchmark_fermat_9_digits, "problem-0004", "fermat_9_digits")
+
+@show largest_palindrome_product_fermat(12)
+benchmark_fermat_12_digits = @benchmark largest_palindrome_product_fermat(12)
+save_benchmark(benchmark_fermat_12_digits, "problem-0004", "fermat_12_digits")
+
+@show largest_palindrome_product_fermat(15)
+benchmark_fermat_15_digits = @benchmark largest_palindrome_product_fermat(15)
+save_benchmark(benchmark_fermat_15_digits, "problem-0004", "fermat_15_digits")
