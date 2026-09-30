@@ -58,8 +58,7 @@ function handle_message(logger::TimestampedLogger, level, message, _module, grou
     # Written to stderr in one piece so that messages logged from different threads don't interleave
     buffer = IOBuffer()
     io = IOContext(buffer, stderr)
-    print(io, "[", timestamp(), "] ")
-    printstyled(io, prefix; bold = true, color)
+    printstyled(io, "[", timestamp(), "] ", prefix; bold = true, color)
     println(io, " ", indent(string(message), 2))
     for (key, value) in kwargs
         println(io, "  ", key, " = ", indent(sprint(showvalue, value; context = IOContext(io, :limit => true)), 4))
