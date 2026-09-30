@@ -1,6 +1,7 @@
 # Run all benchmark scripts in the benchmarks directory
 
 using Printf
+using ProjectEulerSolutions.Logging
 
 function format_time(seconds)
     if seconds < 60

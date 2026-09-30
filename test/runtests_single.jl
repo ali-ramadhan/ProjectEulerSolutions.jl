@@ -1,5 +1,6 @@
 using Test
 using SafeTestsets
+using ProjectEulerSolutions.Logging
 
 """
     test_problem(problem_id)

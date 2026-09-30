@@ -1,5 +1,7 @@
 module ProjectEulerSolutions
 
+include("Logging.jl")
+
 include("utils/Utils.jl")
 using .Utils
 

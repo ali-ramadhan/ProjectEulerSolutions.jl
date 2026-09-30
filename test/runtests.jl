@@ -1,5 +1,6 @@
 using Test
 using SafeTestsets
+using ProjectEulerSolutions.Logging
 
 # The Aqua.jl checks run on their own (a separate CI job) with `Pkg.test(test_args=["aqua"])`
 if "aqua" in ARGS
@@ -12,6 +13,7 @@ else
         @safetestset "Sequences" include("utils/test_sequences.jl")
         @safetestset "NumberTheory" include("utils/test_number_theory.jl")
         @safetestset "AnswerHashing" include("utils/test_answer_hashing.jl")
+        @safetestset "Logging" include("test_logging.jl")
         @safetestset "Repository structure" include("test_structure.jl")
 
         # Problem tests are `test_problemNNNN.jl` and bonus problem tests are `test_bonus_<name>.jl`.

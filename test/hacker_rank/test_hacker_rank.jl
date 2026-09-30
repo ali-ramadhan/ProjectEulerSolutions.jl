@@ -1,5 +1,6 @@
 using Test
 using SafeTestsets
+using ProjectEulerSolutions.Logging
 
 const TEST_DATA_DIR = joinpath(@__DIR__, "data")
 
