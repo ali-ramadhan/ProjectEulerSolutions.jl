@@ -3,6 +3,7 @@ module Benchmarks
 export save_benchmark
 
 using InteractiveUtils: versioninfo
+using CUDA: CUDA
 using YAML
 using Dates
 using OrderedCollections: OrderedDict
@@ -20,8 +21,14 @@ const CPU_NAME_MAP = Dict(
     "4 × AMD Phenom(tm) II X4 970 Processor" => "AMD Phenom II X4 970",
 )
 
+# GPU name mapping to simplify the names CUDA reports
+const GPU_NAME_MAP = Dict(
+    "Tesla V100-PCIE-32GB" => "NVIDIA V100 PCIe 32GB",
+    "NVIDIA A100-PCIE-40GB" => "NVIDIA A100 PCIe 40GB",
+)
+
 """
-    save_benchmark(result, problem_tag, benchmark_name)
+    save_benchmark(result, problem_tag, benchmark_name; thread_count=nothing, gpu=false)
 
 Save a BenchmarkTools result to a YAML file organized by problem tag.
 Each problem gets its own YAML file (e.g., `problem-0001-benchmarks.yaml`, `bonus-root13-benchmarks.yaml`)
@@ -35,6 +42,9 @@ exist, it will be created.
 - `result`: BenchmarkTools.Trial or BenchmarkGroup result
 - `problem_tag`: Tag that forms the filename (e.g., "problem-0005", "bonus-root13")
 - `benchmark_name`: Name for this benchmark (string)
+- `thread_count`: The number of threads a multi-threaded benchmark ran with
+- `gpu`: Whether the benchmark ran on the current CUDA device. The result is then saved under the GPU's name instead
+  of the CPU's, with the CPU as `host_cpu` and the CUDA runtime, CUDA.jl and NVIDIA driver versions.
 
 # Example
 ```julia
@@ -44,7 +54,7 @@ save_benchmark(result, "problem-0001", "optimized")  # Saves to benchmarks/bench
 save_benchmark(result, "bonus-root13", "v1")         # Saves to benchmarks/benchmark_data/bonus-root13-benchmarks.yaml
 ```
 """
-function save_benchmark(result, problem_tag, benchmark_name; thread_count=nothing)
+function save_benchmark(result, problem_tag, benchmark_name; thread_count=nothing, gpu=false)
     display(result)
 
     # Ensure benchmarks directory exists
@@ -65,7 +75,7 @@ function save_benchmark(result, problem_tag, benchmark_name; thread_count=nothin
     output = String(take!(io))
     formatted_output = format_ansi_codes(output)
 
-    # Create benchmark entry (cpu is the key, not stored in entry)
+    # Create benchmark entry (the CPU or GPU is the key, not stored in entry)
     benchmark_entry = OrderedDict{String, Any}(
         "date" => Dates.format(now(), "yyyy-mm-ddTHH:MM:SS.sss"),
         "julia_version" => system_info["julia_version"],
@@ -77,15 +87,25 @@ function save_benchmark(result, problem_tag, benchmark_name; thread_count=nothin
         benchmark_entry["thread_count"] = thread_count
     end
 
+    # A GPU result is saved under the GPU, and records the CPU it ran alongside and the CUDA software it used
+    processor = system_info["cpu"]
+    if gpu
+        gpu_info = get_gpu_info()
+        processor = gpu_info["gpu"]
+        benchmark_entry["host_cpu"] = system_info["cpu"]
+        benchmark_entry["cuda_runtime"] = gpu_info["cuda_runtime"]
+        benchmark_entry["cuda_jl"] = gpu_info["cuda_jl"]
+        benchmark_entry["nvidia_driver"] = gpu_info["nvidia_driver"]
+    end
+
     # Load existing benchmarks or create new OrderedDict
     existing_benchmarks = load_existing_benchmarks(yaml_file)
 
-    # Add new benchmark nested under benchmark_name -> cpu
-    cpu = system_info["cpu"]
+    # Add new benchmark nested under benchmark_name -> CPU or GPU
     if !haskey(existing_benchmarks, benchmark_name)
         existing_benchmarks[benchmark_name] = OrderedDict{String,Any}()
     end
-    existing_benchmarks[benchmark_name][cpu] = benchmark_entry
+    existing_benchmarks[benchmark_name][processor] = benchmark_entry
 
     # Sort keys alphabetically before writing to maintain consistent order
     sorted_benchmarks = sort_benchmark_keys(existing_benchmarks)
@@ -129,6 +149,30 @@ function get_system_info()
 end
 
 """
+    get_gpu_info()
+
+The current CUDA device's name, and the CUDA runtime, CUDA.jl and NVIDIA driver versions.
+"""
+function get_gpu_info()
+    gpu_raw = CUDA.name(CUDA.device())
+    return Dict(
+        "gpu" => get(GPU_NAME_MAP, gpu_raw, gpu_raw),
+        "cuda_runtime" => string(CUDA.runtime_version()),
+        "cuda_jl" => string(pkgversion(CUDA)),
+        "nvidia_driver" => nvidia_driver_version()
+    )
+end
+
+# The NVIDIA driver version as nvidia-smi shows it, e.g. 535.309.01. NVML.driver_version() parses it into a
+# VersionNumber, which drops the zero (535.309.1).
+function nvidia_driver_version()
+    CUDA.NVML.has_nvml() || return "unknown"
+    buffer = Vector{Cchar}(undef, CUDA.NVML.NVML_SYSTEM_DRIVER_VERSION_BUFFER_SIZE)
+    CUDA.NVML.nvmlSystemGetDriverVersion(pointer(buffer), length(buffer))
+    return GC.@preserve buffer unsafe_string(pointer(buffer))
+end
+
+"""
     format_ansi_codes(text)
 
 Convert escape sequences to the expected [XXm format for ANSI color codes.
@@ -144,7 +188,7 @@ end
 
 Sort benchmark dictionary keys alphabetically at both levels:
 - Top level: benchmark names
-- Second level: CPU names within each benchmark
+- Second level: CPU or GPU names within each benchmark
 Returns a new OrderedDict with sorted keys.
 """
 function sort_benchmark_keys(benchmarks::AbstractDict)
