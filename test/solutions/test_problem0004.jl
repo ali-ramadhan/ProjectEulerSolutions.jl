@@ -3,7 +3,7 @@ using ProjectEulerSolutions.Utils.AnswerHashing
 using ProjectEulerSolutions.Problem0004
 
 for largest_palindrome in (largest_palindrome_product, largest_palindrome_product_naive,
-                           largest_palindrome_product_fermat)
+                           largest_palindrome_product_fermat, largest_palindrome_product_fermat_filtered)
     # Test example from problem description
     @test largest_palindrome(2).palindrome == 9009
     @test largest_palindrome(2).factors == (91, 99)
@@ -19,18 +19,27 @@ end
 # 6-digit factors take hours with the naive search, so only the fast one is tested there
 @test largest_palindrome_product(6).palindrome == 999000000999
 
-# The palindrome-first search finds the same palindrome and factors as the loop for 2- to 8-digit factors
+# The palindrome-first searches find the same palindrome and factors as the loop for 2- to 8-digit factors
 for n in 2:8
-    @test largest_palindrome_product_fermat(n) == largest_palindrome_product(n)
+    expected = largest_palindrome_product(n)
+    @test largest_palindrome_product_fermat(n) == expected
+    @test largest_palindrome_product_fermat_filtered(n) == expected
 end
 
-# Beyond that the loop is slow, so check against known answers. For 9-digit factors u*v carries into the top half.
-@test largest_palindrome_product_fermat(9) == (palindrome=999900665566009999, factors=(999920317, 999980347))
-@test largest_palindrome_product_fermat(10).palindrome == 99999834000043899999
-@test largest_palindrome_product_fermat(12).palindrome == 999999000000000000999999
+for fermat in (largest_palindrome_product_fermat, largest_palindrome_product_fermat_filtered)
+    # Beyond that the loop is slow, so check against known answers. For 9-digit factors u*v carries into the top half.
+    @test fermat(9) == (palindrome=999900665566009999, factors=(999920317, 999980347))
+    @test fermat(10).palindrome == 99999834000043899999
+    @test fermat(12).palindrome == 999999000000000000999999
 
-# The palindrome-first search only looks at 2n-digit palindromes, so it needs n ≥ 2
-@test_throws ArgumentError largest_palindrome_product_fermat(1)
+    # The palindrome-first searches only look at 2n-digit palindromes, so they need n ≥ 2
+    @test_throws ArgumentError fermat(1)
+end
+
+# The filtered search is fast enough to also check a carry of 2 (17 digits) and Int128 factors (20 digits)
+@test largest_palindrome_product_fermat_filtered(17) ==
+      (palindrome=9999999887065624224265607889999999, factors=(99999999127775321, 99999999742880919))
+@test largest_palindrome_product_fermat_filtered(20).palindrome == big"9999999999694448232002328444969999999999"
 
 # Test max_product constraint (HackerRank version)
 @test largest_palindrome_product(3, max_product=900000).palindrome == 888888

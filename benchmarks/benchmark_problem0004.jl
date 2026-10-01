@@ -29,3 +29,11 @@ save_benchmark(benchmark_fermat_12_digits, "problem-0004", "fermat_12_digits")
 @show largest_palindrome_product_fermat(15)
 benchmark_fermat_15_digits = @benchmark largest_palindrome_product_fermat(15)
 save_benchmark(benchmark_fermat_15_digits, "problem-0004", "fermat_15_digits")
+
+@show largest_palindrome_product_fermat_filtered(12)
+benchmark_fermat_filtered_12_digits = @benchmark largest_palindrome_product_fermat_filtered(12)
+save_benchmark(benchmark_fermat_filtered_12_digits, "problem-0004", "fermat_filtered_12_digits")
+
+@show largest_palindrome_product_fermat_filtered(15)
+benchmark_fermat_filtered_15_digits = @benchmark largest_palindrome_product_fermat_filtered(15)
+save_benchmark(benchmark_fermat_filtered_15_digits, "problem-0004", "fermat_filtered_15_digits")
