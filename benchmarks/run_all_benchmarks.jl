@@ -66,4 +66,6 @@ function main()
     @info "Total runtime: $(format_time(total_time))"
 end
 
-main()
+with_logger(TimestampedLogger()) do
+    main()
+end

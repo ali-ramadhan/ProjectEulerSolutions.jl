@@ -26,10 +26,12 @@ problem_ids = map(threaded_solutions) do file
     something(m[1], m[2])
 end
 
-@info "Testing the $(length(problem_ids)) solution(s) that use threads with $(Threads.nthreads()) threads: $(join(problem_ids, ", "))"
+with_logger(TimestampedLogger()) do
+    @info "Testing the $(length(problem_ids)) solution(s) that use threads with $(Threads.nthreads()) threads: $(join(problem_ids, ", "))"
 
-@testset "Threaded solutions ($(Threads.nthreads()) threads)" verbose=true begin
-    for problem_id in problem_ids
-        test_problem(problem_id)
+    @testset "Threaded solutions ($(Threads.nthreads()) threads)" verbose=true begin
+        for problem_id in problem_ids
+            test_problem(problem_id)
+        end
     end
 end

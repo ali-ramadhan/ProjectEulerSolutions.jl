@@ -1,19 +1,25 @@
 """
 Timestamped logging for Project Euler solutions, tests and benchmarks.
 
-Loading the package replaces the global logger with one that starts every log message with the local time,
+The test and benchmark runners log through a `TimestampedLogger`, which starts every log message with the local time,
 including milliseconds and the UTC offset:
 
-    [2026-09-30T19:42:13.123-04:00] Info: Benchmark saved to ...
+    with_logger(TimestampedLogger()) do
+        @info "Benchmark saved to ..."  # [2026-09-30T19:42:13.123-04:00] Info: Benchmark saved to ...
+    end
+
+It isn't installed as the global logger. GPUCompiler compiles CUDA kernels in the world CUDA.jl was initialized in,
+which is before this package is loaded, and it asks the global logger for its level there. A TimestampedLogger's
+methods don't exist yet in that world, so every kernel compilation would fail.
 """
 module Logging
 
 using Dates
-using Logging: AbstractLogger, Info, default_metafmt, global_logger  # from the standard library of the same name
+using Logging: AbstractLogger, Info, default_metafmt, with_logger  # from the standard library of the same name
 import Logging: handle_message, min_enabled_level, shouldlog
 using Printf
 
-export timestamp
+export timestamp, TimestampedLogger, with_logger
 
 """
     timestamp()
@@ -74,7 +80,5 @@ indent(text, spaces) = replace(text, "\n" => "\n" * " "^spaces)
 showvalue(io, value) = show(io, MIME"text/plain"(), value)
 showvalue(io, err::Exception) = showerror(io, err)
 showvalue(io, (err, backtrace)::Tuple{Exception,Any}) = showerror(io, err, backtrace; backtrace = true)
-
-__init__() = global_logger(TimestampedLogger())
 
 end # module Logging

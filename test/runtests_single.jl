@@ -46,8 +46,10 @@ function test_problem(problem_id)
     test_path = joinpath(@__DIR__, "solutions", test_file)
     isfile(test_path) || error("Test file not found: solutions/$test_file")
 
-    @info "Running tests for $test_name..."
-    @eval @safetestset $test_name include($test_path)
+    with_logger(TimestampedLogger()) do
+        @info "Running tests for $test_name..."
+        @eval @safetestset $test_name include($test_path)
+    end
 end
 
 if abspath(PROGRAM_FILE) == @__FILE__

@@ -24,33 +24,36 @@ end
 
 include("test_cases.jl")
 
-@info "Running HackerRank scripts with $(readchomp(`$HACKERRANK_JULIA --version`))"
+with_logger(TimestampedLogger()) do
+    @info "Running HackerRank scripts with $(readchomp(`$HACKERRANK_JULIA --version`))"
 
-# Wrapped in a testset so this file can also be run on its own: `julia --project=. test/hacker_rank/test_hacker_rank.jl`
-@testset "HackerRank" verbose=true begin
-    for test_case in test_cases
-        script = test_case[1]
+    # Wrapped in a testset so this file can also be run on its own:
+    # `julia --project=. test/hacker_rank/test_hacker_rank.jl`
+    @testset "HackerRank" verbose=true begin
+        for test_case in test_cases
+            script = test_case[1]
 
-        # Resolve input/output (inline or from file)
-        if test_case[2] === :file
-            input, expected = load_test_data(test_case[3])
-        elseif test_case[2] === :file_input
-            input = load_test_input(test_case[3])
-            expected = test_case[4]
-        else
-            input, expected = test_case[2], test_case[3]
-        end
+            # Resolve input/output (inline or from file)
+            if test_case[2] === :file
+                input, expected = load_test_data(test_case[3])
+            elseif test_case[2] === :file_input
+                input = load_test_input(test_case[3])
+                expected = test_case[4]
+            else
+                input, expected = test_case[2], test_case[3]
+            end
 
-        problem_num = match(r"projecteuler\+_problem(\d{4})\.jl", script).captures[1]
-        test_name = "HackerRank ProjectEuler+ Problem $problem_num"
-        @info "Testing $test_name..."
+            problem_num = match(r"projecteuler\+_problem(\d{4})\.jl", script).captures[1]
+            test_name = "HackerRank ProjectEuler+ Problem $problem_num"
+            @info "Testing $test_name..."
 
-        @eval @safetestset $test_name begin
-            julia_cmd = $HACKERRANK_JULIA
-            hacker_rank_dir = joinpath(@__DIR__, "..", "..", "hacker_rank")
-            script_path = joinpath(hacker_rank_dir, $script)
-            output = read(pipeline(`$julia_cmd --startup-file=no $script_path`, stdin=IOBuffer($input)), String)
-            @test output == $expected
+            @eval @safetestset $test_name begin
+                julia_cmd = $HACKERRANK_JULIA
+                hacker_rank_dir = joinpath(@__DIR__, "..", "..", "hacker_rank")
+                script_path = joinpath(hacker_rank_dir, $script)
+                output = read(pipeline(`$julia_cmd --startup-file=no $script_path`, stdin=IOBuffer($input)), String)
+                @test output == $expected
+            end
         end
     end
 end

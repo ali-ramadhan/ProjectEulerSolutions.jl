@@ -1,12 +1,19 @@
 using Test
+using Logging: global_logger
+using ProjectEulerSolutions.Logging: TimestampedLogger
 
 @testset "Logging" begin
-    # Log a message from a fresh Julia process that loads the package, like the test and benchmark scripts do, and check
-    # that its line starts with the timestamp. POSIX TZ strings give the offset west of UTC, so NST+3:30 is Newfoundland
-    # Standard Time, 3 hours 30 minutes behind UTC, which checks the sign of the offset and its minutes. TZ is a POSIX
-    # convention, so on Windows only the shape of the offset is checked.
+    # Loading the package leaves the global logger alone. GPUCompiler can't call the methods of a global logger that was
+    # defined after CUDA.jl was loaded, so a TimestampedLogger there would break every GPU kernel compilation.
+    @test !(global_logger() isa TimestampedLogger)
+
+    # Log a message through a TimestampedLogger from a fresh Julia process, like the test and benchmark runners do, and
+    # check that its line starts with the timestamp. POSIX TZ strings give the offset west of UTC, so NST+3:30 is
+    # Newfoundland Standard Time, 3 hours 30 minutes behind UTC, which checks the sign of the offset and its minutes. TZ
+    # is a POSIX convention, so on Windows only the shape of the offset is checked.
     julia = `$(Base.julia_cmd()) --startup-file=no --color=no --project=$(Base.active_project())`
-    cmd = addenv(`$julia -e 'using ProjectEulerSolutions.Logging; @info "Hello"'`, "TZ" => "NST+3:30")
+    code = """using ProjectEulerSolutions.Logging; with_logger(TimestampedLogger()) do; @info "Hello"; end"""
+    cmd = addenv(`$julia -e $code`, "TZ" => "NST+3:30")
     output = IOBuffer()
     run(pipeline(cmd; stderr = output))
 
