@@ -1,4 +1,5 @@
 using Test
+import CUDA
 using ProjectEulerSolutions.Utils.AnswerHashing
 using ProjectEulerSolutions.Problem0004
 
@@ -40,6 +41,28 @@ end
 @test largest_palindrome_product_fermat_filtered(17) ==
       (palindrome=9999999887065624224265607889999999, factors=(99999999127775321, 99999999742880919))
 @test largest_palindrome_product_fermat_filtered(20).palindrome == big"9999999999694448232002328444969999999999"
+
+# The GPU search needs a working NVIDIA GPU, and Julia 1.12 or later to pass UInt128s to the kernel
+if CUDA.functional() && VERSION >= v"1.12"
+    # Below 6 digits the answer is too far from the top for the residue rules, and past 37 digits 4B overflows
+    @test_throws ArgumentError largest_palindrome_product_gpu(5)
+    @test_throws ArgumentError largest_palindrome_product_gpu(38)
+
+    for n in 6:16
+        @test largest_palindrome_product_gpu(n) == largest_palindrome_product_fermat_filtered(n)
+    end
+
+    @test largest_palindrome_product_gpu(17) ==
+          (palindrome=9999999887065624224265607889999999, factors=(99999999127775321, 99999999742880919))
+    @test largest_palindrome_product_gpu(20).palindrome == big"9999999999694448232002328444969999999999"
+
+    # The GPU search found this first, and the filtered search on the CPU agrees
+    @test largest_palindrome_product_gpu(25) ==
+          (palindrome=99999999999994430707230000003270703449999999999999,
+           factors=(9999999999999449006736499, 9999999999999994063986501))
+else
+    @info "Skipping the GPU tests since they need a working GPU and Julia 1.12 or later"
+end
 
 # Test max_product constraint (HackerRank version)
 @test largest_palindrome_product(3, max_product=900000).palindrome == 888888
