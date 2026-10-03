@@ -3,7 +3,7 @@ import CUDA
 using ProjectEulerSolutions.Utils.AnswerHashing
 using ProjectEulerSolutions.Problem0004
 
-for largest_palindrome in (largest_palindrome_product, largest_palindrome_product_naive,
+for largest_palindrome in (largest_palindrome_product_naive, largest_palindrome_product_pruned,
                            largest_palindrome_product_fermat, largest_palindrome_product_fermat_filtered)
     # Test example from problem description
     @test largest_palindrome(2).palindrome == 9009
@@ -17,18 +17,19 @@ for largest_palindrome in (largest_palindrome_product, largest_palindrome_produc
     @test_answer solve(largest_palindrome) "0004"
 end
 
-# 6-digit factors take hours with the naive search, so only the fast one is tested there
-@test largest_palindrome_product(6).palindrome == 999000000999
+# 6-digit factors take hours with the naive search, so only the pruned one is tested there
+@test largest_palindrome_product_pruned(6).palindrome == 999000000999
 
-# The palindrome-first searches find the same palindrome and factors as the loop for 2- to 8-digit factors
+# The palindrome-first searches find the same palindrome and factors as the pruned search for 2- to 8-digit factors
 for n in 2:8
-    expected = largest_palindrome_product(n)
+    expected = largest_palindrome_product_pruned(n)
     @test largest_palindrome_product_fermat(n) == expected
     @test largest_palindrome_product_fermat_filtered(n) == expected
 end
 
 for fermat in (largest_palindrome_product_fermat, largest_palindrome_product_fermat_filtered)
-    # Beyond that the loop is slow, so check against known answers. For 9-digit factors u*v carries into the top half.
+    # Beyond that the pruned search is slow, so check against known answers. For 9-digit factors u*v carries into
+    # the top half.
     @test fermat(9) == (palindrome=999900665566009999, factors=(999920317, 999980347))
     @test fermat(10).palindrome == 99999834000043899999
     @test fermat(12).palindrome == 999999000000000000999999
@@ -65,13 +66,13 @@ else
 end
 
 # Test max_product constraint (HackerRank version)
-@test largest_palindrome_product(3, max_product=900000).palindrome == 888888
-@test largest_palindrome_product(3, max_product=900000).factors == (924, 962)
+@test largest_palindrome_product_pruned(3, max_product=900000).palindrome == 888888
+@test largest_palindrome_product_pruned(3, max_product=900000).factors == (924, 962)
 
 # Both searches over pairs find the same palindrome. The factors can differ when a palindrome has several factor
 # pairs since the two searches visit pairs in different orders.
 for n in 1:3
-    @test largest_palindrome_product(n).palindrome == largest_palindrome_product_naive(n).palindrome
+    @test largest_palindrome_product_pruned(n).palindrome == largest_palindrome_product_naive(n).palindrome
 end
 
 # Correct answer

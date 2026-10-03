@@ -6,7 +6,7 @@ Solution description: https://aliramadhan.me/blog/project-euler/problem-0004/
 """
 module Problem0004
 
-export largest_palindrome_product, largest_palindrome_product_naive, largest_palindrome_product_fermat,
+export largest_palindrome_product_naive, largest_palindrome_product_pruned, largest_palindrome_product_fermat,
        largest_palindrome_product_fermat_filtered, largest_palindrome_product_gpu, solve
 
 using ProjectEulerSolutions.Utils.Digits: is_palindrome
@@ -36,8 +36,9 @@ function largest_palindrome_product_naive(n, ::Type{T}=integer_type(2n)) where {
     return (palindrome=max_palindrome, factors=(best_i, best_j))
 end
 
-# The products have up to 2n digits, which sets the default integer type T
-function largest_palindrome_product(n, ::Type{T}=integer_type(2n); max_product=nothing) where {T}
+# Check the products i*j from the largest down, pruning the ones that can't beat the largest palindrome found so far.
+# The products have up to 2n digits, which sets the default integer type T.
+function largest_palindrome_product_pruned(n, ::Type{T}=integer_type(2n); max_product=nothing) where {T}
     lower_limit, upper_limit = T(10)^(n - 1), T(10)^n - 1
     max_palindrome = zero(T)
     best_i, best_j = zero(T), zero(T)
@@ -450,7 +451,7 @@ end
     return root
 end
 
-function solve(solve_func=largest_palindrome_product)
+function solve(solve_func=largest_palindrome_product_pruned)
     result = solve_func(3)
     @info "Found largest palindrome from 3-digit products: $(result.palindrome) = " *
           "$(result.factors[1]) × $(result.factors[2])"
