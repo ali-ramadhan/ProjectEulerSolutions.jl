@@ -7,7 +7,7 @@ that are used across multiple Project Euler problems.
 module Primes
 
 export is_prime, TrialDivision, MillerRabin
-export sieve_of_eratosthenes, sum_sieve_of_eratosthenes, prime_factors
+export sieve_of_eratosthenes, sum_sieve_of_eratosthenes, prime_factors, primorial
 
 #####
 ##### Primality tests
@@ -28,5 +28,6 @@ is_prime(n) = is_prime(n, DEFAULT_PRIMALITY_TEST)
 
 include("sieve.jl")
 include("prime_factors.jl")
+include("primorial.jl")
 
 end # module Primes

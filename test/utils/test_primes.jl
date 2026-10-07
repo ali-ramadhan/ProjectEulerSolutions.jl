@@ -130,4 +130,20 @@ using ProjectEulerSolutions.Utils.Primes: get_witnesses
         # Largest prime below 2^63: factor^2 used to overflow here and loop forever
         @test prime_factors(typemax(Int64) - 24) == [typemax(Int64) - 24]
     end
+
+    @testset "Primorial" begin
+        @test primorial(0) == 1
+        @test primorial(1) == 1
+        @test primorial(2) == 2
+        @test primorial(10) == 210
+        @test primorial(20) == 9699690
+        @test primorial(20) isa BigInt
+
+        # Agrees with multiplying the sieved primes
+        for n in (3, 4, 30, 97, 100, 1000, 12345)
+            @test primorial(n) == prod(big, sieve_of_eratosthenes(n))
+        end
+
+        @test_throws DomainError primorial(-1)
+    end
 end
