@@ -7,22 +7,19 @@ Deterministic Miller-Rabin primality test algorithm.
 # Usage modes
 
 **Auto-select witnesses** (default): Automatically selects the minimal witness set
-based on `n` at each call. The lookup isn't type-stable, so every call allocates and
-dispatches at runtime, making a loop over many `n` almost twice as slow as with a
-pre-specified maximum.
+based on `n` at each call, at the cost of a few comparisons.
 
 ```julia
 is_prime(1_000_000_007, MillerRabin())  # auto-selects witnesses
 ```
 
 **Pre-specified maximum**: When you know the maximum `n` you'll test, pass it to
-the constructor to precompute the witness set. This provides type stability and
-avoids threshold lookup in hot loops.
+the constructor to precompute the witness set and skip the lookup in hot loops.
 
 ```julia
 mr = MillerRabin(10^12)  # precomputes witnesses for n < 10^12
 for n in candidates
-    is_prime(n, mr)  # no lookup, type-stable
+    is_prime(n, mr)  # no lookup
 end
 ```
 
@@ -66,11 +63,15 @@ const MR_WITNESS_TABLE = (
 Return the minimal deterministic witness set for Miller-Rabin testing of values up to `n`.
 Throws a `DomainError` if no proven witness set covers `n`.
 """
-function get_witnesses(n)
-    for (threshold, witnesses) in MR_WITNESS_TABLE
-        n < threshold && return witnesses
-    end
-    throw(DomainError(n, "Miller-Rabin witness sets are only proven for n < $(MR_WITNESS_TABLE[end][1])"))
+get_witnesses(n) = _with_witnesses(identity, n)
+
+# Call f on the witness set for n. Recursing through the table instead of looping over it lets the compiler unroll
+# it, so f sees each row's witnesses as a concrete tuple type and nothing is allocated.
+function _with_witnesses(f, n, table=MR_WITNESS_TABLE)
+    isempty(table) && throw(DomainError(n, "Miller-Rabin witness sets are only proven for n < $(MR_WITNESS_TABLE[end][1])"))
+    threshold, witnesses = first(table)
+    n < threshold && return f(witnesses)
+    return _with_witnesses(f, n, Base.tail(table))
 end
 
 """
@@ -80,8 +81,7 @@ Determines if `n` is prime using the deterministic Miller-Rabin test with
 auto-selected witnesses. Automatically selects the minimal witness set based on `n`.
 """
 function is_prime(n, ::MillerRabin{Nothing})
-    witnesses = get_witnesses(n)
-    return _miller_rabin_test(n, witnesses)
+    return _with_witnesses(witnesses -> _miller_rabin_test(n, witnesses), n)
 end
 
 """
@@ -102,13 +102,11 @@ Core Miller-Rabin primality test. Returns true if `n` is prime.
 This function is 100% accurate when using the appropriate witness set for `n`.
 """
 @inline function _miller_rabin_test(n, witnesses::W) where W <: Tuple
-    # Handle small edge cases efficiently
-    if n < 2
-        return false
-    elseif n == 2 || n == 3
-        return true
-    elseif iseven(n)
-        return false
+    n < 2 && return false
+
+    # Trial division by small primes rejects most composites far more cheaply than a modular exponentiation
+    for p in (2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47)
+        n % p == 0 && return n == p
     end
 
     # Decompose n - 1 into d * 2^s

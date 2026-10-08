@@ -102,6 +102,13 @@ using ProjectEulerSolutions.Utils.Primes: get_witnesses, MR_WITNESS_TABLE
         end
     end
 
+    @testset "Miller-Rabin auto mode does not allocate" begin
+        for n in (104729, typemax(Int64) - 24)
+            is_prime(n, MillerRabin())
+            @test (@allocated is_prime(n, MillerRabin())) == 0
+        end
+    end
+
     @testset "Sieve of Eratosthenes" begin
         @test sieve_of_eratosthenes(10) == [2, 3, 5, 7]
         @test sieve_of_eratosthenes(20) == [2, 3, 5, 7, 11, 13, 17, 19]
