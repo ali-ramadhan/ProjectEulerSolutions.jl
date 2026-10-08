@@ -1,7 +1,7 @@
 using Test
 
 using ProjectEulerSolutions.Utils.Primes
-using ProjectEulerSolutions.Utils.Primes: get_witnesses
+using ProjectEulerSolutions.Utils.Primes: get_witnesses, MR_WITNESS_TABLE
 
 @testset "Primes" begin
     @testset "is_prime" begin
@@ -47,7 +47,7 @@ using ProjectEulerSolutions.Utils.Primes: get_witnesses
         # Test that MillerRabin(max_n) creates correct witness sets
         @test length(MillerRabin(1000).witnesses) == 1
         @test length(MillerRabin(10^6).witnesses) == 2
-        @test length(MillerRabin(10^9).witnesses) == 4
+        @test length(MillerRabin(10^9).witnesses) == 3
         @test length(MillerRabin(10^12).witnesses) == 4
         @test length(MillerRabin(10^15).witnesses) == 9
         @test length(MillerRabin(10^18).witnesses) == 9
@@ -67,11 +67,17 @@ using ProjectEulerSolutions.Utils.Primes: get_witnesses
         # Test large primes near witness set boundaries
         @test is_prime(2039, MillerRabin())       # prime < 2047 (1 witness)
         @test is_prime(1373639, MillerRabin())    # prime < 1_373_653 (2 witnesses)
-        @test is_prime(3215031733, MillerRabin()) # prime < 3_215_031_751 (4 witnesses)
+        @test is_prime(4759123129, MillerRabin()) # prime < 4_759_123_141 (3 witnesses)
 
         # Test composites near boundaries (Carmichael-like numbers that might fool weak tests)
         @test !is_prime(2047, MillerRabin())     # 23 * 89
         @test !is_prime(1373653, MillerRabin())  # composite
+
+        # Every precomputed set is exact below its threshold, including for n smaller than its witnesses
+        for (threshold, _) in MR_WITNESS_TABLE
+            mr = MillerRabin(threshold - 1)
+            @test all(is_prime(n, mr) == is_prime(n, TrialDivision()) for n in 1:10_000 if n < threshold)
+        end
     end
 
     @testset "Miller-Rabin near the UInt64 limit" begin
@@ -83,6 +89,16 @@ using ProjectEulerSolutions.Utils.Primes: get_witnesses
                 @test !is_prime(T(composite), mr)
                 @test !is_prime(T(typemax(UInt64)), mr)
             end
+        end
+    end
+
+    @testset "Miller-Rabin beyond the proven bound" begin
+        # The smallest composite that passes Miller-Rabin for all of the bases 2, 3, 5, ..., 37
+        bound = 318_665_857_834_031_151_167_461
+        for T in (Int128, UInt128, BigInt)
+            @test is_prime(T(bound - 20), MillerRabin())  # largest prime below the bound
+            @test_throws DomainError is_prime(T(bound), MillerRabin())
+            @test_throws DomainError MillerRabin(T(bound))
         end
     end
 
