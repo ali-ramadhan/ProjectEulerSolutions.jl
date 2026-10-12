@@ -133,6 +133,58 @@ using ProjectEulerSolutions.Utils.Primes: get_witnesses, MR_WITNESS_TABLE
         end
     end
 
+    @testset "Sieve of Eratosthenes on a window" begin
+        @test sieve_of_eratosthenes(100, 130) == [101, 103, 107, 109, 113, 127]
+        @test sieve_of_eratosthenes(1, 10) == [2, 3, 5, 7]
+        @test sieve_of_eratosthenes(-5, 2) == [2]
+        @test sieve_of_eratosthenes(24, 28) == Int[]
+        @test sieve_of_eratosthenes(10, 5) == Int[]
+
+        # Agrees with the full sieve, including windows that start or end on a prime or a square
+        primes = sieve_of_eratosthenes(10^5)
+        for (lo, hi) in [(2, 2), (3, 3), (4, 4), (25, 49), (90, 97), (97, 101), (1000, 5000), (99_000, 10^5)]
+            @test sieve_of_eratosthenes(lo, hi) == filter(p -> lo <= p <= hi, primes)
+        end
+
+        @test sieve_of_eratosthenes(10^12, 10^12 + 100) == [10^12 + 39, 10^12 + 61, 10^12 + 63, 10^12 + 91]
+    end
+
+    @testset "Prime counting" begin
+        primes = sieve_of_eratosthenes(10^4)
+        @test all(prime_pi(x) == searchsortedlast(primes, x) for x in -2:10^4)
+
+        # π(10ᵏ) for k = 1, ..., 12 (OEIS A006880)
+        pi_powers_of_ten = [4, 25, 168, 1229, 9592, 78498, 664579, 5761455, 50847534, 455052511,
+                            4118054813, 37607912018]
+        for (k, pi_k) in enumerate(pi_powers_of_ten)
+            @test prime_pi(10^k) == pi_k
+        end
+    end
+
+    @testset "Logarithmic integral" begin
+        @test logarithmic_integral(2) ≈ 1.045163780117492784845 rtol=1e-14
+        @test logarithmic_integral(10) ≈ 6.165599504787297937523 rtol=1e-14
+        @test logarithmic_integral(1000) ≈ 177.6096579901522266876 rtol=1e-14
+        @test logarithmic_integral(10^6) ≈ 78627.54915946218191986 rtol=1e-14
+        @test logarithmic_integral(10^12) ≈ 3.760795028080486548953e10 rtol=1e-14
+        @test logarithmic_integral(10^18) ≈ 2.473995430969041502219e16 rtol=1e-14
+
+        # li(x) = 0 at Soldner's constant
+        @test abs(logarithmic_integral(1.4513692348833810503)) < 1e-15
+
+        @test_throws DomainError logarithmic_integral(1)
+        @test_throws DomainError logarithmic_integral(0.5)
+
+        @test inverse_logarithmic_integral(1) ≈ 1.969047489224750850148 rtol=1e-14
+        @test inverse_logarithmic_integral(10_001) ≈ 104281.3245064365912312 rtol=1e-14
+        @test inverse_logarithmic_integral(10^12) ≈ 2.999621947024401524960e13 rtol=1e-14
+        for y in (0.5, 2, 3, 10, 1234.5, 10^6, 10^9, 1e15, 1e18)
+            @test logarithmic_integral(inverse_logarithmic_integral(y)) ≈ y rtol=1e-14
+        end
+
+        @test_throws DomainError inverse_logarithmic_integral(0)
+    end
+
     @testset "Prime factors" begin
         @test prime_factors(1) == Int[]
         @test prime_factors(2) == [2]

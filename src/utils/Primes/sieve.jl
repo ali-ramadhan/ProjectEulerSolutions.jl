@@ -67,6 +67,44 @@ function sieve_of_eratosthenes(limit)
 end
 
 """
+    sieve_of_eratosthenes(lo, hi)
+
+Generate all prime numbers p with lo ≤ p ≤ hi, sieving only the window [lo, hi].
+
+Every composite in the window has a prime factor of at most √hi, so it's enough to cross off the
+multiples of those primes that fall inside the window. This needs memory for the window and the
+primes up to √hi rather than for everything up to `hi`.
+
+# Arguments
+- `lo`: Lower bound of the window
+- `hi`: Upper bound of the window
+
+# Returns
+- Vector of prime numbers p with lo ≤ p ≤ hi
+
+# Examples
+```julia
+sieve_of_eratosthenes(100, 130)  # returns [101, 103, 107, 109, 113, 127]
+```
+"""
+function sieve_of_eratosthenes(lo, hi)
+    lo = max(lo, 2)
+    hi < lo && return Int[]
+
+    # index i represents the number lo + i - 1
+    is_prime = fill(true, hi - lo + 1)
+    for p in sieve_of_eratosthenes(isqrt(hi))
+        # Start at p² (smaller multiples of p have a smaller prime factor, or are p itself)
+        # or at the first multiple of p in the window, whichever comes later
+        for m in max(p^2, cld(lo, p) * p):p:hi
+            is_prime[m - lo + 1] = false
+        end
+    end
+
+    return [lo + i - 1 for i in eachindex(is_prime) if is_prime[i]]
+end
+
+"""
     sum_sieve_of_eratosthenes(limit)
 
 Calculate the sum of all prime numbers up to and including the given limit.

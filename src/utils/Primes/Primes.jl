@@ -8,6 +8,7 @@ module Primes
 
 export is_prime, TrialDivision, MillerRabin
 export sieve_of_eratosthenes, sum_sieve_of_eratosthenes, prime_factors, primorial
+export prime_pi, logarithmic_integral, inverse_logarithmic_integral
 
 #####
 ##### Primality tests
@@ -29,5 +30,6 @@ is_prime(n) = is_prime(n, DEFAULT_PRIMALITY_TEST)
 include("sieve.jl")
 include("prime_factors.jl")
 include("primorial.jl")
+include("prime_counting.jl")
 
 end # module Primes
