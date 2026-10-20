@@ -1,4 +1,5 @@
-# Run all benchmark scripts in the benchmarks directory
+# What the benchmark runners share. Each runner checks that Julia was started the way its benchmarks need, e.g. with
+# one thread, and then runs the benchmark scripts in its directory with `run_benchmarks`.
 
 using Printf
 using ProjectEulerSolutions.Logging
@@ -15,7 +16,14 @@ end
 
 is_bonus(script) = startswith(script, "benchmark_bonus_")
 
-function main()
+"""
+    run_benchmarks(dir)
+
+Run the benchmark scripts in `dir`, problems first and then bonus problems, each in a fresh module. The command line
+arguments are optional: `--no-bonus` skips the bonus problems, and two numbers, e.g. `1 10`, restrict the numbered
+problems to that range.
+"""
+function run_benchmarks(dir)
     # Parse command line arguments
     run_bonus = true
     n_start = nothing
@@ -34,7 +42,7 @@ function main()
     end
 
     # Problem benchmarks are `benchmark_problemNNNN.jl` and bonus benchmarks are `benchmark_bonus_<name>.jl`.
-    scripts = filter(readdir(@__DIR__)) do f
+    scripts = filter(readdir(dir)) do f
         occursin(r"^benchmark_(problem\d{4}|bonus_\w+)\.jl$", f)
     end
 
@@ -53,19 +61,17 @@ function main()
     # Problems first, then bonus problems
     sort!(scripts; by = s -> (is_bonus(s), s))
 
-    total_time = 0.0
+    with_logger(TimestampedLogger()) do
+        total_time = 0.0
 
-    for script in scripts
-        GC.gc()
-        @info "Running $script"
-        elapsed = @elapsed Base.include(Module(), joinpath(@__DIR__, script))
-        total_time += elapsed
-        @info "Completed $script in $(format_time(elapsed))"
+        for script in scripts
+            GC.gc()
+            @info "Running $script"
+            elapsed = @elapsed Base.include(Module(), joinpath(dir, script))
+            total_time += elapsed
+            @info "Completed $script in $(format_time(elapsed))"
+        end
+
+        @info "Total runtime: $(format_time(total_time))"
     end
-
-    @info "Total runtime: $(format_time(total_time))"
-end
-
-with_logger(TimestampedLogger()) do
-    main()
 end

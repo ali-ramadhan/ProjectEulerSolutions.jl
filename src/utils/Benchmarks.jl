@@ -42,7 +42,8 @@ exist, it will be created.
 - `result`: BenchmarkTools.Trial or BenchmarkGroup result
 - `problem_tag`: Tag that forms the filename (e.g., "problem-0005", "bonus-root13")
 - `benchmark_name`: Name for this benchmark (string)
-- `thread_count`: The number of threads a multi-threaded benchmark ran with
+- `thread_count`: The number of threads a multi-threaded benchmark ran with. Results are saved per benchmark name and
+  CPU, so a multi-threaded benchmark is named with a `_multithreaded` suffix to keep it from replacing the serial one.
 - `gpu`: Whether the benchmark ran on the current CUDA device. The result is then saved under the GPU's name instead
   of the CPU's, with the CPU as `host_cpu` and the CUDA runtime, CUDA.jl and NVIDIA driver versions.
 

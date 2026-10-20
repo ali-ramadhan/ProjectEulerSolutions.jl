@@ -1,0 +1,16 @@
+using Logging
+using BenchmarkTools
+using ProjectEulerSolutions.Utils.Benchmarks
+using ProjectEulerSolutions.BonusHeegner: find_closest_cos_to_integer
+
+@show find_closest_cos_to_integer(1000)
+Logging.disable_logging(Logging.Info)
+b = @benchmark find_closest_cos_to_integer(1000)
+Logging.disable_logging(Logging.BelowMinLevel)
+save_benchmark(b, "bonus-heegner", "n_1k_multithreaded"; thread_count=Threads.nthreads())
+
+@show find_closest_cos_to_integer(1000000)
+Logging.disable_logging(Logging.Info)
+b = @benchmark find_closest_cos_to_integer(1000000) samples=2 evals=1 seconds=3600
+Logging.disable_logging(Logging.BelowMinLevel)
+save_benchmark(b, "bonus-heegner", "n_1M_multithreaded"; thread_count=Threads.nthreads())

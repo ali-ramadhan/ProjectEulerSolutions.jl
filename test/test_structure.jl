@@ -1,6 +1,7 @@
 # Checks that the files describing each solution stay in sync: every solution in `src/solutions/` must have a
-# test file, a benchmark script and a recorded answer hash, and every numbered problem a HackerRank script with
-# an entry in the HackerRank test cases. Without this a HackerRank script with no test case is silently untested.
+# test file, a benchmark script and a recorded answer hash, every solution that uses threads or CUDA a multi-threaded
+# or GPU benchmark script too, and every numbered problem a HackerRank script with an entry in the HackerRank test
+# cases. Without this a HackerRank script with no test case is silently untested.
 using Test
 using TOML
 
@@ -22,6 +23,15 @@ benchmarks = solution_names("benchmarks",     r"^benchmark_(problem\d{4}|bonus_\
 scripts    = solution_names("hacker_rank",    r"^projecteuler\+_(problem\d{4})\.jl$")
 
 problems = filter(startswith("problem"), solutions)
+
+# Whether the source code of `solution` matches `pattern`
+uses(solution, pattern) = occursin(pattern, read(joinpath(REPO_DIR, "src", "solutions", "$solution.jl"), String))
+
+threaded_solutions = filter(s -> uses(s, r"Threads\.|@spawn\b|@threads\b"), solutions)  # as in `runtests_threaded.jl`
+cuda_solutions     = filter(s -> uses(s, r"^\s*(using|import) CUDA\b"m), solutions)
+
+multithreaded_benchmarks = solution_names("benchmarks/multithreaded", r"^benchmark_(problem\d{4}|bonus_\w+)\.jl$")
+gpu_benchmarks           = solution_names("benchmarks/gpu",           r"^benchmark_(problem\d{4}|bonus_\w+)\.jl$")
 
 include(joinpath(@__DIR__, "hacker_rank", "test_cases.jl"))
 tested_scripts = Set(replace(first(case), r"^projecteuler\+_(problem\d{4})\.jl$" => s"\1") for case in test_cases)
@@ -45,6 +55,8 @@ end
 
     test_matching("solutions", solutions, "test files", tests)
     test_matching("solutions", solutions, "benchmark scripts", benchmarks)
+    test_matching("solutions using threads", threaded_solutions, "multi-threaded benchmark scripts", multithreaded_benchmarks)
+    test_matching("solutions using CUDA", cuda_solutions, "GPU benchmark scripts", gpu_benchmarks)
     test_matching("problems", problems, "HackerRank scripts", scripts)
     test_matching("HackerRank scripts", scripts, "HackerRank test cases", tested_scripts)
     test_matching("problems", problems, "answer hashes", problem_hashes)
